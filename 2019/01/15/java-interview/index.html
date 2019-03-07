@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景 分布式下redis如何保证线程安全redis持久化方式及区别 zookeeper 如何实现分布式锁，其他分布式锁怎么实现dubbo中的zookeeper是做什么的 kafka 的架构，如何用kafka保证消息的有序性">
+<meta name="description" content="博客https://www.w3cschool.cn/u/56375 线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景 分布式下redis如何保证线程安全redis持久化方式及区别 zookeeper 如何实现分布式锁，其他分布式锁怎么实现dubbo中的zookeeper是做什么的 kafka 的架构，如何用kafka保证消息的有序性 Cloneable接口实现原理 123456789">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java-interview">
 <meta property="og:url" content="http://yoursite.com/2019/01/15/java-interview/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景 分布式下redis如何保证线程安全redis持久化方式及区别 zookeeper 如何实现分布式锁，其他分布式锁怎么实现dubbo中的zookeeper是做什么的 kafka 的架构，如何用kafka保证消息的有序性">
+<meta property="og:description" content="博客https://www.w3cschool.cn/u/56375 线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景 分布式下redis如何保证线程安全redis持久化方式及区别 zookeeper 如何实现分布式锁，其他分布式锁怎么实现dubbo中的zookeeper是做什么的 kafka 的架构，如何用kafka保证消息的有序性 Cloneable接口实现原理 123456789">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-15T10:52:57.998Z">
+<meta property="og:updated_time" content="2019-03-07T07:51:49.576Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-interview">
-<meta name="twitter:description" content="线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景 分布式下redis如何保证线程安全redis持久化方式及区别 zookeeper 如何实现分布式锁，其他分布式锁怎么实现dubbo中的zookeeper是做什么的 kafka 的架构，如何用kafka保证消息的有序性">
+<meta name="twitter:description" content="博客https://www.w3cschool.cn/u/56375 线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景 分布式下redis如何保证线程安全redis持久化方式及区别 zookeeper 如何实现分布式锁，其他分布式锁怎么实现dubbo中的zookeeper是做什么的 kafka 的架构，如何用kafka保证消息的有序性 Cloneable接口实现原理 123456789">
 
 
 
@@ -299,10 +299,36 @@
       
 
       
-        <p>线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景</p>
+        <p>博客<br><a href="https://www.w3cschool.cn/u/56375" target="_blank" rel="noopener">https://www.w3cschool.cn/u/56375</a></p>
+<p>线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景</p>
 <p>分布式下redis如何保证线程安全<br>redis持久化方式及区别</p>
 <p>zookeeper 如何实现分布式锁，其他分布式锁怎么实现<br>dubbo中的zookeeper是做什么的</p>
 <p>kafka 的架构，如何用kafka保证消息的有序性</p>
+<p>Cloneable接口实现原理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package java.lang;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * A class implements the &lt;code&gt;Cloneable&lt;/code&gt; interface to</span><br><span class="line"> * indicate to the &#123;@link java.lang.Object#clone()&#125; method that it</span><br><span class="line"> * is legal for that method to make a</span><br><span class="line"> * field-for-field copy of instances of that class.</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * Invoking Object&apos;s clone method on an instance that does not implement the</span><br><span class="line"> * &lt;code&gt;Cloneable&lt;/code&gt; interface results in the exception</span><br><span class="line"> * &lt;code&gt;CloneNotSupportedException&lt;/code&gt; being thrown.</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * By convention, classes that implement this interface should override</span><br><span class="line"> * &lt;tt&gt;Object.clone&lt;/tt&gt; (which is protected) with a public method.</span><br><span class="line"> * See &#123;@link java.lang.Object#clone()&#125; for details on overriding this</span><br><span class="line"> * method.</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * Note that this interface does &lt;i&gt;not&lt;/i&gt; contain the &lt;tt&gt;clone&lt;/tt&gt; method.</span><br><span class="line"> * Therefore, it is not possible to clone an object merely by virtue of the</span><br><span class="line"> * fact that it implements this interface.  Even if the clone method is invoked</span><br><span class="line"> * reflectively, there is no guarantee that it will succeed.</span><br><span class="line"> *</span><br><span class="line"> * @author  unascribed</span><br><span class="line"> * @see     java.lang.CloneNotSupportedException</span><br><span class="line"> * @see     java.lang.Object#clone()</span><br><span class="line"> * @since   JDK1.0</span><br><span class="line"> */</span><br><span class="line">public interface Cloneable &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.cnblogs.com/xrq730/p/4858937.html" target="_blank" rel="noopener">https://www.cnblogs.com/xrq730/p/4858937.html</a></p>
+<p>0到99的数组如何随机打乱<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * 参考 Collections.shuffle(List&lt;?&gt; list);的实现</span><br><span class="line">    */</span><br><span class="line">   @Test</span><br><span class="line">   public void test() &#123;</span><br><span class="line">       int[] array = new int[]&#123;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&#125;;</span><br><span class="line">       Random random = new Random();</span><br><span class="line">       int len = array.length;</span><br><span class="line">       for(int i = len; i &gt; 1; i-- ) &#123;</span><br><span class="line">           swap(array, i-1, random.nextInt(i));</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       System.out.println(Arrays.toString(array));</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   private void swap(int[] array, int i, int j) &#123;</span><br><span class="line">       int temp = array[i];</span><br><span class="line">       array[i] = array[j];</span><br><span class="line">       array[j] = temp;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Java 多线程<br>1.线程的几种状态，画出状态流转图<br>New<br>Runable<br>Running<br>Block<br>Dead</p>
+<p>2.Java sleep vs wait </p>
+<ul>
+<li>sleep()方法是Thread的静态方法，而wait是Object实例方法；</li>
+<li>wait()方法必须要在同步方法或者同步块中调用，也就是必须已经获得对象锁。而sleep()方法没有这个限制可以在任何地方种使用。<br>另外，wait()方法会释放占有的对象锁，使得该线程进入等待池中，等待下一次获取资源。而sleep()方法只是会让出CPU并不会释放掉对象锁；</li>
+<li>sleep()方法在休眠时间达到后如果再次获得CPU时间片就会继续执行，而wait()方法必须等待Object.notift/Object.notifyAll通知后，才会离开等待池，<br>并且再次获得CPU时间片才会继续执行。</li>
+</ul>
+<p>3.Java sleep vs yield<br>相同点：</p>
+<ul>
+<li>都会暂缓执行当前线程</li>
+<li>如果已经持有锁，那么在等待过程中都不会释放锁<br>不同点：</li>
+<li>Thread.sleep()可以指定休眠时间，Thread.yield依赖于CPU的时间片划分</li>
+<li>Thread.sleep()会抛出中断异常，且能被中断，而Thread.yield()不可以。</li>
+</ul>
+<p>4.<a href="https://github.com/geekymv/netty-sample/blob/master/netty-sample-01-helloworld/src/main/java/com/geekymv/netty/sample/concurrent/multithread/JoinTest.java" target="_blank" rel="noopener">Java join()</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Waits for this thread to die.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt; An invocation of this method behaves in exactly the same</span><br><span class="line"> * way as the invocation</span><br><span class="line"> *</span><br><span class="line"> * &lt;blockquote&gt;</span><br><span class="line"> * &#123;@linkplain #join(long) join&#125;&#123;@code (0)&#125;</span><br><span class="line"> * &lt;/blockquote&gt;</span><br><span class="line"> *</span><br><span class="line"> * @throws  InterruptedException</span><br><span class="line"> *          if any thread has interrupted the current thread. The</span><br><span class="line"> *          &lt;i&gt;interrupted status&lt;/i&gt; of the current thread is</span><br><span class="line"> *          cleared when this exception is thrown.</span><br><span class="line"> */</span><br><span class="line">public final void join() throws InterruptedException &#123;</span><br><span class="line">    join(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.volatile 如何实现指令重排序</p>
+<p>4.线程池中阻塞队列如果满了怎么办（拒绝策略）</p>
+<p>5.synchronized 和 AQS异同，AQS公平非公平如何实现</p>
+<p>AQS(AbstractQueuedSynchronizer的简称) ，它是一个Java提供的底层同步工具类，用一个int类型的变量表示同步状态，<br>并提供了一系列CAS操作来管理这个同步状态。<br>AQS是一个用来构建锁和同步器的矿建，使用AQS能简单且高效地构建出应用广泛的大量同步器。<br>ReentrantLock </p>
+<p>6.多线程里面对一个整型做加减为啥不能用volatile</p>
+<p>7.Thread.yield</p>
 
       
     </div>
@@ -407,7 +433,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
