@@ -79,16 +79,19 @@
 
 
 
+<meta name="description" content="下载地址 检查当前系统是否安装mysqlrpm -qa|grep -i mysql 如果已经安装，卸载sudo yum -y remove mysql-libs* 安装mysql服务端和客户端sudo rpm -ivh MySQL-server-5.5.62-1.el6.x86_64.rpmsudo rpm -ivh MySQL-client-5.5.62-1.el6.x86_64.rpm 查看m">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL安装">
 <meta property="og:url" content="http://yoursite.com/2018/12/06/mysql-install/index.html">
 <meta property="og:site_name" content="geekymv">
+<meta property="og:description" content="下载地址 检查当前系统是否安装mysqlrpm -qa|grep -i mysql 如果已经安装，卸载sudo yum -y remove mysql-libs* 安装mysql服务端和客户端sudo rpm -ivh MySQL-server-5.5.62-1.el6.x86_64.rpmsudo rpm -ivh MySQL-client-5.5.62-1.el6.x86_64.rpm 查看m">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-install.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-start.png">
-<meta property="og:updated_time" content="2018-12-06T15:24:37.042Z">
+<meta property="og:updated_time" content="2019-03-14T07:16:36.885Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL安装">
+<meta name="twitter:description" content="下载地址 检查当前系统是否安装mysqlrpm -qa|grep -i mysql 如果已经安装，卸载sudo yum -y remove mysql-libs* 安装mysql服务端和客户端sudo rpm -ivh MySQL-server-5.5.62-1.el6.x86_64.rpmsudo rpm -ivh MySQL-client-5.5.62-1.el6.x86_64.rpm 查看m">
 <meta name="twitter:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-install.png">
 
 
@@ -299,8 +302,74 @@
       
 
       
-        <img src="/2018/12/06/mysql-install/mysql-install.png" title="mysql install">
+        <p>下载地址</p>
+<p>检查当前系统是否安装mysql<br>rpm -qa|grep -i mysql</p>
+<p>如果已经安装，卸载<br>sudo yum -y remove mysql-libs*</p>
+<p>安装mysql服务端和客户端<br>sudo rpm -ivh MySQL-server-5.5.62-1.el6.x86_64.rpm<br>sudo rpm -ivh MySQL-client-5.5.62-1.el6.x86_64.rpm</p>
+<p>查看mysql安装时创建的mysql用户和mysql组<br>cat /etc/passwd| grep mysql<br>cat /etc/group | grep mysql<br>或者通过mysqladmin –version命令查看</p>
+<p>启动mysql<br>sudo service mysql start</p>
+<p>直接连上<br>$ mysql</p>
+<p>退出<br>mysql&gt;exit</p>
+<p>按照安装Sever中的提示，修改登录密码，设置密码为123456<br>sudo /usr/bin/mysqladmin -u root password ‘123456’</p>
+<p>自启动mysql服务<br>sudo chkconfig mysql on<br>chkconfig –list | grep mysql<br>cat /etc/inittab </p>
+<p>修改配置文件位置<br>cd /usr/share/mysql<br>sudo cp my-huge.cnf /etc/my.cnf</p>
+<p>设置mysql字符集<br>查看字符集<br>show variables like ‘character%’;<br>或show variables like ‘%char%’;</p>
+<img src="/2018/12/06/mysql-install/mysql-install.png" title="mysql install">
 <img src="/2018/12/06/mysql-install/mysql-start.png" title="mysql start">
+<p><a href="https://mp.weixin.qq.com/s/XhhAepgPcVFUBROKB6EN8Q" target="_blank" rel="noopener">mysql事务隔离级别</a></p>
+<ul>
+<li>读未提交： 一个事务可以读到另一个事务未提交的数据；</li>
+<li>读已提交：一个事务可以读到另一个事务已提交的数据；</li>
+<li>可重复读：</li>
+<li>串行化：每次读操作都会加锁。</li>
+</ul>
+<p>不同隔离级别存在的问题（存在的现象）</p>
+<ul>
+<li><p>脏读：查询出来的数据是不可靠的，可能是被另一个未提交的事务修改的；</p>
+</li>
+<li><p>不可重复读：一个查询语句检索数据，随后又有一个查询语句在同一个事务中检索数据，这两个数据应该是一样的。<br>但是实际情况返回了不同的结果（同时被另一个正在提交事务修改了）。</p>
+</li>
+<li><p>幻读：同一事务的两次相同查询出现不同行；</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th style="text-align:center">脏读</th>
+<th style="text-align:right">不可重复读</th>
+<th style="text-align:right">幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>读未提交</td>
+<td style="text-align:center">是</td>
+<td style="text-align:right">是</td>
+<td style="text-align:right">是</td>
+</tr>
+<tr>
+<td>读已提交</td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">是</td>
+<td style="text-align:right">是</td>
+</tr>
+<tr>
+<td>可重复读</td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">否</td>
+<td style="text-align:right">是</td>
+</tr>
+<tr>
+<td>串行化</td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">否</td>
+<td style="text-align:right">否</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://mp.weixin.qq.com/s/643UXL4gNEQT4qLqUxgOIw" target="_blank" rel="noopener">互联网项目中mysql应该选择什么事务隔离级别</a></p>
+
       
     </div>
     

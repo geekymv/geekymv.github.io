@@ -420,12 +420,23 @@
       
         
           
-            <p>引入MQ好处：</p>
+            <p><a href="https://mp.weixin.qq.com/s/bc2YcVeBglZkeHdASg3wXw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/bc2YcVeBglZkeHdASg3wXw</a></p>
+<p>1.为什么使用消息队列？<br>引入MQ好处：</p>
 <ul>
 <li>系统解耦</li>
 <li>异步调用</li>
-<li>流量消峰</li>
+<li>流量削峰</li>
 </ul>
+<p>2.使用消息队列有什么缺点?</p>
+<ul>
+<li>系统可用性降低</li>
+<li>系统复杂性增加</li>
+</ul>
+<p>3.消息队列如何选型?</p>
+<p>4.如何保证消息队列是高可用的？</p>
+<p>5.如何保证消息不被重复消费?</p>
+<p>6.如何保证消费的可靠性传输?</p>
+<p>7.如何保证消息的顺序性？</p>
 <p>kafka可靠性保证</p>
 <p>关系型数据库ACID</p>
 <ul>
@@ -812,8 +823,74 @@
       
         
           
-            <img src="/2018/12/06/mysql-install/mysql-install.png" title="mysql install">
+            <p>下载地址</p>
+<p>检查当前系统是否安装mysql<br>rpm -qa|grep -i mysql</p>
+<p>如果已经安装，卸载<br>sudo yum -y remove mysql-libs*</p>
+<p>安装mysql服务端和客户端<br>sudo rpm -ivh MySQL-server-5.5.62-1.el6.x86_64.rpm<br>sudo rpm -ivh MySQL-client-5.5.62-1.el6.x86_64.rpm</p>
+<p>查看mysql安装时创建的mysql用户和mysql组<br>cat /etc/passwd| grep mysql<br>cat /etc/group | grep mysql<br>或者通过mysqladmin –version命令查看</p>
+<p>启动mysql<br>sudo service mysql start</p>
+<p>直接连上<br>$ mysql</p>
+<p>退出<br>mysql&gt;exit</p>
+<p>按照安装Sever中的提示，修改登录密码，设置密码为123456<br>sudo /usr/bin/mysqladmin -u root password ‘123456’</p>
+<p>自启动mysql服务<br>sudo chkconfig mysql on<br>chkconfig –list | grep mysql<br>cat /etc/inittab </p>
+<p>修改配置文件位置<br>cd /usr/share/mysql<br>sudo cp my-huge.cnf /etc/my.cnf</p>
+<p>设置mysql字符集<br>查看字符集<br>show variables like ‘character%’;<br>或show variables like ‘%char%’;</p>
+<img src="/2018/12/06/mysql-install/mysql-install.png" title="mysql install">
 <img src="/2018/12/06/mysql-install/mysql-start.png" title="mysql start">
+<p><a href="https://mp.weixin.qq.com/s/XhhAepgPcVFUBROKB6EN8Q" target="_blank" rel="noopener">mysql事务隔离级别</a></p>
+<ul>
+<li>读未提交： 一个事务可以读到另一个事务未提交的数据；</li>
+<li>读已提交：一个事务可以读到另一个事务已提交的数据；</li>
+<li>可重复读：</li>
+<li>串行化：每次读操作都会加锁。</li>
+</ul>
+<p>不同隔离级别存在的问题（存在的现象）</p>
+<ul>
+<li><p>脏读：查询出来的数据是不可靠的，可能是被另一个未提交的事务修改的；</p>
+</li>
+<li><p>不可重复读：一个查询语句检索数据，随后又有一个查询语句在同一个事务中检索数据，这两个数据应该是一样的。<br>但是实际情况返回了不同的结果（同时被另一个正在提交事务修改了）。</p>
+</li>
+<li><p>幻读：同一事务的两次相同查询出现不同行；</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th style="text-align:center">脏读</th>
+<th style="text-align:right">不可重复读</th>
+<th style="text-align:right">幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>读未提交</td>
+<td style="text-align:center">是</td>
+<td style="text-align:right">是</td>
+<td style="text-align:right">是</td>
+</tr>
+<tr>
+<td>读已提交</td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">是</td>
+<td style="text-align:right">是</td>
+</tr>
+<tr>
+<td>可重复读</td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">否</td>
+<td style="text-align:right">是</td>
+</tr>
+<tr>
+<td>串行化</td>
+<td style="text-align:center">否</td>
+<td style="text-align:right">否</td>
+<td style="text-align:right">否</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://mp.weixin.qq.com/s/643UXL4gNEQT4qLqUxgOIw" target="_blank" rel="noopener">互联网项目中mysql应该选择什么事务隔离级别</a></p>
+
           
         
       
@@ -1199,8 +1276,9 @@
 <p>set 集合<br>sadd 将给定元素添加到集合<br>smembers 返回集合包含的所有元素，慎用！<br>sismember 检查给定元素是否存在于集合中<br>srem 如果给定的元素存在于集合中，那么删除这个元素</p>
 <p>hash 散列<br>hmget key-name key [key …] 从散列里面获取一个或多个键的值<br>hmset key-name key value [key value …] 为散列里面的一个或多个键设置值</p>
 <p>zset 有序集合<br>zadd    zadd zset-key score member 将一个带有给定分值的成员添加到有序集合中。<br>zrange    zrange zset-key 0 -1 [withscores] 根据元素在有序排列中所处的位置，从有序集合中获取多个元素，多个元素会按照分值从小到大进行排序。<br>zrevrange 分值从大到小进行排序<br>zrangebyscore    zrangebyscore zset-key 0 100 [withscores]    获取有序集合在给定分值范围内的所有元素。<br>zrem    zrem zset-key member    如果给定的成员存在于有序集合中，那么删除这个元素<br>zscore  zscore key-name member 返回成员member的分值<br>zcard 返回有序集合包含的成员数量</p>
+<h4 id="Redis-过期策略"><a href="#Redis-过期策略" class="headerlink" title="Redis 过期策略"></a>Redis 过期策略</h4><p><a href="https://www.cnblogs.com/xuliangxing/p/7151812.html" target="_blank" rel="noopener">Redis数据过期策略详解</a><br>定时删除<br>惰性删除<br>定期删除</p>
 <p>阿里云Redis开发规范 <a href="https://yq.aliyun.com/articles/531067" target="_blank" rel="noopener">https://yq.aliyun.com/articles/531067</a></p>
-<p>maxmemory policy 最大内存淘汰策略<br>根据自身业务类型，选好maxmemory-policy，设置好过期时间。<br>默认策略是noeviction，不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息”(error) OOM command not allowed when used memory”，<br>此时Redis只响应读操作。</p>
+<h4 id="Redis-淘汰策略"><a href="#Redis-淘汰策略" class="headerlink" title="Redis 淘汰策略"></a>Redis 淘汰策略</h4><p>maxmemory policy 最大内存淘汰策略<br>根据自身业务类型，选好maxmemory-policy，设置好过期时间。<br>默认策略是noeviction，不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息”(error) OOM command not allowed when used memory”，<br>此时Redis只响应读操作。</p>
 <h1 id="maxmemory"><a href="#maxmemory" class="headerlink" title="maxmemory "></a>maxmemory <bytes></bytes></h1><h1 id="MAXMEMORY-POLICY-how-Redis-will-select-what-to-remove-when-maxmemory"><a href="#MAXMEMORY-POLICY-how-Redis-will-select-what-to-remove-when-maxmemory" class="headerlink" title="MAXMEMORY POLICY: how Redis will select what to remove when maxmemory"></a>MAXMEMORY POLICY: how Redis will select what to remove when maxmemory</h1><h1 id="is-reached-You-can-select-among-five-behaviors"><a href="#is-reached-You-can-select-among-five-behaviors" class="headerlink" title="is reached. You can select among five behaviors:"></a>is reached. You can select among five behaviors:</h1><p>#</p>
 <h1 id="volatile-lru-gt-Evict-using-approximated-LRU-among-the-keys-with-an-expire-set"><a href="#volatile-lru-gt-Evict-using-approximated-LRU-among-the-keys-with-an-expire-set" class="headerlink" title="volatile-lru -&gt; Evict using approximated LRU among the keys with an expire set."></a>volatile-lru -&gt; Evict using approximated LRU among the keys with an expire set.</h1><h1 id="allkeys-lru-gt-Evict-any-key-using-approximated-LRU"><a href="#allkeys-lru-gt-Evict-any-key-using-approximated-LRU" class="headerlink" title="allkeys-lru -&gt; Evict any key using approximated LRU."></a>allkeys-lru -&gt; Evict any key using approximated LRU.</h1><h1 id="volatile-lfu-gt-Evict-using-approximated-LFU-among-the-keys-with-an-expire-set"><a href="#volatile-lfu-gt-Evict-using-approximated-LFU-among-the-keys-with-an-expire-set" class="headerlink" title="volatile-lfu -&gt; Evict using approximated LFU among the keys with an expire set."></a>volatile-lfu -&gt; Evict using approximated LFU among the keys with an expire set.</h1><h1 id="allkeys-lfu-gt-Evict-any-key-using-approximated-LFU"><a href="#allkeys-lfu-gt-Evict-any-key-using-approximated-LFU" class="headerlink" title="allkeys-lfu -&gt; Evict any key using approximated LFU."></a>allkeys-lfu -&gt; Evict any key using approximated LFU.</h1><h1 id="volatile-random-gt-Remove-a-random-key-among-the-ones-with-an-expire-set"><a href="#volatile-random-gt-Remove-a-random-key-among-the-ones-with-an-expire-set" class="headerlink" title="volatile-random -&gt; Remove a random key among the ones with an expire set."></a>volatile-random -&gt; Remove a random key among the ones with an expire set.</h1><h1 id="allkeys-random-gt-Remove-a-random-key-any-key"><a href="#allkeys-random-gt-Remove-a-random-key-any-key" class="headerlink" title="allkeys-random -&gt; Remove a random key, any key."></a>allkeys-random -&gt; Remove a random key, any key.</h1><h1 id="volatile-ttl-gt-Remove-the-key-with-the-nearest-expire-time-minor-TTL"><a href="#volatile-ttl-gt-Remove-the-key-with-the-nearest-expire-time-minor-TTL" class="headerlink" title="volatile-ttl -&gt; Remove the key with the nearest expire time (minor TTL)"></a>volatile-ttl -&gt; Remove the key with the nearest expire time (minor TTL)</h1><h1 id="noeviction-gt-Don’t-evict-anything-just-return-an-error-on-write-operations"><a href="#noeviction-gt-Don’t-evict-anything-just-return-an-error-on-write-operations" class="headerlink" title="noeviction -&gt; Don’t evict anything, just return an error on write operations."></a>noeviction -&gt; Don’t evict anything, just return an error on write operations.</h1><p>#</p>
 <h1 id="LRU-means-Least-Recently-Used-最近最少使用"><a href="#LRU-means-Least-Recently-Used-最近最少使用" class="headerlink" title="LRU means Least Recently Used 最近最少使用"></a>LRU means Least Recently Used 最近最少使用</h1><h1 id="LFU-means-Least-Frequently-Used-最不经常使用"><a href="#LFU-means-Least-Frequently-Used-最不经常使用" class="headerlink" title="LFU means Least Frequently Used 最不经常使用"></a>LFU means Least Frequently Used 最不经常使用</h1><p>#</p>
@@ -1214,6 +1292,7 @@
 <li>LFU</li>
 <li>FIFO</li>
 </ul>
+<p>Redis 的持久化存储<br>Redis支持两种数据持久化方式：RDB方式和AOF方式<br>RDB 方式会根据配置的规则定时将内存中的数据持久化的硬盘上，<br>AOF 方式则是在每次执行写命令之后将命令记录下来，两种持久化方式可以单独使用，但是通常会将两者结合使用。</p>
 
           
         
