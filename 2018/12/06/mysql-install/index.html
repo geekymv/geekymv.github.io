@@ -88,7 +88,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-install.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-start.png">
-<meta property="og:updated_time" content="2019-03-14T07:16:36.885Z">
+<meta property="og:updated_time" content="2019-03-14T07:24:06.884Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL安装">
 <meta name="twitter:description" content="下载地址 检查当前系统是否安装mysqlrpm -qa|grep -i mysql 如果已经安装，卸载sudo yum -y remove mysql-libs* 安装mysql服务端和客户端sudo rpm -ivh MySQL-server-5.5.62-1.el6.x86_64.rpmsudo rpm -ivh MySQL-client-5.5.62-1.el6.x86_64.rpm 查看m">
@@ -335,9 +335,9 @@
 <table>
 <thead>
 <tr>
-<th>隔离级别</th>
+<th>隔离级别 \ 现象</th>
 <th style="text-align:center">脏读</th>
-<th style="text-align:right">不可重复读</th>
+<th style="text-align:center">不可重复读</th>
 <th style="text-align:right">幻读</th>
 </tr>
 </thead>
@@ -345,25 +345,25 @@
 <tr>
 <td>读未提交</td>
 <td style="text-align:center">是</td>
-<td style="text-align:right">是</td>
+<td style="text-align:center">是</td>
 <td style="text-align:right">是</td>
 </tr>
 <tr>
 <td>读已提交</td>
 <td style="text-align:center">否</td>
-<td style="text-align:right">是</td>
+<td style="text-align:center">是</td>
 <td style="text-align:right">是</td>
 </tr>
 <tr>
 <td>可重复读</td>
 <td style="text-align:center">否</td>
-<td style="text-align:right">否</td>
+<td style="text-align:center">否</td>
 <td style="text-align:right">是</td>
 </tr>
 <tr>
 <td>串行化</td>
 <td style="text-align:center">否</td>
-<td style="text-align:right">否</td>
+<td style="text-align:center">否</td>
 <td style="text-align:right">否</td>
 </tr>
 </tbody>
