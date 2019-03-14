@@ -88,7 +88,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-install.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-start.png">
-<meta property="og:updated_time" content="2019-03-14T07:24:06.884Z">
+<meta property="og:updated_time" content="2019-03-14T08:07:12.334Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL安装">
 <meta name="twitter:description" content="下载地址 检查当前系统是否安装mysqlrpm -qa|grep -i mysql 如果已经安装，卸载sudo yum -y remove mysql-libs* 安装mysql服务端和客户端sudo rpm -ivh MySQL-server-5.5.62-1.el6.x86_64.rpmsudo rpm -ivh MySQL-client-5.5.62-1.el6.x86_64.rpm 查看m">
@@ -319,8 +319,8 @@
 <p><a href="https://mp.weixin.qq.com/s/XhhAepgPcVFUBROKB6EN8Q" target="_blank" rel="noopener">mysql事务隔离级别</a></p>
 <ul>
 <li>读未提交： 一个事务可以读到另一个事务未提交的数据；</li>
-<li>读已提交：一个事务可以读到另一个事务已提交的数据；</li>
-<li>可重复读：</li>
+<li>读已提交(READ-COMMITTED)：一个事务可以读到另一个事务已提交的数据；</li>
+<li>可重复读(REPEATABLE-READ)：</li>
 <li>串行化：每次读操作都会加锁。</li>
 </ul>
 <p>不同隔离级别存在的问题（存在的现象）</p>
@@ -369,6 +369,11 @@
 </tbody>
 </table>
 <p><a href="https://mp.weixin.qq.com/s/643UXL4gNEQT4qLqUxgOIw" target="_blank" rel="noopener">互联网项目中mysql应该选择什么事务隔离级别</a></p>
+<p>查询当前会话事务隔离级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@tx_isolation;</span><br><span class="line">+-----------------+</span><br><span class="line">| @@tx_isolation  |</span><br><span class="line">+-----------------+</span><br><span class="line">| REPEATABLE-READ |</span><br><span class="line">+-----------------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>设置当前会话隔离级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set tx_isolation=&apos;read-committed&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>查看系统当前会话级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@global.tx_isolation;</span><br></pre></td></tr></table></figure></p>
+<p>设置系统当前隔离级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global transaction isolation level read committed;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://tech.meituan.com/2014/08/20/innodb-lock.html" target="_blank" rel="noopener">Innodb中的事务隔离级别和锁的关系</a></p>
 
       
     </div>
