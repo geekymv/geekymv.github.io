@@ -229,6 +229,128 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/21/security/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/21/security/" itemprop="url">security</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-21T14:09:42+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>对称加密<br>信息的发方和接收方使用同一个密钥去加密和解密数据，它的最大优势是加/解密速度快，</p>
+<p>非对称加密：</p>
+<p>生成RSA密钥工具：<a href="https://docs.open.alipay.com/291/105971/" target="_blank" rel="noopener">https://docs.open.alipay.com/291/105971/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/machine-learning/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -831,7 +953,7 @@
 <p>启动mysql<br>sudo service mysql start</p>
 <p>直接连上<br>$ mysql</p>
 <p>退出<br>mysql&gt;exit</p>
-<p>按照安装Sever中的提示，修改登录密码，设置密码为123456<br>sudo /usr/bin/mysqladmin -u root password ‘123456’</p>
+<p>按照安装Sever中的提示，修改登录密码，设置密码为123456<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/bin/mysqladmin -u root password &apos;123456&apos;</span><br></pre></td></tr></table></figure></p>
 <p>自启动mysql服务<br>sudo chkconfig mysql on<br>chkconfig –list | grep mysql<br>cat /etc/inittab </p>
 <p>修改配置文件位置<br>cd /usr/share/mysql<br>sudo cp my-huge.cnf /etc/my.cnf</p>
 <p>设置mysql字符集<br>查看字符集<br>show variables like ‘character%’;<br>或show variables like ‘%char%’;</p>
@@ -839,10 +961,10 @@
 <img src="/2018/12/06/mysql-install/mysql-start.png" title="mysql start">
 <p><a href="https://mp.weixin.qq.com/s/XhhAepgPcVFUBROKB6EN8Q" target="_blank" rel="noopener">mysql事务隔离级别</a></p>
 <ul>
-<li>读未提交： 一个事务可以读到另一个事务未提交的数据；</li>
+<li>读未提交(READ UNCOMMITTED)： 一个事务可以读到另一个事务未提交的数据；</li>
 <li>读已提交(READ-COMMITTED)：一个事务可以读到另一个事务已提交的数据；</li>
 <li>可重复读(REPEATABLE-READ)：</li>
-<li>串行化：每次读操作都会加锁。</li>
+<li>串行化(SERIALIZABLE)：每次读操作都会加锁。</li>
 </ul>
 <p>不同隔离级别存在的问题（存在的现象）</p>
 <ul>
@@ -890,6 +1012,7 @@
 </tbody>
 </table>
 <p><a href="https://mp.weixin.qq.com/s/643UXL4gNEQT4qLqUxgOIw" target="_blank" rel="noopener">互联网项目中mysql应该选择什么事务隔离级别</a></p>
+<p>设置binlog模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET SESSION binlog_format = &apos;ROW&apos;;（或者是MIXED）</span><br></pre></td></tr></table></figure></p>
 <p>查询当前会话事务隔离级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@tx_isolation;</span><br><span class="line">+-----------------+</span><br><span class="line">| @@tx_isolation  |</span><br><span class="line">+-----------------+</span><br><span class="line">| REPEATABLE-READ |</span><br><span class="line">+-----------------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></figure></p>
 <p>设置当前会话隔离级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set tx_isolation=&apos;read-committed&apos;;</span><br></pre></td></tr></table></figure></p>
 <p>查看系统当前会话级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@global.tx_isolation;</span><br></pre></td></tr></table></figure></p>
@@ -1511,7 +1634,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
