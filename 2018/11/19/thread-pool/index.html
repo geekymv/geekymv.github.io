@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1">
+<meta name="description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1 系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路 查看cpu消耗过高的进程top 查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。top -Hp pid 输入线程的十六进制值printf “%x\n” tid jstack pid | grep tid对应的十六">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线程">
 <meta property="og:url" content="http://yoursite.com/2018/11/19/thread-pool/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1">
+<meta property="og:description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1 系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路 查看cpu消耗过高的进程top 查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。top -Hp pid 输入线程的十六进制值printf “%x\n” tid jstack pid | grep tid对应的十六">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-06T14:56:53.128Z">
+<meta property="og:updated_time" content="2019-03-21T02:19:49.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程">
-<meta name="twitter:description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1">
+<meta name="twitter:description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1 系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路 查看cpu消耗过高的进程top 查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。top -Hp pid 输入线程的十六进制值printf “%x\n” tid jstack pid | grep tid对应的十六">
 
 
 
@@ -300,6 +300,11 @@
 
       
         <p>查看进程下的线程数：ps -Lf pid | wc -l<br>查看cpu核数：执行top命令后 按数字1</p>
+<p><a href="https://mp.weixin.qq.com/s/_tWm2G57vLgomvpNNHKAMA" target="_blank" rel="noopener">系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路</a></p>
+<p>查看cpu消耗过高的进程<br>top</p>
+<p>查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。<br>top -Hp pid</p>
+<p>输入线程的十六进制值<br>printf “%x\n” tid</p>
+<p>jstack pid | grep tid对应的十六进制</p>
 
       
     </div>
@@ -404,7 +409,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
