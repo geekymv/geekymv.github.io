@@ -229,6 +229,126 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/lru-cache/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/04/lru-cache/" itemprop="url">用 LinkedHashMap 实现一个 LRU</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-04T11:04:54+08:00">
+                2019-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考 org.apache.kafka.common.cache.LRUCache</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/nginx/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -440,6 +560,7 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
         
           
             <p><a href="http://www.mixfate.com/tools/tomcat/2016/05/07/jenkins-tomcat-deploy.html" target="_blank" rel="noopener">http://www.mixfate.com/tools/tomcat/2016/05/07/jenkins-tomcat-deploy.html</a><br><a href="https://blog.csdn.net/youyouwoxing1991/article/details/84192756" target="_blank" rel="noopener">https://blog.csdn.net/youyouwoxing1991/article/details/84192756</a></p>
+<p>java –jar Jenkins.war –httpPort=80<br>nohup java -jar jenkins.war –httpPort=8080 –prefix=/jenkins &amp;<br>nohup java -jar jenkins.war –httpPort=8084 –prefix=/jenkins  &gt;out.log 2&gt;&amp;1 &amp;</p>
 
           
         
@@ -1434,128 +1555,6 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/delay-queue/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/10/delay-queue/" itemprop="url">delay-queue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T15:55:28+08:00">
-                2019-01-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>有赞延迟队列设计<br><a href="https://tech.youzan.com/queuing_delay/" target="_blank" rel="noopener">https://tech.youzan.com/queuing_delay/</a></p>
-<p>1分钟实现“延迟消息”功能<br><a href="https://mp.weixin.qq.com/s/eDMV25YqCPYjxQG-dvqSqQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/eDMV25YqCPYjxQG-dvqSqQ</a><br><a href="https://www.jianshu.com/p/331b4e11f7ab" target="_blank" rel="noopener">https://www.jianshu.com/p/331b4e11f7ab</a></p>
-<p>基于redis实现的延迟消息队列<br><a href="https://www.jianshu.com/p/e958e8590020" target="_blank" rel="noopener">https://www.jianshu.com/p/e958e8590020</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1606,7 +1605,7 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
