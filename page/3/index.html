@@ -229,6 +229,251 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/thread-pool/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/19/thread-pool/" itemprop="url">线程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T19:45:50+08:00">
+                2018-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>查看进程下的线程数：ps -Lf pid | wc -l<br>查看cpu核数：执行top命令后 按数字1</p>
+<p><a href="https://mp.weixin.qq.com/s/_tWm2G57vLgomvpNNHKAMA" target="_blank" rel="noopener">系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路</a></p>
+<p>查看cpu消耗过高的进程<br>top</p>
+<p>查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。<br>top -Hp pid</p>
+<p>输入线程的十六进制值<br>printf “%x\n” tid</p>
+<p>jstack pid | grep tid对应的十六进制</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/volatile/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/18/volatile/" itemprop="url">volatile 的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-18T21:58:14+08:00">
+                2018-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>防止指令重排序；<br>确保线程之间共享变量的立即可见性。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/redis/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -248,7 +493,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/16/redis/" itemprop="url">redis基础数据类型</a></h1>
+                <a class="post-title-link" href="/2018/11/16/redis/" itemprop="url">redis</a></h1>
         
 
         <div class="post-meta">
@@ -301,6 +546,11 @@
         
           
             <p><a href="https://www.jianshu.com/p/bc84b2b71c1c" target="_blank" rel="noopener">https://www.jianshu.com/p/bc84b2b71c1c</a><br><a href="https://juejin.im/post/5c3b4c4b518825253806335e" target="_blank" rel="noopener">https://juejin.im/post/5c3b4c4b518825253806335e</a></p>
+<h3 id="Redis-可以用来做什么"><a href="#Redis-可以用来做什么" class="headerlink" title="Redis 可以用来做什么"></a>Redis 可以用来做什么</h3><p>Redis 是 Remote Dictionary Service 的首字母缩写，也就是远程字典服务。</p>
+<ul>
+<li>记录帖子的点赞数、评论数、点击数；</li>
+<li></li>
+</ul>
 <p>tar -zxvf redis-4.0.12.tar.gz -C /usr/local/<br>进入 Redis 的解压文件<br>cd redis-4.0.12/<br>使用 make 命令编译源码<br>make<br>可能出现的错误：fatal error: jemalloc/jemalloc.h: No such file or directory<br>在 Redis 的 README.md 文件中，可以找到解决方法，手动设置 MALLOC 环境。<br>使用 make MALLOC=libc 命令代替 make 命令。</p>
 <p>测试完成，就可以安装 Redis 了，<br>先 cd 到 Redis 解压文件的 src 目录，使用 make PREFIX=/usr/local/redis install 安装，可以设置 Redis 的安装位置。<br>make install PREFIX=/usr/local/redis</p>
 <p>daemonize yes</p>
@@ -559,7 +809,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
