@@ -300,7 +300,89 @@
       
         
           
-            <h4 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h4><ul>
+            <h3 id="类加载器深入解析与阶段分解"><a href="#类加载器深入解析与阶段分解" class="headerlink" title="类加载器深入解析与阶段分解"></a>类加载器深入解析与阶段分解</h3><h4 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h4><ul>
+<li>在Java代码中，<code>类型</code>（class）的加载、连接与初始化过程都是在程序<code>运行期间</code>完成的；</li>
+<li>通过这种方式提供了更大的灵活性，增加了更多的可能性。</li>
+</ul>
+<h4 id="阶段分解"><a href="#阶段分解" class="headerlink" title="阶段分解"></a>阶段分解</h4><ul>
+<li>加载：查找并加载类的二进制数据，将类的class文件加载到内存；</li>
+<li>连接：<br>  将类与类的关系给确定好，将类与类之间符号引用转换成直接引用，并且对字节码进行相关的处理、验证。<ul>
+<li>验证：确保被加载类的正确性；</li>
+<li>准备：为类的<code>静态变量</code>（类变量）分配内存，并将其<code>初始化为默认值</code>，但在到达初始化之前，类变量都没有初始化为真正都初始值；</li>
+<li>解析：把类中的符号引用转换为直接引用；</li>
+</ul>
+</li>
+<li>初始化：为类的静态变量赋予正确的初始值（真实值覆盖默认值）。</li>
+<li>使用<ul>
+<li>类实例化：为新的对象分配内存，为实例变量赋默认值，为实例变量赋正确的初始值（开发人员设置的初始值）。</li>
+</ul>
+</li>
+<li>卸载</li>
+</ul>
+<h4 id="类加载器Classloader"><a href="#类加载器Classloader" class="headerlink" title="类加载器Classloader"></a>类加载器Classloader</h4><p>Java虚拟机与程序的生命周期，在如下几种情况下，Java虚拟机将结束生命周期</p>
+<ul>
+<li>执行了System.exit()方法；</li>
+<li>程序正常执行结束；</li>
+<li>程序在执行过程中遇到了异常或错误而异常终止；</li>
+<li>由于操作系统出现错误而导致Java虚拟机进程终止。</li>
+</ul>
+<h3 id="类的加载连接与初始化过程详解"><a href="#类的加载连接与初始化过程详解" class="headerlink" title="类的加载连接与初始化过程详解"></a>类的加载连接与初始化过程详解</h3><h4 id="Java程序对类对使用方式可分为两种"><a href="#Java程序对类对使用方式可分为两种" class="headerlink" title="Java程序对类对使用方式可分为两种"></a>Java程序对类对使用方式可分为两种</h4><ul>
+<li><p>主动使用：</p>
+<ul>
+<li>创建类的实例；</li>
+<li>访问某个类或接口的静态变量，或者对该静态变量赋值（被final修饰、已在编译期把结果放入常量池的静态字段除外）；</li>
+<li>调用类的静态方法；</li>
+<li>反射（如：Class.forName(“com.geekymv.MyTest”)）；</li>
+<li>初始化一个类的子类；</li>
+<li>Java虚拟机启动时被标明为启动类的类（包含main方法的类）；</li>
+<li>jdk1.7开始提供的动态语言支持，java.lang.invoke.methodHandle实例的解析结果REF_getStatic, REF_putStatic, REF_invokeStatic句柄对应的类没有初始化则初始化。</li>
+</ul>
+</li>
+<li><p>被动使用：除了以上7种情况，其他使用Java类的方式都被看作是对类的被动使用，都不会导致类的初始化。</p>
+</li>
+</ul>
+<p>所有的Java虚拟机实现必须在每个类或接口被Java程序<code>首次主动使用</code>才初始化。</p>
+<p>类的初始化步骤</p>
+<ul>
+<li>假如这个类还没有被加载和连接，那就先进行加载和连接；</li>
+<li>假如类存在直接父类，并且这个父类还没有被初始化，那就先初始化直接父类；</li>
+<li>假如类中存在初始化语句（静态变量的声明语句，以及静态代码块都被看做类的初始化语句），那就依次执行这些初始化语句。</li>
+</ul>
+<p>类的初始化时机<br>当Java虚拟机初始化一个类时，要求它的所有父类都已经初始化，但是这条规则并不适用于接口。</p>
+<ul>
+<li>在初始化一个类时，并不会先初始化它所实现的接口；</li>
+<li>在初始化一个接口时，并不会初始化它的父接口。<br>因此，一个父接口并不会因为它的子接口或者实现类的初始化而初始化。<br>只有当程序首次使用特定接口的静态变量时，才会导致该接口的初始化。</li>
+</ul>
+<h4 id="类的加载"><a href="#类的加载" class="headerlink" title="类的加载"></a>类的加载</h4><p>类的加载指的是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的<code>方法区</code>内，然后在内存中创建一个java.lang.Class对象<br>（Java虚拟机规范中并未说明Class对象位于哪里，HotSpot虚拟机将其放在了方法区中）用来封装类在方法区内的数据结构。</p>
+<p>加载.class文件的方式</p>
+<ul>
+<li>从本地系统中直接加载；</li>
+<li>通过网络下载.class文件；</li>
+<li>从zip、jar等归档文件中加载.class文件；</li>
+<li>从专有数据库中提取.class文件；</li>
+<li>将Java源文件动态编译为.class文件。</li>
+</ul>
+<p>类加载器</p>
+<ul>
+<li>Java虚拟机自带的加载器<ul>
+<li>根类加载器（Bootstrap），或称启动类加载器，该加载器没有父加载器，</li>
+<li>扩展类加载器（Extension）</li>
+<li>系统类加载器（System）或称应用类加载器</li>
+</ul>
+</li>
+<li>用户自定义的类加载器<ul>
+<li>java.lang.ClassLoader 的子类</li>
+<li>用户可以定制类的加载方式</li>
+</ul>
+</li>
+</ul>
+<p>除了根类加载器之外，其他的类加载器有且只有一个父加载器。<br>类加载器并不需要等到某个类”首次主动使用”时再加载它。</p>
+<p>JVM规范允许类加载器在预料某个类将要被使用时就预先加载它，如果在预先加载的过程中遇到了.class文件缺失或者存在错误，<br>类加载器必须在程序主动使用时才报告错误（LinkageError错误）。<br>如果这个类一直没有被程序主动使用，那么类加载器就不会报告错误。</p>
+<p>双亲委托机制<br>自底向上检查类是否已经加载，自顶向下尝试加载类。</p>
+<h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p>监控工具使用<br>jconsole<br>jvisualvm<br>jmap<br>jstack</p>
+<p>锁<br>线程安全<br>偏向锁、自旋锁与轻量级锁</p>
+<p>逃逸分析<br>内存模型</p>
+<h4 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h4><ul>
 <li>标记清除</li>
 <li>复制算法</li>
 <li><p>标记整理</p>
@@ -308,7 +390,7 @@
 <li><p>分代收集<br>新生代：复制算法<br>老年代：标记清除或标记整理</p>
 </li>
 </ul>
-<h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p>CMS<br>G1</p>
+<h4 id="垃圾收集器-1"><a href="#垃圾收集器-1" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p>CMS<br>G1</p>
 
           
         
@@ -1542,6 +1624,15 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
