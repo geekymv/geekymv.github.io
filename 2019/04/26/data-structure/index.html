@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="数据结构与算法从广义上讲，数据结构就是一组数据的存储结构，算法就是操作数据的一组方法。从狭义上讲，是指某些著名的数据结构和算法，比如队列、堆、栈、二分查找、动态规划等。 数据结构和算法本身解决的是快和省的问题，即让代码运行的更快，让代码更省存储空间。所以，执行效率是算法一个非常重要的衡量指标。时间和空间复杂度分析用来衡量算法的执行效率，可以粗略地估计算法的执行效率。 时间复杂度时间复杂度的全称是渐">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-26T09:55:13.659Z">
+<meta property="og:updated_time" content="2019-05-06T01:46:58.235Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="data-structure">
 <meta name="twitter:description" content="数据结构与算法从广义上讲，数据结构就是一组数据的存储结构，算法就是操作数据的一组方法。从狭义上讲，是指某些著名的数据结构和算法，比如队列、堆、栈、二分查找、动态规划等。 数据结构和算法本身解决的是快和省的问题，即让代码运行的更快，让代码更省存储空间。所以，执行效率是算法一个非常重要的衡量指标。时间和空间复杂度分析用来衡量算法的执行效率，可以粗略地估计算法的执行效率。 时间复杂度时间复杂度的全称是渐">
@@ -326,6 +326,22 @@
 <li>如果数据大小事先已知，并且对数据操作非常简单，用不到ArrayList提供的大部分方法，也可以直接使用数组；</li>
 <li>当表示多维数组时，用数组更加直观。</li>
 </ul>
+<h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><p>栈是一种操作受限的数据结构，只支持入栈和出栈操作。先进后出是它最大的特点。</p>
+<p>操作系统给每个线程分配了一块独立的内存空间，这块内存空间被组织成“栈”这种数据结构，用来存储函数调用时的临时变量。<br>每进入一个函数，就会将临时变量作为一个栈帧入栈，当被调用函数执行完成，返回之后，将这个函数对应的栈帧出栈。</p>
+<h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><p>先进先出<br>入队：放一个数据到队列的尾部。<br>出队：从队列头部取一个元素。<br>用数组实现的队列叫作顺序队列，用链表实现的队列叫作链式队列。<br>循环队列<br>阻塞队列<br>并发队列</p>
+<h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><p>三个条件：</p>
+<ul>
+<li>一个问题的解可以分解为几个子问题的解；</li>
+<li>这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样；</li>
+<li>存在递归终止条件。<br>如何编写递归代码<br>写出递推公式，找到终止条件，将递推公式转化成代码。</li>
+</ul>
+<p>递归代码问题</p>
+<ul>
+<li>堆栈溢出</li>
+<li>重复计算</li>
+<li>函数调用耗时多</li>
+<li>空间复杂度高</li>
+</ul>
 
       
     </div>
@@ -481,7 +497,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构与算法"><span class="nav-number">1.</span> <span class="nav-text">数据结构与算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时间复杂度"><span class="nav-number">2.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组"><span class="nav-number">3.</span> <span class="nav-text">数组</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构与算法"><span class="nav-number">1.</span> <span class="nav-text">数据结构与算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时间复杂度"><span class="nav-number">2.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组"><span class="nav-number">3.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈"><span class="nav-number">4.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列"><span class="nav-number">5.</span> <span class="nav-text">队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归"><span class="nav-number">6.</span> <span class="nav-text">递归</span></a></li></ol></div>
             
 
           </div>
