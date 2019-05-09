@@ -881,8 +881,15 @@
 <li></li>
 </ul>
 <p>tar -zxvf redis-4.0.12.tar.gz -C /usr/local/<br>进入 Redis 的解压文件<br>cd redis-4.0.12/<br>使用 make 命令编译源码<br>make<br>可能出现的错误：fatal error: jemalloc/jemalloc.h: No such file or directory<br>在 Redis 的 README.md 文件中，可以找到解决方法，手动设置 MALLOC 环境。<br>使用 make MALLOC=libc 命令代替 make 命令。</p>
-<p>测试完成，就可以安装 Redis 了，<br>先 cd 到 Redis 解压文件的 src 目录，使用 make PREFIX=/usr/local/redis install 安装，可以设置 Redis 的安装位置。<br>make install PREFIX=/usr/local/redis</p>
-<p>daemonize yes</p>
+<p>如果make的时候提示如下错误：<br>cc: error: ../deps/hiredis/libhiredis.a: No such file or directory<br>cc: error: ../deps/lua/src/liblua.a: No such file or directory<br>cc: error: ../deps/jemalloc/lib/libjemalloc.a: No such file or directory<br>make: *** [redis-server] Error 1<br>则进入redis下的deps下的运行如下命令，就OK了。<br>make lua hiredis linenoise</p>
+<p>make完成，就可以安装 Redis 了，<br>先 cd 到 Redis 解压文件的 src 目录，使用 make PREFIX=/usr/local/redis install 安装，可以设置 Redis 的安装位置。<br>make install PREFIX=/usr/local/redis</p>
+<p>配置启动脚本<br>cp /usr/local/redis-4.0.12/utils/redis_init_script /etc/init.d/<br>cd /etc/init.d/<br>mv redis_init_script redis_6379<br>编辑启动脚本redis_6379，修改启动命令路径，我们在上面将redis 安装到/usr/local/redis 目录下了<br>EXEC=/usr/local/redis/bin/redis-server<br>CLIEXEC=/usr/local/redis/bin/redis-cli</p>
+<p>根据启动脚本修改配置文件位置<br>cp /usr/local/redis-4.0.12/redis.conf /etc/redis/<br>cd /etc/redis/<br>mv redis.conf 6379.conf</p>
+<p>创建存放数据的目录<br>mkidr -p /var/redis/6379</p>
+<p>修改配置文件<br>vim /etc/redis/6379.conf</p>
+<p>daemonize yes<br>bind 192.168.159.102<br>requirepass <strong>***</strong><br>dir /var/redis/6379</p>
+<p>启动redis<br>/etc/init.d/redis_6379 start</p>
+<p>设置开启自启动<br>chkconfig redis_6379 on</p>
 <ul>
 <li>string（字符串）可以存储字符串、整数或浮点数；</li>
 <li>list（列表）一个链表，链表上的每个节点都包含了一个字符串；</li>
