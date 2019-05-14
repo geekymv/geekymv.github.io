@@ -87,7 +87,7 @@
 <meta property="og:description" content="https://www.jianshu.com/p/bc84b2b71c1chttps://juejin.im/post/5c3b4c4b518825253806335e Redis 可以用来做什么Redis 是 Remote Dictionary Service 的首字母缩写，也就是远程字典服务。  记录帖子的点赞数、评论数、点击数；   redis 生产环境启动方案 tar -zxvf red">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2018/11/16/redis/master-slave.png">
-<meta property="og:updated_time" content="2019-05-13T02:05:12.990Z">
+<meta property="og:updated_time" content="2019-05-13T03:01:21.461Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis">
 <meta name="twitter:description" content="https://www.jianshu.com/p/bc84b2b71c1chttps://juejin.im/post/5c3b4c4b518825253806335e Redis 可以用来做什么Redis 是 Remote Dictionary Service 的首字母缩写，也就是远程字典服务。  记录帖子的点赞数、评论数、点击数；   redis 生产环境启动方案 tar -zxvf red">
@@ -312,8 +312,8 @@
 <p>如果make的时候提示如下错误：<br>cc: error: ../deps/hiredis/libhiredis.a: No such file or directory<br>cc: error: ../deps/lua/src/liblua.a: No such file or directory<br>cc: error: ../deps/jemalloc/lib/libjemalloc.a: No such file or directory<br>make: *** [redis-server] Error 1<br>则进入redis下的deps下的运行如下命令，就OK了。<br>make lua hiredis linenoise</p>
 <p>make完成，就可以安装 Redis 了，<br>先 cd 到 Redis 解压文件的 src 目录，使用 make PREFIX=/usr/local/redis install 安装，可以设置 Redis 的安装位置。<br>make install PREFIX=/usr/local/redis</p>
 <p>配置启动脚本<br>cp /usr/local/redis-4.0.12/utils/redis_init_script /etc/init.d/<br>cd /etc/init.d/<br>mv redis_init_script redis_6379<br>编辑启动脚本redis_6379，修改启动命令路径，我们在上面将redis 安装到/usr/local/redis 目录下了<br>EXEC=/usr/local/redis/bin/redis-server<br>CLIEXEC=/usr/local/redis/bin/redis-cli</p>
-<p>根据启动脚本修改配置文件位置<br>cp /usr/local/redis-4.0.12/redis.conf /etc/redis/<br>cd /etc/redis/<br>mv redis.conf 6379.conf</p>
-<p>创建持久化文件的存储位置<br>mkidr -p /var/redis/6379</p>
+<p>根据启动脚本修改配置文件位置<br>mkdir -p /etc/redis<br>cp /usr/local/redis-4.0.12/redis.conf /etc/redis/<br>cd /etc/redis/<br>mv redis.conf 6379.conf</p>
+<p>创建持久化文件的存储位置<br>mkdir -p /var/redis/6379</p>
 <p>修改配置文件<br>vim /etc/redis/6379.conf</p>
 <p>daemonize yes<br>bind 修改成自己的IP地址<br>requirepass <strong>***</strong><br>dir /var/redis/6379</p>
 <p>启动redis<br>/etc/init.d/redis_6379 start</p>
