@@ -952,6 +952,9 @@
 <li>master 第一次执行全量复制，将所有数据发送给slave；</li>
 <li>master 后续持续将写命令异步复制给slave。</li>
 </ul>
+<h4 id="哨兵"><a href="#哨兵" class="headerlink" title="哨兵"></a>哨兵</h4><p>mkdir -p /var/redis/sentinel<br>cp /usr/local/redis-4.0.12/sentinel.conf /etc/redis/<br>vim /etc/redis/sentinel.conf</p>
+<p>bind node01<br>dir /var/redis/sentinel<br>sentinel monitor mymaster node01 6379 2 # 指向master的ip 和 port<br>sentinel auth-pass mymaster geekymv<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#如果redis有访问密码，则必须配置sentinel auth-pass这个属性，如果不配置，sentinel启动时不会有任何报错，但监控不到Redis</span><br><span class="line">#而且很重要一点，这个属性必须在 sentinel monitor 之后，不然报错：“No such master with specified name.”</span><br></pre></td></tr></table></figure></p>
+<p>启动<br>/usr/local/redis/bin/redis-sentinel /etc/redis/sentinel.conf</p>
 <h4 id="Redis-过期策略"><a href="#Redis-过期策略" class="headerlink" title="Redis 过期策略"></a>Redis 过期策略</h4><p><a href="https://www.cnblogs.com/xuliangxing/p/7151812.html" target="_blank" rel="noopener">Redis数据过期策略详解</a><br>定时删除<br>惰性删除<br>定期删除</p>
 <p>阿里云Redis开发规范 <a href="https://yq.aliyun.com/articles/531067" target="_blank" rel="noopener">https://yq.aliyun.com/articles/531067</a></p>
 <h4 id="Redis-淘汰策略"><a href="#Redis-淘汰策略" class="headerlink" title="Redis 淘汰策略"></a>Redis 淘汰策略</h4><p>maxmemory 最大可用内存<br>maxmemory policy 最大内存淘汰策略<br>根据自身业务类型，选好maxmemory-policy，设置好过期时间。<br>默认策略是noeviction，不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息”(error) OOM command not allowed when used memory”，<br>此时Redis只响应读操作。</p>
