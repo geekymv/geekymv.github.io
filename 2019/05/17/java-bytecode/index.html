@@ -86,10 +86,12 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="阅读原文Reading compiled Java bytecode can be tedious, even for experienced Java developers.即使对于经验丰富的Java开发人员来说，阅读编译后的Java字节码也可能很乏味。 Why do we need to know about such low-level stuff in the first place?首先">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-17T07:51:22.836Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/17/java-bytecode/jvm_stacks.png">
+<meta property="og:updated_time" content="2019-05-17T08:33:05.426Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="introduction-to-java-bytecode">
 <meta name="twitter:description" content="阅读原文Reading compiled Java bytecode can be tedious, even for experienced Java developers.即使对于经验丰富的Java开发人员来说，阅读编译后的Java字节码也可能很乏味。 Why do we need to know about such low-level stuff in the first place?首先">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/17/java-bytecode/jvm_stacks.png">
 
 
 
@@ -320,11 +322,27 @@
 <p>Moreover, bytecode is simpler than native machine code because the JVM architecture is rather simple,<br>另外，字节码比本地机器码简单因为Java虚拟机架构相当简单。</p>
 <p>hence simplifying the instruction set. Yet another nice thing is that all instructions in this set are fully documented by Oracle.<br>因此简化了指令集，然而，另一件好事是指令集中所有指令完全由Oracle提供。</p>
 <p>Before learning about the bytecode instruction set though, let’s get familiar with a few things about the JVM that are needed as a prerequisite.<br>学习字节码指令集之前， 让我们先熟悉一下JVM的基础，作为学习指令集的前提条件。</p>
-<h4 id="JVM-Data-Types-JVM数据类型"><a href="#JVM-Data-Types-JVM数据类型" class="headerlink" title="JVM Data Types JVM数据类型"></a>JVM Data Types JVM数据类型</h4><p>Java is statically typed, which affects the design of the bytecode instructions such that an instruction expects itself to operate on values of specific types.<br>For example, there are several add instructions to add two numbers: iadd, ladd, fadd, dadd.<br>They expect operands of type, respectively, int, long, float, and double.<br>The majority of bytecode has this characteristic of having different forms of the same functionality depending on the operand types.</p>
-<p>The data types defined by the JVM are:</p>
-<p>Primitive types:<br>Numeric types: byte (8-bit 2’s complement), short (16-bit 2’s complement), int (32-bit 2’s complement), long (64-bit 2’s complement), char (16-bit unsigned Unicode), float (32-bit IEEE 754 single precision FP), double (64-bit IEEE 754 double precision FP)<br>boolean type<br>returnAddress: pointer to instruction<br>Reference types:<br>Class types<br>Array types<br>Interface types<br>The boolean type has limited support in bytecode.<br>For example, there are no instructions that directly operate on boolean values.<br>Boolean values are instead converted to int by the compiler and the corresponding int instruction is used.</p>
-<p>Java developers should be familiar with all of the above types, except returnAddress, which has no equivalent programming language type. </p>
-
+<p>JVM Data Types</p>
+<h4 id="JVM数据类型"><a href="#JVM数据类型" class="headerlink" title="JVM数据类型"></a>JVM数据类型</h4><p>Java is statically typed, which affects the design of the bytecode instructions such that an instruction expects itself to operate on values of specific types.<br>Java是静态类型的，这影响了指令字节码的设计，使得一个指令期望自己去操作指定类型的值。</p>
+<p>For example, there are several add instructions to add two numbers: iadd, ladd, fadd, dadd.<br>例如，有几个两个数的相加指令：iadd, ladd, fadd, dadd。<br>They expect operands of type, respectively, int, long, float, and double.<br>它们期望操作的类型分别是int, long, float, 和 double。</p>
+<p>The majority of bytecode has this characteristic of having different forms of the same functionality depending on the operand types.<br>根据操作类型不同，相同的功能有不同的形式，大多数字节码具有的特征。</p>
+<p>The data types defined by the JVM are:<br>JVM定义的数据类型：</p>
+<p>Primitive types:<br>原生类型：</p>
+<p>Numeric types: byte (8-bit 2’s complement), short (16-bit 2’s complement), int (32-bit 2’s complement), long (64-bit 2’s complement), char (16-bit unsigned Unicode), float (32-bit IEEE 754 single precision FP), double (64-bit IEEE 754 double precision FP)<br>数字类型：byte(8bit), short(16bit), int(32bit), long(64bit), char(16bit), float(32bit), double(64bit)</p>
+<p>boolean type<br>布尔类型</p>
+<p>returnAddress: pointer to instruction<br>返回地址：指向指令</p>
+<p>Reference types:<br>引用类型</p>
+<p>Class types<br>类类型</p>
+<p>Array types<br>数组类型</p>
+<p>Interface types<br>接口类型</p>
+<p>The boolean type has limited support in bytecode.<br>字节码对布尔类型的支持有限制。<br>For example, there are no instructions that directly operate on boolean values.<br>例如，没有指令直接操作布尔类型。</p>
+<p>Boolean values are instead converted to int by the compiler and the corresponding int instruction is used.<br>编译器将boolean值转换为int，并使用相应的int指令。</p>
+<p>Java developers should be familiar with all of the above types, except returnAddress, which has no equivalent programming language type.<br>Java开发人员应该熟悉上述所有类型，除了returnAddress类型，它没有等价的编程语言类型。</p>
+<p>Stack-Based Architecture</p>
+<h4 id="基于栈的架构"><a href="#基于栈的架构" class="headerlink" title="基于栈的架构"></a>基于栈的架构</h4><p>The simplicity of the bytecode instruction set is largely due to Sun having designed a stack-based VM architecture,<br>as opposed to a register-based one. There are various memory components used by a JVM process,<br>but only the JVM stacks need to be examined in detail to essentially be able to follow bytecode instructions:</p>
+<p>PC register: for each thread running in a Java program, a PC register stores the address of the current instruction.</p>
+<p>JVM stack: for each thread, a stack is allocated where local variables, method arguments,<br>and return values are stored. Here is an illustration showing stacks for 3 threads.</p>
+<img src="/2019/05/17/java-bytecode/jvm_stacks.png" title="jvm stack">
       
     </div>
     
@@ -479,7 +497,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#JVM-Data-Types-JVM数据类型"><span class="nav-number">1.</span> <span class="nav-text">JVM Data Types JVM数据类型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#JVM数据类型"><span class="nav-number">1.</span> <span class="nav-text">JVM数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于栈的架构"><span class="nav-number">2.</span> <span class="nav-text">基于栈的架构</span></a></li></ol></div>
             
 
           </div>
