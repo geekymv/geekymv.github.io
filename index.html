@@ -229,6 +229,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/java-bytecode/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/17/java-bytecode/" itemprop="url">introduction-to-java-bytecode</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-17T14:14:14+08:00">
+                2019-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://dzone.com/articles/introduction-to-java-bytecode" target="_blank" rel="noopener">阅读原文</a><br>Reading compiled Java bytecode can be tedious, even for experienced Java developers.<br>即使对于经验丰富的Java开发人员来说，阅读编译后的Java字节码也可能很乏味。</p>
+<p>Why do we need to know about such low-level stuff in the first place?<br>首先，我们为什么需要知道这些底层的东西呢？</p>
+<p>Here is a simple scenario that happened to me last week:<br>下面是上周发生在我身上的一个简单场景：</p>
+<p>I had made some code changes on my machine a long time ago, compiled a JAR,<br>很久以前，我在自己的机器上修改了一些代码，编译成一个JAR包，</p>
+<p>and deployed it on a server to test a potential fix for a performance issue.<br>并且部署在一台服务器上以测试性能问题的潜在修复。</p>
+<p>Unfortunately, the code was never checked into a version control system,<br>不幸的是，代码没有加入版本控制系统，</p>
+<p>and for whatever reason, the local changes were deleted without a trace.<br>并且由于一些原因，本地的修改被删除的毫无踪迹。</p>
+<p>After a couple of months, I needed those changes in source form again (which took quite an effort to come up with),<br>几个月后，我再一次需要这些修改的源码（这需要付出很大的努力），<br>but I could not find them!<br>但是我没有找到它们！</p>
+<p>Luckily the compiled code still existed on that remote server.<br>幸运的是编译后的代码依然存在远程服务器上。</p>
+<p>So with a sigh of relief, I fetched the JAR again and opened it using a decompiler editor…<br>于是松了一口气，我再一次获取到JAR包并且使用反编译编辑器打开它…</p>
+<p>Only one problem: The decompiler GUI is not a flawless tool, and out of the many classes in that JAR,<br>唯一问题：反编译器GUI不是一个完美的工具，而且在这个JAR中有很多类，</p>
+<p>for some reason, only the specific class I was looking to decompile caused a bug in the UI whenever I opened it, and the decompiler to crash!<br>由于某种原因，无论什么时候，我用反编译工具打开要查看的特定类就会引起一个UI bug，反编译器会崩溃！</p>
+<p>Desperate times call for desperate measures. Fortunately, I was familiar with raw bytecode,<br>绝望的时候需要孤注一掷的对策。幸运的是，我熟悉原生字节码，</p>
+<p>and I’d rather take some time manually decompiling some pieces of the code rather than work through the changes and testing them again.<br>并且，我宁愿花费一些时间手工反编译代码也不愿对更改进行重新测试。</p>
+<p>Since I still remembered at least where to look in the code,<br>因为我至少还记得在哪里查看代码，</p>
+<p>reading bytecode helped me pinpoint the exact changes and construct them back in source form.<br> (I made sure to learn from my mistake and preserve them this time!)<br>阅读字节码帮助我精确的定位实际改变的地方，并且使用源码的形式构造它们（我一定要从我的错误中吸取教训，这次一定要记住！）。</p>
+<p>The nice thing about bytecode is that you learn its syntax once, then it applies on all Java supported platforms —<br> 字节码的好处是你一旦学习它的语法，它可以应用于所欲Java支持的平台 - </p>
+<p>because it is an intermediate representation of the code, and not the actual executable code for the underlying CPU.<br>因为它表示一个中间代码，不是实际在CPU上执行的代码。</p>
+<p>Moreover, bytecode is simpler than native machine code because the JVM architecture is rather simple,<br>另外，字节码比本地机器码简单因为Java虚拟机架构相当简单。</p>
+<p>hence simplifying the instruction set. Yet another nice thing is that all instructions in this set are fully documented by Oracle.<br>因此简化了指令集，然而，另一件好事是指令集中所有指令完全由Oracle提供。</p>
+<p>Before learning about the bytecode instruction set though, let’s get familiar with a few things about the JVM that are needed as a prerequisite.<br>学习字节码指令集之前， 让我们先熟悉一下JVM的基础，作为学习指令集的前提条件。</p>
+<h4 id="JVM-Data-Types-JVM数据类型"><a href="#JVM-Data-Types-JVM数据类型" class="headerlink" title="JVM Data Types JVM数据类型"></a>JVM Data Types JVM数据类型</h4><p>Java is statically typed, which affects the design of the bytecode instructions such that an instruction expects itself to operate on values of specific types.<br>For example, there are several add instructions to add two numbers: iadd, ladd, fadd, dadd.<br>They expect operands of type, respectively, int, long, float, and double.<br>The majority of bytecode has this characteristic of having different forms of the same functionality depending on the operand types.</p>
+<p>The data types defined by the JVM are:</p>
+<p>Primitive types:<br>Numeric types: byte (8-bit 2’s complement), short (16-bit 2’s complement), int (32-bit 2’s complement), long (64-bit 2’s complement), char (16-bit unsigned Unicode), float (32-bit IEEE 754 single precision FP), double (64-bit IEEE 754 double precision FP)<br>boolean type<br>returnAddress: pointer to instruction<br>Reference types:<br>Class types<br>Array types<br>Interface types<br>The boolean type has limited support in bytecode.<br>For example, there are no instructions that directly operate on boolean values.<br>Boolean values are instead converted to int by the compiler and the corresponding int instruction is used.</p>
+<p>Java developers should be familiar with all of the above types, except returnAddress, which has no equivalent programming language type. </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/data-structure/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1450,128 +1594,6 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/spring/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/18/spring/" itemprop="url">spring</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-18T12:12:33+08:00">
-                2019-02-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>HandlerMethodArgumentResolver</p>
-<p><a href="https://www.cnblogs.com/yangzhilong/p/7605889.html" target="_blank" rel="noopener">https://www.cnblogs.com/yangzhilong/p/7605889.html</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package com.btg.core.config;</span><br><span class="line"></span><br><span class="line">import com.btg.core.Constants;</span><br><span class="line">import com.btg.core.support.Token;</span><br><span class="line">import com.btg.core.util.TokenUtil;</span><br><span class="line">import org.springframework.core.MethodParameter;</span><br><span class="line">import org.springframework.util.CollectionUtils;</span><br><span class="line">import org.springframework.util.StringUtils;</span><br><span class="line">import org.springframework.web.bind.support.WebDataBinderFactory;</span><br><span class="line">import org.springframework.web.context.request.NativeWebRequest;</span><br><span class="line">import org.springframework.web.method.support.HandlerMethodArgumentResolver;</span><br><span class="line">import org.springframework.web.method.support.ModelAndViewContainer;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.Cookie;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean supportsParameter(MethodParameter parameter) &#123;</span><br><span class="line">        return parameter.getParameterType() == Token.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest,</span><br><span class="line">                                  WebDataBinderFactory binderFactory) throws Exception &#123;</span><br><span class="line">        String token = webRequest.getHeader(Constants.TOKEN);</span><br><span class="line">        if(StringUtils.isEmpty(token)) &#123;</span><br><span class="line">            token = webRequest.getParameter(Constants.TOKEN);</span><br><span class="line">        &#125;</span><br><span class="line">        if(StringUtils.isEmpty(token)) &#123;</span><br><span class="line">            token = getTokenFromCookie(webRequest);</span><br><span class="line">        &#125;</span><br><span class="line">        if(StringUtils.isEmpty(token)) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        return TokenUtil.getTokenInfo(token);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String getTokenFromCookie(NativeWebRequest webRequest) &#123;</span><br><span class="line">        String token = null;</span><br><span class="line">        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);</span><br><span class="line">        List&lt;Cookie&gt; cookies = Arrays.asList(request.getCookies());</span><br><span class="line">        if(!CollectionUtils.isEmpty(cookies)) &#123;</span><br><span class="line">            for(Cookie cookie : cookies) &#123;</span><br><span class="line">                String name = cookie.getName();</span><br><span class="line">                if(Constants.TOKEN.equals(name)) &#123;</span><br><span class="line">                    token = cookie.getValue();</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return token;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>spring循环引用问题及解决方式<br><a href="https://blog.csdn.net/chejinqiang/article/details/80003868" target="_blank" rel="noopener">https://blog.csdn.net/chejinqiang/article/details/80003868</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1622,7 +1644,7 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
