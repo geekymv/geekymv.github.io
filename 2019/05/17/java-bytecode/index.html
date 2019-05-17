@@ -87,7 +87,7 @@
 <meta property="og:description" content="阅读原文Reading compiled Java bytecode can be tedious, even for experienced Java developers.即使对于经验丰富的Java开发人员来说，阅读编译后的Java字节码也可能很乏味。 Why do we need to know about such low-level stuff in the first place?首先">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/05/17/java-bytecode/jvm_stacks.png">
-<meta property="og:updated_time" content="2019-05-17T08:33:05.426Z">
+<meta property="og:updated_time" content="2019-05-17T08:50:52.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="introduction-to-java-bytecode">
 <meta name="twitter:description" content="阅读原文Reading compiled Java bytecode can be tedious, even for experienced Java developers.即使对于经验丰富的Java开发人员来说，阅读编译后的Java字节码也可能很乏味。 Why do we need to know about such low-level stuff in the first place?首先">
@@ -339,9 +339,10 @@
 <p>Boolean values are instead converted to int by the compiler and the corresponding int instruction is used.<br>编译器将boolean值转换为int，并使用相应的int指令。</p>
 <p>Java developers should be familiar with all of the above types, except returnAddress, which has no equivalent programming language type.<br>Java开发人员应该熟悉上述所有类型，除了returnAddress类型，它没有等价的编程语言类型。</p>
 <p>Stack-Based Architecture</p>
-<h4 id="基于栈的架构"><a href="#基于栈的架构" class="headerlink" title="基于栈的架构"></a>基于栈的架构</h4><p>The simplicity of the bytecode instruction set is largely due to Sun having designed a stack-based VM architecture,<br>as opposed to a register-based one. There are various memory components used by a JVM process,<br>but only the JVM stacks need to be examined in detail to essentially be able to follow bytecode instructions:</p>
-<p>PC register: for each thread running in a Java program, a PC register stores the address of the current instruction.</p>
-<p>JVM stack: for each thread, a stack is allocated where local variables, method arguments,<br>and return values are stored. Here is an illustration showing stacks for 3 threads.</p>
+<h4 id="基于栈的架构"><a href="#基于栈的架构" class="headerlink" title="基于栈的架构"></a>基于栈的架构</h4><p>The simplicity of the bytecode instruction set is largely due to Sun having designed a stack-based VM architecture, as opposed to a register-based one.<br>字节码指令集的简单性很大程度上归功于Sun设计了基于栈的VM 架构，而不是基于寄存器的架构。</p>
+<p>There are various memory components used by a JVM process, but only the JVM stacks need to be examined in detail to essentially be able to follow bytecode instructions:<br>JVM 进程使用了各种内存组件，但是只需要详细检查JVM 栈，以便能够遵循字节码指令：</p>
+<p>PC register: for each thread running in a Java program, a PC register stores the address of the current instruction.<br>PC 寄存器：对于每个运行在Java进程中的线程，PC 寄存器存储当前指令的地址。</p>
+<p>JVM stack: for each thread, a stack is allocated where local variables, method arguments,<br>and return values are stored. Here is an illustration showing stacks for 3 threads.<br>JVM 栈：对于每个线程，被申请的栈用于存储本地变量，方法参数，返回值。下面是显示3个线程的堆栈图。</p>
 <img src="/2019/05/17/java-bytecode/jvm_stacks.png" title="jvm stack">
       
     </div>
