@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="类加载器深入解析与阶段分解类加载机制 在Java代码中，类型（class）的加载、连接与初始化过程都是在程序运行期间完成的； 通过这种方式提供了更大的灵活性，增加了更多的可能性。  阶段分解 加载：查找并加载类的二进制数据，将类的class文件加载到内存； 连接：  将类与类的关系给确定好，将类与类之间符号引用转换成直接引用，并且对字节码进行相关的处理、验证。 验证：确保被加载类的正确性； 准备：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T07:43:09.835Z">
+<meta property="og:updated_time" content="2019-05-23T11:34:01.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm">
 <meta name="twitter:description" content="类加载器深入解析与阶段分解类加载机制 在Java代码中，类型（class）的加载、连接与初始化过程都是在程序运行期间完成的； 通过这种方式提供了更大的灵活性，增加了更多的可能性。  阶段分解 加载：查找并加载类的二进制数据，将类的class文件加载到内存； 连接：  将类与类的关系给确定好，将类与类之间符号引用转换成直接引用，并且对字节码进行相关的处理、验证。 验证：确保被加载类的正确性； 准备：">
@@ -365,9 +365,9 @@
 <p>类加载器</p>
 <ul>
 <li>Java虚拟机自带的加载器<ul>
-<li>根类加载器（Bootstrap），或称启动类加载器，该加载器没有父加载器，</li>
-<li>扩展类加载器（Extension）</li>
-<li>系统类加载器（System）或称应用类加载器</li>
+<li>根类加载器（Bootstrap），或者叫做启动类加载器，该加载器没有父加载器，加载jre/lib/rt.jar 或者-Xbootclasspath选项指定的jar包；</li>
+<li>扩展类加载器（Extension），加载jre/lib/ext/*.jar 或者-Djava.ext.dirs指定目录下的jar包；</li>
+<li>系统类加载器（System）或者叫做应用类加载器，加载classpath 或则-Djava.class.path目录下的类和jar包；</li>
 </ul>
 </li>
 <li>用户自定义的类加载器<ul>
@@ -376,9 +376,12 @@
 </ul>
 </li>
 </ul>
+<p>// TODO 画图</p>
 <p>除了根类加载器之外，其他的类加载器有且只有一个父加载器。<br>类加载器并不需要等到某个类”首次主动使用”时再加载它。</p>
 <p>JVM规范允许类加载器在预料某个类将要被使用时就预先加载它，如果在预先加载的过程中遇到了.class文件缺失或者存在错误，<br>类加载器必须在程序主动使用时才报告错误（LinkageError错误）。<br>如果这个类一直没有被程序主动使用，那么类加载器就不会报告错误。</p>
-<p>双亲委托机制<br>自底向上检查类是否已经加载，自顶向下尝试加载类。</p>
+<p>双亲委托机制（父亲委托机制）<br>在父亲委托机制中，各个类加载器按照父子关系形成了树形结构（逻辑意义上的树形结构），<br>除了根类加载器，其余的类加载器有且只有一个父加载器。</p>
+<p>通俗的说，就是一个类加载器自己要加载类，但是自己不去加载而是让自己的父类加载器尝试去加载，直到根类加载器，<br>然后由根类加载器尝试去加载，如果根类加载加载不了，则让子类加载器去加载，直到加载成功或者加载失败。</p>
+<p>自底向上检查类是否已经加载，自顶向下尝试加载类。</p>
 <h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p>监控工具使用<br>jconsole<br>jvisualvm<br>jmap<br>jstack</p>
 <p>锁<br>线程安全<br>偏向锁、自旋锁与轻量级锁</p>
 <p>逃逸分析<br>内存模型</p>
@@ -510,7 +513,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
