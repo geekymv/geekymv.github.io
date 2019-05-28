@@ -87,7 +87,7 @@
 <meta property="og:description" content="Git安装 在Linux上安装首先，你可以尝试输入git，如果没有安装，可能会得到如下提示： 1-bash: git: command not found  在Debian/Ubuntu上 1$ sudo apt-get install git  在Centos/RedHat上 1$ yum install git  在Mac上安装在Mac上，这里推荐使用Homebrew 安装，具体方法请参考Ho">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/05/27/git-install/git-install-win.png">
-<meta property="og:updated_time" content="2019-05-28T00:41:47.085Z">
+<meta property="og:updated_time" content="2019-05-28T00:44:42.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git-install">
 <meta name="twitter:description" content="Git安装 在Linux上安装首先，你可以尝试输入git，如果没有安装，可能会得到如下提示： 1-bash: git: command not found  在Debian/Ubuntu上 1$ sudo apt-get install git  在Centos/RedHat上 1$ yum install git  在Mac上安装在Mac上，这里推荐使用Homebrew 安装，具体方法请参考Ho">
@@ -321,17 +321,7 @@
 <p>使用<code>git --version</code> 命令查看Git版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 1.7.1</span><br></pre></td></tr></table></figure></p>
 <p>查看Git的安装目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ which git</span><br></pre></td></tr></table></figure></p>
 <p>更多安装方法可以参考官网教程<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="noopener">1.5 起步 - 安装 Git</a></p>
-<p>创建目录mygit<br>mkdir mygit</p>
-<p>进入mygit<br>cd mygit</p>
-<p>仓库初始化<br>git init</p>
-<p>创建文件<br>touch hello.txt<br>vi hello.txt</p>
-<p>查看状态<br>git status</p>
-<p>添加到暂存区<br>git add hello.txt</p>
-<p>从暂存区回退到工作区<br>git rm –cached hello.txt</p>
-<p>提交到版本库<br>git commit hello.txt -m “第一次提交”</p>
-<p>查看提交日志<br>git log</p>
-<p>对于user.name user.email 有三个地方可以配置</p>
-<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>Git自带一个 git config 的工具，专门用来配置或读取相应的工作环境变量。这些变量可以存储在三个不同的位置：</p>
+<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>对于user.name user.email 有三个地方可以配置<br>Git自带一个 git config 的工具，专门用来配置或读取相应的工作环境变量。这些变量可以存储在三个不同的位置：</p>
 <ul>
 <li>/etc/gitconfig 文件：包含系统上每一个用户及他们仓库的通用配置，使用 git config –system 配置；（几乎不会使用）</li>
 <li>~/.gitconfig 文件：只针对当前用户，使用 git config –global 配置；（最常用的方式）</li>
@@ -345,7 +335,16 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  .git git:(master) cat config </span><br><span class="line">[core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = true</span><br><span class="line">	bare = false</span><br><span class="line">	logallrefupdates = true</span><br><span class="line">	ignorecase = true</span><br><span class="line">	precomposeunicode = true</span><br><span class="line">➜  .git git:(master) git config --local user.name &apos;yingmi&apos;</span><br><span class="line">➜  .git git:(master) cat config                           </span><br><span class="line">[core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = true</span><br><span class="line">	bare = false</span><br><span class="line">	logallrefupdates = true</span><br><span class="line">	ignorecase = true</span><br><span class="line">	precomposeunicode = true</span><br><span class="line">[user]</span><br><span class="line">	name = yingmi</span><br><span class="line">➜  .git git:(master)</span><br></pre></td></tr></table></figure>
 <p>设置user.email<br>git config –local user.email <a href="mailto:&#39;yingmi@qq.com" target="_blank" rel="noopener">&#39;yingmi@qq.com</a>‘</p>
 <p>优先级：local &gt; global &gt; system</p>
-<h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4>
+<h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4><p>创建目录mygit<br>mkdir mygit</p>
+<p>进入mygit<br>cd mygit</p>
+<p>仓库初始化<br>git init</p>
+<p>创建文件<br>touch hello.txt<br>vi hello.txt</p>
+<p>查看状态<br>git status</p>
+<p>添加到暂存区<br>git add hello.txt</p>
+<p>从暂存区回退到工作区<br>git rm –cached hello.txt</p>
+<p>提交到版本库<br>git commit hello.txt -m “第一次提交”</p>
+<p>查看提交日志<br>git log</p>
+
       
     </div>
     
