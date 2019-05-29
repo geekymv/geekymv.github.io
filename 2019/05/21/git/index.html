@@ -90,8 +90,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/21/git/996.icu-star.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/21/git/linus.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/21/git/areas.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/21/git/trees.png">
-<meta property="og:updated_time" content="2019-05-29T02:53:37.125Z">
+<meta property="og:updated_time" content="2019-05-29T06:38:53.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git">
 <meta name="twitter:description" content="还记得前段时间的热门话题996.ICU么？作为程序员的你，深恶痛绝996的你，当然要给个star。当你点击star的时候，你会发现网页跳转到了996.ICU在 GitHub的主页，作为程序员的你如果还不知道GitHub是什么真的是有点out了！GitHub 是什么呢，我们有必要先了解下Git。 Git 是什么？Git 是一款开源免费的分布式版本控制系统。Git 官网 https://git-scm">
@@ -326,21 +325,21 @@
 <h4 id="Git-几乎所有操作都在本地执行"><a href="#Git-几乎所有操作都在本地执行" class="headerlink" title="Git 几乎所有操作都在本地执行"></a>Git 几乎所有操作都在本地执行</h4><p>在 Git 中的绝大多数操作都只需要访问本地文件和资源，一般不需要来自网络上其它计算机的信息。<br>如果你习惯于所有操作都有网络延时开销的集中式版本控制系统，Git 在这方面的速度绝对让你惊讶。<br>因为你在本地磁盘上就有项目的完整历史，所以大部分操作看起来瞬间完成。</p>
 <p>举个例子，要浏览项目的历史，Git 不需外连到服务器去获取，然后再显示出来，它只需直接从本地数据库中读取，你能立即看到项目历史。<br>如果你想查看当前版本与一个月前的版本之间引入的修改，Git 会查找到一个月前的文件做一次本地的差异计算，<br>而不是由远程服务器处理或从远程服务器拉回旧版本文件再来本地处理。这也意味着你离线或者没有 VPN 时，几乎可以进行任何操作。 </p>
 <p>分布式版本控制系统通常也有一台充当“中央服务器”的电脑，但这个服务器的仅仅是用来方便交换大家的修改，<br>没有它大家也是一样干活，只是不太方便交换修改而已。</p>
-<h4 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h4><p>Git 中的文件有三种状态：<br>已修改(modified)：表示已经修改了文件，还没有保存到数据库中；<br>已暂存(staged)：表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中；<br>已提交(committed)：表示数据已经安全的保存在本地数据库中。</p>
+<h4 id="工作区域"><a href="#工作区域" class="headerlink" title="工作区域"></a>工作区域</h4><p>Git 中的文件状态：<br>未跟踪(untracked)：新增的文件，并没有添加到 Git仓库，不参与版本控制；<br>已修改(modified)：表示已经修改了文件，还没有保存到本地数据库中；<br>已暂存(staged)：表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中；<br>已提交(committed)：表示数据已经安全的保存在本地数据库中。</p>
 <p>三个工作区域</p>
 <ul>
-<li>工作目录：在磁盘上供你使用或修改的文件；</li>
+<li>工作目录：在自己电脑在磁盘上供你使用或修改的文件目录；</li>
 <li>暂存区(Index/Stage)：是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。有时候也被称作`‘索引’’，不过一般说法还是叫暂存区域；</li>
-<li>Git 仓库：Git 用来保存项目的元数据和对象数据库的地方。<img src="/2019/05/21/git/areas.png" title="areas">
-<img src="/2019/05/21/git/trees.png" title="trees">
+<li>Git 仓库：Git 用来保存项目的元数据和对象数据库的地方，就是工作区中的隐藏目录.git。<img src="/2019/05/21/git/areas.png" title="areas">
 </li>
 </ul>
 <p>基本的 Git 工作流程如下：</p>
 <ul>
-<li>在工作目录中修改文件。</li>
-<li>暂存文件，将文件的快照放入暂存区域。</li>
+<li>在工作目录中修改文件；</li>
+<li>暂存文件，将文件的快照放入暂存区域；</li>
 <li>提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录。</li>
 </ul>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>本文主要介绍了Git诞生的起因，Git 特点和 Git 工作流程，下一篇文章会介绍Git的安装和Git基本命令的使用。</p>
 <p><a href="https://examples.javacodegeeks.com/software-development/git/git-diff-example/" target="_blank" rel="noopener">Git Diff Example</a><br>[Git Article]<a href="https://dzone.com/users/3208287/kristip.html" target="_blank" rel="noopener">https://dzone.com/users/3208287/kristip.html</a><br><a href="https://backlog.com/blog/git-vs-svn-version-control-system/" target="_blank" rel="noopener">Git vs. SVN</a></p>
 
       
@@ -501,7 +500,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-是什么？"><span class="nav-number">1.</span> <span class="nav-text">Git 是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-的诞生"><span class="nav-number">2.</span> <span class="nav-text">Git 的诞生</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-几乎所有操作都在本地执行"><span class="nav-number">3.</span> <span class="nav-text">Git 几乎所有操作都在本地执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作区和暂存区"><span class="nav-number">4.</span> <span class="nav-text">工作区和暂存区</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-是什么？"><span class="nav-number">1.</span> <span class="nav-text">Git 是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-的诞生"><span class="nav-number">2.</span> <span class="nav-text">Git 的诞生</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-几乎所有操作都在本地执行"><span class="nav-number">3.</span> <span class="nav-text">Git 几乎所有操作都在本地执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作区域"><span class="nav-number">4.</span> <span class="nav-text">工作区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
