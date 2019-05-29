@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="查看分支 git branch，前面带*号的分支是当前所在分支 创建分支 git branch branch_name切换到某个分支 git checkout branch_name 创建并切换到某个分支 git branch -b branch_name （合并了上面两个命令） 合并分支：比如项目中有master分支、dev 分支，现在要将dev分支合并到master分支，首先要切换到maste">
+<meta name="description" content="创建版本库创建目录mygitmkdir mygit 进入mygitcd mygit 仓库初始化git init 创建文件touch hello.txt编辑文件vi hello.txt1hello Git 查看状态git status 添加到暂存区git add hello.txt 从暂存区回退到工作区git rm –cached hello.txt 提交到版本库git commit hello.t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git-command">
 <meta property="og:url" content="http://yoursite.com/2019/05/29/git-command/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="查看分支 git branch，前面带*号的分支是当前所在分支 创建分支 git branch branch_name切换到某个分支 git checkout branch_name 创建并切换到某个分支 git branch -b branch_name （合并了上面两个命令） 合并分支：比如项目中有master分支、dev 分支，现在要将dev分支合并到master分支，首先要切换到maste">
+<meta property="og:description" content="创建版本库创建目录mygitmkdir mygit 进入mygitcd mygit 仓库初始化git init 创建文件touch hello.txt编辑文件vi hello.txt1hello Git 查看状态git status 添加到暂存区git add hello.txt 从暂存区回退到工作区git rm –cached hello.txt 提交到版本库git commit hello.t">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-29T01:02:31.198Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-init.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-init-2.png">
+<meta property="og:updated_time" content="2019-05-29T01:16:02.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git-command">
-<meta name="twitter:description" content="查看分支 git branch，前面带*号的分支是当前所在分支 创建分支 git branch branch_name切换到某个分支 git checkout branch_name 创建并切换到某个分支 git branch -b branch_name （合并了上面两个命令） 合并分支：比如项目中有master分支、dev 分支，现在要将dev分支合并到master分支，首先要切换到maste">
+<meta name="twitter:description" content="创建版本库创建目录mygitmkdir mygit 进入mygitcd mygit 仓库初始化git init 创建文件touch hello.txt编辑文件vi hello.txt1hello Git 查看状态git status 添加到暂存区git add hello.txt 从暂存区回退到工作区git rm –cached hello.txt 提交到版本库git commit hello.t">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/29/git-command/git-init.png">
 
 
 
@@ -299,11 +302,22 @@
       
 
       
-        <p>查看分支 git branch，前面带*号的分支是当前所在分支</p>
+        <h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4><p>创建目录mygit<br>mkdir mygit</p>
+<p>进入mygit<br>cd mygit</p>
+<p>仓库初始化<br>git init<br><img src="/2019/05/29/git-command/git-init.png" title="Linus git-init"><br><img src="/2019/05/29/git-command/git-init-2.png" title="Linus git-init-2"></p>
+<p>创建文件<br>touch hello.txt<br>编辑文件<br>vi hello.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello Git</span><br></pre></td></tr></table></figure></p>
+<p>查看状态<br>git status</p>
+<p>添加到暂存区<br>git add hello.txt</p>
+<p>从暂存区回退到工作区<br>git rm –cached hello.txt</p>
+<p>提交到版本库<br>git commit hello.txt -m “第一次提交”</p>
+<p>查看提交日志<br>git log</p>
+<p>查看分支 git branch，前面带*号的分支是当前所在分支</p>
 <p>创建分支 git branch branch_name<br>切换到某个分支 git checkout branch_name</p>
 <p>创建并切换到某个分支 git branch -b branch_name （合并了上面两个命令）</p>
 <p>合并分支：比如项目中有master分支、dev 分支，现在要将dev分支合并到master分支，<br>首先要切换到master分支，使用git merge dev 将dev分支合并到master分支。</p>
 <p>合并过程中，如果有Git处理不了的冲突，还需要开发人员手动合并，决定冲突的代码需要保留的部分。</p>
+<p>删除分支：git branch -d branch_name<br>删除分支的时候，不能删除当前所在的分支，需要先切换到别的分支上去。</p>
+<p>git branch -D branch_name 强制删除。</p>
 
       
     </div>
@@ -388,8 +402,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -440,6 +463,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建版本库"><span class="nav-number">1.</span> <span class="nav-text">创建版本库</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
