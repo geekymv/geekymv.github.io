@@ -449,6 +449,7 @@
 <p>此时，hello.txt文件已成功提交，可以看到如下信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit</span><br><span class="line">[master (root-commit) 22b1e7a] commit hello.txt</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 hello.txt</span><br></pre></td></tr></table></figure></p>
 <p>再次，查看工作区状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure></p>
 <p>查看提交日志<br>git log<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit 22b1e7a9e8dc7f3a637d63f23223dd5e5c416c09 (HEAD -&gt; master)</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Wed May 29 16:12:48 2019 +0800</span><br><span class="line"></span><br><span class="line">    commit hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>暂存已修改文件</p>
 
           
         
@@ -569,24 +570,29 @@
         
           
             <h4 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h4><ul>
-<li><p>在Linux上安装<br>首先，你可以尝试输入git，如果没有安装，可能会得到如下提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-bash: git: command not found</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>在Debian/Ubuntu上</p>
+<li>在Linux上安装</li>
+<li><p>Debian / Ubuntu</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在Centos/RedHat上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install git</span><br></pre></td></tr></table></figure>
+<li><p>CentOS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install git</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
+<li><p>Fedora</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install git-core</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Arch Linux</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -Sy git</span><br><span class="line">```    </span><br><span class="line">- Gentoo</span><br><span class="line">```text</span><br><span class="line">$ sudo emerge --ask --verbose dev-vcs/git</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在Mac上安装<br>在Mac上，这里推荐使用Homebrew 安装，具体方法请参考Homebrew 的文档：<a href="http://brew.sh。" target="_blank" rel="noopener">http://brew.sh。</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install git</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在Windows上安装<br>官方版本可以在 Git 官方网站下载，打开 <a href="https://git-scm.com/download/win，下载会自动开始。" target="_blank" rel="noopener">https://git-scm.com/download/win，下载会自动开始。</a><br>要注意这是一个名为 Git for Windows的项目（也叫做 msysGit），和 Git 是分别独立的项目。<br>然后按默认选项安装即可。安装完成后，在开始菜单里找到Git-&gt;Git Bash，弹出一个类似命令行窗口的东西，就说明Git安装成功！</p>
-<img src="/2019/05/27/git-install/git-install-win.png" title="git-install-win">
+<li><p>在Windows上安装<br>官方版本可以在 Git 官方网站（<a href="https://git-scm.com/）下载。" target="_blank" rel="noopener">https://git-scm.com/）下载。</a></p>
+<img src="/2019/05/27/git-install/git-win-download.png" title="git-win-download">
 </li>
 </ul>
+<p>1.点击<code>Download 2.21.0 for Windows</code>下载会自动开始，下载完成得到<code>Git-2.21.0-64-bit.exe</code> 可执行文件，<br>通过浏览器可以得到下载连接类似<code>https://github.com/git-for-windows/git/releases/download/v2.21.0.windows.1/Git-2.21.0-64-bit.exe</code>，<br>实际上是通过GitHub下载的，可能下载的很慢或者下载不了，不过不用担心我已经帮你下好了。</p>
+<p>2.</p>
+<p>要注意这是一个名为 Git for Windows的项目（也叫做 msysGit），和 Git 是分别独立的项目。<br>然后按默认选项安装即可。安装完成后，在开始菜单里找到Git-&gt;Git Bash，弹出一个类似命令行窗口的东西，就说明Git安装成功！<br><img src="/2019/05/27/git-install/git-install-win.png" title="git-install-win"></p>
 <p>使用<code>git --version</code> 命令查看Git版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 1.7.1</span><br></pre></td></tr></table></figure></p>
 <p>查看Git的安装目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ which git</span><br></pre></td></tr></table></figure></p>
 <p>更多安装方法可以参考官网教程<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="noopener">1.5 起步 - 安装 Git</a></p>
@@ -846,7 +852,7 @@
             <p>还记得前段时间的热门话题<a href="https://996.icu" target="_blank" rel="noopener">996.ICU</a>么？<br>作为程序员的你，深恶痛绝996的你，当然要给个star。<br><img src="/2019/05/21/git/996.icu.png" title="996.icu"><br>当你点击star的时候，你会发现网页跳转到了996.ICU在 GitHub的主页，作为程序员的你如果还不知道GitHub是什么真的是有点out了！<br><img src="/2019/05/21/git/996.icu-star.png" title="996.icu.star"><br>GitHub 是什么呢，我们有必要先了解下Git。</p>
 <h4 id="Git-是什么？"><a href="#Git-是什么？" class="headerlink" title="Git 是什么？"></a>Git 是什么？</h4><p>Git 是一款开源免费的分布式版本控制系统。<br>Git 官网 <a href="https://git-scm.com，下面一段话摘自Git" target="_blank" rel="noopener">https://git-scm.com，下面一段话摘自Git</a> 官网：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Git is a free and open source distributed version control system </span><br><span class="line">designed to handle everything from small to very large projects with </span><br><span class="line">speed and efficiency.</span><br></pre></td></tr></table></figure></p>
 <h4 id="Git-的诞生"><a href="#Git-的诞生" class="headerlink" title="Git 的诞生"></a>Git 的诞生</h4><p>1991年，芬兰学生Linus Torvalds 开发出Linux 操作系统内核。为了获得更多人的一些修改建议，Linus 便将内核代码发布到网络上供大家下载。<br>Linux 内核开源项目有着来为数众多的参与者，这么多人都在为Linux 编写代码，<br>那么这些代码是如何管理的呢？早期的时候（1991-2002年），开发者把源代码通过diff的方式发送给Linus，然后由Linus本人通过手工方式合并代码！<br>这导致绝大多数Linux 内核维护的时间都花费在提交补丁和保存归档等非关键性工作上。</p>
-<p>虽然当时已经存在很多商用的版本控制系统（Version Control System），但是与Linux的开源精神不符。<br>同时也是拒绝使用CVS 和 SVN等集中式版本控制系统，因为这些系统对网络要求较高，并且速度较慢。<br>到了2002年，BitMover公司免费提供分布式版本控制系统BitKeeper<br>给Linux社区来管理和维护Linux代码。2005年，由于产生一些矛盾，两者之间的的合作终止，他们回收了Linux 内核社区免费使用BitKeeper 的权力。<br>同年，Linus Torvalds 花了两周时间自己用C开发了一个分布式版本控制系统，这就是Git。（这就是大牛造轮子的速度！）<br>Git 的目标：</p>
+<p>虽然当时已经存在很多商用的版本控制系统（Version Control System），但是与Linux的开源精神不符。<br>同时也是拒绝使用CVS 和 SVN等集中式版本控制系统，因为这些系统对网络要求较高，并且速度较慢。<br>到了2002年，BitMover公司免费提供分布式版本控制系统BitKeeper<br>给Linux社区来管理和维护Linux代码。2005年，由于产生一些矛盾，两者之间的的合作终止，他们回收了Linux 内核社区免费使用BitKeeper 的权限。<br>同年，Linus Torvalds 花了两周时间自己用C开发了一个分布式版本控制系统，这就是Git。（这就是大牛造轮子的速度！）<br>Git 的目标：</p>
 <ul>
 <li>速度</li>
 <li>简单</li>
