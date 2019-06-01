@@ -426,30 +426,43 @@
       
         
           
-            <h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4><p>创建目录mygit<br>mkdir mygit</p>
-<p>进入mygit<br>cd mygit</p>
-<p>仓库初始化<br>git init<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository in E:/develop/source/mygit/.git/</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-init.png" title="git init">
-<p>当执行完<code>git init</code> 命令后，Git Bash 工具上多出了<code>(master)</code>的标识，<br>表示当前是在master分支，这也是 Git 为我们创建的默认分支（后面会详细介绍 Git 分支）。</p>
-<p>使用<code>ls -al</code> 命令查看<code>git init</code> 命令为我们生成了哪些隐藏文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br><span class="line">total 8</span><br><span class="line">drwxr-xr-x 1 Administrator 197121 0 五月 29 14:50 ./</span><br><span class="line">drwxr-xr-x 1 Administrator 197121 0 五月 29 14:50 ../</span><br><span class="line">drwxr-xr-x 1 Administrator 197121 0 五月 29 14:50 .git/</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，mygit 目录下多出了.git 目录，先知道<code>git init</code> 命令为我们生成了.git 目录，后面再分析这个目录下的内容。</p>
-<p>我们现在可以创建一个文件：<br>touch hello.txt<br>编辑文件，添加如下内容<br>vi hello.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello Git</span><br></pre></td></tr></table></figure></p>
-<p>查看工作目录状态<br>git status<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line"></span><br><span class="line">        hello.txt</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure></p>
-<p>在状态报告中可以看到，当前在 master 分支，hello.txt 文件未被跟踪，我们可以使用 <code>git add</code> 命令<br>来实现对指定文件的跟踪。</p>
-<p>开始跟踪hello.txt文件<br>git add hello.txt</p>
-<p>再一次查看状态<br>git status<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        new file:   hello.txt</span><br></pre></td></tr></table></figure></p>
+            <p>配置并初始化一个仓库（repository）<br>开始或听着跟踪（track）文件<br>暂存（stage）或提交（commit）更改<br>配置Git来忽略指定的文件和文件模式<br>撤销错误操作<br>浏览历史版本以及不同提交间的差异<br>向远程仓库推送（push）<br>从远程仓库拉取（pull）文件</p>
+<h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4><p>创建目录mygit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir mygit</span><br></pre></td></tr></table></figure></p>
+<p>进入mygit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd mygit</span><br></pre></td></tr></table></figure></p>
+<p>仓库初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure></p>
+<p>Windows 系统下，通过Git Bash 操作如下：<br><img src="/2019/05/29/git-command/git-init-win.png" title="git init"></p>
+<p>Mac 下，通过 Terminal 操作如下：<br><img src="/2019/05/29/git-command/git-init-mac.png" title="git init"></p>
+<p>当执行完<code>git init</code> 命令后，可以看到控制台多出了<code>(master)</code>的标识，<br>它表示当前是在master分支，这也是 Git 为我们创建的默认分支（后面会详细介绍 Git 分支）。</p>
+<p>使用<code>ls -al</code> 命令查看<code>git init</code> 命令为我们生成了哪些隐藏文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/ls-al-git.png" title="ls-al-git">
+<p>可以看到，mygit 目录下多出了.git 目录，这个子目录包含初始化的 Git 仓库所有必须的文件，<br>比如有我们在上一篇文章中介绍的关于git config –local配置方式中提到的config文件。<br><img src="/2019/05/29/git-command/git-config.png" title="git config"><br>一般我们不会直接修改这个文件，而是通过Git 提供的命令去操作。</p>
+<p>查看工作目录状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-status.png" title="git status">
+<p><code>git status</code> 命令将会成为以后经常会使用的命令，用来查看工作目录的状态，以便决定下一步的操作。</p>
+<p>现在我们可以创建一个文件，然后使用<code>git add</code> 命令来实现对文件对追踪。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ touch hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>编辑文件，添加如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi hello.txt</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello Git</span><br></pre></td></tr></table></figure>
+<p>查看工作目录状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-status-2.png" title="git status">
+<p>在状态报告中可以看到，当前在 master 分支，hello.txt 文件未被跟踪，<br>我们可以使用 <code>git add</code> 命令来实现对文件的跟踪。</p>
+<p>开始跟踪hello.txt文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-add.png" title="git add">
+<p>控制台没有任何信息输出（Linux/Unix系统的设计思想：没有消息就是最好的消息）<br>也可以使用<code>git add .</code> 命令对当前目录下所有文件进行跟踪。</p>
+<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-status-3.png" title="git status">
 <p>可以看到，hello.txt文件已被跟踪，并处于暂存状态，只要在<code>Changes to be committed:</code>这行下面的，就说明是已暂存状态。<br>对于已暂存的文件，我们可以将hello.txt文件从暂存区回退到工作区，也可以提交hello.txt文件。</p>
-<p>这里我们先演示从暂存区回退到工作区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git rm --cached hello.txt</span><br><span class="line">rm &apos;hello.txt&apos;</span><br></pre></td></tr></table></figure></p>
-<p>再次查看状态，发现和刚创建完文件时一样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line"></span><br><span class="line">        hello.txt</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure></p>
+<p>这里我们先演示从暂存区回退到工作区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm --cached hello.txt</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-rm-cached.png" title="git rm --cached">
+<p>查看状态，发现和刚创建完文件时一样。</p>
 <p>接下来，我们重新将hello.txt 文件添加到暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
 <p>提交到版本库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-commit.png" title="git commit">
-<p>输入<code>git commit</code>直接回车，默认会调用本机文本编辑器，需要输入提交信息，我们输入commit hello.txt<br>信息，保存，关闭文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">commit hello.txt</span><br><span class="line"># Please enter the commit message for your changes. Lines starting</span><br><span class="line"># with &apos;#&apos; will be ignored, and an empty message aborts the commit.</span><br><span class="line">#</span><br><span class="line"># On branch master</span><br><span class="line">#</span><br><span class="line"># Initial commit</span><br><span class="line">#</span><br><span class="line"># Changes to be committed:</span><br><span class="line">#	new file:   hello.txt</span><br><span class="line">#</span><br></pre></td></tr></table></figure>
-<p>此时，hello.txt文件已成功提交，可以看到如下信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit</span><br><span class="line">[master (root-commit) 22b1e7a] commit hello.txt</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>输入<code>git commit</code>直接回车，默认会调用本机文本编辑器，需要输入提交信息，我们输入commit hello.txt信息，保存，关闭文件。</p>
+<p>Windows 系统下，通过Git Bash 操作如下：<br><img src="/2019/05/29/git-command/git-commit-win.png" title="git commit"></p>
+<p>Mac 下，通过 Terminal 操作如下：<br><img src="/2019/05/29/git-command/git-commit-mac.png" title="git commit"></p>
+<p>此时，hello.txt文件已成功提交，可以看到如下信息：<br><img src="/2019/05/29/git-command/git-commit.png" title="git commit"></p>
 <p>再次，查看工作区状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure></p>
-<p>查看提交日志<br>git log<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit 22b1e7a9e8dc7f3a637d63f23223dd5e5c416c09 (HEAD -&gt; master)</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Wed May 29 16:12:48 2019 +0800</span><br><span class="line"></span><br><span class="line">    commit hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>暂存已修改文件</p>
+<p>查看提交日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-log.png" title="git log">
 
           
         
@@ -586,32 +599,33 @@
 <li><p>Gentoo</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo emerge --ask --verbose dev-vcs/git</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在Mac上安装<br>在Mac上，这里推荐使用Homebrew 安装，具体方法请参考Homebrew 的文档：<a href="http://brew.sh。" target="_blank" rel="noopener">http://brew.sh。</a></p>
+<li><p>在Mac OS X 上安装<br>在Mac上，这里推荐使用Homebrew 安装，具体方法请参考Homebrew 的文档：<a href="http://brew.sh。" target="_blank" rel="noopener">http://brew.sh。</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install git</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在Windows上安装<br>官方版本可以在 Git 官方网站（<a href="https://git-scm.com/）下载。" target="_blank" rel="noopener">https://git-scm.com/）下载。</a></p>
 <img src="/2019/05/27/git-install/git-win-download.png" title="git-win-download">
 </li>
 </ul>
-<p>1.点击<code>Download 2.21.0 for Windows</code>下载会自动开始，下载完成得到<code>Git-2.21.0-64-bit.exe</code> 可执行文件，<br>通过浏览器可以得到下载连接类似<code>https://github.com/git-for-windows/git/releases/download/v2.21.0.windows.1/Git-2.21.0-64-bit.exe</code>，<br>实际上是通过GitHub下载的，可能下载的很慢或者下载不了，不过不用担心我已经帮你下好了（通过公众号回复关键字”Git安装包”获取）。</p>
+<p>1.点击<code>Download 2.21.0 for Windows</code>下载会自动开始，下载完成得到<code>Git-2.21.0-64-bit.exe</code> 可执行文件，<br>可能下载的很慢或者下载不了，不过不用担心我已经帮你下好了（通过公众号回复关键字”Git安装包”获取）。</p>
 <p>2.然后按默认选项安装即可。安装完成后，在开始菜单里找到Git-&gt;Git Bash，弹出一个类似命令行窗口，就说明Git安装成功！<br><img src="/2019/05/27/git-install/git-install-win-13.png" title="git-install-win"></p>
 <p>使用<code>git --version</code> 命令查看Git版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 2.21.0.windows.1</span><br></pre></td></tr></table></figure></p>
-<p>查看Git的安装目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ which git</span><br></pre></td></tr></table></figure></p>
-<p>更多安装方法可以参考官网教程<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="noopener">1.5 起步 - 安装 Git</a></p>
-<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>对于user.name user.email 有三个地方可以配置<br>Git自带一个 git config 的工具，专门用来配置或读取相应的工作环境变量。这些变量可以存储在三个不同的位置：</p>
+<p>查看Git的安装目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ which git</span><br><span class="line">/mingw64/bin/git</span><br></pre></td></tr></table></figure></p>
+<p>更多安装方法可以参考官网教程（<a href="https://git-scm.com/book/zh/v2/起步-安装-Git）" target="_blank" rel="noopener">https://git-scm.com/book/zh/v2/起步-安装-Git）</a></p>
+<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>Git自带一个 git config 的工具，专门用来配置或读取相应的工作环境变量。这些变量可以存储在三个不同的位置：</p>
 <ul>
 <li>/etc/gitconfig 文件：包含系统上每一个用户及他们仓库的通用配置，使用 git config –system 配置；（几乎不会使用）</li>
 <li>~/.gitconfig 文件：只针对当前用户，使用 git config –global 配置；（最常用的方式）</li>
 <li>针对于特定项目的.git/config 文件中，使用 git config –local 配置；（可以在不同的项目使用不同的配置）</li>
 </ul>
-<p>使用git config 命令可以查看相关配置，</p>
-<h4 id="下面演示git-config-–local"><a href="#下面演示git-config-–local" class="headerlink" title="下面演示git config –local"></a>下面演示git config –local</h4><p>进入mygit项目的.git目录下</p>
-<p>查看配置<br>cat config</p>
-<p>设置user.name<br>git config –local user.name ‘yingmi’</p>
-<p>查看user.name配置值<br>git config user.name</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  .git git:(master) cat config </span><br><span class="line">[core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = true</span><br><span class="line">	bare = false</span><br><span class="line">	logallrefupdates = true</span><br><span class="line">	ignorecase = true</span><br><span class="line">	precomposeunicode = true</span><br><span class="line">➜  .git git:(master) git config --local user.name &apos;yingmi&apos;</span><br><span class="line">➜  .git git:(master) cat config                           </span><br><span class="line">[core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = true</span><br><span class="line">	bare = false</span><br><span class="line">	logallrefupdates = true</span><br><span class="line">	ignorecase = true</span><br><span class="line">	precomposeunicode = true</span><br><span class="line">[user]</span><br><span class="line">	name = yingmi</span><br><span class="line">➜  .git git:(master)</span><br></pre></td></tr></table></figure>
-<p>设置user.email<br>git config –local user.email <a href="mailto:&#39;yingmi@qq.com" target="_blank" rel="noopener">&#39;yingmi@qq.com</a>‘</p>
 <p>优先级：local &gt; global &gt; system</p>
+<p>设置user.name 和 user.email<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &apos;geekymv&apos;</span><br><span class="line">$ git config --global user.email &apos;ym2011678@foxmail.com&apos;</span><br></pre></td></tr></table></figure></p>
+<p>查看user.name配置值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.name</span><br></pre></td></tr></table></figure></p>
+<p>查看user.email配置值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.email</span><br></pre></td></tr></table></figure></p>
+<p>查看所有配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list</span><br></pre></td></tr></table></figure></p>
+<h4 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h4><p>若你使用 Git 时需要获取帮助，有三种方法可以找到 Git 命令的使用手册：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git help &lt;verb&gt;</span><br><span class="line">$ git &lt;verb&gt; --help</span><br><span class="line">$ man git-&lt;verb&gt;</span><br></pre></td></tr></table></figure></p>
+<p>例如，要想获得 config 命令的手册，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git help config</span><br></pre></td></tr></table></figure></p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>本文主要介绍了Git 在Linux、Mac OS X 和 Windows 系统上的安装方法，Git 配置及如何获取 Git 命令的使用手册，下一篇文章会介绍 Git仓库和 Git基本命令的使用。</p>
+<p>「更多精彩内容请关注公众号geekymv，喜欢请分享给更多的朋友哦」</p>
 
           
         
@@ -1731,6 +1745,7 @@
 <p>双亲委托机制（父亲委托机制）<br>在父亲委托机制中，各个类加载器按照父子关系形成了树形结构（逻辑意义上的树形结构），<br>除了根类加载器，其余的类加载器有且只有一个父加载器。</p>
 <p>通俗的说，就是一个类加载器自己要加载类，但是自己不去加载而是让自己的父类加载器尝试去加载，直到根类加载器，<br>然后由根类加载器尝试去加载，如果根类加载加载不了，则让子类加载器去加载，直到加载成功或者加载失败。</p>
 <p>自底向上检查类是否已经加载，自顶向下尝试加载类。</p>
+<h4 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h4><p>每个类加载器都有自己的命名空间，命名空间由该加载器及所有父加载器所加载的类组成。<br>在同一个命名空间中，不会出现类的完整名字（包括类的包名）相同的两个类。<br>在不同的命名空间中，有可能会出现类的完整名字（包括类的包名）相同的两个类。</p>
 <h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p>监控工具使用<br>jconsole<br>jvisualvm<br>jmap<br>jstack</p>
 <p>锁<br>线程安全<br>偏向锁、自旋锁与轻量级锁</p>
 <p>逃逸分析<br>内存模型</p>
