@@ -102,7 +102,13 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-status-4.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-checkout.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-add-2.png">
-<meta property="og:updated_time" content="2019-06-01T08:24:37.502Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-rm-1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-rm.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-mv.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-reset.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-reset-2.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/git-command/git-checkout-2.png">
+<meta property="og:updated_time" content="2019-06-05T13:25:40.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git-command">
 <meta name="twitter:description" content="配置并初始化一个仓库（repository）开始或听着跟踪（track）文件暂存（stage）或提交（commit）更改配置Git来忽略指定的文件和文件模式撤销错误操作浏览历史版本以及不同提交间的差异向远程仓库推送（push）从远程仓库拉取（pull）文件 创建版本库创建目录mygit1$ mkdir mygit 进入mygit1$ cd mygit 仓库初始化1$ git init Window">
@@ -370,7 +376,49 @@
 <p>可以看到hello.txt文件中添加的一行文本（hello Java）被撤销。</p>
 <p>我们按照上面的方式再修改hello.txt文件，演示将修改添加到暂存取的功能<br>运行<code>git add</code> 命令将已修改的hello.txt 文件放到暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
 <img src="/2019/05/29/git-command/git-add-2.png" title="git add">
-<p>通过<code>git status</code> 可以看到hello.txt文件的修改已暂存。ß</p>
+<p>通过<code>git status</code> 可以看到hello.txt文件的修改已暂存。</p>
+<h4 id="状态简览"><a href="#状态简览" class="headerlink" title="状态简览"></a>状态简览</h4><p><code>git status</code> 命令的输出十分详细，使用 <code>git status -s</code> 或 <code>git status --short</code> 命令可以得到更为紧凑的格式输出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status -s</span><br></pre></td></tr></table></figure></p>
+<p>新添加的未跟踪文件前面有 ?? 标记</p>
+<p>新添加到暂存区的文件前面有 A 标记</p>
+<p>修改过的文件前面有 M 标记，注意M有两个可以出现的位置，<br>出现在右边的M表示该文件被修改了但还没有放到暂存区，出现在左边的 M 表示该文件被修改并放入了暂存区。</p>
+<h4 id="查看已暂存和未暂存的修改"><a href="#查看已暂存和未暂存的修改" class="headerlink" title="查看已暂存和未暂存的修改"></a>查看已暂存和未暂存的修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+<p>git diff 不加任何参数比较工作目录中的当前文件和暂存区之间的差异<br>git diff HEAD 比较工作区与最新本地版本库<br>git diff commit-id 比较工作区与指定 commit-id 之间的差异</p>
+<p>git diff –cached 比较暂存区与最新本地版本库<br>git diff –cached commit-id 比较暂存区与指定commit-id 之间差异</p>
+<h4 id="提交时跳过使用暂存区"><a href="#提交时跳过使用暂存区" class="headerlink" title="提交时跳过使用暂存区"></a>提交时跳过使用暂存区</h4><p>git commit 使用暂存区可以精心准备要提交的内容，但有时候这么做略显繁琐。Git提供了一个跳过使用暂存区的方式，<br>在提交的时候给git commit 加上-a 选项，Git会自动把所有已跟踪过的文件暂存起来一并提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am &apos;提交说明&apos;</span><br></pre></td></tr></table></figure></p>
+<h4 id="移除文件"><a href="#移除文件" class="headerlink" title="移除文件"></a>移除文件</h4><p>要从Git中移除某个文件，就必须要从已跟踪文件清单中移除，然后提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm hello.txt</span><br><span class="line">git commit -m &apos;提交说明&apos;</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-rm-1.png" title="git rm">
+<p>大部分情况下，我们会直接在文件管理器中把文件删除了或者使用rm 命令删除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm hello.txt</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<img src="/2019/05/29/git-command/git-rm.png" title="git rm">
+<p>有两个选择:<br>1.确实要从版本库中删除该文件，就用git rm 记录此次删除文件的操作，并用git commit。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm hello.txt</span><br><span class="line">git commit -m &apos;提交说明&apos;</span><br></pre></td></tr></table></figure></p>
+<p>现在文件就从版本库中删除了。</p>
+<p>2.删错了，把误删的文件恢复到最新版本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>用版本库里的版本替换工作区的版本，可能会丢失最近一次提交后你修改的内容。</p>
+<p>想把文件从Git仓库中删除，但是仍希望保留到当前工作目录中，<br>git rm –cached hello.txt</p>
+<h4 id="重命名文件"><a href="#重命名文件" class="headerlink" title="重命名文件"></a>重命名文件</h4><p>在我们日常开发中，可能会出现修改文件名的情况，比如觉得某个类的名字取的不能够见名知义，想要修改。<br>要在Git 中对文件重命名，可以使用<code>git mv</code> 命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git mv file_from file_to</span><br></pre></td></tr></table></figure></p>
+<p>比如，我们将文件 hello.txt 改名为hello2.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git mv hello.txt hello2.txt</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-mv.png" title="git mv">
+<p>查看状态信息，可以看到 Git 能够识别到我们对文件执行了重命名操作，并且已是暂存状态。<br>运行git mv 相当与运行了下面三条命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mv hello.txt hello2.txt</span><br><span class="line">$ git rm hello.txt</span><br><span class="line">$ git add hello2.txt</span><br></pre></td></tr></table></figure></p>
+<p>重命名已完成，这个时候我们可以提交修改 <code>git commit -m &quot;重命名文件&quot;</code>。<br>或者误操作了这个文件，想要回退。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD hello2.txt</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-reset.png" title="git reset">
+<p>这样hello2.txt 文件处于未跟踪状态了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD hello.txt</span><br></pre></td></tr></table></figure>
+<img src="/2019/05/29/git-command/git-reset-2.png" title="git reset">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- hello.txt</span><br><span class="line">$ rm hello2.txt</span><br></pre></td></tr></table></figure>
+<img src="/2019/05/29/git-command/git-checkout-2.png" title="git checkout">
+<h4 id="文件撤销"><a href="#文件撤销" class="headerlink" title="文件撤销"></a>文件撤销</h4><p>修改最近一次提交说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -amend</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>撤销工作区文件的修改<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- hello.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果hello.txt 修改后，还没有添加到暂存区，现在执行撤销操作，则回到和版本库一样的状态。<br>如果hello.txt 已经添加到暂存区，又做了修改，现在执行了撤销操作，撤销的是工作目录的修改，则回到和暂存区一样的状态。<br>当然如果是一个新的文件还没有添加到暂存区，也就没有Git撤销操作了。<br>总之，就是让这个文件回到最近一次git commit或git add时的状态。</p>
+<p>撤销暂存区与工作目录中已修改的文件</p>
+<ul>
+<li>撤销暂存区<br>修改了hello.txt文件<br>使用git add . 将修改后的文件添加到暂存区<br>使用git status 查看当前工作区状态<br>git reset HEAD hello.txt 将文件从暂存区回退到工作区<br>git checkout – hello.txt</li>
+</ul>
+<h4 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h4><p>git log</p>
+<p>git reset –hard HEAD^<br>git reset –hard~2<br>git reset –hard commit-id</p>
+<p>git reflog</p>
 
       
     </div>
@@ -530,7 +578,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建版本库"><span class="nav-number">1.</span> <span class="nav-text">创建版本库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暂存修改的文件"><span class="nav-number">2.</span> <span class="nav-text">暂存修改的文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建版本库"><span class="nav-number">1.</span> <span class="nav-text">创建版本库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暂存修改的文件"><span class="nav-number">2.</span> <span class="nav-text">暂存修改的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态简览"><span class="nav-number">3.</span> <span class="nav-text">状态简览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看已暂存和未暂存的修改"><span class="nav-number">4.</span> <span class="nav-text">查看已暂存和未暂存的修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提交时跳过使用暂存区"><span class="nav-number">5.</span> <span class="nav-text">提交时跳过使用暂存区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除文件"><span class="nav-number">6.</span> <span class="nav-text">移除文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重命名文件"><span class="nav-number">7.</span> <span class="nav-text">重命名文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件撤销"><span class="nav-number">8.</span> <span class="nav-text">文件撤销</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#版本回退"><span class="nav-number">9.</span> <span class="nav-text">版本回退</span></a></li></ol></div>
             
 
           </div>
