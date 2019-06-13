@@ -229,6 +229,312 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/elastic-search/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/elastic-search/" itemprop="url">elastic-search</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-16T19:41:13+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>全文检索<br>Apache Lucene 提供一个全文检索的功能库。<br>文档(document)：索引和搜索时使用的主要数据载体，包含一个或对个存有数据的字段(field)。<br>字段(field)：文档的一部分，包含名称和值两部分。<br>词(term)：一个搜索单元，表示文本中的一个词。<br>标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。<br>Apache Lucene 将所有信息写到一个称为倒排索引(inverted index)的结构中，倒排索引建立索引中词和文档之间的映射。</p>
+<p><a href="https://www.elastic.co/downloads/elasticsearch" target="_blank" rel="noopener">elasticsearch官网</a><br>主要概念：</p>
+<ul>
+<li>索引(index)<br>索引(index)是ElasticSearch对逻辑数据的逻辑存储，可以把索引看成关系型数据库的数据库。ElasticSearch 可以把索引放在一台机器或者分散在多台机器上，每个索引有一个或多个分片(shard)，每个分片可以有多个副本(replica)。<br>-文档类型(type)<br>在ElasticSearch中，一个索引对象可以存储很多不同用途的对象。文档类型(type)可以让我们轻易区分单个索引中的不同对象。<br>每个文档可以有不同的结构，<br>-文档(document)</li>
+</ul>
+<p>下载最新版本 wget <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.tar.gz" target="_blank" rel="noopener">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.tar.gz</a><br>解压修改config下的elasticsearch.yml配置文件，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"># ======================== Elasticsearch Configuration =========================</span><br><span class="line">#</span><br><span class="line"># NOTE: Elasticsearch comes with reasonable defaults for most settings.</span><br><span class="line">#       Before you set out to tweak and tune the configuration, make sure you</span><br><span class="line">#       understand what are you trying to accomplish and the consequences.</span><br><span class="line">#</span><br><span class="line"># The primary way of configuring a node is via this file. This template lists</span><br><span class="line"># the most important settings you may want to configure for a production cluster.</span><br><span class="line">#</span><br><span class="line"># Please consult the documentation for further information on configuration options:</span><br><span class="line"># https://www.elastic.co/guide/en/elasticsearch/reference/index.html</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Cluster -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Use a descriptive name for your cluster:</span><br><span class="line">#</span><br><span class="line">cluster.name: cluster-test</span><br><span class="line">#</span><br><span class="line"># ------------------------------------ Node ------------------------------------</span><br><span class="line">#</span><br><span class="line"># Use a descriptive name for the node:</span><br><span class="line">#</span><br><span class="line">node.name: node01</span><br><span class="line">#</span><br><span class="line"># Add custom attributes to the node:</span><br><span class="line">#</span><br><span class="line">#node.attr.rack: r1</span><br><span class="line">#</span><br><span class="line"># ----------------------------------- Paths ------------------------------------</span><br><span class="line">#</span><br><span class="line"># Path to directory where to store the data (separate multiple locations by comma):</span><br><span class="line">#</span><br><span class="line">path.data: /opt/data/es6/data</span><br><span class="line">#</span><br><span class="line"># Path to log files:</span><br><span class="line">#</span><br><span class="line">path.logs: /opt/data/es6/logs</span><br><span class="line">#</span><br><span class="line"># ----------------------------------- Memory -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Lock the memory on startup:</span><br><span class="line">#</span><br><span class="line">bootstrap.memory_lock: false</span><br><span class="line">bootstrap.system_call_filter: false</span><br><span class="line"># Make sure that the heap size is set to about half the memory available</span><br><span class="line"># on the system and that the owner of the process is allowed to use this</span><br><span class="line"># limit.</span><br><span class="line">#</span><br><span class="line"># Elasticsearch performs poorly when the system is swapping the memory.</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Network -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Set the bind address to a specific IP (IPv4 or IPv6):</span><br><span class="line">#</span><br><span class="line">network.host: 192.168.159.100</span><br><span class="line">#</span><br><span class="line"># Set a custom port for HTTP:</span><br><span class="line">#</span><br><span class="line">http.port: 9200</span><br><span class="line">#</span><br><span class="line"># For more information, consult the network module documentation.</span><br><span class="line">#</span><br><span class="line"># --------------------------------- Discovery ----------------------------------</span><br><span class="line">#</span><br><span class="line"># Pass an initial list of hosts to perform discovery when new node is started:</span><br><span class="line"># The default list of hosts is [&quot;127.0.0.1&quot;, &quot;[::1]&quot;]</span><br><span class="line">#</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;node01&quot;]</span><br><span class="line">#</span><br><span class="line"># Prevent the &quot;split brain&quot; by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):</span><br><span class="line">#</span><br><span class="line">#discovery.zen.minimum_master_nodes: </span><br><span class="line">#</span><br><span class="line"># For more information, consult the zen discovery module documentation.</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Gateway -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Block initial recovery after a full cluster restart until N nodes are started:</span><br><span class="line">#</span><br><span class="line">#gateway.recover_after_nodes: 3</span><br><span class="line">#</span><br><span class="line"># For more information, consult the gateway module documentation.</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Various -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Require explicit names when deleting indices:</span><br><span class="line">#</span><br><span class="line">#action.destructive_requires_name: true</span><br></pre></td></tr></table></figure></p>
+<p>不能使用root用户启动！！！这里使用新创建的geekymv用户启动。<br>添加用户组<br>groupadd geekymv<br>添加用户<br>useradd geekymv<br>修改用户所属组<br>usermod -g geekymv geekymv<br>设置密码<br>passwd geekymv</p>
+<p>[geekymv@node01 elasticsearch-6.5.4]$ bin/elasticsearch<br>[2019-01-16T21:43:43,227][WARN ][o.e.b.JNANatives         ] [node01] unable to install syscall filter:<br>java.lang.UnsupportedOperationException: seccomp unavailable: requires kernel 3.5+ with CONFIG_SECCOMP and CONFIG_SECCOMP_FILTER compiled in<br>    at org.elasticsearch.bootstrap.SystemCallFilter.linuxImpl(SystemCallFilter.java:328) ~[elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.SystemCallFilter.init(SystemCallFilter.java:616) ~[elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.JNANatives.tryInstallSystemCallFilter(JNANatives.java:258) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Natives.tryInstallSystemCallFilter(Natives.java:113) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Bootstrap.initializeNatives(Bootstrap.java:108) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:170) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:333) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:86) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) [elasticsearch-cli-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.cli.Command.main(Command.java:90) [elasticsearch-cli-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:93) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:86) [elasticsearch-6.5.4.jar:6.5.4]</p>
+<p>原因:  因为Centos6不支持SecComp,而ES默认bootstrap.system_call_filter为true进行检测,所以导致检测失败,失败后直接导致ES不能启动解决:<br>修改elasticsearch.yml 添加一下内容 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bootstrap.memory_lock: false</span><br><span class="line">bootstrap.system_call_filter: false</span><br></pre></td></tr></table></figure></p>
+<p>[geekymv@node01 elasticsearch-6.5.4]$ bin/elasticsearch<br>ERROR: [3] bootstrap checks failed<br>[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]<br>[2]: max number of threads [1024] for user [geekymv] is too low, increase to at least [4096]<br>[3]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</p>
+<p>[1]每个进程最大同时打开文件数太小，可通过下面2个命令查看当前数量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ulimit -Hn</span><br><span class="line">ulimit -Sn</span><br></pre></td></tr></table></figure></p>
+<p>修改/etc/security/limits.conf文件，增加配置，用户退出后重新登录生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*               soft    nofile          65536</span><br><span class="line">*               hard    nofile          65536</span><br></pre></td></tr></table></figure></p>
+<p>[2]原因：无法创建本地线程问题,用户最大可创建线程数太小<br>解决方案：切换到root用户，进入limits.d目录下，修改90-nproc.conf 配置文件，用户退出后重新登录生效<br>vim /etc/security/limits.d/90-nproc.conf<br>找到如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*          soft    nproc     1024</span><br><span class="line">#修改为</span><br><span class="line">*          soft    nproc     4096</span><br></pre></td></tr></table></figure></p>
+<p>[3]修改/etc/sysctl.conf文件，增加配置vm.max_map_count = 262144<br>执行命令sysctl -p生效<br>执行sysctl -p 可能会出现如下错误<br>[geekymv@node01 elasticsearch-6.5.4]$ sudo sysctl -p<br>net.ipv4.ip_forward = 0<br>net.ipv4.conf.default.rp_filter = 1<br>net.ipv4.conf.default.accept_source_route = 0<br>kernel.sysrq = 0<br>kernel.core_uses_pid = 1<br>net.ipv4.tcp_syncookies = 1<br>error: “net.bridge.bridge-nf-call-ip6tables” is an unknown key<br>error: “net.bridge.bridge-nf-call-iptables” is an unknown key<br>error: “net.bridge.bridge-nf-call-arptables” is an unknown key<br>kernel.msgmnb = 65536<br>kernel.msgmax = 65536<br>kernel.shmmax = 68719476736<br>kernel.shmall = 4294967296<br>vm.max_map_count = 262144</p>
+<p>解决方法如下：<br>sudo modprobe bridge<br>sudo lsmod|grep bridge</p>
+<p>再次启动，还会报错<br>[1]: max number of threads [3648] for user [geekymv] is too low, increase to at least [4096]<br>问题同上，最大线程个数太低。修改配置文件/etc/security/limits.conf，增加配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*               soft    nproc           4096</span><br><span class="line">*               hard    nproc           4096</span><br></pre></td></tr></table></figure></p>
+<p>再次启动，出现如下信息 initialized starting … started，启动成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[2019-01-16T22:25:42,839][INFO ][o.e.d.DiscoveryModule    ] [node01] using discovery type [zen] and host providers [settings]</span><br><span class="line">[2019-01-16T22:25:44,604][INFO ][o.e.n.Node               ] [node01] initialized</span><br><span class="line">[2019-01-16T22:25:44,604][INFO ][o.e.n.Node               ] [node01] starting ...</span><br><span class="line">[2019-01-16T22:25:44,879][INFO ][o.e.t.TransportService   ] [node01] publish_address &#123;192.168.159.100:9300&#125;, bound_addresses &#123;192.168.159.100:9300&#125;</span><br><span class="line">[2019-01-16T22:25:44,929][INFO ][o.e.b.BootstrapChecks    ] [node01] bound or publishing to a non-loopback address, enforcing bootstrap checks</span><br><span class="line">[2019-01-16T22:25:48,111][INFO ][o.e.c.s.MasterService    ] [node01] zen-disco-elected-as-master ([0] nodes joined), reason: new_master &#123;node01&#125;&#123;DKqcLHpASO28VhrZ1T4RvA&#125;&#123;wgVtKL0LQVOI7JDXbW6AEw&#125;&#123;192.168.159.100&#125;&#123;192.168.159.100:9300&#125;&#123;ml.machine_memory=1028517888, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true&#125;</span><br><span class="line">[2019-01-16T22:25:48,127][INFO ][o.e.c.s.ClusterApplierService] [node01] new_master &#123;node01&#125;&#123;DKqcLHpASO28VhrZ1T4RvA&#125;&#123;wgVtKL0LQVOI7JDXbW6AEw&#125;&#123;192.168.159.100&#125;&#123;192.168.159.100:9300&#125;&#123;ml.machine_memory=1028517888, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true&#125;, reason: apply cluster state (from master [master &#123;node01&#125;&#123;DKqcLHpASO28VhrZ1T4RvA&#125;&#123;wgVtKL0LQVOI7JDXbW6AEw&#125;&#123;192.168.159.100&#125;&#123;192.168.159.100:9300&#125;&#123;ml.machine_memory=1028517888, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true&#125; committed version [1] source [zen-disco-elected-as-master ([0] nodes joined)]])</span><br><span class="line">[2019-01-16T22:25:48,205][INFO ][o.e.x.s.t.n.SecurityNetty4HttpServerTransport] [node01] publish_address &#123;192.168.159.100:9200&#125;, bound_addresses &#123;192.168.159.100:9200&#125;</span><br><span class="line">[2019-01-16T22:25:48,205][INFO ][o.e.n.Node               ] [node01] started</span><br><span class="line">[2019-01-16T22:25:48,796][WARN ][o.e.x.s.a.s.m.NativeRoleMappingStore] [node01] Failed to clear cache for realms [[]]</span><br><span class="line">[2019-01-16T22:25:48,900][INFO ][o.e.l.LicenseService     ] [node01] license [99f22616-a6ed-4752-a9b2-815519f492e1] mode [basic] - valid</span><br><span class="line">[2019-01-16T22:25:48,938][INFO ][o.e.g.GatewayService     ] [node01] recovered [0] indices into cluster_state</span><br></pre></td></tr></table></figure></p>
+<p>通过浏览器访问<a href="http://node01:9200/，可以看到类似如下内容" target="_blank" rel="noopener">http://node01:9200/，可以看到类似如下内容</a><br>{<br>    name: “node01”,<br>    cluster_name: “cluster-test”,<br>    cluster_uuid: “X38Sd_gCRuykzB7o-w0Juw”,<br>    version: {<br>        number: “6.5.4”,<br>        build_flavor: “default”,<br>        build_type: “tar”,<br>        build_hash: “d2ef93d”,<br>        build_date: “2018-12-17T21:17:40.758843Z”,<br>        build_snapshot: false,<br>        lucene_version: “7.5.0”,<br>        minimum_wire_compatibility_version: “5.6.0”,<br>        minimum_index_compatibility_version: “5.0.0”<br>    },<br>    tagline: “You Know, for Search”<br>}</p>
+<p>后台启动es：<br>bin/elasticsearch -d</p>
+<p>使用jps查看进程<br>[geekymv@node01 elasticsearch-6.5.4]$ jps<br>2992 Elasticsearch<br>3100 Jps</p>
+<p>新建文档<br>指定标识符，使用PUT<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT -H&quot;content-type:application/json&quot;  http://node03:9200/blog/article/1 -d &apos;&#123;&quot;title&quot;:&quot;ElasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
+<p>自动创建标识符，使用POST<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST -H&quot;content-type:application/json&quot;  http://node03:9200/blog/article/ -d &apos;&#123;&quot;title&quot;:&quot;lasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
+<p>检索文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://node03:9200/blog/article/1?pretty</span><br></pre></td></tr></table></figure></p>
+<p>更新文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST -H&quot;content-type:application/json&quot; http://node03:9200/blog/article/1/_update -d &apos;&#123;&quot;script&quot;:&quot;ctx._source.content=\&quot;new content\&quot;&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>删除文档<br>curl -XDELETE <a href="http://node03:9200/blog/article/1?pretty" target="_blank" rel="noopener">http://node03:9200/blog/article/1?pretty</a></p>
+<p>ElasticSearch 版本控制<br>使用乐观锁</p>
+<p>搜索，指定查询结果窗口<br>from 指定结果从哪个记录开始返回，默认值0。<br>size 指定返回结果的最大数量，默认值10。<br>curl -XGET ‘<a href="http://node03:9200/_search?pretty&amp;size=2&#39;" target="_blank" rel="noopener">http://node03:9200/_search?pretty&amp;size=2&#39;</a></p>
+<p>分词器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST -H&quot;content-type:application/json&quot; http://node02:9200/blog/_analyze?pretty -d &apos;&#123;&quot;text&quot;:&quot;Elasticsearch Server&quot;&#125;&apos;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;tokens&quot; : [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot; : &quot;elasticsearch&quot;,</span><br><span class="line">      &quot;start_offset&quot; : 0,</span><br><span class="line">      &quot;end_offset&quot; : 13,</span><br><span class="line">      &quot;type&quot; : &quot;&lt;ALPHANUM&gt;&quot;,</span><br><span class="line">      &quot;position&quot; : 0</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot; : &quot;server&quot;,</span><br><span class="line">      &quot;start_offset&quot; : 14,</span><br><span class="line">      &quot;end_offset&quot; : 20,</span><br><span class="line">      &quot;type&quot; : &quot;&lt;ALPHANUM&gt;&quot;,</span><br><span class="line">      &quot;position&quot; : 1</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ES文章：<a href="https://blog.csdn.net/laoyang360/article/details/79293493" target="_blank" rel="noopener">https://blog.csdn.net/laoyang360/article/details/79293493</a><br>elasticsearch启动常见错误：<a href="https://www.cnblogs.com/zhi-leaf/p/8484337.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhi-leaf/p/8484337.html</a><br>集群部署：<a href="https://www.jianshu.com/p/2e3e4334b036" target="_blank" rel="noopener">https://www.jianshu.com/p/2e3e4334b036</a><br>ES专栏：<a href="https://blog.csdn.net/chengyuqiang/column/info/18392/3" target="_blank" rel="noopener">https://blog.csdn.net/chengyuqiang/column/info/18392/3</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/java-interview/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/15/java-interview/" itemprop="url">java-interview</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-15T18:30:48+08:00">
+                2019-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>大神博客<br><a href="https://www.hollischuang.com/list" target="_blank" rel="noopener">Hollis</a><br><a href="https://www.52pojie.cn/" target="_blank" rel="noopener">吾爱破解</a></p>
+<p><a href="https://www.w3cschool.cn/u/56375" target="_blank" rel="noopener">https://www.w3cschool.cn/u/56375</a></p>
+<p>线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景</p>
+<p>分布式下redis如何保证线程安全<br>redis持久化方式及区别</p>
+<p>zookeeper 如何实现分布式锁，其他分布式锁怎么实现<br>dubbo中的zookeeper是做什么的</p>
+<p>kafka 的架构，如何用kafka保证消息的有序性</p>
+<p>Cloneable接口实现原理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package java.lang;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * A class implements the &lt;code&gt;Cloneable&lt;/code&gt; interface to</span><br><span class="line"> * indicate to the &#123;@link java.lang.Object#clone()&#125; method that it</span><br><span class="line"> * is legal for that method to make a</span><br><span class="line"> * field-for-field copy of instances of that class.</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * Invoking Object&apos;s clone method on an instance that does not implement the</span><br><span class="line"> * &lt;code&gt;Cloneable&lt;/code&gt; interface results in the exception</span><br><span class="line"> * &lt;code&gt;CloneNotSupportedException&lt;/code&gt; being thrown.</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * By convention, classes that implement this interface should override</span><br><span class="line"> * &lt;tt&gt;Object.clone&lt;/tt&gt; (which is protected) with a public method.</span><br><span class="line"> * See &#123;@link java.lang.Object#clone()&#125; for details on overriding this</span><br><span class="line"> * method.</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * Note that this interface does &lt;i&gt;not&lt;/i&gt; contain the &lt;tt&gt;clone&lt;/tt&gt; method.</span><br><span class="line"> * Therefore, it is not possible to clone an object merely by virtue of the</span><br><span class="line"> * fact that it implements this interface.  Even if the clone method is invoked</span><br><span class="line"> * reflectively, there is no guarantee that it will succeed.</span><br><span class="line"> *</span><br><span class="line"> * @author  unascribed</span><br><span class="line"> * @see     java.lang.CloneNotSupportedException</span><br><span class="line"> * @see     java.lang.Object#clone()</span><br><span class="line"> * @since   JDK1.0</span><br><span class="line"> */</span><br><span class="line">public interface Cloneable &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.cnblogs.com/xrq730/p/4858937.html" target="_blank" rel="noopener">https://www.cnblogs.com/xrq730/p/4858937.html</a></p>
+<p>0到99的数组如何随机打乱<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * 参考 Collections.shuffle(List&lt;?&gt; list);的实现</span><br><span class="line">    */</span><br><span class="line">   @Test</span><br><span class="line">   public void test() &#123;</span><br><span class="line">       int[] array = new int[]&#123;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&#125;;</span><br><span class="line">       Random random = new Random();</span><br><span class="line">       int len = array.length;</span><br><span class="line">       for(int i = len; i &gt; 1; i-- ) &#123;</span><br><span class="line">           swap(array, i-1, random.nextInt(i));</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       System.out.println(Arrays.toString(array));</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   private void swap(int[] array, int i, int j) &#123;</span><br><span class="line">       int temp = array[i];</span><br><span class="line">       array[i] = array[j];</span><br><span class="line">       array[j] = temp;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Java 多线程<br>1.线程的几种状态，画出状态流转图<br>New<br>Runable<br>Running<br>Block<br>Dead</p>
+<p>2.Java sleep vs wait </p>
+<ul>
+<li>sleep()方法是Thread的静态方法，而wait是Object实例方法；</li>
+<li>wait()方法必须要在同步方法或者同步块中调用，也就是必须已经获得对象锁。而sleep()方法没有这个限制可以在任何地方种使用。<br>另外，wait()方法会释放占有的对象锁，使得该线程进入等待池中，等待下一次获取资源。而sleep()方法只是会让出CPU并不会释放掉对象锁；</li>
+<li>sleep()方法在休眠时间达到后如果再次获得CPU时间片就会继续执行，而wait()方法必须等待Object.notift/Object.notifyAll通知后，才会离开等待池，<br>并且再次获得CPU时间片才会继续执行。</li>
+</ul>
+<p>3.Java sleep vs yield<br>相同点：</p>
+<ul>
+<li>都会暂缓执行当前线程</li>
+<li>如果已经持有锁，那么在等待过程中都不会释放锁<br>不同点：</li>
+<li>Thread.sleep()可以指定休眠时间，Thread.yield依赖于CPU的时间片划分</li>
+<li>Thread.sleep()会抛出中断异常，且能被中断，而Thread.yield()不可以。</li>
+</ul>
+<p>4.<a href="https://github.com/geekymv/netty-sample/blob/master/netty-sample-01-helloworld/src/main/java/com/geekymv/netty/sample/concurrent/multithread/JoinTest.java" target="_blank" rel="noopener">Java join()</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Waits for this thread to die.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt; An invocation of this method behaves in exactly the same</span><br><span class="line"> * way as the invocation</span><br><span class="line"> *</span><br><span class="line"> * &lt;blockquote&gt;</span><br><span class="line"> * &#123;@linkplain #join(long) join&#125;&#123;@code (0)&#125;</span><br><span class="line"> * &lt;/blockquote&gt;</span><br><span class="line"> *</span><br><span class="line"> * @throws  InterruptedException</span><br><span class="line"> *          if any thread has interrupted the current thread. The</span><br><span class="line"> *          &lt;i&gt;interrupted status&lt;/i&gt; of the current thread is</span><br><span class="line"> *          cleared when this exception is thrown.</span><br><span class="line"> */</span><br><span class="line">public final void join() throws InterruptedException &#123;</span><br><span class="line">    join(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://blog.csdn.net/tianyuxingxuan/article/details/76222935" target="_blank" rel="noopener">Thread.interrupt()方法理解</a></p>
+<p>3.volatile 如何实现指令重排序</p>
+<p>4.线程池中阻塞队列如果满了怎么办（拒绝策略）</p>
+<p>5.synchronized 和 AQS异同，AQS公平非公平如何实现<br>AQS(AbstractQueuedSynchronizer的简称) ，它是一个Java提供的底层同步工具类，用一个int类型的变量表示同步状态，<br>并提供了一系列CAS操作来管理这个同步状态。<br>AQS是一个用来构建锁和同步器的矿建，使用AQS能简单且高效地构建出应用广泛的大量同步器。<br>ReentrantLock </p>
+<p>Java中引用类型：</p>
+<ul>
+<li>强引用</li>
+<li>软引用</li>
+<li>弱引用</li>
+<li>虚引用</li>
+</ul>
+<p>6.多线程里面对一个整型做加减为啥不能用volatile</p>
+<p>7.Thread.yield</p>
+<h4 id="系统吞吐量性能指标"><a href="#系统吞吐量性能指标" class="headerlink" title="系统吞吐量性能指标"></a>系统吞吐量性能指标</h4><p>QPS 每次查询请求<br>TPS 每次处理事务请求，TPS包括了QPS，例如一个事务处理可能包括多个查询请求。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/zookeeper/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1408,337 +1714,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/mysql-install/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/06/mysql-install/" itemprop="url">MySQL安装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-06T23:14:56+08:00">
-                2018-12-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>下载地址</p>
-<p>检查当前系统是否安装mysql<br>rpm -qa|grep -i mysql</p>
-<p>如果已经安装，卸载<br>sudo yum -y remove mysql-libs*</p>
-<p>安装mysql服务端和客户端<br>sudo rpm -ivh MySQL-server-5.5.62-1.el6.x86_64.rpm<br>sudo rpm -ivh MySQL-client-5.5.62-1.el6.x86_64.rpm</p>
-<p>查看mysql安装时创建的mysql用户和mysql组<br>cat /etc/passwd| grep mysql<br>cat /etc/group | grep mysql<br>或者通过mysqladmin –version命令查看</p>
-<p>启动mysql<br>sudo service mysql start</p>
-<p>直接连上<br>$ mysql</p>
-<p>退出<br>mysql&gt;exit</p>
-<p>按照安装Sever中的提示，修改登录密码，设置密码为123456<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/bin/mysqladmin -u root password &apos;123456&apos;</span><br></pre></td></tr></table></figure></p>
-<p>自启动mysql服务<br>sudo chkconfig mysql on<br>chkconfig –list | grep mysql<br>cat /etc/inittab </p>
-<p>修改配置文件位置<br>cd /usr/share/mysql<br>sudo cp my-huge.cnf /etc/my.cnf</p>
-<p>设置mysql字符集<br>[client]<br>default-character-set=utf8</p>
-<p>[mysqld]<br>character_set_server=utf8<br>character_set_client=utf8<br>collation-server=utf8_general_ci</p>
-<p>查看字符集<br>show variables like ‘character%’;<br>或show variables like ‘%char%’;</p>
-<img src="/2018/12/06/mysql-install/mysql-install.png" title="mysql install">
-<img src="/2018/12/06/mysql-install/mysql-start.png" title="mysql start">
-<p><a href="https://mp.weixin.qq.com/s/XhhAepgPcVFUBROKB6EN8Q" target="_blank" rel="noopener">mysql事务隔离级别</a></p>
-<ul>
-<li>读未提交(READ UNCOMMITTED)： 一个事务可以读到另一个事务未提交的数据；</li>
-<li>读已提交(READ-COMMITTED)：一个事务可以读到另一个事务已提交的数据；</li>
-<li>可重复读(REPEATABLE-READ)：</li>
-<li>串行化(SERIALIZABLE)：每次读操作都会加锁。</li>
-</ul>
-<p>不同隔离级别存在的问题（存在的现象）</p>
-<ul>
-<li><p>脏读：查询出来的数据是不可靠的，可能是被另一个未提交的事务修改的；</p>
-</li>
-<li><p>不可重复读：一个查询语句检索数据，随后又有一个查询语句在同一个事务中检索数据，这两个数据应该是一样的。<br>但是实际情况返回了不同的结果（同时被另一个正在提交事务修改了）。</p>
-</li>
-<li><p>幻读：同一事务的两次相同查询出现不同行；</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>隔离级别 \ 现象</th>
-<th style="text-align:center">脏读</th>
-<th style="text-align:center">不可重复读</th>
-<th style="text-align:right">幻读</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>读未提交</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">是</td>
-<td style="text-align:right">是</td>
-</tr>
-<tr>
-<td>读已提交</td>
-<td style="text-align:center">否</td>
-<td style="text-align:center">是</td>
-<td style="text-align:right">是</td>
-</tr>
-<tr>
-<td>可重复读</td>
-<td style="text-align:center">否</td>
-<td style="text-align:center">否</td>
-<td style="text-align:right">是</td>
-</tr>
-<tr>
-<td>串行化</td>
-<td style="text-align:center">否</td>
-<td style="text-align:center">否</td>
-<td style="text-align:right">否</td>
-</tr>
-</tbody>
-</table>
-<p><a href="https://mp.weixin.qq.com/s/643UXL4gNEQT4qLqUxgOIw" target="_blank" rel="noopener">互联网项目中mysql应该选择什么事务隔离级别</a></p>
-<p>设置binlog模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET SESSION binlog_format = &apos;ROW&apos;;（或者是MIXED）</span><br></pre></td></tr></table></figure></p>
-<p>查询当前会话事务隔离级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@tx_isolation;</span><br><span class="line">+-----------------+</span><br><span class="line">| @@tx_isolation  |</span><br><span class="line">+-----------------+</span><br><span class="line">| REPEATABLE-READ |</span><br><span class="line">+-----------------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>设置当前会话隔离级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set tx_isolation=&apos;read-committed&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>查看系统当前会话级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@global.tx_isolation;</span><br></pre></td></tr></table></figure></p>
-<p>设置系统当前隔离级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global transaction isolation level read committed;</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://tech.meituan.com/2014/08/20/innodb-lock.html" target="_blank" rel="noopener">Innodb中的事务隔离级别和锁的关系</a></p>
-<h4 id="mysql主从复制"><a href="#mysql主从复制" class="headerlink" title="mysql主从复制"></a>mysql主从复制</h4><p>启动复制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; change master to master_host=&apos;node01&apos;,</span><br><span class="line">    -&gt; master_user=&apos;repl&apos;,</span><br><span class="line">    -&gt; master_password=&apos;p4ssword&apos;,</span><br><span class="line">    -&gt; master_log_file=&apos;mysql-bin.000039&apos;,</span><br><span class="line">    -&gt; master_log_pos=0;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show slave status\G;</span><br><span class="line"></span><br><span class="line">mysql&gt; start slave;</span><br></pre></td></tr></table></figure>
-<h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a><a href="https://mp.weixin.qq.com/s/9GKu1yv7D5BbuPvYmg6srA" target="_blank" rel="noopener">索引</a></h4><p>索引是存储引擎快速找到记录的一种数据结构，</p>
-<p>索引类型</p>
-<ul>
-<li>主键索引</li>
-<li>唯一索引</li>
-<li>普通索引</li>
-<li>组合索引：即一个索引包含多个列，多用于避免回表查询。</li>
-<li>全文索引</li>
-</ul>
-<p>索引需要额外的磁盘空间，并降低写操作的性能。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/thread-pool/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/19/thread-pool/" itemprop="url">线程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T19:45:50+08:00">
-                2018-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>查看进程下的线程数：ps -Lf pid | wc -l<br>查看cpu核数：执行top命令后 按数字1</p>
-<p><a href="https://mp.weixin.qq.com/s/_tWm2G57vLgomvpNNHKAMA" target="_blank" rel="noopener">系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路</a></p>
-<p>查看cpu消耗过高的进程<br>top</p>
-<p>查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。<br>top -Hp pid</p>
-<p>输入线程的十六进制值<br>printf “%x\n” tid</p>
-<p>jstack pid | grep tid对应的十六进制</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1789,7 +1764,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
