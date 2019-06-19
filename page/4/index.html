@@ -229,6 +229,251 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/spring-aop/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/13/spring-aop/" itemprop="url">spring-aop</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-13T19:25:05+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>AOP()<br>实现AOP的语言为AOL（Aspect-Oriented Language）</p>
+<p>JDK1.3之后，引入了动态代理(Dynamic Proxy)</p>
+<p>Joinpoint</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/spring-transaction/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/11/spring-transaction/" itemprop="url">spring-transaction</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-11T16:54:06+08:00">
+                2018-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>如果同一个类中有方法：methodA(); methodB()。methodA()没有开启事务，methodB()开启了事务</p>
+<p>且methodA()会调用methodB()。</p>
+<p>那么，methodA()调用methodB()时，不会开启事务！！！</p>
+<p>即：同一个类中，无事务的方法调用有事务的方法，结果就是没有事务！！！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/mysql-install/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -834,8 +1079,10 @@
 <p>启动<br>/usr/local/redis/bin/redis-sentinel /etc/redis/sentinel.conf</p>
 <h4 id="Redis-过期策略"><a href="#Redis-过期策略" class="headerlink" title="Redis 过期策略"></a>Redis 过期策略</h4><p><a href="https://www.cnblogs.com/xuliangxing/p/7151812.html" target="_blank" rel="noopener">Redis数据过期策略详解</a><br>定时删除<br>惰性删除<br>定期删除</p>
 <p>阿里云Redis开发规范 <a href="https://yq.aliyun.com/articles/531067" target="_blank" rel="noopener">https://yq.aliyun.com/articles/531067</a></p>
-<h4 id="Redis-淘汰策略"><a href="#Redis-淘汰策略" class="headerlink" title="Redis 淘汰策略"></a>Redis 淘汰策略</h4><p>maxmemory 最大可用内存<br>maxmemory policy 最大内存淘汰策略<br>根据自身业务类型，选好maxmemory-policy，设置好过期时间。<br>默认策略是noeviction，不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息”(error) OOM command not allowed when used memory”，<br>此时Redis只响应读操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># maxmemory &lt;bytes&gt;</span><br><span class="line"></span><br><span class="line"># MAXMEMORY POLICY: how Redis will select what to remove when maxmemory</span><br><span class="line"># is reached. You can select among five behaviors:</span><br><span class="line">#</span><br><span class="line"># volatile-lru -&gt; Evict using approximated LRU among the keys with an expire set. 用lru算法删除过期的键值</span><br><span class="line"># allkeys-lru -&gt; Evict any key using approximated LRU. 用lru算法删除所有的键值</span><br><span class="line"># volatile-lfu -&gt; Evict using approximated LFU among the keys with an expire set. 用lfu算法删除过期的键值</span><br><span class="line"># allkeys-lfu -&gt; Evict any key using approximated LFU. 用lfu算法删除所有的键值</span><br><span class="line"># volatile-random -&gt; Remove a random key among the ones with an expire set. 随机删除过期的键值</span><br><span class="line"># allkeys-random -&gt; Remove a random key, any key. 随机删除任何键值</span><br><span class="line"># volatile-ttl -&gt; Remove the key with the nearest expire time (minor TTL) 删除最近要到期的键值</span><br><span class="line"># noeviction -&gt; Don&apos;t evict anything, just return an error on write operations. 不删除键，对于写操作只返回一个错误</span><br><span class="line">#</span><br><span class="line"># LRU means Least Recently Used 最近最少使用</span><br><span class="line"># LFU means Least Frequently Used 最不经常使用</span><br><span class="line">#</span><br><span class="line"># Both LRU, LFU and volatile-ttl are implemented using approximated</span><br><span class="line"># randomized algorithms.</span><br><span class="line">#</span><br><span class="line"># Note: with any of the above policies, Redis will return an error on write</span><br><span class="line">#       operations, when there are no suitable keys for eviction.</span><br><span class="line">#</span><br><span class="line">#       At the date of writing these commands are: set setnx setex append</span><br><span class="line">#       incr decr rpush lpush rpushx lpushx linsert lset rpoplpush sadd</span><br><span class="line">#       sinter sinterstore sunion sunionstore sdiff sdiffstore zadd zincrby</span><br><span class="line">#       zunionstore zinterstore hset hsetnx hmset hincrby incrby decrby</span><br><span class="line">#       getset mset msetnx exec sort</span><br><span class="line">#</span><br><span class="line"># The default is:</span><br><span class="line">#</span><br><span class="line"># maxmemory-policy noeviction</span><br></pre></td></tr></table></figure>
+<h4 id="Redis-淘汰策略"><a href="#Redis-淘汰策略" class="headerlink" title="Redis 淘汰策略"></a>Redis 淘汰策略</h4><p>内存是有限的，如果不断的往redis里面写数据，肯定是没法放下所有数据在内存中的。<br>redis 会在数据超过一个最大限度之后，将数据进行一定的清理，</p>
+<p>maxmemory 最大可用内存<br>maxmemory policy 最大内存淘汰策略<br>根据自身业务类型，选好maxmemory-policy，设置好过期时间。</p>
+<p>默认策略是noeviction，不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息”(error) OOM command not allowed when used memory”，<br>此时Redis只响应读操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># maxmemory &lt;bytes&gt; 设置redis 用来存放数据的最大内存大小，一旦超过这个内存大小之后，就会立即使用maxmemory-policy 配置的策略清理数据。</span><br><span class="line"></span><br><span class="line"># MAXMEMORY POLICY: how Redis will select what to remove when maxmemory</span><br><span class="line"># is reached. You can select among five behaviors:</span><br><span class="line">#</span><br><span class="line"># volatile-lru -&gt; Evict using approximated LRU among the keys with an expire set. </span><br><span class="line"># 用lru算法删除过期的键值（用LRU算法，但是仅仅移除哪些指定了存活时间(TTL)的key）</span><br><span class="line"># allkeys-lru -&gt; Evict any key using approximated LRU. </span><br><span class="line"># 用lru算法删除所有的键值（就是我们常说的LRU算法，移除掉哪些最近最少使用的keys对应的数据）</span><br><span class="line"># volatile-lfu -&gt; Evict using approximated LFU among the keys with an expire set. 用lfu算法删除过期的键值</span><br><span class="line"># allkeys-lfu -&gt; Evict any key using approximated LFU. 用lfu算法删除所有的键值</span><br><span class="line"># volatile-random -&gt; Remove a random key among the ones with an expire set. 随机删除过期的键值</span><br><span class="line"># allkeys-random -&gt; Remove a random key, any key. 随机删除任何键值</span><br><span class="line"># volatile-ttl -&gt; Remove the key with the nearest expire time (minor TTL) 删除最近要到期的键值</span><br><span class="line"># noeviction -&gt; Don&apos;t evict anything, just return an error on write operations. </span><br><span class="line"># 不删除键，对于写操作只返回一个错误（如果内存达到了maxmemory，client还要继续写入数据，那么就直接给客户端报错）</span><br><span class="line">#</span><br><span class="line"># LRU means Least Recently Used 最近最少使用</span><br><span class="line"># LFU means Least Frequently Used 最不经常使用</span><br><span class="line">#</span><br><span class="line"># Both LRU, LFU and volatile-ttl are implemented using approximated</span><br><span class="line"># randomized algorithms.</span><br><span class="line">#</span><br><span class="line"># Note: with any of the above policies, Redis will return an error on write</span><br><span class="line">#       operations, when there are no suitable keys for eviction.</span><br><span class="line">#</span><br><span class="line">#       At the date of writing these commands are: set setnx setex append</span><br><span class="line">#       incr decr rpush lpush rpushx lpushx linsert lset rpoplpush sadd</span><br><span class="line">#       sinter sinterstore sunion sunionstore sdiff sdiffstore zadd zincrby</span><br><span class="line">#       zunionstore zinterstore hset hsetnx hmset hincrby incrby decrby</span><br><span class="line">#       getset mset msetnx exec sort</span><br><span class="line">#</span><br><span class="line"># The default is:</span><br><span class="line">#</span><br><span class="line"># maxmemory-policy noeviction 默认是不会删除任何数据，建议一般设置成allkeys-lru 策略比较好。</span><br></pre></td></tr></table></figure>
 <p>缓存淘汰算法</p>
 <ul>
 <li>LRU</li>
@@ -1058,7 +1305,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

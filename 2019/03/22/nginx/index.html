@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="12345678910wget http://nginx.org/download/nginx-1.14.2.tar.gzyum install pcreyum install pcre-develyum install zlibyum install zlib-devel tar -zxvf nginx-1.14.2.tar.gz cd nginx-1.14.2./configure --pre">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-12T12:11:36.742Z">
+<meta property="og:updated_time" content="2019-06-18T11:57:48.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx">
 <meta name="twitter:description" content="12345678910wget http://nginx.org/download/nginx-1.14.2.tar.gzyum install pcreyum install pcre-develyum install zlibyum install zlib-devel tar -zxvf nginx-1.14.2.tar.gz cd nginx-1.14.2./configure --pre">
@@ -319,6 +319,7 @@ root       3772      1  0 23:00 ?        00:00:00 nginx: master process sbin/ngi
 nobody     3773   3772  0 23:00 ?        00:00:00 nginx: worker process
 root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
 </code></pre>
+<p>正向代理、反向代理<br>系统内部要访问外部网络时，统一通过一个代理服务器把请求转发出去，在外部网络看来就是代理服务器发起的访问，<br>此时代理服务器实现的是正向代理。</p>
 <p>nginx 一般用于七层负载均衡，nginx 目前提供了HTTP七层负载均衡，1.9.0版本也开始支持TCP四层负载均衡。</p>
 <p>接入层、反向代理服务器、负载均衡服务器 一般都是指nginx<br>上游服务器（upstream server）指nginx 负载均衡到的处理业务的服务器，也称之为real server，即真实处理业务的服务器。</p>
 <p>nginx 提供的负载均衡可以实现上游服务器的负载均衡、故障转移、失败重试、容错、健康检查等，当某些上游服务器出现问题时<br>可以将请求转发到其他上游服务器以保障高可用，并可以通过OpenResty 实现更智能的负载均衡，如将热点与非热点流浪分离、正常<br>流量与爬虫流量分离等。</p>
@@ -427,7 +428,7 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

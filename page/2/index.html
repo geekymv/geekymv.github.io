@@ -229,6 +229,407 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/java-bytecode/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/17/java-bytecode/" itemprop="url">introduction-to-java-bytecode</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-17T14:14:14+08:00">
+                2019-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://dzone.com/articles/introduction-to-java-bytecode" target="_blank" rel="noopener">阅读原文</a><br>Reading compiled Java bytecode can be tedious, even for experienced Java developers.<br>即使对于经验丰富的Java开发人员来说，阅读编译后的Java字节码也可能很乏味。</p>
+<p>Why do we need to know about such low-level stuff in the first place?<br>首先，我们为什么需要知道这些底层的东西呢？</p>
+<p>Here is a simple scenario that happened to me last week:<br>下面是上周发生在我身上的一个简单场景：</p>
+<p>I had made some code changes on my machine a long time ago, compiled a JAR,<br>很久以前，我在自己的机器上修改了一些代码，编译成一个JAR包，</p>
+<p>and deployed it on a server to test a potential fix for a performance issue.<br>并且部署在一台服务器上以测试性能问题的潜在修复。</p>
+<p>Unfortunately, the code was never checked into a version control system,<br>不幸的是，这些代码从没有被检入版本控制系统，</p>
+<p>and for whatever reason, the local changes were deleted without a trace.<br>并且由于一些原因，本地的修改被删除的毫无踪迹。</p>
+<p>After a couple of months, I needed those changes in source form again (which took quite an effort to come up with),<br>几个月后，我再一次需要这些修改的源码（这需要付出很大的努力），<br>but I could not find them!<br>但是我没有找到它们！</p>
+<p>Luckily the compiled code still existed on that remote server.<br>幸运的是编译后的代码依然存在远程服务器上。</p>
+<p>So with a sigh of relief, I fetched the JAR again and opened it using a decompiler editor…<br>于是松了一口气，我再一次获取到JAR包并且使用反编译编辑器打开它…</p>
+<p>Only one problem: The decompiler GUI is not a flawless tool, and out of the many classes in that JAR,<br>唯一的问题：反编译器GUI不是一个完美的工具，而且在这个JAR中有很多类，</p>
+<p>for some reason, only the specific class I was looking to decompile caused a bug in the UI whenever I opened it, and the decompiler to crash!<br>由于某种原因，无论什么时候，我用反编译工具打开要查看的特定类就会引起一个UI bug，反编译器会崩溃！</p>
+<p>Desperate times call for desperate measures. Fortunately, I was familiar with raw bytecode,<br>绝望的时候需要孤注一掷的对策。幸运的是，我熟悉原生字节码，</p>
+<p>and I’d rather take some time manually decompiling some pieces of the code rather than work through the changes and testing them again.<br>并且，我宁愿花费一些时间手工反编译代码也不愿对更改进行重新测试。</p>
+<p>Since I still remembered at least where to look in the code,<br>因为我至少还记得在哪里查看代码，</p>
+<p>reading bytecode helped me pinpoint the exact changes and construct them back in source form.<br> (I made sure to learn from my mistake and preserve them this time!)<br>阅读字节码帮助我精确的定位实际改变的地方，并且使用源码的形式构造它们（我一定要从我的错误中吸取教训，这次一定要记住！）。</p>
+<p>The nice thing about bytecode is that you learn its syntax once, then it applies on all Java supported platforms —<br>字节码的好处是你一旦学习它的语法，它可以应用于所有Java支持的平台 - </p>
+<p>because it is an intermediate representation of the code, and not the actual executable code for the underlying CPU.<br>因为它表示一个中间代码，不是实际在CPU上执行的代码。</p>
+<p>Moreover, bytecode is simpler than native machine code because the JVM architecture is rather simple,<br>另外，字节码比本地机器码简单因为Java虚拟机架构相当简单。</p>
+<p>hence simplifying the instruction set. Yet another nice thing is that all instructions in this set are fully documented by Oracle.<br>因此简化了指令集，然而，另一件好事是指令集中所有指令完全由Oracle提供。</p>
+<p>Before learning about the bytecode instruction set though, let’s get familiar with a few things about the JVM that are needed as a prerequisite.<br>学习字节码指令集之前， 让我们先熟悉一下JVM的基础，作为学习指令集的前提条件。</p>
+<p>JVM Data Types</p>
+<h4 id="JVM数据类型"><a href="#JVM数据类型" class="headerlink" title="JVM数据类型"></a>JVM数据类型</h4><p>Java is statically typed, which affects the design of the bytecode instructions such that an instruction expects itself to operate on values of specific types.<br>Java是静态类型的，这影响了指令字节码的设计，使得一个指令期望自己去操作指定类型的值。</p>
+<p>For example, there are several add instructions to add two numbers: iadd, ladd, fadd, dadd.<br>例如，有几个两个数的相加指令：iadd, ladd, fadd, dadd。<br>They expect operands of type, respectively, int, long, float, and double.<br>它们期望操作的类型分别是int, long, float, 和 double。</p>
+<p>The majority of bytecode has this characteristic of having different forms of the same functionality depending on the operand types.<br>根据操作类型不同，相同的功能有不同的形式，大多数字节码具有的特征。</p>
+<p>The data types defined by the JVM are:<br>JVM定义的数据类型：</p>
+<ul>
+<li><p>Primitive types:<br>原生类型：</p>
+<ul>
+<li><p>Numeric types: byte (8-bit 2’s complement), short (16-bit 2’s complement), int (32-bit 2’s complement), long (64-bit 2’s complement), char (16-bit unsigned Unicode), float (32-bit IEEE 754 single precision FP), double (64-bit IEEE 754 double precision FP)<br>数字类型：byte(8bit), short(16bit), int(32bit), long(64bit), char(16bit), float(32bit), double(64bit)</p>
+</li>
+<li><p>boolean type<br>布尔类型</p>
+</li>
+<li><p>returnAddress: pointer to instruction<br>返回地址：指向指令</p>
+</li>
+</ul>
+</li>
+<li><p>Reference types:<br>引用类型</p>
+<ul>
+<li><p>Class types<br>类类型</p>
+</li>
+<li><p>Array types<br>数组类型</p>
+</li>
+<li><p>Interface types<br>接口类型</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>The boolean type has limited support in bytecode.<br>字节码对布尔类型的支持有限制。<br>For example, there are no instructions that directly operate on boolean values.<br>例如，没有指令直接操作布尔类型。</p>
+<p>Boolean values are instead converted to int by the compiler and the corresponding int instruction is used.<br>编译器将boolean值转换为int，并使用相应的int指令。</p>
+<p>Java developers should be familiar with all of the above types, except returnAddress, which has no equivalent programming language type.<br>Java开发人员应该熟悉上述所有类型，除了returnAddress类型，它没有等价的编程语言类型。</p>
+<p>Stack-Based Architecture</p>
+<h4 id="基于栈的架构"><a href="#基于栈的架构" class="headerlink" title="基于栈的架构"></a>基于栈的架构</h4><p>The simplicity of the bytecode instruction set is largely due to Sun having designed a stack-based VM architecture, as opposed to a register-based one.<br>字节码指令集的简单性很大程度上归功于Sun设计了基于栈的VM 架构，而不是基于寄存器的架构。</p>
+<p>There are various memory components used by a JVM process, but only the JVM stacks need to be examined in detail to essentially be able to follow bytecode instructions:<br>JVM 进程使用了各种内存组件，但是只需要详细检查JVM 栈，以便能够遵循字节码指令：</p>
+<p>PC register: for each thread running in a Java program, a PC register stores the address of the current instruction.<br>程序计数器：对于每个运行在Java进程中的线程，PC 寄存器存储当前指令的地址。</p>
+<p>JVM stack: for each thread, a stack is allocated where local variables, method arguments,<br>and return values are stored. Here is an illustration showing stacks for 3 threads.<br>JVM 栈：对于每个线程，被申请的栈用于存储本地变量，方法参数，返回值。下面是显示3个线程的堆栈图。</p>
+<img src="/2019/05/17/java-bytecode/jvm_stacks.png" title="jvm stack">
+<p>Heap: memory shared by all threads and storing objects (class instances and arrays).<br>堆：堆内存被所有线程共享，用来存储对象（类实例和数组）。<br>Object deallocation is managed by a garbage collector.<br>对象的释放由垃圾收集器管理。</p>
+<img src="/2019/05/17/java-bytecode/heap.png" title="heap">
+<p>Method area: for each loaded class, it stores the code of methods and a table of symbols<br>(e.g. references to fields or methods) and constants known as the constant pool.<br>方法区：对于每个加载的类，它存储了方法代码和符号表（例如，对字段或方法的引用）。和称为常量池的常量。<br><img src="/2019/05/17/java-bytecode/method_area.png" title="method area"></p>
+<p>A JVM stack is composed of frames, each pushed onto the stack when a method is invoked and<br>popped from the stack when the method completes (either by returning normally or by throwing an exception).<br>JVM 栈由栈帧组成，每个栈帧在方法调用时被压入栈，方法完成时从栈顶弹出（通过正常返回或抛出异常）。</p>
+<p>Each frame further consists of:<br>每个栈帧还包括：</p>
+<ul>
+<li><p>An array of local variables, indexed from 0 to its length minus 1.<br>The length is computed by the compiler.<br>A local variable can hold a value of any type, except long and double values, which occupy two local variables.<br>局部变量的数组，索引从0 到长度减1，长度是由编译器计算。<br>局部变量可以保存任意类型的值，long 和 double 类型的值除外，它们占用两个局部变量。</p>
+</li>
+<li><p>An operand stack used to store intermediate values that would act as operands for instructions,<br>or to push arguments to method invocations.<br>一个操作数栈用于存储中间值，该中间值将充当指令的操作数，或者压入参数到方法调用。</p>
+<img src="/2019/05/17/java-bytecode/stack_frame_zoom.png" title="stack frame">
+</li>
+</ul>
+<h4 id="Bytecode-Explored"><a href="#Bytecode-Explored" class="headerlink" title="Bytecode Explored"></a>Bytecode Explored</h4><h4 id="探索字节码"><a href="#探索字节码" class="headerlink" title="探索字节码"></a>探索字节码</h4><p>With an idea about the internals of a JVM, we can look at some basic bytecode example generated from sample code.<br>Each method in a Java class file has a code segment that consists of a sequence of instructions,<br>each having the following format:<br>了解 JVM 的内部结构，我们可以看一下从示例代码生成的一些基本字节码示例。<br>Java class文件中的每个方法都有一个由一系列指令组成的代码片段，每个都有以下格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opcode (1 byte)      operand1 (optional)      operand2 (optional)      ...</span><br></pre></td></tr></table></figure></p>
+<p>That is an instruction that consists of one-byte opcode and zero or more operands that contain the data to operate.<br>这是由一个字节的操作码和零个或多个操作数组成的一个指令，</p>
+<p>Within the stack frame of the currently executing method, an instruction can push or pop values onto the operand stack,<br>and it can potentially load or store values in the array local variables. Let’s look at a simple example:<br>在当前正在执行的方法的栈帧内部，一个指令可以压入或弹出值到一个操作数栈，并且它可以在数组局部变量中加载或存储值。<br>让我们看一个简单示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int b = 2;</span><br><span class="line">    int c = a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In order to print the resulting bytecode in the compiled class (assuming it is in a file Test.class),<br>we can run the <code>javap</code> tool:<br>为了在编译的类中打印生成的字节码（假设它在一个Test.class文件中），我们可以运行javap 工具：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javap -v Test.class</span><br></pre></td></tr></table></figure></p>
+<p>And we get:<br>然后我们得到：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public static void main(java.lang.String[]);</span><br><span class="line">descriptor: ([Ljava/lang/String;)V</span><br><span class="line">flags: (0x0009) ACC_PUBLIC, ACC_STATIC</span><br><span class="line">Code:</span><br><span class="line">stack=2, locals=4, args_size=1</span><br><span class="line">0: iconst_1</span><br><span class="line">1: istore_1</span><br><span class="line">2: iconst_2</span><br><span class="line">3: istore_2</span><br><span class="line">4: iload_1</span><br><span class="line">5: iload_2</span><br><span class="line">6: iadd</span><br><span class="line">7: istore_3</span><br><span class="line">8: return</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>We can see the method signature for the main method,<br>a descriptor that indicates that the method takes an array of Strings ([Ljava/lang/String; ),<br> and has a void return type (V ).<br> A set of flags follow that describe the method as public (ACC_PUBLIC) and static (ACC_STATIC).<br>我们可以看到主方法的方法签名，一个描述符表示该方法使用字符串数组([Ljava/lang/String; )，并且具有空返回值类型（V）。<br>下面的一组flags描述了方法是公开的(ACC_PUBLIC) 并且是静态的 (ACC_STATIC)。</p>
+<p>The most important part is the Code attribute,<br>最重要的部分是代码属性，<br>which contains the instructions for the method along with information<br>such as the maximum depth of the operand stack (2 in this case),<br>and the number of local variables allocated in the frame for this method (4 in this case).<br>其中包含方法说明和信息，例如操作数栈的最大深度（在本例中为2），以及此方法在栈帧中分配的局部变量数（在本例中为4）。</p>
+<p>All local variables are referenced in the above instructions except the first one (at index 0),<br>which holds the reference to the args argument.<br>The other 3 local variables correspond to variables a, b and c in the source code.<br>除了第一个（索引0）之外，上述指令中引用了所有的局部变量，它保存了对args参数的引用。<br>其他3个局部变量对应源码中的变量 a, b 和c。</p>
+<p>The instructions from address 0 to 8 will do the following:<br>从地址0到8的指令将执行以下操作：</p>
+<p>iconst_1: Push the integer constant 1 onto the operand stack.<br>iconst_1：将整型常量1压入到操作数栈。<br><img src="/2019/05/17/java-bytecode/iconst_12.png" title="iconst_1"></p>
+<p>istore_1: Pop the top operand (an int value) and store it in local variable at index 1, which corresponds to variable a.<br>istore_1：弹出顶部操作数（一个整型值）并将其存储在索引1的局部变量中，该变量对应于变量a。<br><img src="/2019/05/17/java-bytecode/istore_11.png" title="istore_1"></p>
+<p>iconst_2: Push the integer constant 2 onto the operand stack.<br>iconst_2: 将整型常量2压入到操作数栈。<br><img src="/2019/05/17/java-bytecode/iconst_2.png" title="iconst_2"></p>
+<p>istore_2: Pop the top operand int value and store it in local variable at index 2, which corresponds to variable b.<br>istore_2：弹出顶部操作数整型值，并将其存储在索引2的局部变量中，该变量对应于变量b。<br><img src="/2019/05/17/java-bytecode/istore_2.png" title="istore_2"></p>
+<p>iload_1: Load the int value from local variable at index 1 and push it onto the operand stack.<br>iload_1: 从索引1的局部变量加载整型值，并且将它压入操作数栈。<br><img src="/2019/05/17/java-bytecode/iload_1.png" title="iload_1"></p>
+<p>iload_2: Load the int value from the local variable at index 2 and push it onto the operand stack.<br>iload_2: 从索引2的局部变量加载整型值，并且将它压入操作数栈。<br><img src="/2019/05/17/java-bytecode/iload_2.png" title="iload_2"></p>
+<p>iadd: Pop the top two int values from the operand stack, add them, and push the result back onto the operand stack.<br>iadd: 从操作数栈顶部弹出两个整型值，将它们相加，并且将结果压回到操作数栈。<br><img src="/2019/05/17/java-bytecode/iadd.png" title="iadd"></p>
+<p>istore_3: Pop the top operand int value and store it in local variable at index 3, which corresponds to variable c.<br>istore_3: 弹出操作数顶部的整型值，并将其存储在索引3的局部变量中，该变量对应于变量c。<br><img src="/2019/05/17/java-bytecode/istore_3.png" title="istore_3"></p>
+<p>return: Return from the void method.<br>return: 从void 方法返回。</p>
+<p>Each of the above instructions consists of only an opcode, which dictates exactly the operation to be executed by the JVM.<br>上面的每个指令仅由一个操作码组成，它精确地指示JVM要执行的操作。</p>
+<h4 id="Method-Invocations"><a href="#Method-Invocations" class="headerlink" title="Method Invocations"></a>Method Invocations</h4><h4 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h4><p>In the above example, there is only one method, the main method.<br>Let’s assume that we need to a more elaborate computation for the value of variable c,<br>and we decide to place that in a new method called calc:<br>在上面示例中只有一个方法，主方法。<br>让我们假设我们需要对变量c的值进行一个更复杂的计算，我们决定将其放在一个名为calc的新方法中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int b = 2;</span><br><span class="line">    int c = calc(a, b);</span><br><span class="line">&#125;</span><br><span class="line">static int calc(int a, int b) &#123;</span><br><span class="line">    return (int) Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Let’s see the resulting bytecode:<br>让我们看看生成的字节码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public static void main(java.lang.String[]);</span><br><span class="line">  descriptor: ([Ljava/lang/String;)V</span><br><span class="line">  flags: (0x0009) ACC_PUBLIC, ACC_STATIC</span><br><span class="line">  Code:</span><br><span class="line">    stack=2, locals=4, args_size=1</span><br><span class="line">       0: iconst_1</span><br><span class="line">       1: istore_1</span><br><span class="line">       2: iconst_2</span><br><span class="line">       3: istore_2</span><br><span class="line">       4: iload_1</span><br><span class="line">       5: iload_2</span><br><span class="line">       6: invokestatic  #2         // Method calc:(II)I</span><br><span class="line">       9: istore_3</span><br><span class="line">      10: return</span><br><span class="line">static int calc(int, int);</span><br><span class="line">  descriptor: (II)I</span><br><span class="line">  flags: (0x0008) ACC_STATIC</span><br><span class="line">  Code:</span><br><span class="line">    stack=6, locals=2, args_size=2</span><br><span class="line">       0: iload_0</span><br><span class="line">       1: i2d</span><br><span class="line">       2: ldc2_w        #3         // double 2.0d</span><br><span class="line">       5: invokestatic  #5         // Method java/lang/Math.pow:(DD)D</span><br><span class="line">       8: iload_1</span><br><span class="line">       9: i2d</span><br><span class="line">      10: ldc2_w        #3         // double 2.0d</span><br><span class="line">      13: invokestatic  #5         // Method java/lang/Math.pow:(DD)D</span><br><span class="line">      16: dadd</span><br><span class="line">      17: invokestatic  #6         // Method java/lang/Math.sqrt:(D)D</span><br><span class="line">      20: d2i</span><br><span class="line">      21: ireturn</span><br></pre></td></tr></table></figure>
+<p>The only difference in the main method code is that instead of having the iadd instruction,<br>we now an invokestatic instruction, which simply invokes the static method calc.<br>The key thing to note is that the operand stack contained the two arguments that are passed to the method calc.<br>In other words, the calling method prepares all arguments of the to-be-called method by pushing them<br>onto the operand stack in the correct order.<br>invokestatic (or a similar invoke instruction, as will be seen later) will subsequently pop these arguments,<br>and a new frame is created for the invoked method where the arguments are placed in its local variable array.<br>在主方法代码中唯一不同的是，不是使用iadd 命令，我们现在是一个 invokestatic 命令，它只是调用静态方法calc。<br>关键需要注意的是，操作数栈包含传递给方法calc的两个参数。<br>换句话说，调用方法准备被调用方法的所有参数，通过以正确的顺序压入它们到操作数栈。<br>invokestatic（或者类似的调用命令，稍后将会看到）将随后弹出这些参数，<br>并为调用的方法创建一个新的栈帧，其中参数放在其局部变量数组中。</p>
+<p>We also notice that the invokestatic instruction occupies 3 bytes by looking at the address, which jumped from 6 to 9.<br>This is because, unlike all instructions seen so far,<br>invokestatic includes two additional bytes to construct the reference to the method to be invoked (in addition to the opcode).<br>The reference is shown by javap as #2, which is a symbolic reference to the calc method,<br>which is resolved from the constant pool described earlier.<br>我们也注意到通过查看地址 invokestatic 命令占用3个字节，地址从6跳到9。<br>这是因为不像目前看到的所有指令，invokestatic 指令包含两个附加的字节来构造调用方法的引用（除了操作码）。<br>该引用由javap 显示为2，它是calc方法的符号引用，这是从前面描述的常量池中解析出来的。</p>
+<p>The other new information is obviously the code for the calc method itself.<br>It first loads the first integer argument onto the operand stack (iload_0).<br>The next instruction, i2d, converts it to a double by applying widening conversion.<br>The resulting double replaces the top of the operand stack.<br>其他新信息显然是calc方法本身的代码。<br>它首先加载第一个整型参数到操作数栈（iload_0）。<br>下一个指令i2d，通过应用扩展转换将其转换为double。<br>结果double 替换操作数栈顶。</p>
+<p>The next instruction pushes a double constant 2.0d  (taken from the constant pool) onto the operand stack.<br>Then the static Math.pow method is invoked with the two operand values prepared so far<br>(the first argument to calc and the constant 2.0d).<br>When the Math.pow method returns, its result will be stored on the operand stack of its invoker.<br>This can be illustrated below.<br>下一个指令压入一个double类型的常量2.0d（取自常量池）到操作数栈。<br>然后使用到目前为止准备的两个操作数值调用静态方法Math.pow（calc方法的第一个参数和常量2.0d)。<br>当Math.pow 方法返回时，其结果存储在其调用者的操作数栈。这可以在下面说明。<br><img src="/2019/05/17/java-bytecode/math_pow2.png" title="math pow"></p>
+<p>The same procedure is applied to compute Math.pow(b, 2):<br>计算Math.pow(b, 2)是相似的过程：<br><img src="/2019/05/17/java-bytecode/math_pow21.png" title="math pow"></p>
+<p>The next instruction, dadd, pops the top two intermediate results, adds them, and pushes the sum back to the top.<br>Finally, invokestatic invokes Math.sqrt on the resulting sum,<br>and the result is cast from double to int using narrowing conversion (d2i).<br>The resulting int is returned to the main method, which stores it back to c (istore_3).<br>下一个指令dadd 弹出栈顶的两个中间结果，相加，将相加结果压回栈顶。<br>最后，invokestatic 调用Math.sqrt<br>并且使用强制转换（d2i）将结果从double 转换成int。<br>int类型的结果被返回到main方法，存储到变量c（istore_3）。</p>
+<h4 id="Instance-Creations"><a href="#Instance-Creations" class="headerlink" title="Instance Creations"></a>Instance Creations</h4><h4 id="创建实例"><a href="#创建实例" class="headerlink" title="创建实例"></a>创建实例</h4><p>Let’s modify the example and introduce a class Point to encapsulate XY coordinates.<br>让我们修改示例并引入Point类来封装XY坐标。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Point a = new Point(1, 1);</span><br><span class="line">        Point b = new Point(5, 3);</span><br><span class="line">        int c = a.area(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Point &#123;</span><br><span class="line">    int x, y;</span><br><span class="line">    Point(int x, int y) &#123;</span><br><span class="line">        this.x = x;</span><br><span class="line">        this.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">    public int area(Point b) &#123;</span><br><span class="line">        int length = Math.abs(b.y - this.y);</span><br><span class="line">        int width = Math.abs(b.x - this.x);</span><br><span class="line">        return length * width;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The compiled bytecode for the main method is shown below:<br>main方法的编译字节码如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public static void main(java.lang.String[]);</span><br><span class="line">  descriptor: ([Ljava/lang/String;)V</span><br><span class="line">  flags: (0x0009) ACC_PUBLIC, ACC_STATIC</span><br><span class="line">  Code:</span><br><span class="line">    stack=4, locals=4, args_size=1</span><br><span class="line">       0: new           #2       // class test/Point</span><br><span class="line">       3: dup</span><br><span class="line">       4: iconst_1</span><br><span class="line">       5: iconst_1</span><br><span class="line">       6: invokespecial #3       // Method test/Point.&quot;&lt;init&gt;&quot;:(II)V</span><br><span class="line">       9: astore_1</span><br><span class="line">      10: new           #2       // class test/Point</span><br><span class="line">      13: dup</span><br><span class="line">      14: iconst_5</span><br><span class="line">      15: iconst_3</span><br><span class="line">      16: invokespecial #3       // Method test/Point.&quot;&lt;init&gt;&quot;:(II)V</span><br><span class="line">      19: astore_2</span><br><span class="line">      20: aload_1</span><br><span class="line">      21: aload_2</span><br><span class="line">      22: invokevirtual #4       // Method test/Point.area:(Ltest/Point;)I</span><br><span class="line">      25: istore_3</span><br><span class="line">      26: return</span><br></pre></td></tr></table></figure></p>
+<p>The new instructions encountereted here are new , dup, and invokespecial.<br>这里遇到的新指令是new, dup 和 invokespecial。</p>
+<p>Similar to the new operator in the programming language,<br>the new instruction creates an object of the type specified in the operand passed to it<br> (which is a symbolic reference to the class Point).<br>Memory for the object is allocated on the heap, and a reference to the object is pushed on the operand stack.<br>与编程语言中的new 运算符类似，new 指令创建一个传递给它的操作数中指定类型的对象（这是Point类的符号引用）。<br>对象的内存在堆上分配，对象的引用是被压入操作数栈。</p>
+<p>The dup instruction duplicates the top operand stack value,<br>which means that now we have two references the Point object on the top of the stack.<br>dup 指令复制操作数栈顶值，这意味着现在我们在栈顶有两个引用Point对象。</p>
+<p>The next three instructions push the arguments of the constructor<br>(used to initialize the object) onto the operand stack,<br>and then invoke a special initialization method, which corresponds with the constructor.<br>接下来三个指令将构造方法（用于初始化对象）的参数压入到操作数栈上，然后调用一个特殊的初始化方法，该方法与构造方法对应。</p>
+<p>The next method is where the fields x and y will get initialized.<br>After the method is finished, the top three operand stack values are consumed,<br>and what remains is the original reference to the created object (which is, by now, successfully initialized).<br>下一个方法是属性x 和 y 将得到初始化，方法完成后，顶部三个操作数值被消费，<br>剩下来的是对创建对象的原始引用（这时初始化成功）。<br><img src="/2019/05/17/java-bytecode/init.png" title="init"></p>
+<p>Next, astore_1 pops that Point reference and assigns it to the local variable at index 1<br>(the a in astore_1 indicates this is a reference value).<br>接下来，astore_1 弹出Point引用并将其分配给索引为1的局部变量（astore_1中的a表示这是引用值）。<br><img src="/2019/05/17/java-bytecode/init_store.png" title="init_store"></p>
+<p>The same procedure is repeated for creating and initializing the second Point instance,<br> which is assigned to variable b.<br>重复相似的过程来创建和初始化第二个Point实例，分配给变量b。<br><img src="/2019/05/17/java-bytecode/init2.png" title="init"><br><img src="/2019/05/17/java-bytecode/init_store2.png" title="init_store"></p>
+<p>The last step loads the references to the two Point objects from local variables at indexes 1 and 2<br>(using aload_1 and aload_2 respectively), and invokes the area method using invokevirtual,<br>which handles dispatching the call to the appropriate method based on the actual type of the object.<br>最后一步从局部变量的索引1和2中加载对两个Point对象的引用（分别使用aload_1 和 aload_2指令），<br>并且使用invokevirtual 指令调用area方法，它处理根据对象的实际类型将调用到适当的方法。</p>
+<p>For example, if the variable a contained an instance of type SpecialPoint that extends Point,<br>and the subtype overrides the area method, then the overriden method is invoked.<br>In this case, there is no subclass, and hence only one area method is available.<br>例如，如果变量a 包含一个继承了Point的SpecialPoint类型的实例，并且子类型重写了area方法，然后重写的方法被调用。<br>在这个例子中，没有子类，因此只有一个area方法是可用的。<br><img src="/2019/05/17/java-bytecode/area2.png"></p>
+<p>Note that even though the area method accepts one argument,<br>there are two Point references on the top of the stack.<br>注意，即使area方法接收一个参数，在栈顶有两个Point引用。</p>
+<p>The first one (pointA, which comes from variable a) is actually the instance<br>on which the method is invoked (otherwise referred to as this in the programming language),<br>and it will be passed in the first local variable of the new frame for the area method.<br>The other operand value (pointB) is the argument to the area method.<br>第一个（PointA 来自变量a）是调用方法的实际实例（在编程语言中称为this），<br>它将在area方法的新帧的第一个局部变量中传递。另一个操作数值（pointB）是area方法的参数。</p>
+<h4 id="The-Other-Way-Around"><a href="#The-Other-Way-Around" class="headerlink" title="The Other Way Around"></a>The Other Way Around</h4><h4 id="其他方式"><a href="#其他方式" class="headerlink" title="其他方式"></a>其他方式</h4><p>You don’t need to master the understanding of each instruction<br>and the exact flow of execution to gain an idea about what the program does based on the bytecode at hand.<br>For example, in my case, I wanted to check if the code employed a Java stream to read a file,<br>and whether the stream was properly closed.<br>Now given the following bytecode, it is relatively easy to determine that indeed a stream is used<br>and most likely it is being closed as part of a try-with-resources statement.<br>你不需要掌握每个指令的意义，以及确切的执行流程，以便于根据字节码了解程序的功能。<br>例如，在我的情况下，我想检查代码是否使用Java流读取文件， 以及流是否正确关闭。<br>现在给出如下的字节码，它是相对容易的确定确实使用了流，并且很可能它是作为try-with-resources的一部分而被关闭的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">public static void main(java.lang.String[]) throws java.lang.Exception;</span><br><span class="line"> descriptor: ([Ljava/lang/String;)V</span><br><span class="line"> flags: (0x0009) ACC_PUBLIC, ACC_STATIC</span><br><span class="line"> Code:</span><br><span class="line">   stack=2, locals=8, args_size=1</span><br><span class="line">      0: ldc           #2                  // class test/Test</span><br><span class="line">      2: ldc           #3                  // String input.txt</span><br><span class="line">      4: invokevirtual #4                  // Method java/lang/Class.getResource:(Ljava/lang/String;)Ljava/net/URL;</span><br><span class="line">      7: invokevirtual #5                  // Method java/net/URL.toURI:()Ljava/net/URI;</span><br><span class="line">     10: invokestatic  #6                  // Method java/nio/file/Paths.get:(Ljava/net/URI;)Ljava/nio/file/Path;</span><br><span class="line">     13: astore_1</span><br><span class="line">     14: new           #7                  // class java/lang/StringBuilder</span><br><span class="line">     17: dup</span><br><span class="line">     18: invokespecial #8                  // Method java/lang/StringBuilder.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">     21: astore_2</span><br><span class="line">     22: aload_1</span><br><span class="line">     23: invokestatic  #9                  // Method java/nio/file/Files.lines:(Ljava/nio/file/Path;)Ljava/util/stream/Stream;</span><br><span class="line">     26: astore_3</span><br><span class="line">     27: aconst_null</span><br><span class="line">     28: astore        4</span><br><span class="line">     30: aload_3</span><br><span class="line">     31: aload_2</span><br><span class="line">     32: invokedynamic #10,  0             // InvokeDynamic #0:accept:(Ljava/lang/StringBuilder;)Ljava/util/function/Consumer;</span><br><span class="line">     37: invokeinterface #11,  2           // InterfaceMethod java/util/stream/Stream.forEach:(Ljava/util/function/Consumer;)V</span><br><span class="line">     42: aload_3</span><br><span class="line">     43: ifnull        131</span><br><span class="line">     46: aload         4</span><br><span class="line">     48: ifnull        72</span><br><span class="line">     51: aload_3</span><br><span class="line">     52: invokeinterface #12,  1           // InterfaceMethod java/util/stream/Stream.close:()V</span><br><span class="line">     57: goto          131</span><br><span class="line">     60: astore        5</span><br><span class="line">     62: aload         4</span><br><span class="line">     64: aload         5</span><br><span class="line">     66: invokevirtual #14                 // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V</span><br><span class="line">     69: goto          131</span><br><span class="line">     72: aload_3</span><br><span class="line">     73: invokeinterface #12,  1           // InterfaceMethod java/util/stream/Stream.close:()V</span><br><span class="line">     78: goto          131</span><br><span class="line">     81: astore        5</span><br><span class="line">     83: aload         5</span><br><span class="line">     85: astore        4</span><br><span class="line">     87: aload         5</span><br><span class="line">     89: athrow</span><br><span class="line">     90: astore        6</span><br><span class="line">     92: aload_3</span><br><span class="line">     93: ifnull        128</span><br><span class="line">     96: aload         4</span><br><span class="line">     98: ifnull        122</span><br><span class="line">    101: aload_3</span><br><span class="line">    102: invokeinterface #12,  1           // InterfaceMethod java/util/stream/Stream.close:()V</span><br><span class="line">    107: goto          128</span><br><span class="line">    110: astore        7</span><br><span class="line">    112: aload         4</span><br><span class="line">    114: aload         7</span><br><span class="line">    116: invokevirtual #14                 // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V</span><br><span class="line">    119: goto          128</span><br><span class="line">    122: aload_3</span><br><span class="line">    123: invokeinterface #12,  1           // InterfaceMethod java/util/stream/Stream.close:()V</span><br><span class="line">    128: aload         6</span><br><span class="line">    130: athrow</span><br><span class="line">    131: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">    134: aload_2</span><br><span class="line">    135: invokevirtual #16                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;</span><br><span class="line">    138: invokevirtual #17                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">    141: return</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+<p>We see occurrences of java/util/stream/Stream where forEach is called,<br>preceded by a call to InvokeDynamic with a reference to a Consumer.<br>我们看到java/util/stream/Stream的出现在forEach被调用的地方，之前调用InvokeDynamic 并引用Consumer。</p>
+<p>And then we see a chunk of bytecode that calls Stream.close along with branches that call Throwable.addSuppressed.<br>然后我们看到大块字节码调用Stream.close 以及调用Throwable.addSuppressed 的分支。</p>
+<p>This is the basic code that gets generated by the compiler for a try-with-resources statement.<br>这是编译器为try-with-resources语句生成的基本代码。</p>
+<p>Here’s the original source for completeness:<br>以下是完整的源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) throws Exception &#123;</span><br><span class="line">    Path path = Paths.get(Test.class.getResource(&quot;input.txt&quot;).toURI());</span><br><span class="line">    StringBuilder data = new StringBuilder();</span><br><span class="line">    try(Stream lines = Files.lines(path)) &#123;</span><br><span class="line">        lines.forEach(line -&gt; data.append(line).append(&quot;\n&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(data.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>Thanks to the simplicity of the bytecode instruction set<br>and the near absence of compiler optimizations when generating its instructions,<br>disassembling class files could be one way to examine changes into<br>your application code without having the source, if that ever becomes a need.<br>由于字节码指令集的简化，并且在生成其指令时几乎没有编译器优化，<br>在你的应用程序代码没有源码，如果需要的话，反编译类文件可能是检查更改的一种方法。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/data-structure/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/26/data-structure/" itemprop="url">data-structure</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-26T08:50:04+08:00">
+                2019-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h4><p>从广义上讲，数据结构就是一组数据的存储结构，算法就是操作数据的一组方法。<br>从狭义上讲，是指某些著名的数据结构和算法，比如队列、堆、栈、二分查找、动态规划等。</p>
+<p>数据结构和算法本身解决的是快和省的问题，即让代码运行的更快，让代码更省存储空间。<br>所以，执行效率是算法一个非常重要的衡量指标。<br>时间和空间复杂度分析用来衡量算法的执行效率，可以粗略地估计算法的执行效率。</p>
+<h4 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h4><p>时间复杂度的全称是渐进时间复杂度，表示算法执行时间与数据规模之间的增长关系。</p>
+<ul>
+<li>只关注循环执行次数最多的一段代码，通常会忽略公式中的常量、低阶、系数，只需要记录一个最大阶的量级；</li>
+<li>加法法则：总复杂度等于量级最大的那段代码的复杂度；</li>
+<li>乘法法则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积。</li>
+</ul>
+<p>常见时间复杂度<br>常量阶O(1) 只是常量级时间复杂度的一种表示方法，并不是指只执行了一行代码。<br>对数阶O(logn)<br>线性阶O(n)、O(m+n)、O(m*n)<br>线性对数阶O(nlogn)<br>平方阶O(n^2)、立方阶O(n^3)、k方阶O(n^k)<br>指数阶O(2^n)<br>阶乘阶O(n!)</p>
+<p>越高阶复杂度的算法，执行效率越低。<br>从低到高有：O(1)、O(logn)、O(n)、O(nlogn)、O(n^2)</p>
+<p>空间复杂度<br>空间复杂度的全称是渐进空间复杂度，表示算法的存储空间与数据规模之间的增长关系。</p>
+<p>最好情况时间复杂度<br>最坏情况时间复杂度<br>平均情况时间复杂度<br>均摊时间复杂度</p>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组是一种<code>线性表</code>数据结构，它用一组<code>连续的内存空间</code>，来存储一组具有<code>相同类型的数据</code>。<br>线性表：数据排成像一条线一样的结构，每个线性表上的数据最多只有前和后两个方向。链表、队列、栈也是线性表结构。<br>非线性表：比如二叉树、堆、图等，之所以叫非线性，是因为在非线性表中数据之间并不是简单的前后关系。<br>连续的内存空间和相同类型的数据：数组根据下标可以随机访问。</p>
+<p>低效的插入和删除</p>
+<ul>
+<li><p>插入：假设数组的长度为n，如果在中间第k个位置插入元素，那么k之后的元素都要往后移动一位，<br>如果在数组末尾插入元素，就不用移动数据了，最好时间复杂度为O(1)，<br>如果在数组的开头插入元素，那所有的数据都需要往后移动一位，最坏时间复杂度为O(n)。<br>优化方案：如果数组中存储的元素并没有任何规律，数组只是存储数据的集合，这种情况下，如果要在第k个位置插入一条数据，为了避免数据移动，<br>可以直接将第k个位置数据移动到数组元素的最后，然后把新的元素放入第k个位置，这种情况下在第k个位置插入元素的时间复杂度降为O(1)。</p>
+</li>
+<li><p>删除<br>….</p>
+</li>
+</ul>
+<p>容器能否完全替代数组？<br>针对数组类型，很多语言提供了容器类，比如Java中的ArrayList、C++ STL中的vector。<br>容器类最大的优势是将很多数组操作的细节封装起来，比如对于插入和删除操作引起的数据移动不用开发人员自己实现，还有一个是支持动态扩容。<br>在创建ArrayList时，如果事先能够确定要存储数据的大小，最好在创建容器时指定大小，可以减少内存申请与数据移动。</p>
+<p>适合使用数组的场景：</p>
+<ul>
+<li>Java ArrayList 无法存储基本数据类型，比如int、long 需要封装为Integer、Long类，而自动装箱和自动拆箱有一定的性能损耗。<br>如果特别关注性能，或者希望使用基本类型，就可以选择数组；</li>
+<li>如果数据大小事先已知，并且对数据操作非常简单，用不到ArrayList提供的大部分方法，也可以直接使用数组；</li>
+<li>当表示多维数组时，用数组更加直观。</li>
+</ul>
+<h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><p>栈是一种操作受限的数据结构，只支持入栈和出栈操作。先进后出是它最大的特点。</p>
+<p>操作系统给每个线程分配了一块独立的内存空间，这块内存空间被组织成“栈”这种数据结构，用来存储函数调用时的临时变量。<br>每进入一个函数，就会将临时变量作为一个栈帧入栈，当被调用函数执行完成，返回之后，将这个函数对应的栈帧出栈。</p>
+<h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><p>先进先出<br>入队：放一个数据到队列的尾部。<br>出队：从队列头部取一个元素。<br>用数组实现的队列叫作顺序队列，用链表实现的队列叫作链式队列。<br>循环队列<br>阻塞队列<br>并发队列</p>
+<h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><p>三个条件：</p>
+<ul>
+<li>一个问题的解可以分解为几个子问题的解；</li>
+<li>这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样；</li>
+<li>存在递归终止条件。<br>如何编写递归代码<br>写出递推公式，找到终止条件，将递推公式转化成代码。</li>
+</ul>
+<p>递归代码问题</p>
+<ul>
+<li>堆栈溢出</li>
+<li>重复计算</li>
+<li>函数调用耗时多</li>
+<li>空间复杂度高</li>
+</ul>
+<h4 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h4><p>稳定性：待排序的序列中存在值相等的元素，经过排序后，相等元素之间原有的顺序保持不变，则叫作<code>稳定的排序算法</code>，否则叫作<code>不稳定的排序算法</code>。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/python/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -896,6 +1297,7 @@ root       3772      1  0 23:00 ?        00:00:00 nginx: master process sbin/ngi
 nobody     3773   3772  0 23:00 ?        00:00:00 nginx: worker process
 root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
 </code></pre>
+<p>正向代理、反向代理<br>系统内部要访问外部网络时，统一通过一个代理服务器把请求转发出去，在外部网络看来就是代理服务器发起的访问，<br>此时代理服务器实现的是正向代理。</p>
 <p>nginx 一般用于七层负载均衡，nginx 目前提供了HTTP七层负载均衡，1.9.0版本也开始支持TCP四层负载均衡。</p>
 <p>接入层、反向代理服务器、负载均衡服务器 一般都是指nginx<br>上游服务器（upstream server）指nginx 负载均衡到的处理业务的服务器，也称之为real server，即真实处理业务的服务器。</p>
 <p>nginx 提供的负载均衡可以实现上游服务器的负载均衡、故障转移、失败重试、容错、健康检查等，当某些上游服务器出现问题时<br>可以将请求转发到其他上游服务器以保障高可用，并可以通过OpenResty 实现更智能的负载均衡，如将热点与非热点流浪分离、正常<br>流量与爬虫流量分离等。</p>
@@ -1297,257 +1699,6 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/spring/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/18/spring/" itemprop="url">spring</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-18T12:12:33+08:00">
-                2019-02-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>HandlerMethodArgumentResolver</p>
-<p><a href="https://www.cnblogs.com/yangzhilong/p/7605889.html" target="_blank" rel="noopener">https://www.cnblogs.com/yangzhilong/p/7605889.html</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package com.btg.core.config;</span><br><span class="line"></span><br><span class="line">import com.btg.core.Constants;</span><br><span class="line">import com.btg.core.support.Token;</span><br><span class="line">import com.btg.core.util.TokenUtil;</span><br><span class="line">import org.springframework.core.MethodParameter;</span><br><span class="line">import org.springframework.util.CollectionUtils;</span><br><span class="line">import org.springframework.util.StringUtils;</span><br><span class="line">import org.springframework.web.bind.support.WebDataBinderFactory;</span><br><span class="line">import org.springframework.web.context.request.NativeWebRequest;</span><br><span class="line">import org.springframework.web.method.support.HandlerMethodArgumentResolver;</span><br><span class="line">import org.springframework.web.method.support.ModelAndViewContainer;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.Cookie;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean supportsParameter(MethodParameter parameter) &#123;</span><br><span class="line">        return parameter.getParameterType() == Token.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest,</span><br><span class="line">                                  WebDataBinderFactory binderFactory) throws Exception &#123;</span><br><span class="line">        String token = webRequest.getHeader(Constants.TOKEN);</span><br><span class="line">        if(StringUtils.isEmpty(token)) &#123;</span><br><span class="line">            token = webRequest.getParameter(Constants.TOKEN);</span><br><span class="line">        &#125;</span><br><span class="line">        if(StringUtils.isEmpty(token)) &#123;</span><br><span class="line">            token = getTokenFromCookie(webRequest);</span><br><span class="line">        &#125;</span><br><span class="line">        if(StringUtils.isEmpty(token)) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        return TokenUtil.getTokenInfo(token);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String getTokenFromCookie(NativeWebRequest webRequest) &#123;</span><br><span class="line">        String token = null;</span><br><span class="line">        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);</span><br><span class="line">        List&lt;Cookie&gt; cookies = Arrays.asList(request.getCookies());</span><br><span class="line">        if(!CollectionUtils.isEmpty(cookies)) &#123;</span><br><span class="line">            for(Cookie cookie : cookies) &#123;</span><br><span class="line">                String name = cookie.getName();</span><br><span class="line">                if(Constants.TOKEN.equals(name)) &#123;</span><br><span class="line">                    token = cookie.getValue();</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return token;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>spring循环引用问题及解决方式<br><a href="https://blog.csdn.net/chejinqiang/article/details/80003868" target="_blank" rel="noopener">https://blog.csdn.net/chejinqiang/article/details/80003868</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/elasticsearch-head/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/17/elasticsearch-head/" itemprop="url">elasticsearch-head</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-17T17:21:37+08:00">
-                2019-01-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>linux下.xz文件的解压方式<br>安装xz：yum -y install xz<br>xz -d <em>.tar.xz //生成了.tar文件<br>tar -xvf </em>.tar</p>
-<p>解压.xz文件<br>xz -d node-v10.15.0-linux-x64.tar.xz<br>解压tar文件<br>tar -xvf node-v10.15.0-linux-x64.tar<br>配置NODE_HOME<br>vim /etc/profile<br>export NODE_HOME=/usr/local/software/node-v10.15.0-linux-x64<br>export PATH=$PATH:$JAVA_HOME/bin:$NODE_HOME/bin</p>
-<p>source /etc/profile</p>
-<p>[root@node02 ~]# node -v<br>v10.15.0</p>
-<p>[root@node02 ~]# npm -v<br>6.4.1</p>
-<p>安装unzip包<br>yum -y install unzip<br>解压zip包<br>unzip elasticsearch-head-master.zip </p>
-<p>grunt安装：<br>进入下载的elasticsearch-head-master<br>cd elasticsearch-head</p>
-<h1 id="安装依赖-指定淘宝的npm源加速"><a href="#安装依赖-指定淘宝的npm源加速" class="headerlink" title="安装依赖 指定淘宝的npm源加速"></a>安装依赖 指定淘宝的npm源加速</h1><p>npm install –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p>
-<p>启动<br>cd elasticsearch-head<br>node_modules/grunt/bin/grunt server</p>
-<p>参考文章<br><a href="https://segmentfault.com/a/1190000014347757" target="_blank" rel="noopener">https://segmentfault.com/a/1190000014347757</a><br><a href="https://blog.csdn.net/u011418530/article/details/84782477" target="_blank" rel="noopener">https://blog.csdn.net/u011418530/article/details/84782477</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1598,7 +1749,7 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
