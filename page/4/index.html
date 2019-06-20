@@ -229,6 +229,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/kafka/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/19/kafka/" itemprop="url">kafka</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-19T18:50:14+08:00">
+                2018-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://mp.weixin.qq.com/s/bc2YcVeBglZkeHdASg3wXw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/bc2YcVeBglZkeHdASg3wXw</a></p>
+<p>1.为什么使用消息队列？<br>引入MQ好处：</p>
+<ul>
+<li>系统解耦</li>
+<li>异步调用</li>
+<li>流量削峰</li>
+</ul>
+<p>2.使用消息队列有什么缺点?</p>
+<ul>
+<li>系统可用性降低</li>
+<li>系统复杂性增加</li>
+</ul>
+<p>3.消息队列如何选型?</p>
+<p>4.如何保证消息队列是高可用的？</p>
+<p>5.如何保证消息不被重复消费?</p>
+<p>6.如何保证消费的可靠性传输?</p>
+<p>7.如何保证消息的顺序性？</p>
+<p>kafka可靠性保证</p>
+<p>关系型数据库ACID</p>
+<ul>
+<li>原子性</li>
+<li>一致性</li>
+<li>隔离性</li>
+<li>持久性</li>
+</ul>
+<p>kafka 可靠性保证</p>
+<ul>
+<li>kafka 可以保证分区消息的顺序</li>
+<li>只有当消息被写入分区的所有同步副本时（但不一定要写入磁盘），它才被认为是“已提交”的</li>
+<li>只要还有一个副本是活跃的，那么已经提交的消息就不会丢失</li>
+<li>消费者只能读取已经提交的消息</li>
+</ul>
+<p>分区的分布：<br>默认情况下，kafka会确保分区的每个副本被放在不同的broker上。</p>
+<p>发送确认：<br>生产者可以选择3中确认模式</p>
+<ul>
+<li>acks=0 如果生产者能够通过网络把消息发送出去，那么就认为消息已成功写入Kafka；</li>
+<li>acks=1 Leader在收到消息并把它写入到分区数据文件（不一定同步到磁盘上）时会返回确认或错误响应，<br>在这个模式下，如果发生正常的Leader选举，生产者会在选举时收到一个LeaderNotAvailableException异常，</li>
+<li>acks=all </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/spring-aop/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1305,7 +1463,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
