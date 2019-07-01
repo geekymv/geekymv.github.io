@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="12345678910wget http://nginx.org/download/nginx-1.14.2.tar.gzyum install pcreyum install pcre-develyum install zlibyum install zlib-devel tar -zxvf nginx-1.14.2.tar.gz cd nginx-1.14.2./configure --pre">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-18T11:57:48.223Z">
+<meta property="og:updated_time" content="2019-06-26T01:48:14.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx">
 <meta name="twitter:description" content="12345678910wget http://nginx.org/download/nginx-1.14.2.tar.gzyum install pcreyum install pcre-develyum install zlibyum install zlib-devel tar -zxvf nginx-1.14.2.tar.gz cd nginx-1.14.2./configure --pre">
@@ -324,6 +324,9 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
 <p>接入层、反向代理服务器、负载均衡服务器 一般都是指nginx<br>上游服务器（upstream server）指nginx 负载均衡到的处理业务的服务器，也称之为real server，即真实处理业务的服务器。</p>
 <p>nginx 提供的负载均衡可以实现上游服务器的负载均衡、故障转移、失败重试、容错、健康检查等，当某些上游服务器出现问题时<br>可以将请求转发到其他上游服务器以保障高可用，并可以通过OpenResty 实现更智能的负载均衡，如将热点与非热点流浪分离、正常<br>流量与爬虫流量分离等。</p>
 <p>nginx 负载均衡器本身也是一台反向代理服务器，将用户请求通过nginx代理到内网中的某台上游服务器处理，<br>反向代理服务器可以对响应结果进行缓存、压缩等处理移提升性能。</p>
+<p>限流<br>算法：令牌桶、漏斗、计数器<br>令牌桶是按照固定速率往桶中添加令牌，请求是否被处理需要看桶中令牌是否足够，当令牌数减为0时，则拒绝新的请求。<br>漏斗是按照常量固定速率流出请求，流入请求速率任意，当流入的请求数累积到漏斗容量时，则新流入的请求被拒绝。</p>
+<p>令牌桶允许一定程度的突发，而漏斗主要目的是平滑流入速率。</p>
+<p>超时与重试机制<br>网络连接/读/写超时时间</p>
 
       
     </div>
@@ -428,7 +431,7 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
