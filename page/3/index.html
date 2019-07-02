@@ -229,6 +229,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/nginx/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/nginx/" itemprop="url">nginx</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-22T15:49:45+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.14.2.tar.gz</span><br><span class="line"></span><br><span class="line">yum install pcre</span><br><span class="line">yum install pcre-devel</span><br><span class="line">yum install zlib</span><br><span class="line">yum install zlib-devel</span><br><span class="line"> </span><br><span class="line">tar -zxvf nginx-1.14.2.tar.gz </span><br><span class="line">cd nginx-1.14.2</span><br><span class="line">./configure --prefix=/usr/local/nginx</span><br></pre></td></tr></table></figure>
+<p>可能会报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@node02 nginx-1.14.2]# ./configure --prefix=/usr/local/nginx</span><br><span class="line">checking for OS</span><br><span class="line"> + Linux 2.6.32-431.el6.x86_64 x86_64</span><br><span class="line">checking for C compiler ... not found</span><br><span class="line"></span><br><span class="line">./configure: error: C compiler cc is not found</span><br></pre></td></tr></table></figure></p>
+<p>解决方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc gcc-c++ autoconf automake make</span><br></pre></td></tr></table></figure></p>
+<pre><code class="text">make &amp;&amp; make install
+
+cd /usr/local/nginx
+
+[root@node02 nginx]# ll
+total 16
+drwxr-xr-x. 2 root root 4096 Feb  1 22:59 conf
+drwxr-xr-x. 2 root root 4096 Feb  1 22:59 html
+drwxr-xr-x. 2 root root 4096 Feb  1 22:59 logs
+drwxr-xr-x. 2 root root 4096 Feb  1 22:59 sbin
+
+[root@node02 nginx]# sbin/nginx 
+[root@node02 nginx]# ps -ef | grep nginx
+root       3772      1  0 23:00 ?        00:00:00 nginx: master process sbin/nginx
+nobody     3773   3772  0 23:00 ?        00:00:00 nginx: worker process
+root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
+</code></pre>
+<p>正向代理、反向代理<br>系统内部要访问外部网络时，统一通过一个代理服务器把请求转发出去，在外部网络看来就是代理服务器发起的访问，<br>此时代理服务器实现的是正向代理。</p>
+<p>nginx 一般用于七层负载均衡，nginx 目前提供了HTTP七层负载均衡，1.9.0版本也开始支持TCP四层负载均衡。</p>
+<p>接入层、反向代理服务器、负载均衡服务器 一般都是指nginx<br>上游服务器（upstream server）指nginx 负载均衡到的处理业务的服务器，也称之为real server，即真实处理业务的服务器。</p>
+<p>nginx 提供的负载均衡可以实现上游服务器的负载均衡、故障转移、失败重试、容错、健康检查等，当某些上游服务器出现问题时<br>可以将请求转发到其他上游服务器以保障高可用，并可以通过OpenResty 实现更智能的负载均衡，如将热点与非热点流浪分离、正常<br>流量与爬虫流量分离等。</p>
+<p>nginx 负载均衡器本身也是一台反向代理服务器，将用户请求通过nginx代理到内网中的某台上游服务器处理，<br>反向代理服务器可以对响应结果进行缓存、压缩等处理移提升性能。</p>
+<p>限流<br>算法：令牌桶、漏斗、计数器<br>令牌桶是按照固定速率往桶中添加令牌，请求是否被处理需要看桶中令牌是否足够，当令牌数减为0时，则拒绝新的请求。<br>漏斗是按照常量固定速率流出请求，流入请求速率任意，当流入的请求数累积到漏斗容量时，则新流入的请求被拒绝。</p>
+<p>令牌桶允许一定程度的突发，而漏斗主要目的是平滑流入速率。</p>
+<p>超时与重试机制<br>网络连接/读/写超时时间</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/jenkins/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1421,172 +1568,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/hashmap/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/04/hashmap/" itemprop="url">hashmap</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-04T13:53:29+08:00">
-                2019-01-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <table>
-<thead>
-<tr>
-<th>比较</th>
-<th>HashMap</th>
-<th>HashTable</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>key/value 是否为null</td>
-<td>key 和 value 都可以为null</td>
-<td>key 和 value 都不可以为null</td>
-</tr>
-<tr>
-<td>是否同步</td>
-<td>不同步</td>
-<td>同步</td>
-</tr>
-</tbody>
-</table>
-<p>影响HashMap性能的两个参数</p>
-<ul>
-<li>initial capacity 初始容量，默认值 16</li>
-<li>load factor 负载因子，默认值 0.75</li>
-</ul>
-<p>阈值<br>threshold = capacity * load factor</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Associates the specified value with the specified key in this map.</span><br><span class="line"> * If the map previously contained a mapping for the key, the old</span><br><span class="line"> * value is replaced.</span><br><span class="line"> *</span><br><span class="line"> * @param key key with which the specified value is to be associated</span><br><span class="line"> * @param value value to be associated with the specified key</span><br><span class="line"> * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or</span><br><span class="line"> *         &lt;tt&gt;null&lt;/tt&gt; if there was no mapping for &lt;tt&gt;key&lt;/tt&gt;.</span><br><span class="line"> *         (A &lt;tt&gt;null&lt;/tt&gt; return can also indicate that the map</span><br><span class="line"> *         previously associated &lt;tt&gt;null&lt;/tt&gt; with &lt;tt&gt;key&lt;/tt&gt;.)</span><br><span class="line"> */</span><br><span class="line">public V put(K key, V value) &#123;</span><br><span class="line">    return putVal(hash(key), key, value, false, true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"> /**</span><br><span class="line"> * Implements Map.put and related methods</span><br><span class="line"> *</span><br><span class="line"> * @param hash hash for key</span><br><span class="line"> * @param key the key</span><br><span class="line"> * @param value the value to put</span><br><span class="line"> * @param onlyIfAbsent if true, don&apos;t change existing value</span><br><span class="line"> * @param evict if false, the table is in creation mode.</span><br><span class="line"> * @return previous value, or null if none</span><br><span class="line"> */</span><br><span class="line">final V putVal(int hash, K key, V value, boolean onlyIfAbsent,</span><br><span class="line">               boolean evict) &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; </span><br><span class="line">    Node&lt;K,V&gt; p; </span><br><span class="line">    int n, i; // n 记录记录tab.length</span><br><span class="line">    </span><br><span class="line">    if ((tab = table) == null || (n = tab.length) == 0)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">    if ((p = tab[i = (n - 1) &amp; hash]) == null)</span><br><span class="line">        tab[i] = newNode(hash, key, value, null);</span><br><span class="line">    else &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        if (p.hash == hash &amp;&amp;</span><br><span class="line">            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">            e = p;</span><br><span class="line">        else if (p instanceof TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);</span><br><span class="line">        else &#123;</span><br><span class="line">            for (int binCount = 0; ; ++binCount) &#123;</span><br><span class="line">                if ((e = p.next) == null) &#123;</span><br><span class="line">                    p.next = newNode(hash, key, value, null);</span><br><span class="line">                    if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st</span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                if (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">                    break;</span><br><span class="line">                p = e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (e != null) &#123; // existing mapping for key</span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            if (!onlyIfAbsent || oldValue == null)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            return oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    // 如果HashMap的大小超过阈值，则扩容</span><br><span class="line">    if (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Initializes or doubles table size.  If null, allocates in</span><br><span class="line"> * accord with initial capacity target held in field threshold.</span><br><span class="line"> * Otherwise, because we are using power-of-two expansion, the</span><br><span class="line"> * elements from each bin must either stay at same index, or move</span><br><span class="line"> * with a power of two offset in the new table.</span><br><span class="line"> *</span><br><span class="line"> * @return the table</span><br><span class="line"> */</span><br><span class="line">final Node&lt;K,V&gt;[] resize() &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] oldTab = table;</span><br><span class="line">    int oldCap = (oldTab == null) ? 0 : oldTab.length;</span><br><span class="line">    int oldThr = threshold;</span><br><span class="line">    int newCap, newThr = 0;</span><br><span class="line">    if (oldCap &gt; 0) &#123;</span><br><span class="line">        if (oldCap &gt;= MAXIMUM_CAPACITY) &#123;</span><br><span class="line">            threshold = Integer.MAX_VALUE;</span><br><span class="line">            return oldTab;</span><br><span class="line">        &#125;</span><br><span class="line">        else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;</span><br><span class="line">                 oldCap &gt;= DEFAULT_INITIAL_CAPACITY)</span><br><span class="line">            newThr = oldThr &lt;&lt; 1; // double threshold</span><br><span class="line">    &#125;</span><br><span class="line">    else if (oldThr &gt; 0) // initial capacity was placed in threshold</span><br><span class="line">        newCap = oldThr;</span><br><span class="line">    else &#123;               // zero initial threshold signifies using defaults</span><br><span class="line">        newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">        newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);</span><br><span class="line">    &#125;</span><br><span class="line">    if (newThr == 0) &#123;</span><br><span class="line">        float ft = (float)newCap * loadFactor;</span><br><span class="line">        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?</span><br><span class="line">                  (int)ft : Integer.MAX_VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    threshold = newThr;</span><br><span class="line">    @SuppressWarnings(&#123;&quot;rawtypes&quot;,&quot;unchecked&quot;&#125;)</span><br><span class="line">        Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];</span><br><span class="line">    table = newTab;</span><br><span class="line">    if (oldTab != null) &#123;</span><br><span class="line">        for (int j = 0; j &lt; oldCap; ++j) &#123;</span><br><span class="line">            Node&lt;K,V&gt; e;</span><br><span class="line">            if ((e = oldTab[j]) != null) &#123;</span><br><span class="line">                oldTab[j] = null;</span><br><span class="line">                if (e.next == null)</span><br><span class="line">                    newTab[e.hash &amp; (newCap - 1)] = e;</span><br><span class="line">                else if (e instanceof TreeNode)</span><br><span class="line">                    ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap);</span><br><span class="line">                else &#123; // preserve order 维持顺序</span><br><span class="line">                    Node&lt;K,V&gt; loHead = null, loTail = null;</span><br><span class="line">                    Node&lt;K,V&gt; hiHead = null, hiTail = null;</span><br><span class="line">                    Node&lt;K,V&gt; next;</span><br><span class="line">                    do &#123;</span><br><span class="line">                        next = e.next;</span><br><span class="line">                        if ((e.hash &amp; oldCap) == 0) &#123;</span><br><span class="line">                            if (loTail == null)</span><br><span class="line">                                loHead = e;</span><br><span class="line">                            else</span><br><span class="line">                                loTail.next = e;</span><br><span class="line">                            loTail = e;</span><br><span class="line">                        &#125;</span><br><span class="line">                        else &#123;</span><br><span class="line">                            if (hiTail == null)</span><br><span class="line">                                hiHead = e;</span><br><span class="line">                            else</span><br><span class="line">                                hiTail.next = e;</span><br><span class="line">                            hiTail = e;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; while ((e = next) != null);</span><br><span class="line">                    if (loTail != null) &#123;</span><br><span class="line">                        loTail.next = null;</span><br><span class="line">                        newTab[j] = loHead;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (hiTail != null) &#123;</span><br><span class="line">                        hiTail.next = null;</span><br><span class="line">                        newTab[j + oldCap] = hiHead;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return newTab;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用HashMap的put操作，当容量大小超过阈值则发生扩容（调用resize()），在并发情况下可能会产生循环链表，在执行get的时候，可能会触发死循环，引起CPU 100%问题。<br>JDK8虽然修复了死循环的BUG，将原来的链表部分改为数据量少时用链表，当超过一定数量后变为红黑树（treeifyBin()）。但是HashMap 还是非线程安全类，仍然会产生数据丢失等问题。</p>
-<p><a href="hash表处理冲突">https://blog.csdn.net/mgl934973491/article/details/57405247</a><br>不同的key用同样的hash算法，可能会得到相同的hash值，比如Ab BB的hash值一样。</p>
-<ul>
-<li>线性探测法</li>
-<li>拉链法（HashMap中使用这种方法进行冲突处理的）</li>
-</ul>
-<p><a href="HashMap在并发下可能出现的问题分析">http://www.cnblogs.com/binyue/p/3726403.html</a></p>
-<p>参考 </p>
-<ul>
-<li><a href="https://coolshell.cn/articles/9606.html" target="_blank" rel="noopener">疫苗：JAVA HASHMAP的死循环</a></li>
-<li><a href="https://my.oschina.net/alexqdjay/blog/1377268" target="_blank" rel="noopener">HashMap 多线程下死循环分析及JDK8修复</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1632,7 +1618,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

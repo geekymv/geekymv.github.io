@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1 系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路 查看cpu消耗过高的进程top 查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。top -Hp pid 输入线程的十六进制值printf “%x\n” tid jstack pid | grep tid对应的十六">
+<meta name="description" content="tar -zxvf haproxy-1.8.20.tar.gzcd haproxy-1.8.20make TARGET=linux2628 ARCH=x86_64 PREFIX=/usr/local/haproxymake install PREFIX=/usr/local/haproxy12345参数说明TARGET=linux26 #内核版本，使用uname -r查看内核，如：2.6.18-3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线程">
-<meta property="og:url" content="http://yoursite.com/2018/11/19/thread-pool/index.html">
+<meta property="og:title" content="haproxy">
+<meta property="og:url" content="http://yoursite.com/2019/07/01/haproxy/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1 系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路 查看cpu消耗过高的进程top 查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。top -Hp pid 输入线程的十六进制值printf “%x\n” tid jstack pid | grep tid对应的十六">
+<meta property="og:description" content="tar -zxvf haproxy-1.8.20.tar.gzcd haproxy-1.8.20make TARGET=linux2628 ARCH=x86_64 PREFIX=/usr/local/haproxymake install PREFIX=/usr/local/haproxy12345参数说明TARGET=linux26 #内核版本，使用uname -r查看内核，如：2.6.18-3">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-21T02:19:49.676Z">
+<meta property="og:updated_time" content="2019-07-01T07:00:35.769Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线程">
-<meta name="twitter:description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1 系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路 查看cpu消耗过高的进程top 查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。top -Hp pid 输入线程的十六进制值printf “%x\n” tid jstack pid | grep tid对应的十六">
+<meta name="twitter:title" content="haproxy">
+<meta name="twitter:description" content="tar -zxvf haproxy-1.8.20.tar.gzcd haproxy-1.8.20make TARGET=linux2628 ARCH=x86_64 PREFIX=/usr/local/haproxymake install PREFIX=/usr/local/haproxy12345参数说明TARGET=linux26 #内核版本，使用uname -r查看内核，如：2.6.18-3">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/19/thread-pool/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/01/haproxy/">
 
 
 
 
 
-  <title>线程 | geekymv</title>
+  <title>haproxy | geekymv</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/thread-pool/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/haproxy/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="geekymv">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">线程</h1>
+          <h1 class="post-title" itemprop="name headline">haproxy</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T19:45:50+08:00">
-                2018-11-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-01T13:41:46+08:00">
+                2019-07-01
               </time>
             
 
@@ -299,12 +299,16 @@
       
 
       
-        <p>查看进程下的线程数：ps -Lf pid | wc -l<br>查看cpu核数：执行top命令后 按数字1</p>
-<p><a href="https://mp.weixin.qq.com/s/_tWm2G57vLgomvpNNHKAMA" target="_blank" rel="noopener">系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路</a></p>
-<p>查看cpu消耗过高的进程<br>top</p>
-<p>查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。<br>top -Hp pid</p>
-<p>输入线程的十六进制值<br>printf “%x\n” tid</p>
-<p>jstack pid | grep tid对应的十六进制</p>
+        <p>tar -zxvf haproxy-1.8.20.tar.gz<br>cd haproxy-1.8.20<br>make TARGET=linux2628 ARCH=x86_64 PREFIX=/usr/local/haproxy<br>make install PREFIX=/usr/local/haproxy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">参数说明</span><br><span class="line">TARGET=linux26 #内核版本，使用uname -r查看内核，如：2.6.18-371.el5，此时该参数就为linux26；kernel 大于2.6.28的</span><br><span class="line">用：TARGET=linux2628</span><br><span class="line">ARCH=x86_64 #系统位数</span><br><span class="line">PREFIX=/usr/local/haprpxy  #/usr/local/haprpxy为haprpxy安装路径</span><br></pre></td></tr></table></figure></p>
+<p>cd /usr/local/haprpxy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ls</span><br><span class="line">doc  sbin  share</span><br></pre></td></tr></table></figure></p>
+<p>mkdir conf<br>vim conf/haproxy.cfg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">###########全局配置#########</span><br><span class="line">global</span><br><span class="line">    daemon   # 后台方式运行</span><br><span class="line">    nbproc 1</span><br><span class="line">    pidfile haproxy.pid</span><br><span class="line"></span><br><span class="line">###########默认配置#########</span><br><span class="line">defaults</span><br><span class="line">    mode tcp               #默认的模式mode &#123; tcp|http|health &#125;，tcp是4层，http是7层，health只会返回OK</span><br><span class="line">    retries 2               #两次连接失败就认为是服务器不可用，也可以通过后面设置</span><br><span class="line">    option redispatch       #当serverId对应的服务器挂掉后，强制定向到其他健康的服务器</span><br><span class="line">    option abortonclose     #当服务器负载很高的时候，自动结束掉当前队列处理比较久的链接</span><br><span class="line">    maxconn 4096            #默认的最大连接数</span><br><span class="line">    timeout connect 5000ms  #连接超时</span><br><span class="line">    timeout client 30000ms  #客户端超时</span><br><span class="line">    timeout server 30000ms  #服务器超时</span><br><span class="line">    #timeout check 2000      #=心跳检测超时</span><br><span class="line">    log 127.0.0.1 local0 info #[err warning info debug]</span><br><span class="line">    balance roundrobin      # 采用轮询算法</span><br><span class="line"></span><br><span class="line">################# 配置#################</span><br><span class="line">listen delegate                         #这里是配置负载均衡，test1是名字，可以任意</span><br><span class="line">    bind 0.0.0.0:6033            #这里是监听的IP地址和端口，端口号可以在0-65535之间，要避免端口冲突</span><br><span class="line">    mode tcp                     #连接的协议，这里是tcp协议</span><br><span class="line">    #maxconn 4086</span><br><span class="line">    #log 127.0.0.1 local0 debug</span><br><span class="line">    server s1 192.168.159.102:3306 check #负载的MySQL实例1</span><br><span class="line">    server s2 192.168.159.104:3306 check #负载的MySQL实例2 可以有多个，往下排列即</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">listen monitor</span><br><span class="line">    bind 0.0.0.0:8080</span><br><span class="line">    mode http</span><br><span class="line">    stats enable</span><br><span class="line">    stats uri /monitor</span><br></pre></td></tr></table></figure>
+<p>启动haproxy<br>sbin/haproxy -f conf/haproxy.cfg</p>
+<h4 id="配置日志"><a href="#配置日志" class="headerlink" title="配置日志"></a>配置日志</h4><p><a href="https://blog.51cto.com/zhangshijie/1742746" target="_blank" rel="noopener">https://blog.51cto.com/zhangshijie/1742746</a><br><a href="https://www.cnblogs.com/saneri/p/5234101.html" target="_blank" rel="noopener">https://www.cnblogs.com/saneri/p/5234101.html</a></p>
+<p>vim /etc/rsyslog.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">13 $ModLoad imudp  #将13行注释去除</span><br><span class="line">14 $UDPServerRun 514 #将14行注释去除</span><br><span class="line"></span><br><span class="line">#最下方添加</span><br><span class="line">local3.*         /var/log/haproxy.log </span><br><span class="line">local0.*         /var/log/haproxy.log</span><br></pre></td></tr></table></figure></p>
+<p>重启<br>/etc/init.d/rsyslog restart</p>
+<p>在master 上创建用户，并授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">create user &apos;dev&apos;@&apos;192.168.159.%&apos; identified by &apos;p4ssword&apos;;</span><br><span class="line">grant all on *.* to dev@&apos;192.168.159.%&apos; identified by &apos;p4ssword&apos;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="访问测试"><a href="#访问测试" class="headerlink" title="访问测试"></a>访问测试</h4><p> mysql -h 192.168.159.102 -udev -pp4ssword -P6033 -e “show variables like ‘server_id’”</p>
 
       
     </div>
@@ -329,8 +333,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/18/volatile/" rel="next" title="volatile 的使用">
-                <i class="fa fa-chevron-left"></i> volatile 的使用
+              <a href="/2019/06/28/distributed-systems/" rel="next" title="distributed-systems">
+                <i class="fa fa-chevron-left"></i> distributed-systems
               </a>
             
           </div>
@@ -338,10 +342,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/06/mysql-install/" rel="prev" title="MySQL安装">
-                MySQL安装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -393,8 +393,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -445,6 +454,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置日志"><span class="nav-number">1.</span> <span class="nav-text">配置日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问测试"><span class="nav-number">2.</span> <span class="nav-text">访问测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

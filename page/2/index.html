@@ -229,6 +229,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/27/git-install/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/27/git-install/" itemprop="url">git-install</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-27T09:05:04+08:00">
+                2019-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h4><ul>
+<li>在Linux上安装</li>
+<li><p>Debian / Ubuntu</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CentOS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Fedora</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install git-core</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Arch Linux</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -Sy git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Gentoo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo emerge --ask --verbose dev-vcs/git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Mac OS X 上安装<br>在Mac上，这里推荐使用Homebrew 安装，具体方法请参考Homebrew 的文档：<a href="http://brew.sh。" target="_blank" rel="noopener">http://brew.sh。</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Windows上安装<br>官方版本可以在 Git 官方网站（<a href="https://git-scm.com/）下载。" target="_blank" rel="noopener">https://git-scm.com/）下载。</a></p>
+<img src="/2019/05/27/git-install/git-win-download.png" title="git-win-download">
+</li>
+</ul>
+<p>1.点击<code>Download 2.21.0 for Windows</code>下载会自动开始，下载完成得到<code>Git-2.21.0-64-bit.exe</code> 可执行文件，<br>可能下载的很慢或者下载不了，不过不用担心我已经帮你下好了（通过公众号回复关键字”Git安装包”获取）。</p>
+<p>2.然后按默认选项安装即可。安装完成后，在开始菜单里找到Git-&gt;Git Bash，弹出一个类似命令行窗口，就说明Git安装成功！<br><img src="/2019/05/27/git-install/git-install-win-13.png" title="git-install-win"></p>
+<p>使用<code>git --version</code> 命令查看Git版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 2.21.0.windows.1</span><br></pre></td></tr></table></figure></p>
+<p>查看Git的安装目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ which git</span><br><span class="line">/mingw64/bin/git</span><br></pre></td></tr></table></figure></p>
+<p>更多安装方法可以参考官网教程（<a href="https://git-scm.com/book/zh/v2/起步-安装-Git）" target="_blank" rel="noopener">https://git-scm.com/book/zh/v2/起步-安装-Git）</a></p>
+<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>Git自带一个 git config 的工具，专门用来配置或读取相应的工作环境变量。这些变量可以存储在三个不同的位置：</p>
+<ul>
+<li>/etc/gitconfig 文件：包含系统上每一个用户及他们仓库的通用配置，使用 git config –system 配置；（几乎不会使用）</li>
+<li>~/.gitconfig 文件：只针对当前用户，使用 git config –global 配置；（最常用的方式）</li>
+<li>针对于特定项目的.git/config 文件中，使用 git config –local 配置；（可以在不同的项目使用不同的配置）</li>
+</ul>
+<p>优先级：local &gt; global &gt; system</p>
+<p>设置user.name 和 user.email<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &apos;geekymv&apos;</span><br><span class="line">$ git config --global user.email &apos;ym2011678@foxmail.com&apos;</span><br></pre></td></tr></table></figure></p>
+<p>查看user.name配置值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.name</span><br></pre></td></tr></table></figure></p>
+<p>查看user.email配置值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.email</span><br></pre></td></tr></table></figure></p>
+<p>查看所有配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list</span><br></pre></td></tr></table></figure></p>
+<h4 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h4><p>若你使用 Git 时需要获取帮助，有三种方法可以找到 Git 命令的使用手册：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git help &lt;verb&gt;</span><br><span class="line">$ git &lt;verb&gt; --help</span><br><span class="line">$ man git-&lt;verb&gt;</span><br></pre></td></tr></table></figure></p>
+<p>例如，要想获得 config 命令的手册，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git help config</span><br></pre></td></tr></table></figure></p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>本文主要介绍了Git 在Linux、Mac OS X 和 Windows 系统上的安装方法，Git 配置及如何获取 Git 命令的使用手册，下一篇文章会介绍 Git仓库和 Git基本命令的使用。</p>
+<p>「更多精彩内容请关注公众号geekymv，喜欢请分享给更多的朋友哦」</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/vi/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1590,158 +1753,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/nginx/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/22/nginx/" itemprop="url">nginx</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-22T15:49:45+08:00">
-                2019-03-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.14.2.tar.gz</span><br><span class="line"></span><br><span class="line">yum install pcre</span><br><span class="line">yum install pcre-devel</span><br><span class="line">yum install zlib</span><br><span class="line">yum install zlib-devel</span><br><span class="line"> </span><br><span class="line">tar -zxvf nginx-1.14.2.tar.gz </span><br><span class="line">cd nginx-1.14.2</span><br><span class="line">./configure --prefix=/usr/local/nginx</span><br></pre></td></tr></table></figure>
-<p>可能会报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@node02 nginx-1.14.2]# ./configure --prefix=/usr/local/nginx</span><br><span class="line">checking for OS</span><br><span class="line"> + Linux 2.6.32-431.el6.x86_64 x86_64</span><br><span class="line">checking for C compiler ... not found</span><br><span class="line"></span><br><span class="line">./configure: error: C compiler cc is not found</span><br></pre></td></tr></table></figure></p>
-<p>解决方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc gcc-c++ autoconf automake make</span><br></pre></td></tr></table></figure></p>
-<pre><code class="text">make &amp;&amp; make install
-
-cd /usr/local/nginx
-
-[root@node02 nginx]# ll
-total 16
-drwxr-xr-x. 2 root root 4096 Feb  1 22:59 conf
-drwxr-xr-x. 2 root root 4096 Feb  1 22:59 html
-drwxr-xr-x. 2 root root 4096 Feb  1 22:59 logs
-drwxr-xr-x. 2 root root 4096 Feb  1 22:59 sbin
-
-[root@node02 nginx]# sbin/nginx 
-[root@node02 nginx]# ps -ef | grep nginx
-root       3772      1  0 23:00 ?        00:00:00 nginx: master process sbin/nginx
-nobody     3773   3772  0 23:00 ?        00:00:00 nginx: worker process
-root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
-</code></pre>
-<p>正向代理、反向代理<br>系统内部要访问外部网络时，统一通过一个代理服务器把请求转发出去，在外部网络看来就是代理服务器发起的访问，<br>此时代理服务器实现的是正向代理。</p>
-<p>nginx 一般用于七层负载均衡，nginx 目前提供了HTTP七层负载均衡，1.9.0版本也开始支持TCP四层负载均衡。</p>
-<p>接入层、反向代理服务器、负载均衡服务器 一般都是指nginx<br>上游服务器（upstream server）指nginx 负载均衡到的处理业务的服务器，也称之为real server，即真实处理业务的服务器。</p>
-<p>nginx 提供的负载均衡可以实现上游服务器的负载均衡、故障转移、失败重试、容错、健康检查等，当某些上游服务器出现问题时<br>可以将请求转发到其他上游服务器以保障高可用，并可以通过OpenResty 实现更智能的负载均衡，如将热点与非热点流浪分离、正常<br>流量与爬虫流量分离等。</p>
-<p>nginx 负载均衡器本身也是一台反向代理服务器，将用户请求通过nginx代理到内网中的某台上游服务器处理，<br>反向代理服务器可以对响应结果进行缓存、压缩等处理移提升性能。</p>
-<p>限流<br>算法：令牌桶、漏斗、计数器<br>令牌桶是按照固定速率往桶中添加令牌，请求是否被处理需要看桶中令牌是否足够，当令牌数减为0时，则拒绝新的请求。<br>漏斗是按照常量固定速率流出请求，流入请求速率任意，当流入的请求数累积到漏斗容量时，则新流入的请求被拒绝。</p>
-<p>令牌桶允许一定程度的突发，而漏斗主要目的是平滑流入速率。</p>
-<p>超时与重试机制<br>网络连接/读/写超时时间</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1787,7 +1803,7 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

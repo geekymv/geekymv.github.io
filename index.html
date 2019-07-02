@@ -229,6 +229,135 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/haproxy/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/01/haproxy/" itemprop="url">haproxy</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-01T13:41:46+08:00">
+                2019-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>tar -zxvf haproxy-1.8.20.tar.gz<br>cd haproxy-1.8.20<br>make TARGET=linux2628 ARCH=x86_64 PREFIX=/usr/local/haproxy<br>make install PREFIX=/usr/local/haproxy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">参数说明</span><br><span class="line">TARGET=linux26 #内核版本，使用uname -r查看内核，如：2.6.18-371.el5，此时该参数就为linux26；kernel 大于2.6.28的</span><br><span class="line">用：TARGET=linux2628</span><br><span class="line">ARCH=x86_64 #系统位数</span><br><span class="line">PREFIX=/usr/local/haprpxy  #/usr/local/haprpxy为haprpxy安装路径</span><br></pre></td></tr></table></figure></p>
+<p>cd /usr/local/haprpxy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ls</span><br><span class="line">doc  sbin  share</span><br></pre></td></tr></table></figure></p>
+<p>mkdir conf<br>vim conf/haproxy.cfg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">###########全局配置#########</span><br><span class="line">global</span><br><span class="line">    daemon   # 后台方式运行</span><br><span class="line">    nbproc 1</span><br><span class="line">    pidfile haproxy.pid</span><br><span class="line"></span><br><span class="line">###########默认配置#########</span><br><span class="line">defaults</span><br><span class="line">    mode tcp               #默认的模式mode &#123; tcp|http|health &#125;，tcp是4层，http是7层，health只会返回OK</span><br><span class="line">    retries 2               #两次连接失败就认为是服务器不可用，也可以通过后面设置</span><br><span class="line">    option redispatch       #当serverId对应的服务器挂掉后，强制定向到其他健康的服务器</span><br><span class="line">    option abortonclose     #当服务器负载很高的时候，自动结束掉当前队列处理比较久的链接</span><br><span class="line">    maxconn 4096            #默认的最大连接数</span><br><span class="line">    timeout connect 5000ms  #连接超时</span><br><span class="line">    timeout client 30000ms  #客户端超时</span><br><span class="line">    timeout server 30000ms  #服务器超时</span><br><span class="line">    #timeout check 2000      #=心跳检测超时</span><br><span class="line">    log 127.0.0.1 local0 info #[err warning info debug]</span><br><span class="line">    balance roundrobin      # 采用轮询算法</span><br><span class="line"></span><br><span class="line">################# 配置#################</span><br><span class="line">listen delegate                         #这里是配置负载均衡，test1是名字，可以任意</span><br><span class="line">    bind 0.0.0.0:6033            #这里是监听的IP地址和端口，端口号可以在0-65535之间，要避免端口冲突</span><br><span class="line">    mode tcp                     #连接的协议，这里是tcp协议</span><br><span class="line">    #maxconn 4086</span><br><span class="line">    #log 127.0.0.1 local0 debug</span><br><span class="line">    server s1 192.168.159.102:3306 check #负载的MySQL实例1</span><br><span class="line">    server s2 192.168.159.104:3306 check #负载的MySQL实例2 可以有多个，往下排列即</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">listen monitor</span><br><span class="line">    bind 0.0.0.0:8080</span><br><span class="line">    mode http</span><br><span class="line">    stats enable</span><br><span class="line">    stats uri /monitor</span><br></pre></td></tr></table></figure>
+<p>启动haproxy<br>sbin/haproxy -f conf/haproxy.cfg</p>
+<h4 id="配置日志"><a href="#配置日志" class="headerlink" title="配置日志"></a>配置日志</h4><p><a href="https://blog.51cto.com/zhangshijie/1742746" target="_blank" rel="noopener">https://blog.51cto.com/zhangshijie/1742746</a><br><a href="https://www.cnblogs.com/saneri/p/5234101.html" target="_blank" rel="noopener">https://www.cnblogs.com/saneri/p/5234101.html</a></p>
+<p>vim /etc/rsyslog.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">13 $ModLoad imudp  #将13行注释去除</span><br><span class="line">14 $UDPServerRun 514 #将14行注释去除</span><br><span class="line"></span><br><span class="line">#最下方添加</span><br><span class="line">local3.*         /var/log/haproxy.log </span><br><span class="line">local0.*         /var/log/haproxy.log</span><br></pre></td></tr></table></figure></p>
+<p>重启<br>/etc/init.d/rsyslog restart</p>
+<p>在master 上创建用户，并授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">create user &apos;dev&apos;@&apos;192.168.159.%&apos; identified by &apos;p4ssword&apos;;</span><br><span class="line">grant all on *.* to dev@&apos;192.168.159.%&apos; identified by &apos;p4ssword&apos;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="访问测试"><a href="#访问测试" class="headerlink" title="访问测试"></a>访问测试</h4><p> mysql -h 192.168.159.102 -udev -pp4ssword -P6033 -e “show variables like ‘server_id’”</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/28/distributed-systems/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1509,174 +1638,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/27/git-install/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/27/git-install/" itemprop="url">git-install</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-27T09:05:04+08:00">
-                2019-05-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h4><ul>
-<li>在Linux上安装</li>
-<li><p>Debian / Ubuntu</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>CentOS</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Fedora</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install git-core</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Arch Linux</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -Sy git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Gentoo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo emerge --ask --verbose dev-vcs/git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在Mac OS X 上安装<br>在Mac上，这里推荐使用Homebrew 安装，具体方法请参考Homebrew 的文档：<a href="http://brew.sh。" target="_blank" rel="noopener">http://brew.sh。</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在Windows上安装<br>官方版本可以在 Git 官方网站（<a href="https://git-scm.com/）下载。" target="_blank" rel="noopener">https://git-scm.com/）下载。</a></p>
-<img src="/2019/05/27/git-install/git-win-download.png" title="git-win-download">
-</li>
-</ul>
-<p>1.点击<code>Download 2.21.0 for Windows</code>下载会自动开始，下载完成得到<code>Git-2.21.0-64-bit.exe</code> 可执行文件，<br>可能下载的很慢或者下载不了，不过不用担心我已经帮你下好了（通过公众号回复关键字”Git安装包”获取）。</p>
-<p>2.然后按默认选项安装即可。安装完成后，在开始菜单里找到Git-&gt;Git Bash，弹出一个类似命令行窗口，就说明Git安装成功！<br><img src="/2019/05/27/git-install/git-install-win-13.png" title="git-install-win"></p>
-<p>使用<code>git --version</code> 命令查看Git版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 2.21.0.windows.1</span><br></pre></td></tr></table></figure></p>
-<p>查看Git的安装目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ which git</span><br><span class="line">/mingw64/bin/git</span><br></pre></td></tr></table></figure></p>
-<p>更多安装方法可以参考官网教程（<a href="https://git-scm.com/book/zh/v2/起步-安装-Git）" target="_blank" rel="noopener">https://git-scm.com/book/zh/v2/起步-安装-Git）</a></p>
-<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>Git自带一个 git config 的工具，专门用来配置或读取相应的工作环境变量。这些变量可以存储在三个不同的位置：</p>
-<ul>
-<li>/etc/gitconfig 文件：包含系统上每一个用户及他们仓库的通用配置，使用 git config –system 配置；（几乎不会使用）</li>
-<li>~/.gitconfig 文件：只针对当前用户，使用 git config –global 配置；（最常用的方式）</li>
-<li>针对于特定项目的.git/config 文件中，使用 git config –local 配置；（可以在不同的项目使用不同的配置）</li>
-</ul>
-<p>优先级：local &gt; global &gt; system</p>
-<p>设置user.name 和 user.email<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &apos;geekymv&apos;</span><br><span class="line">$ git config --global user.email &apos;ym2011678@foxmail.com&apos;</span><br></pre></td></tr></table></figure></p>
-<p>查看user.name配置值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.name</span><br></pre></td></tr></table></figure></p>
-<p>查看user.email配置值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.email</span><br></pre></td></tr></table></figure></p>
-<p>查看所有配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list</span><br></pre></td></tr></table></figure></p>
-<h4 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h4><p>若你使用 Git 时需要获取帮助，有三种方法可以找到 Git 命令的使用手册：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git help &lt;verb&gt;</span><br><span class="line">$ git &lt;verb&gt; --help</span><br><span class="line">$ man git-&lt;verb&gt;</span><br></pre></td></tr></table></figure></p>
-<p>例如，要想获得 config 命令的手册，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git help config</span><br></pre></td></tr></table></figure></p>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>本文主要介绍了Git 在Linux、Mac OS X 和 Windows 系统上的安装方法，Git 配置及如何获取 Git 命令的使用手册，下一篇文章会介绍 Git仓库和 Git基本命令的使用。</p>
-<p>「更多精彩内容请关注公众号geekymv，喜欢请分享给更多的朋友哦」</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1722,7 +1688,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
