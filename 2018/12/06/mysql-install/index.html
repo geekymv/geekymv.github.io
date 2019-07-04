@@ -88,7 +88,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-install.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-start.png">
-<meta property="og:updated_time" content="2019-07-01T05:35:19.266Z">
+<meta property="og:updated_time" content="2019-07-04T07:57:03.149Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL安装">
 <meta name="twitter:description" content="下载地址 检查当前系统是否安装mysqlrpm -qa|grep -i mysql 如果已经安装，卸载sudo yum -y remove mysql-libs* 安装mysql服务端和客户端sudo rpm -ivh MySQL-server-5.5.62-1.el6.x86_64.rpmsudo rpm -ivh MySQL-client-5.5.62-1.el6.x86_64.rpm 查看m">
@@ -318,6 +318,22 @@
 <p>查看字符集<br>show variables like ‘character%’;<br>或show variables like ‘%char%’;</p>
 <img src="/2018/12/06/mysql-install/mysql-install.png" title="mysql install">
 <img src="/2018/12/06/mysql-install/mysql-start.png" title="mysql start">
+<h4 id="MySQL安全管理"><a href="#MySQL安全管理" class="headerlink" title="MySQL安全管理"></a>MySQL安全管理</h4><p>mysql 用户账号和信息存储在名为mysql 数据库中，mysql 库中有一个名为user 的表，它包含所有用户账号。<br>user mysql;<br>select user, host from user;</p>
+<p>创建用户账号<br>create user zhangsan identified by ‘123456’;</p>
+<p>重命名一个用户账号<br>rename user zhangsan to zhangsan2;</p>
+<p>删除用户账号(mysql5及其后drop user 会删除用户账号和所有有关的权限)<br>drop user zhangsan2;</p>
+<p>设置访问权限</p>
+<p>查看赋予用户的权限<br>show grants for zhangsan;</p>
+<p>在mysql 中用户定义为user@host，mysql的权限用用户名和主机名结合定义。<br>如果不指定主机名，则使用默认的主机名%（授予用户访问权限而不管主机名）</p>
+<p>使用grant 语句设置权限，需要给出以下信息</p>
+<ul>
+<li>要授予的权限</li>
+<li>被授予访问的数据库和表</li>
+<li>用户名<br>grant select on eshop.* to zhangsan;<br>表示允许用户在eshop数据库的所有表上使用select，<br>通过只授予select 权限，用户zhangsan 对eshop 数据库中的所有数据具有只读权限。</li>
+</ul>
+<p>撤销用户权限<br>revoke select on eshop.* from zhangsan;<br>取消用户的select 权限。</p>
+<p>整个服务器，使用grant all 和 revoke all<br>整个数据库，使用 on database.*<br>特定的表，使用 on database.table<br>特定的列<br>特定的存储过程</p>
+<p>更改口令<br>set password for zhangsan = password(‘123456789’);</p>
 <h4 id="mysql安装使用-Yum源方式"><a href="#mysql安装使用-Yum源方式" class="headerlink" title="mysql安装使用 Yum源方式"></a>mysql安装使用 Yum源方式</h4><p>在Centos 上通过yum 安装mysql5.7<br><a href="https://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/repo/yum/</a></p>
 <p>rpm -Uvh mysql80-community-release-el6-3.noarch.rpm</p>
 <p>yum repolist all |grep mysql</p>
@@ -562,7 +578,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -608,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql安装使用-Yum源方式"><span class="nav-number">1.</span> <span class="nav-text">mysql安装使用 Yum源方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主从复制"><span class="nav-number">2.</span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql-日志"><span class="nav-number">3.</span> <span class="nav-text">mysql 日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql主从复制"><span class="nav-number">4.</span> <span class="nav-text">mysql主从复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引"><span class="nav-number">5.</span> <span class="nav-text">索引</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-大型分布式集群myCat实战"><span class="nav-number"></span> <span class="nav-text">MySQL 大型分布式集群myCat实战</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL安全管理"><span class="nav-number">1.</span> <span class="nav-text">MySQL安全管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql安装使用-Yum源方式"><span class="nav-number">2.</span> <span class="nav-text">mysql安装使用 Yum源方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主从复制"><span class="nav-number">3.</span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql-日志"><span class="nav-number">4.</span> <span class="nav-text">mysql 日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql主从复制"><span class="nav-number">5.</span> <span class="nav-text">mysql主从复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引"><span class="nav-number">6.</span> <span class="nav-text">索引</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-大型分布式集群myCat实战"><span class="nav-number"></span> <span class="nav-text">MySQL 大型分布式集群myCat实战</span></a></li></div>
             
 
           </div>

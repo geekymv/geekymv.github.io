@@ -229,6 +229,248 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/git-command/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/29/git-command/" itemprop="url">git-command</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-29T08:56:27+08:00">
+                2019-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>配置并初始化一个仓库（repository）<br>开始或听着跟踪（track）文件<br>暂存（stage）或提交（commit）更改<br>配置Git来忽略指定的文件和文件模式<br>撤销错误操作<br>浏览历史版本以及不同提交间的差异<br>向远程仓库推送（push）<br>从远程仓库拉取（pull）文件</p>
+<h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4><p>创建目录mygit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir mygit</span><br></pre></td></tr></table></figure></p>
+<p>进入mygit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd mygit</span><br></pre></td></tr></table></figure></p>
+<p>仓库初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure></p>
+<p>Windows 系统下，通过Git Bash 操作如下：<br><img src="/2019/05/29/git-command/git-init-win.png" title="git init"></p>
+<p>Mac 下，通过 Terminal 操作如下：<br><img src="/2019/05/29/git-command/git-init-mac.png" title="git init"></p>
+<p>当执行完<code>git init</code> 命令后，可以看到控制台多出了<code>(master)</code>的标识，<br>它表示当前是在master分支，这也是 Git 为我们创建的默认分支（后面会详细介绍 Git 分支）。</p>
+<p>使用<code>ls -al</code> 命令查看<code>git init</code> 命令为我们生成了哪些隐藏文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/ls-al-git.png" title="ls-al-git">
+<p>可以看到，mygit 目录下多出了.git 目录，这个子目录包含初始化的 Git 仓库所有必须的文件，<br>比如有我们在上一篇文章中介绍的关于git config –local配置方式中提到的config文件。<br><img src="/2019/05/29/git-command/git-config.png" title="git config"><br>一般我们不会直接修改这个文件，而是通过Git 提供的命令去操作。</p>
+<p>查看工作目录状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-status.png" title="git status">
+<p><code>git status</code> 命令将会成为以后经常会使用的命令，用来查看工作目录文件的状态，以便决定下一步的操作。</p>
+<p>现在我们可以创建一个文件，然后使用<code>git add</code> 命令来实现对文件对追踪。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ touch hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>编辑文件，添加如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi hello.txt</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello Git</span><br></pre></td></tr></table></figure>
+<p>查看工作目录状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-status-2.png" title="git status">
+<p>在状态报告中可以看到，当前在 master 分支，hello.txt 文件未被跟踪，<br>我们可以使用 <code>git add</code> 命令来实现对文件的跟踪。</p>
+<p>开始跟踪hello.txt文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-add.png" title="git add">
+<p>控制台没有任何信息输出（Linux/Unix系统的设计思想：没有消息就是最好的消息）<br>也可以使用<code>git add .</code> 命令对当前目录下所有文件进行跟踪。</p>
+<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-status-3.png" title="git status">
+<p>可以看到，hello.txt文件已被跟踪，并处于暂存状态，只要在<code>Changes to be committed:</code>这行下面的，就说明是已暂存状态。<br>对于已暂存的文件，我们可以将hello.txt文件从暂存区回退到工作区，也可以提交hello.txt文件。</p>
+<p>这里我们先演示从暂存区回退到工作区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm --cached hello.txt</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-rm-cached.png" title="git rm --cached">
+<p>查看状态，发现和刚创建完文件时一样。</p>
+<p>接下来，我们重新将hello.txt 文件添加到暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>提交到版本库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit</span><br></pre></td></tr></table></figure></p>
+<p>输入<code>git commit</code>直接回车，默认会调用本机文本编辑器，需要输入提交信息，我们输入commit hello.txt信息，保存，关闭文件。</p>
+<p>Windows 系统下，通过Git Bash 操作如下：<br><img src="/2019/05/29/git-command/git-commit-win.png" title="git commit"></p>
+<p>Mac 下，通过 Terminal 操作如下：<br><img src="/2019/05/29/git-command/git-commit-mac.png" title="git commit"></p>
+<p>此时，hello.txt文件已成功提交，可以看到如下信息：<br><img src="/2019/05/29/git-command/git-commit.png" title="git commit"></p>
+<p>一般情况下，我们输入的提交信息都不会特别多，这时我们可以使用 <code>git commit -m &quot;提交信息&quot;</code>。</p>
+<p>查看工作区状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure></p>
+<p>说明现在的工作目录很干净。换句话说，就是当前目录下没有出现任何未跟踪状态的新文件，<br>并且所有已跟踪文件在上次提交后都没有被修改过，否则Git 会在这里列出来。</p>
+<p>查看提交日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-log.png" title="git log">
+<p>默认不加任何参数的话，<code>git log</code> 会按提交时间列出所有的更新，最近的更新排在最上面。<br>git log 命令会列出每个提交的SHA-1 校验和、作者的名字和电子邮件地址、提交时间以及提交说明。</p>
+<h4 id="暂存修改的文件"><a href="#暂存修改的文件" class="headerlink" title="暂存修改的文件"></a>暂存修改的文件</h4><p>修改hello.txt 文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello Git</span><br><span class="line">hello Java</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-status-4.png" title="git status">
+<p>出现在<code>Changes not staged for commit</code> 这行下面，说明修改了已跟踪的文件，但还没有放到暂存区。<br>要暂存这次更新，需要运行<code>git add</code>命令。或者使用<code>git checkout</code> 命令将工作区的文件撤销修改。<br><code>git add</code> 是个多功能的命令：</p>
+<ul>
+<li>用于开始跟踪新文件；</li>
+<li>把已跟踪的文件放到暂存区；</li>
+<li>用于把有冲突的文件标记为已解决状态（这个后面会用到）。 </li>
+</ul>
+<p>我们先演示下使用<code>git checkout</code> 命令撤销修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- hello.txt</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-checkout.png" title="git checkout">
+<p>可以看到hello.txt文件中添加的一行文本（hello Java）被撤销。</p>
+<p>我们按照上面的方式再修改hello.txt文件，演示将修改添加到暂存取的功能<br>运行<code>git add</code> 命令将已修改的hello.txt 文件放到暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-add-2.png" title="git add">
+<p>通过<code>git status</code> 可以看到hello.txt文件的修改已暂存。</p>
+<h4 id="状态简览"><a href="#状态简览" class="headerlink" title="状态简览"></a>状态简览</h4><p><code>git status</code> 命令的输出十分详细，使用 <code>git status -s</code> 或 <code>git status --short</code> 命令可以得到更为紧凑的格式输出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status -s</span><br></pre></td></tr></table></figure></p>
+<p>新添加的未跟踪文件前面有 ?? 标记</p>
+<p>新添加到暂存区的文件前面有 A 标记</p>
+<p>修改过的文件前面有 M 标记，注意M有两个可以出现的位置，<br>出现在右边的M表示该文件被修改了但还没有放到暂存区，出现在左边的 M 表示该文件被修改并放入了暂存区。</p>
+<h4 id="查看已暂存和未暂存的修改"><a href="#查看已暂存和未暂存的修改" class="headerlink" title="查看已暂存和未暂存的修改"></a>查看已暂存和未暂存的修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+<p>git diff 不加任何参数比较工作目录中的当前文件和暂存区之间的差异<br>git diff HEAD 比较工作区与最新本地版本库<br>git diff commit-id 比较工作区与指定 commit-id 之间的差异</p>
+<p>git diff –cached 比较暂存区与最新本地版本库<br>git diff –cached commit-id 比较暂存区与指定commit-id 之间差异</p>
+<h4 id="提交时跳过使用暂存区"><a href="#提交时跳过使用暂存区" class="headerlink" title="提交时跳过使用暂存区"></a>提交时跳过使用暂存区</h4><p>git commit 使用暂存区可以精心准备要提交的内容，但有时候这么做略显繁琐。Git提供了一个跳过使用暂存区的方式，<br>在提交的时候给git commit 加上-a 选项，Git会自动把所有已跟踪过的文件暂存起来一并提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am &apos;提交说明&apos;</span><br></pre></td></tr></table></figure></p>
+<h4 id="移除文件"><a href="#移除文件" class="headerlink" title="移除文件"></a>移除文件</h4><p>要从Git中移除某个文件，就必须要从已跟踪文件清单中移除，然后提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm hello.txt</span><br><span class="line">git commit -m &apos;提交说明&apos;</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-rm-1.png" title="git rm">
+<p>大部分情况下，我们会直接在文件管理器中把文件删除了或者使用rm 命令删除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm hello.txt</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<img src="/2019/05/29/git-command/git-rm.png" title="git rm">
+<p>有两个选择:<br>1.确实要从版本库中删除该文件，就用git rm 记录此次删除文件的操作，并用git commit。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm hello.txt</span><br><span class="line">git commit -m &apos;提交说明&apos;</span><br></pre></td></tr></table></figure></p>
+<p>现在文件就从版本库中删除了。</p>
+<p>2.删错了，把误删的文件恢复到最新版本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>用版本库里的版本替换工作区的版本，可能会丢失最近一次提交后你修改的内容。</p>
+<p>想把文件从Git仓库中删除，但是仍希望保留到当前工作目录中，<br>git rm –cached hello.txt</p>
+<h4 id="重命名文件"><a href="#重命名文件" class="headerlink" title="重命名文件"></a>重命名文件</h4><p>在我们日常开发中，可能会出现修改文件名的情况，比如觉得某个类的名字取的不能够见名知义，想要修改。<br>要在Git 中对文件重命名，可以使用<code>git mv</code> 命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git mv file_from file_to</span><br></pre></td></tr></table></figure></p>
+<p>比如，我们将文件 hello.txt 改名为hello2.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git mv hello.txt hello2.txt</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-mv.png" title="git mv">
+<p>查看状态信息，可以看到 Git 能够识别到我们对文件执行了重命名操作，并且已是暂存状态。<br>运行git mv 相当与运行了下面三条命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mv hello.txt hello2.txt</span><br><span class="line">$ git rm hello.txt</span><br><span class="line">$ git add hello2.txt</span><br></pre></td></tr></table></figure></p>
+<p>重命名已完成，这个时候我们可以提交修改 <code>git commit -m &quot;重命名文件&quot;</code>。<br>或者误操作了这个文件，想要回退。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD hello2.txt</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/05/29/git-command/git-reset.png" title="git reset">
+<p>这样hello2.txt 文件处于未跟踪状态了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD hello.txt</span><br></pre></td></tr></table></figure>
+<img src="/2019/05/29/git-command/git-reset-2.png" title="git reset">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- hello.txt</span><br><span class="line">$ rm hello2.txt</span><br></pre></td></tr></table></figure>
+<img src="/2019/05/29/git-command/git-checkout-2.png" title="git checkout">
+<h4 id="文件撤销"><a href="#文件撤销" class="headerlink" title="文件撤销"></a>文件撤销</h4><p>在日常开发的过程中，我们可能会遇到以下几种的场景：<br>场景一：<br>在工作区修改了文件内容，还没添加到暂存区，发现修改错了想要撤销修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat hello.txt</span><br><span class="line">hello Git</span><br></pre></td></tr></table></figure></p>
+<p>修改hello.txt 文件，添加一行内容hello world<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vim hello.txt</span><br><span class="line">hello Git</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
+<p>使用<code>git checkout -- &lt;file&gt;...</code> 撤销修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure></p>
+<p>查看hello.txt 文件内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat hello.txt</span><br><span class="line">hello Git</span><br></pre></td></tr></table></figure></p>
+<p>hello.txt 文件回到和版本库一样。</p>
+<p>场景二：<br>与场景一一样在工作区修改了文件内容，不同的是这个时候被修改的 hello.txt 文件已经添加到暂存区了，需要撤销修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vim hello.txt</span><br><span class="line">hello Git</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></p>
+<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>将修改的文件添加到暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>现在我们首先将文件从暂存区回退到工作区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD hello.txt</span><br><span class="line">Unstaged changes after reset:</span><br><span class="line">M       hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>查看状态，此时和场景一的状态是一样的了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>git checkout -- &lt;file&gt;...</code> 撤销修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>场景三：<br>与场景二一样在工作区修改了文件内容，被修改的 hello.txt 文件已经添加到暂存区了，这个时候在工作区又做了修改，需要撤销本次修改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vim hello.txt </span><br><span class="line">hello Git</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>将修改的文件添加到暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>再次编辑文件，添加新的一行内容hello Java<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vim hello.txt </span><br><span class="line">hello Git</span><br><span class="line">hello world</span><br><span class="line">hello Java</span><br></pre></td></tr></table></figure></p>
+<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br><span class="line"></span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>此时，hello.txt 文件同时出现在暂存区和非暂存区。<br>我们想要撤销本次的修改，那么只要执行<code>git checkout -- hello.txt</code> 就可以了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout hello.txt</span><br><span class="line">Updated 1 path from the index</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br></pre></td></tr></table></figure>
+<p>查看文件内容，本次修改已经撤销了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat hello.txt</span><br><span class="line">hello Git</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></p>
+<h4 id="文件撤销小结"><a href="#文件撤销小结" class="headerlink" title="文件撤销小结"></a>文件撤销小结</h4><p>如果hello.txt 修改后，还没有添加到暂存区，现在想要撤销，执行<code>git checkout -- hello.txt</code> 则回到和版本库一样的状态。<br>如果hello.txt 已经添加到暂存区，又做了修改，现在想要撤销本次修改，执行<code>git checkout -- hello.txt</code> ，撤销的是工作目录的修改，则回到和暂存区一样的状态。<br>当然如果是一个新的文件还没有添加到暂存区，也就没有Git撤销操作了。总之，就是让这个文件回到最近一次git commit或git add时的状态。</p>
+<p>场景四：<br>这个时候终于把hello.txt 文件修改完了，愉快的执行了提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;fix bug #666&quot;</span><br><span class="line">[master 50b27fc] fix bug #666</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure></p>
+<p>提交完后发现bug号写错了，其实修改的是bug #66，想要修改提交说明。</p>
+<p>查看提交说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line"></span><br><span class="line">commit 50b27fce9b19dd25736893bcc3bb49c46a1242ae (HEAD -&gt; master)</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Thu Jun 13 19:22:14 2019 +0800</span><br><span class="line"></span><br><span class="line">    fix bug #666</span><br></pre></td></tr></table></figure></p>
+<p>修改最近一次的提交说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend -m &quot;fix bug #66&quot;</span><br><span class="line"></span><br><span class="line">[master 5c10da1] fix bug #66</span><br><span class="line"> Date: Thu Jun 13 19:22:14 2019 +0800</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line"></span><br><span class="line">commit 5c10da1d45b53cf2f98c538b9f8d758ff961fd81 (HEAD -&gt; master)</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Thu Jun 13 19:22:14 2019 +0800</span><br><span class="line"></span><br><span class="line">    fix bug #66</span><br></pre></td></tr></table></figure>
+<p>已经成功修改了提交说明，并没有新增commit id。</p>
+<h4 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit 5c10da1d45b53cf2f98c538b9f8d758ff961fd81 (HEAD -&gt; master)</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Thu Jun 13 19:22:14 2019 +0800</span><br><span class="line"></span><br><span class="line">    fix bug #66</span><br><span class="line"></span><br><span class="line">commit 29cf508b469fd4b89de66b8b979e14b10c2663ea</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Thu Jun 13 18:55:47 2019 +0800</span><br><span class="line"></span><br><span class="line">    修改文件</span><br><span class="line"></span><br><span class="line">commit 0a49afaf82d809568ecc942baf4c170d5027ef6d</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Wed Jun 5 21:03:17 2019 +0800</span><br><span class="line"></span><br><span class="line">    add</span><br></pre></td></tr></table></figure>
+<p>git log 命令显示从最近到最远的提交说明，如果觉得输出的信息太多，可以加上参数<code>--pretty=oneline</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=oneline</span><br><span class="line">5c10da1d45b53cf2f98c538b9f8d758ff961fd81 (HEAD -&gt; master) fix bug #66</span><br><span class="line">29cf508b469fd4b89de66b8b979e14b10c2663ea 修改文件</span><br><span class="line">0a49afaf82d809568ecc942baf4c170d5027ef6d add</span><br></pre></td></tr></table></figure></p>
+<p>这下清爽多了！</p>
+<p>在Git中，用HEAD表示当前版本，上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，<br>当然往上10个版本写10个^比较容易数不过来，所以写成HEAD~10。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at 29cf508 修改文件</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=oneline</span><br><span class="line">29cf508b469fd4b89de66b8b979e14b10c2663ea (HEAD -&gt; master) 修改文件</span><br><span class="line">0a49afaf82d809568ecc942baf4c170d5027ef6d add</span><br></pre></td></tr></table></figure>
+<p>可以看到当前版本是<code>29cf50...</code>。</p>
+<p>现在要想还回到指定回到<code>5c10da1d45b53cf2f98c538b9f8d758ff961fd81</code>版本，<br>当然版本号没必要写全，前几位就可以了，Git会自动去找。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard 5c10da</span><br><span class="line">HEAD is now at 5c10da1 fix bug #66</span><br></pre></td></tr></table></figure>
+<p>可以看到又回到了<code>5c10da...</code>版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=oneline</span><br><span class="line">5c10da1d45b53cf2f98c538b9f8d758ff961fd81 (HEAD -&gt; master) fix bug #66</span><br><span class="line">29cf508b469fd4b89de66b8b979e14b10c2663ea 修改文件</span><br><span class="line">0a49afaf82d809568ecc942baf4c170d5027ef6d add</span><br></pre></td></tr></table></figure></p>
+<p>当你用<code>$ git reset --hard HEAD^</code>命令回退到<code>29cf50...</code>版本时，再想恢复到最新版本怎么版呢？<br>上面我们能恢复是因为我们在笔记中记录了 commit id。这个时候使用<code>git log</code> 已经看不到最新版本到commit id 了。<br>不用担心，在Git中总是有后悔药可以吃，<code>git reflog</code>记录你的每一次命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">29cf508 (HEAD -&gt; master) HEAD@&#123;0&#125;: reset: moving to 29cf</span><br><span class="line">5c10da1 HEAD@&#123;1&#125;: reset: moving to 5c10da1d45b53cf2f98c538b9f8d758ff961fd81</span><br><span class="line">29cf508 (HEAD -&gt; master) HEAD@&#123;2&#125;: reset: moving to HEAD^</span><br><span class="line">5c10da1 HEAD@&#123;3&#125;: commit (amend): fix bug #66</span><br><span class="line">50b27fc HEAD@&#123;4&#125;: commit: fix bug #666</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/27/git-install/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1632,127 +1874,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/lru-cache/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/04/lru-cache/" itemprop="url">用 LinkedHashMap 实现一个 LRU</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-04T11:04:54+08:00">
-                2019-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>参考 org.apache.kafka.common.cache.LRUCache</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Interface for caches, semi-peristent maps which store key-value mappings until either an eviction criteria is met</span></span><br><span class="line"><span class="comment"> * or the entries are manually invalidated. Caches are not required to be thread-safe, but some implementations may be.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cache</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Look up a value in the cache.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key the key to</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the cached value, or null if it is not present.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">V <span class="title">get</span><span class="params">(K key)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Insert an entry into the cache.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key the key to insert</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value the value to insert</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(K key, V value)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Manually invalidate a key, clearing its entry from the cache.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key the key to remove</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> true if the key existed in the cache and the entry was removed or false if it was not present</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(K key)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Get the number of entries in this cache. If this cache is used by multiple threads concurrently, the returned</span></span><br><span class="line"><span class="comment">     * value will only be approximate.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the number of entries in the cache</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedHashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * A cache implementing a least recently used policy.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Cache</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> LinkedHashMap&lt;K, V&gt; cache;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LRUCache</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> maxSize)</span> </span>&#123;</span><br><span class="line">        cache = <span class="keyword">new</span> LinkedHashMap&lt;K, V&gt;(<span class="number">16</span>, .<span class="number">75f</span>, <span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry eldest)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> size() &gt; maxSize;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(K key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cache.get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">        cache.put(key, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(K key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cache.remove(key) != <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cache.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1803,7 +1924,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
