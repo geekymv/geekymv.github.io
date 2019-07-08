@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="全文检索Apache Lucene 提供一个全文检索的功能库。文档(document)：索引和搜索时使用的主要数据载体，包含一个或对个存有数据的字段(field)。字段(field)：文档的一部分，包含名称和值两部分。词(term)：一个搜索单元，表示文本中的一个词。标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。Apache Lucene 将所有信息写">
+<meta name="description" content="全文检索Apache Lucene 提供一个全文检索的功能库。文档(document)：索引和搜索时使用的主要数据载体，包含一个或多个存有数据的字段(field)。字段(field)：文档的一部分，包含名称和值两部分。词(term)：一个搜索单元，表示文本中的一个词。标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。Apache Lucene 将所有信息写">
 <meta property="og:type" content="article">
 <meta property="og:title" content="elastic-search">
 <meta property="og:url" content="http://yoursite.com/2019/01/16/elastic-search/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="全文检索Apache Lucene 提供一个全文检索的功能库。文档(document)：索引和搜索时使用的主要数据载体，包含一个或对个存有数据的字段(field)。字段(field)：文档的一部分，包含名称和值两部分。词(term)：一个搜索单元，表示文本中的一个词。标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。Apache Lucene 将所有信息写">
+<meta property="og:description" content="全文检索Apache Lucene 提供一个全文检索的功能库。文档(document)：索引和搜索时使用的主要数据载体，包含一个或多个存有数据的字段(field)。字段(field)：文档的一部分，包含名称和值两部分。词(term)：一个搜索单元，表示文本中的一个词。标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。Apache Lucene 将所有信息写">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-19T07:15:22.876Z">
+<meta property="og:updated_time" content="2019-07-08T06:33:43.188Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="elastic-search">
-<meta name="twitter:description" content="全文检索Apache Lucene 提供一个全文检索的功能库。文档(document)：索引和搜索时使用的主要数据载体，包含一个或对个存有数据的字段(field)。字段(field)：文档的一部分，包含名称和值两部分。词(term)：一个搜索单元，表示文本中的一个词。标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。Apache Lucene 将所有信息写">
+<meta name="twitter:description" content="全文检索Apache Lucene 提供一个全文检索的功能库。文档(document)：索引和搜索时使用的主要数据载体，包含一个或多个存有数据的字段(field)。字段(field)：文档的一部分，包含名称和值两部分。词(term)：一个搜索单元，表示文本中的一个词。标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。Apache Lucene 将所有信息写">
 
 
 
@@ -299,7 +299,7 @@
       
 
       
-        <p>全文检索<br>Apache Lucene 提供一个全文检索的功能库。<br>文档(document)：索引和搜索时使用的主要数据载体，包含一个或对个存有数据的字段(field)。<br>字段(field)：文档的一部分，包含名称和值两部分。<br>词(term)：一个搜索单元，表示文本中的一个词。<br>标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。<br>Apache Lucene 将所有信息写到一个称为倒排索引(inverted index)的结构中，倒排索引建立索引中词和文档之间的映射。</p>
+        <p>全文检索<br>Apache Lucene 提供一个全文检索的功能库。<br>文档(document)：索引和搜索时使用的主要数据载体，包含一个或多个存有数据的字段(field)。<br>字段(field)：文档的一部分，包含名称和值两部分。<br>词(term)：一个搜索单元，表示文本中的一个词。<br>标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。<br>Apache Lucene 将所有信息写到一个称为倒排索引(inverted index)的结构中，倒排索引建立索引中词和文档之间的映射。</p>
 <p><a href="https://www.elastic.co/downloads/elasticsearch" target="_blank" rel="noopener">elasticsearch官网</a><br>主要概念：</p>
 <ul>
 <li>索引(index)<br>索引(index)是ElasticSearch对逻辑数据的逻辑存储，可以把索引看成关系型数据库的数据库。ElasticSearch 可以把索引放在一台机器或者分散在多台机器上，每个索引有一个或多个分片(shard)，每个分片可以有多个副本(replica)。<br>-文档类型(type)<br>在ElasticSearch中，一个索引对象可以存储很多不同用途的对象。文档类型(type)可以让我们轻易区分单个索引中的不同对象。<br>每个文档可以有不同的结构，<br>-文档(document)</li>
@@ -319,9 +319,11 @@
 <p>通过浏览器访问<a href="http://node01:9200/，可以看到类似如下内容" target="_blank" rel="noopener">http://node01:9200/，可以看到类似如下内容</a><br>{<br>    name: “node01”,<br>    cluster_name: “cluster-test”,<br>    cluster_uuid: “X38Sd_gCRuykzB7o-w0Juw”,<br>    version: {<br>        number: “6.5.4”,<br>        build_flavor: “default”,<br>        build_type: “tar”,<br>        build_hash: “d2ef93d”,<br>        build_date: “2018-12-17T21:17:40.758843Z”,<br>        build_snapshot: false,<br>        lucene_version: “7.5.0”,<br>        minimum_wire_compatibility_version: “5.6.0”,<br>        minimum_index_compatibility_version: “5.0.0”<br>    },<br>    tagline: “You Know, for Search”<br>}</p>
 <p>后台启动es：<br>bin/elasticsearch -d</p>
 <p>使用jps查看进程<br>[geekymv@node01 elasticsearch-6.5.4]$ jps<br>2992 Elasticsearch<br>3100 Jps</p>
-<p>新建文档<br>指定标识符，使用PUT<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT -H&quot;content-type:application/json&quot;  http://node03:9200/blog/article/1 -d &apos;&#123;&quot;title&quot;:&quot;ElasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
-<p>自动创建标识符，使用POST<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST -H&quot;content-type:application/json&quot;  http://node03:9200/blog/article/ -d &apos;&#123;&quot;title&quot;:&quot;lasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
-<p>检索文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://node03:9200/blog/article/1?pretty</span><br></pre></td></tr></table></figure></p>
+<p>新建文档<br>指定标识符，使用PUT<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT &apos;http://node03:9200/blog/article/1?pretty&apos; -H &quot;Content-Type:application/json&quot; -d &apos;&#123;&quot;title&quot;:&quot;ElasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
+<p>自动创建标识符，使用POST<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST &apos;http://node03:9200/blog/article/?pretty&apos; -H &quot;Content-Type:application/json&quot;  -d &apos;&#123;&quot;title&quot;:&quot;ElasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES1&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
+<p>检索文档</p>
+<p>检索id等于1的文章<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET &apos;http://node03:9200/blog/article/1?pretty&apos;</span><br></pre></td></tr></table></figure></p>
+<p>检索内容为hello的文章<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET &apos;http://node03:9200/blog/article/_search?q=content:hello&amp;pretty=true&apos;</span><br><span class="line"></span><br><span class="line">或</span><br><span class="line">curl -XGET &apos;http://node03:9200/blog/article/_search?pretty=true&apos; -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot; : &#123;</span><br><span class="line">        &quot;match&quot; : &#123; &quot;content&quot;: &quot;hello&quot; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&apos;</span><br></pre></td></tr></table></figure></p>
 <p>更新文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST -H&quot;content-type:application/json&quot; http://node03:9200/blog/article/1/_update -d &apos;&#123;&quot;script&quot;:&quot;ctx._source.content=\&quot;new content\&quot;&quot;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>删除文档<br>curl -XDELETE <a href="http://node03:9200/blog/article/1?pretty" target="_blank" rel="noopener">http://node03:9200/blog/article/1?pretty</a></p>
 <p>ElasticSearch 版本控制<br>使用乐观锁</p>
@@ -432,7 +434,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

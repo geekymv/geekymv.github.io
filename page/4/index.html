@@ -229,6 +229,128 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/spring/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/18/spring/" itemprop="url">spring</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-18T12:12:33+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>HandlerMethodArgumentResolver</p>
+<p><a href="https://www.cnblogs.com/yangzhilong/p/7605889.html" target="_blank" rel="noopener">https://www.cnblogs.com/yangzhilong/p/7605889.html</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package com.btg.core.config;</span><br><span class="line"></span><br><span class="line">import com.btg.core.Constants;</span><br><span class="line">import com.btg.core.support.Token;</span><br><span class="line">import com.btg.core.util.TokenUtil;</span><br><span class="line">import org.springframework.core.MethodParameter;</span><br><span class="line">import org.springframework.util.CollectionUtils;</span><br><span class="line">import org.springframework.util.StringUtils;</span><br><span class="line">import org.springframework.web.bind.support.WebDataBinderFactory;</span><br><span class="line">import org.springframework.web.context.request.NativeWebRequest;</span><br><span class="line">import org.springframework.web.method.support.HandlerMethodArgumentResolver;</span><br><span class="line">import org.springframework.web.method.support.ModelAndViewContainer;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.Cookie;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean supportsParameter(MethodParameter parameter) &#123;</span><br><span class="line">        return parameter.getParameterType() == Token.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest,</span><br><span class="line">                                  WebDataBinderFactory binderFactory) throws Exception &#123;</span><br><span class="line">        String token = webRequest.getHeader(Constants.TOKEN);</span><br><span class="line">        if(StringUtils.isEmpty(token)) &#123;</span><br><span class="line">            token = webRequest.getParameter(Constants.TOKEN);</span><br><span class="line">        &#125;</span><br><span class="line">        if(StringUtils.isEmpty(token)) &#123;</span><br><span class="line">            token = getTokenFromCookie(webRequest);</span><br><span class="line">        &#125;</span><br><span class="line">        if(StringUtils.isEmpty(token)) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        return TokenUtil.getTokenInfo(token);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String getTokenFromCookie(NativeWebRequest webRequest) &#123;</span><br><span class="line">        String token = null;</span><br><span class="line">        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);</span><br><span class="line">        List&lt;Cookie&gt; cookies = Arrays.asList(request.getCookies());</span><br><span class="line">        if(!CollectionUtils.isEmpty(cookies)) &#123;</span><br><span class="line">            for(Cookie cookie : cookies) &#123;</span><br><span class="line">                String name = cookie.getName();</span><br><span class="line">                if(Constants.TOKEN.equals(name)) &#123;</span><br><span class="line">                    token = cookie.getValue();</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return token;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>spring循环引用问题及解决方式<br><a href="https://blog.csdn.net/chejinqiang/article/details/80003868" target="_blank" rel="noopener">https://blog.csdn.net/chejinqiang/article/details/80003868</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/elasticsearch-head/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -429,7 +551,7 @@
       
         
           
-            <p>全文检索<br>Apache Lucene 提供一个全文检索的功能库。<br>文档(document)：索引和搜索时使用的主要数据载体，包含一个或对个存有数据的字段(field)。<br>字段(field)：文档的一部分，包含名称和值两部分。<br>词(term)：一个搜索单元，表示文本中的一个词。<br>标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。<br>Apache Lucene 将所有信息写到一个称为倒排索引(inverted index)的结构中，倒排索引建立索引中词和文档之间的映射。</p>
+            <p>全文检索<br>Apache Lucene 提供一个全文检索的功能库。<br>文档(document)：索引和搜索时使用的主要数据载体，包含一个或多个存有数据的字段(field)。<br>字段(field)：文档的一部分，包含名称和值两部分。<br>词(term)：一个搜索单元，表示文本中的一个词。<br>标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。<br>Apache Lucene 将所有信息写到一个称为倒排索引(inverted index)的结构中，倒排索引建立索引中词和文档之间的映射。</p>
 <p><a href="https://www.elastic.co/downloads/elasticsearch" target="_blank" rel="noopener">elasticsearch官网</a><br>主要概念：</p>
 <ul>
 <li>索引(index)<br>索引(index)是ElasticSearch对逻辑数据的逻辑存储，可以把索引看成关系型数据库的数据库。ElasticSearch 可以把索引放在一台机器或者分散在多台机器上，每个索引有一个或多个分片(shard)，每个分片可以有多个副本(replica)。<br>-文档类型(type)<br>在ElasticSearch中，一个索引对象可以存储很多不同用途的对象。文档类型(type)可以让我们轻易区分单个索引中的不同对象。<br>每个文档可以有不同的结构，<br>-文档(document)</li>
@@ -449,9 +571,11 @@
 <p>通过浏览器访问<a href="http://node01:9200/，可以看到类似如下内容" target="_blank" rel="noopener">http://node01:9200/，可以看到类似如下内容</a><br>{<br>    name: “node01”,<br>    cluster_name: “cluster-test”,<br>    cluster_uuid: “X38Sd_gCRuykzB7o-w0Juw”,<br>    version: {<br>        number: “6.5.4”,<br>        build_flavor: “default”,<br>        build_type: “tar”,<br>        build_hash: “d2ef93d”,<br>        build_date: “2018-12-17T21:17:40.758843Z”,<br>        build_snapshot: false,<br>        lucene_version: “7.5.0”,<br>        minimum_wire_compatibility_version: “5.6.0”,<br>        minimum_index_compatibility_version: “5.0.0”<br>    },<br>    tagline: “You Know, for Search”<br>}</p>
 <p>后台启动es：<br>bin/elasticsearch -d</p>
 <p>使用jps查看进程<br>[geekymv@node01 elasticsearch-6.5.4]$ jps<br>2992 Elasticsearch<br>3100 Jps</p>
-<p>新建文档<br>指定标识符，使用PUT<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT -H&quot;content-type:application/json&quot;  http://node03:9200/blog/article/1 -d &apos;&#123;&quot;title&quot;:&quot;ElasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
-<p>自动创建标识符，使用POST<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST -H&quot;content-type:application/json&quot;  http://node03:9200/blog/article/ -d &apos;&#123;&quot;title&quot;:&quot;lasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
-<p>检索文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://node03:9200/blog/article/1?pretty</span><br></pre></td></tr></table></figure></p>
+<p>新建文档<br>指定标识符，使用PUT<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT &apos;http://node03:9200/blog/article/1?pretty&apos; -H &quot;Content-Type:application/json&quot; -d &apos;&#123;&quot;title&quot;:&quot;ElasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
+<p>自动创建标识符，使用POST<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST &apos;http://node03:9200/blog/article/?pretty&apos; -H &quot;Content-Type:application/json&quot;  -d &apos;&#123;&quot;title&quot;:&quot;ElasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES1&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
+<p>检索文档</p>
+<p>检索id等于1的文章<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET &apos;http://node03:9200/blog/article/1?pretty&apos;</span><br></pre></td></tr></table></figure></p>
+<p>检索内容为hello的文章<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET &apos;http://node03:9200/blog/article/_search?q=content:hello&amp;pretty=true&apos;</span><br><span class="line"></span><br><span class="line">或</span><br><span class="line">curl -XGET &apos;http://node03:9200/blog/article/_search?pretty=true&apos; -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;query&quot; : &#123;</span><br><span class="line">        &quot;match&quot; : &#123; &quot;content&quot;: &quot;hello&quot; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&apos;</span><br></pre></td></tr></table></figure></p>
 <p>更新文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST -H&quot;content-type:application/json&quot; http://node03:9200/blog/article/1/_update -d &apos;&#123;&quot;script&quot;:&quot;ctx._source.content=\&quot;new content\&quot;&quot;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>删除文档<br>curl -XDELETE <a href="http://node03:9200/blog/article/1?pretty" target="_blank" rel="noopener">http://node03:9200/blog/article/1?pretty</a></p>
 <p>ElasticSearch 版本控制<br>使用乐观锁</p>
@@ -1598,128 +1722,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/spring-aop/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/13/spring-aop/" itemprop="url">spring-aop</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-13T19:25:05+08:00">
-                2018-12-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>AOP()<br>实现AOP的语言为AOL（Aspect-Oriented Language）</p>
-<p>JDK1.3之后，引入了动态代理(Dynamic Proxy)</p>
-<p>Joinpoint</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1770,7 +1772,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
