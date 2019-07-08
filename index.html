@@ -229,6 +229,132 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/shardingsphere/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/08/shardingsphere/" itemprop="url">shardingsphere</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-08T10:59:06+08:00">
+                2019-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>数据分片</p>
+<pre><code>- 垂直分片：按照业务拆分，专库专用。
+- 水平分片：通过某个字段（或某几个字段），根据某种规则将数据分散至多个库或表中，每个分片仅包含数据的一部分。
+</code></pre><p>逻辑表<br>真实表<br>数据节点<br>绑定表：指分片规则一致的主表和子表，绑定表之间的分区键要完全相同。<br>广播表：字典表<br>逻辑索引</p>
+<p>分片</p>
+<pre><code>- 分片键：用户分片的数据库字段，是将数据库（表）水平拆分的关键字段。SQL中如果无分片字段，将执行全路由，性能较差。
+- 分片算法：
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/03/hbase/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -313,6 +439,130 @@
 <p>删除表<br>drop ‘test’</p>
 <p>退出shell<br>exit</p>
 <p>关闭hbase<br>bin/stop-hbase.sh</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/mycat/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/02/mycat/" itemprop="url">mycat</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T12:20:18+08:00">
+                2019-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>分库分表</p>
+<p>水平分表<br>id 分段<br>取模</p>
+<p>按照日期<br>单表数据量大，<br>tb_order_2018<br>tb_order_2019</p>
+<p>认识mycat<br>数据库中间件</p>
+<p>mycat 安装</p>
 
           
         
@@ -879,6 +1129,130 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/springcloud/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/20/springcloud/" itemprop="url">MicroServices</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-20T22:33:02+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Spring-Cloud-入门概述"><a href="#Spring-Cloud-入门概述" class="headerlink" title="Spring Cloud 入门概述"></a>Spring Cloud 入门概述</h4><p>是什么<br>Spring Cloud 基于Spring Boot 提供了一套微服务解决方案，包括服务注册与发现，配置中心，全链路监控，服务网关，负载均衡，熔断器等组件，<br>除了基于Netflix 的开源组件做高度抽象封装之外，还有一些选型中立的开源组件。<br>Spring Cloud 利用Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，Spring Cloud 为开发人员提供了快速构建分布式系统<br>的一些工具，包括配置管理、服务发现、断路器、路由、微代理、事件总线、全局锁、决策竞选、分布式会话等，它们都可以用SpringBoot 的开发<br>风格做到一键启动和部署。<br>Spring Boot 并没有造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot 风格进行再封装<br>屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
+<h4 id="Spring-Boot-和-Spring-Cloud-是什么关系"><a href="#Spring-Boot-和-Spring-Cloud-是什么关系" class="headerlink" title="Spring Boot 和 Spring Cloud 是什么关系"></a>Spring Boot 和 Spring Cloud 是什么关系</h4><p>Spring Boot 专注于快速方便的开发单个个体微服务。<br>Spring Cloud 是关注全局的微服务协调治理框架，它将Spring Boot 开发的一个个单体微服务整合并管理起来，为各个微服务之间提供配置管理、<br>服务发现、断路器、路由、微代理、事件总线、全局锁、决策竞选、分布式会话等集成服务。</p>
+<p>Spring Boot 可以离开Spring Cloud 独立使用开发项目，但是Spring Cloud 离不开Sprint Boot，属于依赖关系。<br>Spring Boot 专注于快速、方便的开发单个微服务个体，Spring Cloud 关注全局的服务治理框架。</p>
+<h4 id="从Dubbo-是怎么到-Spring-Cloud-的？哪些优缺点让你去做技术选型"><a href="#从Dubbo-是怎么到-Spring-Cloud-的？哪些优缺点让你去做技术选型" class="headerlink" title="从Dubbo 是怎么到 Spring Cloud 的？哪些优缺点让你去做技术选型"></a>从Dubbo 是怎么到 Spring Cloud 的？哪些优缺点让你去做技术选型</h4><p>目前成熟的互联网架构（分布式+服务治理Dubbo）<br>Spring Cloud vs Dubbo<br>活跃度<br>对比              Dubbo               Spring Cloud<br>服务注册中心       Zookeeper           Spring Cloud Netflix Eureka<br>服务调用方式       RPC                 REST API<br>服务监控          Dubbo Monitor       Spring Boot Admin<br>断路器            不完善              Spring Cloud Netflix Hystrix<br>服务网关          无                  Spring Cloud Netflix Zuul<br>分布式配置         无                   Spring Cloud Config<br>服务跟踪          无                    Spring Cloud Sleuth<br>消息总线          无                    Spring Cloud Bus<br>数据流            无                     Spring Cloud Stream<br>批量任务          无                     Spring Cloud Task<br>最大区别：Spring Cloud 抛弃了Dubbo 的RPC 通信，采用的是基于HTTP 的REST 方式。<br>严格来说，这两种方式各有优劣。虽然从一定程度上来说，后者牺牲了服务调用的性能，但也避免了上面提到的原生RPC 带来的问题。<br>而且REST 相比RPC 更为灵活，服务提供方和调用方依赖的只是一纸契约，不存在代码级别的强依赖，这在强调快速演化的微服务环境下，<br>显得更加合适。<br>就像品牌与组装机的区别。</p>
+<p>能干嘛<br>去哪下<br>怎么玩<br>Spring Cloud 国内使用情况</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/18/mq/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -953,6 +1327,24 @@
             <p>为什么要使用消息中间件？</p>
 <p>解决系统间耦合调用的问题-解耦<br>异步模型-异步<br>抵御洪峰流量，达到保护主业务的目的-削峰</p>
 <p>要做到系统解耦，当新的模块接入进来时，可以做到代码改动最小：能够解耦<br>设置流量缓冲池，可以让后端系统按照自身吞吐能力进行消费，不被冲垮：能够削峰<br>强弱依赖梳理能够将非关键调用链的操作异步化并提升整体系统的吞吐能力：能够异步。</p>
+<p>activemq 安装</p>
+<p>端口：61616</p>
+<p>bin/activemq start 后台启动<br>bin/activemq restart 重启<br>bin/activemq stop 停止</p>
+<p>查看进程<br>ps -ef|grep activemq</p>
+<p>不显示grep<br>ps -ef|grep activemq | grep -v grep </p>
+<p>根据端口查看<br>netstat -anp|grep 61616<br>或者<br>lsof -i:61616</p>
+<p>带运行日志的启动方式<br>bin/activemq start &gt; /output/activemq.log</p>
+<p>通过浏览器访问<br><a href="http://127.0.0.1:8161/admin/" target="_blank" rel="noopener">http://127.0.0.1:8161/admin/</a><br>用户名密码 admin / admin</p>
+<p>JMS 规范和落地产品</p>
+<h4 id="分布式事务解决方案"><a href="#分布式事务解决方案" class="headerlink" title="分布式事务解决方案"></a>分布式事务解决方案</h4><p>刚性事务<br>    全局事务（标准的分布式事务）<br>柔性事务<br>    可靠消息最终一致（异步确保型）<br>    TCC（两阶段提交、补偿型）<br>    最大努力通知（非可靠消息、定期校对）   </p>
+<p>柔性事务解决方案：可靠消息最终一致性（异步确保型）<br>实现：业务处理服务在业务事务提交前，向实时消息服务请求发送消息，实时消息服务只记录消息数据，而不真正发送。<br>业务处理服务在业务事务提交后，向实时消息服务确认发送。只有在得到确认发送指令后，实时消息服务才真正发送。</p>
+<p>消息：业务处理服务在业务事务回滚后，向实时消息服务取消发送。<br>消息状态确认系统定期找到未确认发送或回滚发送的消息，向业务处理服务询问消息状态，<br>业务处理服务根据消息ID或消息内容确定该消息是否有效。</p>
+<p>约束：被动方的处理结果不影响主动方的处理结果，被动方的消息处理操作是幂等操作。</p>
+<p>成本：可靠消息系统建设成本；一次消息发送需要两次请求，业务处理服务需要实现消息状态回查接口。</p>
+<p>优点、适用范围<br>消息数据独立存储、独立伸缩，降低业务系统与消息系统间的耦合。<br>对最终一致性时间敏感度较高，降低业务被动方实现成本。</p>
+<p>用到的服务模式：可查询操作、幂等操作。</p>
+<p>方案特点：<br>兼容所有实现JMS标准的MQ中间件<br>确保业务数据可靠的前提下，实现业务数据的最终一致性（理想状态下基本准实时一致）。</p>
+<p>行业应用案例：<br>支付宝、eBay、去哪儿……</p>
 
           
         
@@ -1119,415 +1511,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/internet/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/11/internet/" itemprop="url">internet</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-11T13:17:30+08:00">
-                2019-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>计算机网络的定义：<br>以能够相互共享资源的方式互联起来的自治计算机系统的集合。</p>
-<p>主要特征：</p>
-<ul>
-<li>资源共享</li>
-<li>分布在不同的地理位置的“自治系统”</li>
-<li>遵循一定的规则-“协议”</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/commons-codec/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/11/commons-codec/" itemprop="url">commons-codec</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-11T10:01:20+08:00">
-                2019-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Java 开发利器- <a href="http://commons.apache.org/proper/commons-codec/" target="_blank" rel="noopener">Apache Commons Codec</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/git-branch/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/29/git-branch/" itemprop="url">git-branch</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-29T16:45:11+08:00">
-                2019-05-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Git 的分支模型可以称为它的”必杀技特性“，Git 鼓励在工作中要频繁的使用分支与合并，<br>Git 创建新分支几乎可以在瞬间完成，在不同的分支之间切换的速度也是非常快。</p>
-<p>我们在进行提交操作时，Git 会保存一个提交对象(commit object)，该提交对象包含我们在之前配置的user.name、user.email、<br>提交说明和指向它的父对象的指针。第一次提交对象没有父对象，普通提交对象有一个父对象，由多个分支合并产生的提交对象有多个父对象。</p>
-<h4 id="master-分支"><a href="#master-分支" class="headerlink" title="master 分支"></a>master 分支</h4><p>Git 的默认分支名字是<code>master</code>。Git的<code>master</code> 并不是一个特殊的分支，它跟其他的分支并没有什么区别，<br>只是<code>master</code> 分支是<code>git init</code> 命令默认创建的分支名称。</p>
-<p>都目前为止，我们一直在master分支上提交，此时master分支指向最后那个提交对象。<br><img src="/2019/05/29/git-branch/git-master.png" title="git branch"></p>
-<h4 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h4><p>创建名字为dev 的分支。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch dev</span><br></pre></td></tr></table></figure></p>
-<p>会在当前所在的提交对象上创建一个指针。<br><img src="/2019/05/29/git-branch/git-branch.png" title="git branch"></p>
-<p>在Git 中HEAD 指针指向当前所在的分支，通过上图可以看到HEAD 指向了master 分支。</p>
-<h4 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h4><p>通过<code>git branch</code> 仅仅是创建了dev 分支，并不会自动切换到分支中，<br>要切换到一个已存在的分支，可以使用<code>git checkout</code> 命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout dev</span><br></pre></td></tr></table></figure></p>
-<p>这个时候HEAD 指针就指向dev了。<br><img src="/2019/05/29/git-branch/git-dev.png" title="git branch"></p>
-<p>查看分支 git branch 命令后面不带任何参数，前面带*号的分支是当前所在分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* dev</span><br><span class="line">  master</span><br></pre></td></tr></table></figure></p>
-<p>可以看到当前所在的是 dev 分支。</p>
-<p>现在想要切回到master 分支，可以使用<code>git checkout master</code> 或 <code>git checkout -</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -</span><br><span class="line">Switched to branch &apos;master&apos;</span><br></pre></td></tr></table></figure></p>
-<h4 id="创建并切换分支"><a href="#创建并切换分支" class="headerlink" title="创建并切换分支"></a>创建并切换分支</h4><p>有时候我们想要创建一个分支并立即切换到新的分支上工作，Git 也提供了一个简单的方式实现创建并切换到某个分支，<br>使用 <code>git checkout -b branch_name</code> 命令（合并了上面两个命令）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b test</span><br><span class="line">Switched to a new branch &apos;test&apos;</span><br></pre></td></tr></table></figure></p>
-<h4 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h4><p>大多数情况下，在一个项目中的master 分支一般用于发布生产环境，dev 分支属于开发分支，<br>比如我们现在在dev 分支开发了一个小功能，并测试完毕。那么我们需要将dev分支合并到master分支，然后将新功能发布到生产环境。<br>开发过程如下：<br>我们在dev 分支下新添加一个 world.txt 文件，作为新功能的演示。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vim world.txt</span><br><span class="line">hi,我是新功能</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><p>添加到暂存区</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add world.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>提交</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;add world.txt&quot; </span><br><span class="line">[dev ef8a2b0] add world.txt</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 world.txt</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>提交完毕，此时我们的dev 分支向前移动（指针右移）了，但是master 分支却没有，<br>它仍然指向执行<code>git checkout dev</code> 时所指的对象，如下图所示：<br><img src="/2019/05/29/git-branch/git-dev-commit.png" title="git branch"></p>
-<p>新功能开发并测试完毕，需要将dev 分支内容合并的到master 分支，首先要切换到master分支，<br>然后使用git merge dev 将dev分支合并到master分支。</p>
-<ul>
-<li>切换到master 分支<br>如果dev 分支的工作目录和暂存区还有未提交的内容，它可能会和你即将切换到到master ß分支产生冲突从而阻止Git 切换到该分支，<br>最好的办法是在你切换分支之前，保证当前分支是一个干净到状态，当然Git 也提供了一些方法绕过这个问题，我们在后面会介绍。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure>
-<p>这个命令做了两件事，第一个是HEAD 指回了master 分支，第二个是将工作目录恢复成master 分支所指向的内容。<br>也就是说，在切换到一个分支时，我们的工作目录的文件会改变成该分支的内容。</p>
-<ul>
-<li>执行合并操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git merge dev</span><br><span class="line">Updating 69da26e..ef8a2b0</span><br><span class="line">Fast-forward</span><br><span class="line"> world.txt | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 world.txt</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>你可能已经注意到了<code>Fast-forward</code> 快进这个词，由于master 分支所指向的提交是dev 分支的直接父对象，<br>Git 只是简单的将指针向前移动，所以合并速度非常快。当然，也不是每次合并都能<code>Fast-forward</code>，我们后面会介绍其他方式到合并。<br><img src="/2019/05/29/git-branch/git-merge-finished.png" title="git merge"></p>
-<ul>
-<li>查看master 分支上是否有world.txt 文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">hello.txt world.txt</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>至此，合并操作完成。合并过程中，如果有Git处理不了的冲突，还需要开发人员手动合并，决定冲突的代码需要保留的部分。</p>
-<h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><p>合并完成后，就可以放心的删除dev 分支了。注意删除分支的时候，不能删除当前所在的分支，需要先切换到别的分支上去。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d dev</span><br></pre></td></tr></table></figure></p>
-<p>git branch -D branch_name 强制删除</p>
-<p>删除dev 分支后，查看分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure></p>
-<p>此时，只剩下master 分支了。<br>因为在Git 中创建、合并和删除分支都非常快，所以Git 鼓励我们使用分支完成某个任务，合并后再删除分支，<br>这和直接在master 分支上工作效果上一样的，但过程更安全。</p>
-<p>本章小结：<br>创建分支 <code>git branch branch_name</code><br>切换分支 <code>git checkout branch_name</code><br>查看分支 <code>git branch</code><br>创建并切换分支 <code>git checkout -b branch_name</code><br>合并某分支到当前分支 <code>git merge branch_name</code><br>删除分支 <code>git branch -d branch_name</code> 或 <code>git branch -D branch_name</code> 强制删除</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1578,7 +1561,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

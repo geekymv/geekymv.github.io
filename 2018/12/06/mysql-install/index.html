@@ -88,7 +88,11 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-install.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-start.png">
-<meta property="og:updated_time" content="2019-07-04T07:57:03.149Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-download.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-yum.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-yum-download.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/mysql-install/mysql-yum-download-start.png">
+<meta property="og:updated_time" content="2019-07-05T09:38:45.958Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL安装">
 <meta name="twitter:description" content="下载地址 检查当前系统是否安装mysqlrpm -qa|grep -i mysql 如果已经安装，卸载sudo yum -y remove mysql-libs* 安装mysql服务端和客户端sudo rpm -ivh MySQL-server-5.5.62-1.el6.x86_64.rpmsudo rpm -ivh MySQL-client-5.5.62-1.el6.x86_64.rpm 查看m">
@@ -334,15 +338,33 @@
 <p>撤销用户权限<br>revoke select on eshop.* from zhangsan;<br>取消用户的select 权限。</p>
 <p>整个服务器，使用grant all 和 revoke all<br>整个数据库，使用 on database.*<br>特定的表，使用 on database.table<br>特定的列<br>特定的存储过程</p>
 <p>更改口令<br>set password for zhangsan = password(‘123456789’);</p>
-<h4 id="mysql安装使用-Yum源方式"><a href="#mysql安装使用-Yum源方式" class="headerlink" title="mysql安装使用 Yum源方式"></a>mysql安装使用 Yum源方式</h4><p>在Centos 上通过yum 安装mysql5.7<br><a href="https://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/repo/yum/</a></p>
-<p>rpm -Uvh mysql80-community-release-el6-3.noarch.rpm</p>
-<p>yum repolist all |grep mysql</p>
-<p>vim /etc/yum.repos.d/mysql-community.repo</p>
-<p>yum repolist enabled |grep mysql</p>
-<p>yum install mysql-community-server</p>
-<p>service mysqld start<br>service mysqld status</p>
-<p>mysql -uroot -p<br>grep ‘temporary password’ /var/log/mysqld.log</p>
+<p>mysql 字符集和校对顺序</p>
+<p>查看所支持的字符集</p>
+<p>字符集：字母和符号的集合<br>编码：某个字符集成员的内部表示<br>校对：规定字符如何比较的指令</p>
+<p>show character set;</p>
+<p>查看所支持校对<br>show collation;</p>
+<h4 id="跟着官网一步一步安装MySQL（Yum源方式）"><a href="#跟着官网一步一步安装MySQL（Yum源方式）" class="headerlink" title="跟着官网一步一步安装MySQL（Yum源方式）"></a>跟着官网一步一步安装MySQL（Yum源方式）</h4><p>在CentOS6 上通过yum 源安装mysql5.7</p>
+<p><a href="https://www.mysql.com/downloads/" target="_blank" rel="noopener">https://www.mysql.com/downloads/</a><br><img src="/2018/12/06/mysql-install/mysql-download.png" title="mysql download"></p>
+<img src="/2018/12/06/mysql-install/mysql-yum.png" title="mysql yum">
+<p><a href="https://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/repo/yum/</a><br><img src="/2018/12/06/mysql-install/mysql-yum-download.png" title="mysql yum"></p>
+<p>下载<br><img src="/2018/12/06/mysql-install/mysql-yum-download-start.png" title="mysql yum"><br>先下载到本机，然后使用xftp工具上传到linux</p>
+<p>或者直接在linux 上使用 wget <a href="https://repo.mysql.com//mysql80-community-release-el6-3.noarch.rpm" target="_blank" rel="noopener">https://repo.mysql.com//mysql80-community-release-el6-3.noarch.rpm</a> 下载</p>
+<p>官网提供了使用yum 源安装mysql 快速指南 <a href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/" target="_blank" rel="noopener">https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/</a></p>
+<p>1.添加mysql yum 源到系统源列表<br>rpm -Uvh mysql80-community-release-el6-3.noarch.rpm</p>
+<p>2.选择一个发行版本<br>使用mysql yum 源时，默认安装mysql的最新的GA版本</p>
+<p>yum repolist all |grep mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql-cluster-7.5-community        MySQL Cluster 7.5 Community   disabled</span><br><span class="line">mysql-cluster-7.5-community-source MySQL Cluster 7.5 Community - disabled</span><br><span class="line">mysql-cluster-7.6-community        MySQL Cluster 7.6 Community   disabled</span><br><span class="line">mysql-cluster-7.6-community-source MySQL Cluster 7.6 Community - disabled</span><br><span class="line">mysql-cluster-8.0-community        MySQL Cluster 8.0 Community   disabled</span><br><span class="line">mysql-cluster-8.0-community-source MySQL Cluster 8.0 Community - disabled</span><br><span class="line">mysql-connectors-community         MySQL Connectors Community    enabled:     94</span><br><span class="line">mysql-connectors-community-source  MySQL Connectors Community -  disabled</span><br><span class="line">mysql-tools-community              MySQL Tools Community         enabled:     78</span><br><span class="line">mysql-tools-community-source       MySQL Tools Community - Sourc disabled</span><br><span class="line">mysql-tools-preview                MySQL Tools Preview           disabled</span><br><span class="line">mysql-tools-preview-source         MySQL Tools Preview - Source  disabled</span><br><span class="line">mysql55-community                  MySQL 5.5 Community Server    disabled</span><br><span class="line">mysql55-community-source           MySQL 5.5 Community Server -  disabled</span><br><span class="line">mysql56-community                  MySQL 5.6 Community Server    disabled</span><br><span class="line">mysql56-community-source           MySQL 5.6 Community Server -  disabled</span><br><span class="line">mysql57-community                  MySQL 5.7 Community Server    disabled</span><br><span class="line">mysql57-community-source           MySQL 5.7 Community Server -  disabled</span><br><span class="line">mysql80-community                  MySQL 8.0 Community Server    enabled:     99</span><br><span class="line">mysql80-community-source           MySQL 8.0 Community Server -  disabled</span><br></pre></td></tr></table></figure></p>
+<p>默认8.0启用的，我们这里安装的是5.7版本。<br>vim /etc/yum.repos.d/mysql-community.repo<br>将mysql57-community 下的enable设置为1，mysql80-community 下的enable设置为0。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># Enable to use MySQL 5.7</span><br><span class="line">[mysql57-community]</span><br><span class="line">name=MySQL 5.7 Community Server</span><br><span class="line">baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span><br><span class="line"></span><br><span class="line">[mysql80-community]</span><br><span class="line">name=MySQL 8.0 Community Server</span><br><span class="line">baseurl=http://repo.mysql.com/yum/mysql-8.0-community/el/6/$basearch/</span><br><span class="line">enabled=0</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span><br></pre></td></tr></table></figure></p>
+<p>查看启用的<br>yum repolist enabled |grep mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql-connectors-community MySQL Connectors Community                         94</span><br><span class="line">mysql-tools-community      MySQL Tools Community                              78</span><br><span class="line">mysql57-community          MySQL 5.7 Community Server                        327</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-community-server</span><br></pre></td></tr></table></figure>
+<p>需要下载安装包，需要联网下载，耐心等待…</p>
+<h4 id="启动MySQL"><a href="#启动MySQL" class="headerlink" title="启动MySQL"></a>启动MySQL</h4><p>service mysqld start</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 yum.repos.d]# service mysqld start</span><br><span class="line">Initializing MySQL database:                               [FAILED]</span><br><span class="line">[root@node01 yum.repos.d]# service mysqld start</span><br><span class="line">Starting mysqld:                                           [  OK  ]</span><br></pre></td></tr></table></figure>
+<p>service mysqld status</p>
+<p>MySQL安装初始化过程会创建一个超级账号<code>&#39;root&#39;@&#39;localhost&#39;</code>。超级账号的临时密码存储在日志中。<br>通过命令查看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &apos;temporary password&apos; /var/log/mysqld.log</span><br></pre></td></tr></table></figure></p>
+<p>使用临时密码登录<br>mysql -uroot -p</p>
+<p>修改密码<br>alter user ‘root‘@’localhost’ identified by ‘MyNewPass4!’;</p>
 <p>修改字符集<br>[mysqld]<br>character_set_server=utf8</p>
+<p>重启mysql<br>service mysqld restart</p>
 <p>查看创建库的语句<br>show create database db_name;</p>
 <p>创建用户<br>create user ‘test‘@’%’ identified by ‘pAssWord’;<br>select user, host from mysql.user;</p>
 <p>删除用户<br>drop user test;</p>
@@ -578,7 +600,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -624,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL安全管理"><span class="nav-number">1.</span> <span class="nav-text">MySQL安全管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql安装使用-Yum源方式"><span class="nav-number">2.</span> <span class="nav-text">mysql安装使用 Yum源方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主从复制"><span class="nav-number">3.</span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql-日志"><span class="nav-number">4.</span> <span class="nav-text">mysql 日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql主从复制"><span class="nav-number">5.</span> <span class="nav-text">mysql主从复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引"><span class="nav-number">6.</span> <span class="nav-text">索引</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-大型分布式集群myCat实战"><span class="nav-number"></span> <span class="nav-text">MySQL 大型分布式集群myCat实战</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL安全管理"><span class="nav-number">1.</span> <span class="nav-text">MySQL安全管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跟着官网一步一步安装MySQL（Yum源方式）"><span class="nav-number">2.</span> <span class="nav-text">跟着官网一步一步安装MySQL（Yum源方式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装MySQL"><span class="nav-number">3.</span> <span class="nav-text">安装MySQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动MySQL"><span class="nav-number">4.</span> <span class="nav-text">启动MySQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主从复制"><span class="nav-number">5.</span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql-日志"><span class="nav-number">6.</span> <span class="nav-text">mysql 日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql主从复制"><span class="nav-number">7.</span> <span class="nav-text">mysql主从复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引"><span class="nav-number">8.</span> <span class="nav-text">索引</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-大型分布式集群myCat实战"><span class="nav-number"></span> <span class="nav-text">MySQL 大型分布式集群myCat实战</span></a></li></div>
             
 
           </div>

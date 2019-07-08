@@ -229,6 +229,624 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/data-structure/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/26/data-structure/" itemprop="url">data-structure</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-26T08:50:04+08:00">
+                2019-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h4><p>从广义上讲，数据结构就是一组数据的存储结构，算法就是操作数据的一组方法。<br>从狭义上讲，是指某些著名的数据结构和算法，比如队列、堆、栈、二分查找、动态规划等。</p>
+<p>数据结构和算法本身解决的是快和省的问题，即让代码运行的更快，让代码更省存储空间。<br>所以，执行效率是算法一个非常重要的衡量指标。<br>时间和空间复杂度分析用来衡量算法的执行效率，可以粗略地估计算法的执行效率。</p>
+<h4 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h4><p>时间复杂度的全称是渐进时间复杂度，表示算法执行时间与数据规模之间的增长关系。</p>
+<ul>
+<li>只关注循环执行次数最多的一段代码，通常会忽略公式中的常量、低阶、系数，只需要记录一个最大阶的量级；</li>
+<li>加法法则：总复杂度等于量级最大的那段代码的复杂度；</li>
+<li>乘法法则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积。</li>
+</ul>
+<p>常见时间复杂度<br>常量阶O(1) 只是常量级时间复杂度的一种表示方法，并不是指只执行了一行代码。<br>对数阶O(logn)<br>线性阶O(n)、O(m+n)、O(m*n)<br>线性对数阶O(nlogn)<br>平方阶O(n^2)、立方阶O(n^3)、k方阶O(n^k)<br>指数阶O(2^n)<br>阶乘阶O(n!)</p>
+<p>越高阶复杂度的算法，执行效率越低。<br>从低到高有：O(1)、O(logn)、O(n)、O(nlogn)、O(n^2)</p>
+<p>空间复杂度<br>空间复杂度的全称是渐进空间复杂度，表示算法的存储空间与数据规模之间的增长关系。</p>
+<p>最好情况时间复杂度<br>最坏情况时间复杂度<br>平均情况时间复杂度<br>均摊时间复杂度</p>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组是一种<code>线性表</code>数据结构，它用一组<code>连续的内存空间</code>，来存储一组具有<code>相同类型的数据</code>。<br>线性表：数据排成像一条线一样的结构，每个线性表上的数据最多只有前和后两个方向。链表、队列、栈也是线性表结构。<br>非线性表：比如二叉树、堆、图等，之所以叫非线性，是因为在非线性表中数据之间并不是简单的前后关系。<br>连续的内存空间和相同类型的数据：数组根据下标可以随机访问。</p>
+<p>低效的插入和删除</p>
+<ul>
+<li><p>插入：假设数组的长度为n，如果在中间第k个位置插入元素，那么k之后的元素都要往后移动一位，<br>如果在数组末尾插入元素，就不用移动数据了，最好时间复杂度为O(1)，<br>如果在数组的开头插入元素，那所有的数据都需要往后移动一位，最坏时间复杂度为O(n)。<br>优化方案：如果数组中存储的元素并没有任何规律，数组只是存储数据的集合，这种情况下，如果要在第k个位置插入一条数据，为了避免数据移动，<br>可以直接将第k个位置数据移动到数组元素的最后，然后把新的元素放入第k个位置，这种情况下在第k个位置插入元素的时间复杂度降为O(1)。</p>
+</li>
+<li><p>删除<br>….</p>
+</li>
+</ul>
+<p>容器能否完全替代数组？<br>针对数组类型，很多语言提供了容器类，比如Java中的ArrayList、C++ STL中的vector。<br>容器类最大的优势是将很多数组操作的细节封装起来，比如对于插入和删除操作引起的数据移动不用开发人员自己实现，还有一个是支持动态扩容。<br>在创建ArrayList时，如果事先能够确定要存储数据的大小，最好在创建容器时指定大小，可以减少内存申请与数据移动。</p>
+<p>适合使用数组的场景：</p>
+<ul>
+<li>Java ArrayList 无法存储基本数据类型，比如int、long 需要封装为Integer、Long类，而自动装箱和自动拆箱有一定的性能损耗。<br>如果特别关注性能，或者希望使用基本类型，就可以选择数组；</li>
+<li>如果数据大小事先已知，并且对数据操作非常简单，用不到ArrayList提供的大部分方法，也可以直接使用数组；</li>
+<li>当表示多维数组时，用数组更加直观。</li>
+</ul>
+<h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><p>栈是一种操作受限的数据结构，只支持入栈和出栈操作。先进后出是它最大的特点。</p>
+<p>操作系统给每个线程分配了一块独立的内存空间，这块内存空间被组织成“栈”这种数据结构，用来存储函数调用时的临时变量。<br>每进入一个函数，就会将临时变量作为一个栈帧入栈，当被调用函数执行完成，返回之后，将这个函数对应的栈帧出栈。</p>
+<h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><p>先进先出<br>入队：放一个数据到队列的尾部。<br>出队：从队列头部取一个元素。<br>用数组实现的队列叫作顺序队列，用链表实现的队列叫作链式队列。<br>循环队列<br>阻塞队列<br>并发队列</p>
+<h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><p>三个条件：</p>
+<ul>
+<li>一个问题的解可以分解为几个子问题的解；</li>
+<li>这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样；</li>
+<li>存在递归终止条件。<br>如何编写递归代码<br>写出递推公式，找到终止条件，将递推公式转化成代码。</li>
+</ul>
+<p>递归代码问题</p>
+<ul>
+<li>堆栈溢出</li>
+<li>重复计算</li>
+<li>函数调用耗时多</li>
+<li>空间复杂度高</li>
+</ul>
+<h4 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h4><p>稳定性：待排序的序列中存在值相等的元素，经过排序后，相等元素之间原有的顺序保持不变，则叫作<code>稳定的排序算法</code>，否则叫作<code>不稳定的排序算法</code>。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/python/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/23/python/" itemprop="url">python</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-23T13:41:08+08:00">
+                2019-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://wizardforcel.gitbooks.io/pyda-2e/content/1.html" target="_blank" rel="noopener">python数据分析</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/jvm/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/10/jvm/" itemprop="url">jvm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-10T15:20:22+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="类加载器深入解析与阶段分解"><a href="#类加载器深入解析与阶段分解" class="headerlink" title="类加载器深入解析与阶段分解"></a>类加载器深入解析与阶段分解</h3><h4 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h4><ul>
+<li>在Java代码中，<code>类型</code>（class）的加载、连接与初始化过程都是在程序<code>运行期间</code>完成的；</li>
+<li>通过这种方式提供了更大的灵活性，增加了更多的可能性。</li>
+</ul>
+<h4 id="阶段分解"><a href="#阶段分解" class="headerlink" title="阶段分解"></a>阶段分解</h4><ul>
+<li>加载：查找并加载类的二进制数据，将类的class文件加载到内存；</li>
+<li>连接：<br>  将类与类的关系给确定好，将类与类之间符号引用转换成直接引用，并且对字节码进行相关的处理、验证。<ul>
+<li>验证：确保被加载类的正确性；</li>
+<li>准备：为类的<code>静态变量</code>（类变量）分配内存，并将其<code>初始化为默认值</code>，但在到达初始化之前，类变量都没有初始化为真正都初始值；</li>
+<li>解析：把类中的符号引用转换为直接引用；</li>
+</ul>
+</li>
+<li>初始化：为类的静态变量赋予正确的初始值（真实值覆盖默认值）。</li>
+<li>使用<ul>
+<li>类实例化：为新的对象分配内存，为实例变量赋默认值，为实例变量赋正确的初始值（开发人员设置的初始值）。</li>
+</ul>
+</li>
+<li>卸载</li>
+</ul>
+<h4 id="类加载器Classloader"><a href="#类加载器Classloader" class="headerlink" title="类加载器Classloader"></a>类加载器Classloader</h4><p>Java虚拟机与程序的生命周期，在如下几种情况下，Java虚拟机将结束生命周期</p>
+<ul>
+<li>执行了System.exit()方法；</li>
+<li>程序正常执行结束；</li>
+<li>程序在执行过程中遇到了异常或错误而异常终止；</li>
+<li>由于操作系统出现错误而导致Java虚拟机进程终止。</li>
+</ul>
+<h3 id="类的加载连接与初始化过程详解"><a href="#类的加载连接与初始化过程详解" class="headerlink" title="类的加载连接与初始化过程详解"></a>类的加载连接与初始化过程详解</h3><h4 id="Java程序对类对使用方式可分为两种"><a href="#Java程序对类对使用方式可分为两种" class="headerlink" title="Java程序对类对使用方式可分为两种"></a>Java程序对类对使用方式可分为两种</h4><ul>
+<li><p>主动使用：</p>
+<ul>
+<li>创建类的实例；</li>
+<li>访问某个类或接口的静态变量，或者对该静态变量赋值（被final修饰、已在编译期把结果放入常量池的静态字段除外）；</li>
+<li>调用类的静态方法；</li>
+<li>反射（如：Class.forName(“com.geekymv.MyTest”)）；</li>
+<li>初始化一个类的子类；</li>
+<li>Java虚拟机启动时被标明为启动类的类（包含main方法的类）；</li>
+<li>jdk1.7开始提供的动态语言支持，java.lang.invoke.methodHandle实例的解析结果REF_getStatic, REF_putStatic, REF_invokeStatic句柄对应的类没有初始化则初始化。</li>
+</ul>
+</li>
+<li><p>被动使用：除了以上7种情况，其他使用Java类的方式都被看作是对类的被动使用，都不会导致类的初始化。</p>
+</li>
+</ul>
+<p>所有的Java虚拟机实现必须在每个类或接口被Java程序<code>首次主动使用</code>才初始化。</p>
+<p>类的初始化步骤</p>
+<ul>
+<li>假如这个类还没有被加载和连接，那就先进行加载和连接；</li>
+<li>假如类存在直接父类，并且这个父类还没有被初始化，那就先初始化直接父类；</li>
+<li>假如类中存在初始化语句（静态变量的声明语句，以及静态代码块都被看做类的初始化语句），那就依次执行这些初始化语句。</li>
+</ul>
+<p>类的初始化时机<br>当Java虚拟机初始化一个类时，要求它的所有父类都已经初始化，但是这条规则并不适用于接口。</p>
+<ul>
+<li>在初始化一个类时，并不会先初始化它所实现的接口；</li>
+<li>在初始化一个接口时，并不会初始化它的父接口。<br>因此，一个父接口并不会因为它的子接口或者实现类的初始化而初始化。<br>只有当程序首次使用特定接口的静态变量时，才会导致该接口的初始化。</li>
+</ul>
+<h4 id="类的加载"><a href="#类的加载" class="headerlink" title="类的加载"></a>类的加载</h4><p>类的加载指的是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的<code>方法区</code>内，然后在内存中创建一个java.lang.Class对象<br>（Java虚拟机规范中并未说明Class对象位于哪里，HotSpot虚拟机将其放在了方法区中）用来封装类在方法区内的数据结构。</p>
+<p>加载.class文件的方式</p>
+<ul>
+<li>从本地系统中直接加载；</li>
+<li>通过网络下载.class文件；</li>
+<li>从zip、jar等归档文件中加载.class文件；</li>
+<li>从专有数据库中提取.class文件；</li>
+<li>将Java源文件动态编译为.class文件。</li>
+</ul>
+<p>类加载器</p>
+<ul>
+<li>Java虚拟机自带的加载器<ul>
+<li>根类加载器（Bootstrap），或者叫做启动类加载器，该加载器没有父加载器，加载jre/lib/rt.jar 或者-Xbootclasspath选项指定的jar包；</li>
+<li>扩展类加载器（Extension），加载jre/lib/ext/*.jar 或者-Djava.ext.dirs指定目录下的jar包；</li>
+<li>系统类加载器（System）或者叫做应用类加载器，加载classpath 或则-Djava.class.path目录下的类和jar包；</li>
+</ul>
+</li>
+<li>用户自定义的类加载器<ul>
+<li>java.lang.ClassLoader 的子类</li>
+<li>用户可以定制类的加载方式</li>
+</ul>
+</li>
+</ul>
+<p>// TODO 画图</p>
+<p>除了根类加载器之外，其他的类加载器有且只有一个父加载器。<br>类加载器并不需要等到某个类”首次主动使用”时再加载它。</p>
+<p>JVM规范允许类加载器在预料某个类将要被使用时就预先加载它，如果在预先加载的过程中遇到了.class文件缺失或者存在错误，<br>类加载器必须在程序主动使用时才报告错误（LinkageError错误）。<br>如果这个类一直没有被程序主动使用，那么类加载器就不会报告错误。</p>
+<p>双亲委托机制（父亲委托机制）<br>在父亲委托机制中，各个类加载器按照父子关系形成了树形结构（逻辑意义上的树形结构），<br>除了根类加载器，其余的类加载器有且只有一个父加载器。</p>
+<p>通俗的说，就是一个类加载器自己要加载类，但是自己不去加载而是让自己的父类加载器尝试去加载，直到根类加载器，<br>然后由根类加载器尝试去加载，如果根类加载加载不了，则让子类加载器去加载，直到加载成功或者加载失败。</p>
+<p>自底向上检查类是否已经加载，自顶向下尝试加载类。</p>
+<h4 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h4><p>每个类加载器都有自己的命名空间，命名空间由该加载器及所有父加载器所加载的类组成。<br>在同一个命名空间中，不会出现类的完整名字（包括类的包名）相同的两个类。<br>在不同的命名空间中，有可能会出现类的完整名字（包括类的包名）相同的两个类。</p>
+<p>子加载器加载的类可以访问父加载器加载的类，父加载器加载的类不能访问子加载器加载的类。</p>
+<h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p>监控工具使用<br>jconsole<br>jvisualvm<br>jmap<br>jstack</p>
+<p>锁<br>线程安全<br>偏向锁、自旋锁与轻量级锁</p>
+<p>逃逸分析<br>内存模型</p>
+<h4 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h4><ul>
+<li>标记清除</li>
+<li>复制算法</li>
+<li><p>标记整理</p>
+</li>
+<li><p>分代收集<br>新生代：复制算法<br>老年代：标记清除或标记整理</p>
+</li>
+</ul>
+<h4 id="垃圾收集器-1"><a href="#垃圾收集器-1" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p>CMS<br>G1</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/tools/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/04/tools/" itemprop="url">tools</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-04T15:57:57+08:00">
+                2019-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/fighting41love/funNLP" target="_blank" rel="noopener">从文本中抽取结构化信息</a><br><a href="https://github.com/ovity/octotree" target="_blank" rel="noopener">octotree</a><br><a href="https://github.com/threerocks/studyFiles" target="_blank" rel="noopener">studyFiles</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/lru-cache/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -968,605 +1586,6 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/elasticsearch-head/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/17/elasticsearch-head/" itemprop="url">elasticsearch-head</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-17T17:21:37+08:00">
-                2019-01-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>linux下.xz文件的解压方式<br>安装xz：yum -y install xz<br>xz -d <em>.tar.xz //生成了.tar文件<br>tar -xvf </em>.tar</p>
-<p>解压.xz文件<br>xz -d node-v10.15.0-linux-x64.tar.xz<br>解压tar文件<br>tar -xvf node-v10.15.0-linux-x64.tar<br>配置NODE_HOME<br>vim /etc/profile<br>export NODE_HOME=/usr/local/software/node-v10.15.0-linux-x64<br>export PATH=$PATH:$JAVA_HOME/bin:$NODE_HOME/bin</p>
-<p>source /etc/profile</p>
-<p>[root@node02 ~]# node -v<br>v10.15.0</p>
-<p>[root@node02 ~]# npm -v<br>6.4.1</p>
-<p>安装unzip包<br>yum -y install unzip<br>解压zip包<br>unzip elasticsearch-head-master.zip </p>
-<p>grunt安装：<br>进入下载的elasticsearch-head-master<br>cd elasticsearch-head</p>
-<h1 id="安装依赖-指定淘宝的npm源加速"><a href="#安装依赖-指定淘宝的npm源加速" class="headerlink" title="安装依赖 指定淘宝的npm源加速"></a>安装依赖 指定淘宝的npm源加速</h1><p>npm install –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p>
-<p>启动<br>cd elasticsearch-head<br>node_modules/grunt/bin/grunt server</p>
-<p>参考文章<br><a href="https://segmentfault.com/a/1190000014347757" target="_blank" rel="noopener">https://segmentfault.com/a/1190000014347757</a><br><a href="https://blog.csdn.net/u011418530/article/details/84782477" target="_blank" rel="noopener">https://blog.csdn.net/u011418530/article/details/84782477</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/elastic-search/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/16/elastic-search/" itemprop="url">elastic-search</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-16T19:41:13+08:00">
-                2019-01-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>全文检索<br>Apache Lucene 提供一个全文检索的功能库。<br>文档(document)：索引和搜索时使用的主要数据载体，包含一个或对个存有数据的字段(field)。<br>字段(field)：文档的一部分，包含名称和值两部分。<br>词(term)：一个搜索单元，表示文本中的一个词。<br>标记(token)：表示在字段文本中出现的词，由这个词的文本、开始和结束偏移量以及类型组成。<br>Apache Lucene 将所有信息写到一个称为倒排索引(inverted index)的结构中，倒排索引建立索引中词和文档之间的映射。</p>
-<p><a href="https://www.elastic.co/downloads/elasticsearch" target="_blank" rel="noopener">elasticsearch官网</a><br>主要概念：</p>
-<ul>
-<li>索引(index)<br>索引(index)是ElasticSearch对逻辑数据的逻辑存储，可以把索引看成关系型数据库的数据库。ElasticSearch 可以把索引放在一台机器或者分散在多台机器上，每个索引有一个或多个分片(shard)，每个分片可以有多个副本(replica)。<br>-文档类型(type)<br>在ElasticSearch中，一个索引对象可以存储很多不同用途的对象。文档类型(type)可以让我们轻易区分单个索引中的不同对象。<br>每个文档可以有不同的结构，<br>-文档(document)</li>
-</ul>
-<p>下载最新版本 wget <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.tar.gz" target="_blank" rel="noopener">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.tar.gz</a><br>解压修改config下的elasticsearch.yml配置文件，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"># ======================== Elasticsearch Configuration =========================</span><br><span class="line">#</span><br><span class="line"># NOTE: Elasticsearch comes with reasonable defaults for most settings.</span><br><span class="line">#       Before you set out to tweak and tune the configuration, make sure you</span><br><span class="line">#       understand what are you trying to accomplish and the consequences.</span><br><span class="line">#</span><br><span class="line"># The primary way of configuring a node is via this file. This template lists</span><br><span class="line"># the most important settings you may want to configure for a production cluster.</span><br><span class="line">#</span><br><span class="line"># Please consult the documentation for further information on configuration options:</span><br><span class="line"># https://www.elastic.co/guide/en/elasticsearch/reference/index.html</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Cluster -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Use a descriptive name for your cluster:</span><br><span class="line">#</span><br><span class="line">cluster.name: cluster-test</span><br><span class="line">#</span><br><span class="line"># ------------------------------------ Node ------------------------------------</span><br><span class="line">#</span><br><span class="line"># Use a descriptive name for the node:</span><br><span class="line">#</span><br><span class="line">node.name: node01</span><br><span class="line">#</span><br><span class="line"># Add custom attributes to the node:</span><br><span class="line">#</span><br><span class="line">#node.attr.rack: r1</span><br><span class="line">#</span><br><span class="line"># ----------------------------------- Paths ------------------------------------</span><br><span class="line">#</span><br><span class="line"># Path to directory where to store the data (separate multiple locations by comma):</span><br><span class="line">#</span><br><span class="line">path.data: /opt/data/es6/data</span><br><span class="line">#</span><br><span class="line"># Path to log files:</span><br><span class="line">#</span><br><span class="line">path.logs: /opt/data/es6/logs</span><br><span class="line">#</span><br><span class="line"># ----------------------------------- Memory -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Lock the memory on startup:</span><br><span class="line">#</span><br><span class="line">bootstrap.memory_lock: false</span><br><span class="line">bootstrap.system_call_filter: false</span><br><span class="line"># Make sure that the heap size is set to about half the memory available</span><br><span class="line"># on the system and that the owner of the process is allowed to use this</span><br><span class="line"># limit.</span><br><span class="line">#</span><br><span class="line"># Elasticsearch performs poorly when the system is swapping the memory.</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Network -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Set the bind address to a specific IP (IPv4 or IPv6):</span><br><span class="line">#</span><br><span class="line">network.host: 192.168.159.100</span><br><span class="line">#</span><br><span class="line"># Set a custom port for HTTP:</span><br><span class="line">#</span><br><span class="line">http.port: 9200</span><br><span class="line">#</span><br><span class="line"># For more information, consult the network module documentation.</span><br><span class="line">#</span><br><span class="line"># --------------------------------- Discovery ----------------------------------</span><br><span class="line">#</span><br><span class="line"># Pass an initial list of hosts to perform discovery when new node is started:</span><br><span class="line"># The default list of hosts is [&quot;127.0.0.1&quot;, &quot;[::1]&quot;]</span><br><span class="line">#</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;node01&quot;]</span><br><span class="line">#</span><br><span class="line"># Prevent the &quot;split brain&quot; by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):</span><br><span class="line">#</span><br><span class="line">#discovery.zen.minimum_master_nodes: </span><br><span class="line">#</span><br><span class="line"># For more information, consult the zen discovery module documentation.</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Gateway -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Block initial recovery after a full cluster restart until N nodes are started:</span><br><span class="line">#</span><br><span class="line">#gateway.recover_after_nodes: 3</span><br><span class="line">#</span><br><span class="line"># For more information, consult the gateway module documentation.</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Various -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Require explicit names when deleting indices:</span><br><span class="line">#</span><br><span class="line">#action.destructive_requires_name: true</span><br></pre></td></tr></table></figure></p>
-<p>不能使用root用户启动！！！这里使用新创建的geekymv用户启动。<br>添加用户组<br>groupadd geekymv<br>添加用户<br>useradd geekymv<br>修改用户所属组<br>usermod -g geekymv geekymv<br>设置密码<br>passwd geekymv</p>
-<p>[geekymv@node01 elasticsearch-6.5.4]$ bin/elasticsearch<br>[2019-01-16T21:43:43,227][WARN ][o.e.b.JNANatives         ] [node01] unable to install syscall filter:<br>java.lang.UnsupportedOperationException: seccomp unavailable: requires kernel 3.5+ with CONFIG_SECCOMP and CONFIG_SECCOMP_FILTER compiled in<br>    at org.elasticsearch.bootstrap.SystemCallFilter.linuxImpl(SystemCallFilter.java:328) ~[elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.SystemCallFilter.init(SystemCallFilter.java:616) ~[elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.JNANatives.tryInstallSystemCallFilter(JNANatives.java:258) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Natives.tryInstallSystemCallFilter(Natives.java:113) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Bootstrap.initializeNatives(Bootstrap.java:108) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:170) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:333) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:86) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) [elasticsearch-cli-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.cli.Command.main(Command.java:90) [elasticsearch-cli-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:93) [elasticsearch-6.5.4.jar:6.5.4]<br>    at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:86) [elasticsearch-6.5.4.jar:6.5.4]</p>
-<p>原因:  因为Centos6不支持SecComp,而ES默认bootstrap.system_call_filter为true进行检测,所以导致检测失败,失败后直接导致ES不能启动解决:<br>修改elasticsearch.yml 添加一下内容 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bootstrap.memory_lock: false</span><br><span class="line">bootstrap.system_call_filter: false</span><br></pre></td></tr></table></figure></p>
-<p>[geekymv@node01 elasticsearch-6.5.4]$ bin/elasticsearch<br>ERROR: [3] bootstrap checks failed<br>[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]<br>[2]: max number of threads [1024] for user [geekymv] is too low, increase to at least [4096]<br>[3]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</p>
-<p>[1]每个进程最大同时打开文件数太小，可通过下面2个命令查看当前数量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ulimit -Hn</span><br><span class="line">ulimit -Sn</span><br></pre></td></tr></table></figure></p>
-<p>修改/etc/security/limits.conf文件，增加配置，用户退出后重新登录生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*               soft    nofile          65536</span><br><span class="line">*               hard    nofile          65536</span><br></pre></td></tr></table></figure></p>
-<p>[2]原因：无法创建本地线程问题,用户最大可创建线程数太小<br>解决方案：切换到root用户，进入limits.d目录下，修改90-nproc.conf 配置文件，用户退出后重新登录生效<br>vim /etc/security/limits.d/90-nproc.conf<br>找到如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*          soft    nproc     1024</span><br><span class="line">#修改为</span><br><span class="line">*          soft    nproc     4096</span><br></pre></td></tr></table></figure></p>
-<p>[3]修改/etc/sysctl.conf文件，增加配置vm.max_map_count = 262144<br>执行命令sysctl -p生效<br>执行sysctl -p 可能会出现如下错误<br>[geekymv@node01 elasticsearch-6.5.4]$ sudo sysctl -p<br>net.ipv4.ip_forward = 0<br>net.ipv4.conf.default.rp_filter = 1<br>net.ipv4.conf.default.accept_source_route = 0<br>kernel.sysrq = 0<br>kernel.core_uses_pid = 1<br>net.ipv4.tcp_syncookies = 1<br>error: “net.bridge.bridge-nf-call-ip6tables” is an unknown key<br>error: “net.bridge.bridge-nf-call-iptables” is an unknown key<br>error: “net.bridge.bridge-nf-call-arptables” is an unknown key<br>kernel.msgmnb = 65536<br>kernel.msgmax = 65536<br>kernel.shmmax = 68719476736<br>kernel.shmall = 4294967296<br>vm.max_map_count = 262144</p>
-<p>解决方法如下：<br>sudo modprobe bridge<br>sudo lsmod|grep bridge</p>
-<p>再次启动，还会报错<br>[1]: max number of threads [3648] for user [geekymv] is too low, increase to at least [4096]<br>问题同上，最大线程个数太低。修改配置文件/etc/security/limits.conf，增加配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*               soft    nproc           4096</span><br><span class="line">*               hard    nproc           4096</span><br></pre></td></tr></table></figure></p>
-<p>再次启动，出现如下信息 initialized starting … started，启动成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[2019-01-16T22:25:42,839][INFO ][o.e.d.DiscoveryModule    ] [node01] using discovery type [zen] and host providers [settings]</span><br><span class="line">[2019-01-16T22:25:44,604][INFO ][o.e.n.Node               ] [node01] initialized</span><br><span class="line">[2019-01-16T22:25:44,604][INFO ][o.e.n.Node               ] [node01] starting ...</span><br><span class="line">[2019-01-16T22:25:44,879][INFO ][o.e.t.TransportService   ] [node01] publish_address &#123;192.168.159.100:9300&#125;, bound_addresses &#123;192.168.159.100:9300&#125;</span><br><span class="line">[2019-01-16T22:25:44,929][INFO ][o.e.b.BootstrapChecks    ] [node01] bound or publishing to a non-loopback address, enforcing bootstrap checks</span><br><span class="line">[2019-01-16T22:25:48,111][INFO ][o.e.c.s.MasterService    ] [node01] zen-disco-elected-as-master ([0] nodes joined), reason: new_master &#123;node01&#125;&#123;DKqcLHpASO28VhrZ1T4RvA&#125;&#123;wgVtKL0LQVOI7JDXbW6AEw&#125;&#123;192.168.159.100&#125;&#123;192.168.159.100:9300&#125;&#123;ml.machine_memory=1028517888, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true&#125;</span><br><span class="line">[2019-01-16T22:25:48,127][INFO ][o.e.c.s.ClusterApplierService] [node01] new_master &#123;node01&#125;&#123;DKqcLHpASO28VhrZ1T4RvA&#125;&#123;wgVtKL0LQVOI7JDXbW6AEw&#125;&#123;192.168.159.100&#125;&#123;192.168.159.100:9300&#125;&#123;ml.machine_memory=1028517888, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true&#125;, reason: apply cluster state (from master [master &#123;node01&#125;&#123;DKqcLHpASO28VhrZ1T4RvA&#125;&#123;wgVtKL0LQVOI7JDXbW6AEw&#125;&#123;192.168.159.100&#125;&#123;192.168.159.100:9300&#125;&#123;ml.machine_memory=1028517888, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true&#125; committed version [1] source [zen-disco-elected-as-master ([0] nodes joined)]])</span><br><span class="line">[2019-01-16T22:25:48,205][INFO ][o.e.x.s.t.n.SecurityNetty4HttpServerTransport] [node01] publish_address &#123;192.168.159.100:9200&#125;, bound_addresses &#123;192.168.159.100:9200&#125;</span><br><span class="line">[2019-01-16T22:25:48,205][INFO ][o.e.n.Node               ] [node01] started</span><br><span class="line">[2019-01-16T22:25:48,796][WARN ][o.e.x.s.a.s.m.NativeRoleMappingStore] [node01] Failed to clear cache for realms [[]]</span><br><span class="line">[2019-01-16T22:25:48,900][INFO ][o.e.l.LicenseService     ] [node01] license [99f22616-a6ed-4752-a9b2-815519f492e1] mode [basic] - valid</span><br><span class="line">[2019-01-16T22:25:48,938][INFO ][o.e.g.GatewayService     ] [node01] recovered [0] indices into cluster_state</span><br></pre></td></tr></table></figure></p>
-<p>通过浏览器访问<a href="http://node01:9200/，可以看到类似如下内容" target="_blank" rel="noopener">http://node01:9200/，可以看到类似如下内容</a><br>{<br>    name: “node01”,<br>    cluster_name: “cluster-test”,<br>    cluster_uuid: “X38Sd_gCRuykzB7o-w0Juw”,<br>    version: {<br>        number: “6.5.4”,<br>        build_flavor: “default”,<br>        build_type: “tar”,<br>        build_hash: “d2ef93d”,<br>        build_date: “2018-12-17T21:17:40.758843Z”,<br>        build_snapshot: false,<br>        lucene_version: “7.5.0”,<br>        minimum_wire_compatibility_version: “5.6.0”,<br>        minimum_index_compatibility_version: “5.0.0”<br>    },<br>    tagline: “You Know, for Search”<br>}</p>
-<p>后台启动es：<br>bin/elasticsearch -d</p>
-<p>使用jps查看进程<br>[geekymv@node01 elasticsearch-6.5.4]$ jps<br>2992 Elasticsearch<br>3100 Jps</p>
-<p>新建文档<br>指定标识符，使用PUT<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT -H&quot;content-type:application/json&quot;  http://node03:9200/blog/article/1 -d &apos;&#123;&quot;title&quot;:&quot;ElasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
-<p>自动创建标识符，使用POST<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST -H&quot;content-type:application/json&quot;  http://node03:9200/blog/article/ -d &apos;&#123;&quot;title&quot;:&quot;lasticSearch&quot;, &quot;content&quot;:&quot;Hello,ES&quot;, &quot;tags&quot;:[&quot;es&quot;, &quot;release&quot;, &quot;today&quot;]&#125;&apos;</span><br></pre></td></tr></table></figure></p>
-<p>检索文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://node03:9200/blog/article/1?pretty</span><br></pre></td></tr></table></figure></p>
-<p>更新文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST -H&quot;content-type:application/json&quot; http://node03:9200/blog/article/1/_update -d &apos;&#123;&quot;script&quot;:&quot;ctx._source.content=\&quot;new content\&quot;&quot;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>删除文档<br>curl -XDELETE <a href="http://node03:9200/blog/article/1?pretty" target="_blank" rel="noopener">http://node03:9200/blog/article/1?pretty</a></p>
-<p>ElasticSearch 版本控制<br>使用乐观锁</p>
-<p>搜索，指定查询结果窗口<br>from 指定结果从哪个记录开始返回，默认值0。<br>size 指定返回结果的最大数量，默认值10。<br>curl -XGET ‘<a href="http://node03:9200/_search?pretty&amp;size=2&#39;" target="_blank" rel="noopener">http://node03:9200/_search?pretty&amp;size=2&#39;</a></p>
-<p>分词器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST -H&quot;content-type:application/json&quot; http://node02:9200/blog/_analyze?pretty -d &apos;&#123;&quot;text&quot;:&quot;Elasticsearch Server&quot;&#125;&apos;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;tokens&quot; : [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot; : &quot;elasticsearch&quot;,</span><br><span class="line">      &quot;start_offset&quot; : 0,</span><br><span class="line">      &quot;end_offset&quot; : 13,</span><br><span class="line">      &quot;type&quot; : &quot;&lt;ALPHANUM&gt;&quot;,</span><br><span class="line">      &quot;position&quot; : 0</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;token&quot; : &quot;server&quot;,</span><br><span class="line">      &quot;start_offset&quot; : 14,</span><br><span class="line">      &quot;end_offset&quot; : 20,</span><br><span class="line">      &quot;type&quot; : &quot;&lt;ALPHANUM&gt;&quot;,</span><br><span class="line">      &quot;position&quot; : 1</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>ES文章：<a href="https://blog.csdn.net/laoyang360/article/details/79293493" target="_blank" rel="noopener">https://blog.csdn.net/laoyang360/article/details/79293493</a><br>elasticsearch启动常见错误：<a href="https://www.cnblogs.com/zhi-leaf/p/8484337.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhi-leaf/p/8484337.html</a><br>集群部署：<a href="https://www.jianshu.com/p/2e3e4334b036" target="_blank" rel="noopener">https://www.jianshu.com/p/2e3e4334b036</a><br>ES专栏：<a href="https://blog.csdn.net/chengyuqiang/column/info/18392/3" target="_blank" rel="noopener">https://blog.csdn.net/chengyuqiang/column/info/18392/3</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/java-interview/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/15/java-interview/" itemprop="url">java-interview</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-15T18:30:48+08:00">
-                2019-01-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>大神博客<br><a href="https://www.hollischuang.com/list" target="_blank" rel="noopener">Hollis</a><br><a href="https://www.52pojie.cn/" target="_blank" rel="noopener">吾爱破解</a></p>
-<p><a href="https://www.w3cschool.cn/u/56375" target="_blank" rel="noopener">https://www.w3cschool.cn/u/56375</a></p>
-<p>线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景</p>
-<p>分布式下redis如何保证线程安全<br>redis持久化方式及区别</p>
-<p>zookeeper 如何实现分布式锁，其他分布式锁怎么实现<br>dubbo中的zookeeper是做什么的</p>
-<p>kafka 的架构，如何用kafka保证消息的有序性</p>
-<p>Cloneable接口实现原理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package java.lang;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * A class implements the &lt;code&gt;Cloneable&lt;/code&gt; interface to</span><br><span class="line"> * indicate to the &#123;@link java.lang.Object#clone()&#125; method that it</span><br><span class="line"> * is legal for that method to make a</span><br><span class="line"> * field-for-field copy of instances of that class.</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * Invoking Object&apos;s clone method on an instance that does not implement the</span><br><span class="line"> * &lt;code&gt;Cloneable&lt;/code&gt; interface results in the exception</span><br><span class="line"> * &lt;code&gt;CloneNotSupportedException&lt;/code&gt; being thrown.</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * By convention, classes that implement this interface should override</span><br><span class="line"> * &lt;tt&gt;Object.clone&lt;/tt&gt; (which is protected) with a public method.</span><br><span class="line"> * See &#123;@link java.lang.Object#clone()&#125; for details on overriding this</span><br><span class="line"> * method.</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * Note that this interface does &lt;i&gt;not&lt;/i&gt; contain the &lt;tt&gt;clone&lt;/tt&gt; method.</span><br><span class="line"> * Therefore, it is not possible to clone an object merely by virtue of the</span><br><span class="line"> * fact that it implements this interface.  Even if the clone method is invoked</span><br><span class="line"> * reflectively, there is no guarantee that it will succeed.</span><br><span class="line"> *</span><br><span class="line"> * @author  unascribed</span><br><span class="line"> * @see     java.lang.CloneNotSupportedException</span><br><span class="line"> * @see     java.lang.Object#clone()</span><br><span class="line"> * @since   JDK1.0</span><br><span class="line"> */</span><br><span class="line">public interface Cloneable &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.cnblogs.com/xrq730/p/4858937.html" target="_blank" rel="noopener">https://www.cnblogs.com/xrq730/p/4858937.html</a></p>
-<p>0到99的数组如何随机打乱<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * 参考 Collections.shuffle(List&lt;?&gt; list);的实现</span><br><span class="line">    */</span><br><span class="line">   @Test</span><br><span class="line">   public void test() &#123;</span><br><span class="line">       int[] array = new int[]&#123;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&#125;;</span><br><span class="line">       Random random = new Random();</span><br><span class="line">       int len = array.length;</span><br><span class="line">       for(int i = len; i &gt; 1; i-- ) &#123;</span><br><span class="line">           swap(array, i-1, random.nextInt(i));</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       System.out.println(Arrays.toString(array));</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   private void swap(int[] array, int i, int j) &#123;</span><br><span class="line">       int temp = array[i];</span><br><span class="line">       array[i] = array[j];</span><br><span class="line">       array[j] = temp;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>Java 多线程<br>1.线程的几种状态，画出状态流转图<br>New<br>Runable<br>Running<br>Block<br>Dead</p>
-<p>2.Java sleep vs wait </p>
-<ul>
-<li>sleep()方法是Thread的静态方法，而wait是Object实例方法；</li>
-<li>wait()方法必须要在同步方法或者同步块中调用，也就是必须已经获得对象锁。而sleep()方法没有这个限制可以在任何地方种使用。<br>另外，wait()方法会释放占有的对象锁，使得该线程进入等待池中，等待下一次获取资源。而sleep()方法只是会让出CPU并不会释放掉对象锁；</li>
-<li>sleep()方法在休眠时间达到后如果再次获得CPU时间片就会继续执行，而wait()方法必须等待Object.notift/Object.notifyAll通知后，才会离开等待池，<br>并且再次获得CPU时间片才会继续执行。</li>
-</ul>
-<p>3.Java sleep vs yield<br>相同点：</p>
-<ul>
-<li>都会暂缓执行当前线程</li>
-<li>如果已经持有锁，那么在等待过程中都不会释放锁<br>不同点：</li>
-<li>Thread.sleep()可以指定休眠时间，Thread.yield依赖于CPU的时间片划分</li>
-<li>Thread.sleep()会抛出中断异常，且能被中断，而Thread.yield()不可以。</li>
-</ul>
-<p>4.<a href="https://github.com/geekymv/netty-sample/blob/master/netty-sample-01-helloworld/src/main/java/com/geekymv/netty/sample/concurrent/multithread/JoinTest.java" target="_blank" rel="noopener">Java join()</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Waits for this thread to die.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt; An invocation of this method behaves in exactly the same</span><br><span class="line"> * way as the invocation</span><br><span class="line"> *</span><br><span class="line"> * &lt;blockquote&gt;</span><br><span class="line"> * &#123;@linkplain #join(long) join&#125;&#123;@code (0)&#125;</span><br><span class="line"> * &lt;/blockquote&gt;</span><br><span class="line"> *</span><br><span class="line"> * @throws  InterruptedException</span><br><span class="line"> *          if any thread has interrupted the current thread. The</span><br><span class="line"> *          &lt;i&gt;interrupted status&lt;/i&gt; of the current thread is</span><br><span class="line"> *          cleared when this exception is thrown.</span><br><span class="line"> */</span><br><span class="line">public final void join() throws InterruptedException &#123;</span><br><span class="line">    join(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://blog.csdn.net/tianyuxingxuan/article/details/76222935" target="_blank" rel="noopener">Thread.interrupt()方法理解</a></p>
-<p>3.volatile 如何实现指令重排序</p>
-<p>4.线程池中阻塞队列如果满了怎么办（拒绝策略）</p>
-<p>5.synchronized 和 AQS异同，AQS公平非公平如何实现<br>AQS(AbstractQueuedSynchronizer的简称) ，它是一个Java提供的底层同步工具类，用一个int类型的变量表示同步状态，<br>并提供了一系列CAS操作来管理这个同步状态。<br>AQS是一个用来构建锁和同步器的矿建，使用AQS能简单且高效地构建出应用广泛的大量同步器。<br>ReentrantLock </p>
-<p>Java中引用类型：</p>
-<ul>
-<li>强引用</li>
-<li>软引用</li>
-<li>弱引用</li>
-<li>虚引用</li>
-</ul>
-<p>6.多线程里面对一个整型做加减为啥不能用volatile</p>
-<p>7.Thread.yield</p>
-<h4 id="系统吞吐量性能指标"><a href="#系统吞吐量性能指标" class="headerlink" title="系统吞吐量性能指标"></a>系统吞吐量性能指标</h4><p>QPS 每次查询请求<br>TPS 每次处理事务请求，TPS包括了QPS，例如一个事务处理可能包括多个查询请求。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/zookeeper/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/11/zookeeper/" itemprop="url">zookeeper</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-11T22:15:04+08:00">
-                2019-01-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Zookeeper-是什么"><a href="#Zookeeper-是什么" class="headerlink" title="Zookeeper 是什么"></a>Zookeeper 是什么</h4><p>Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。<br>Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理应用的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，<br>Zookeeper 就将负责通知已经在Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似Master/Slave管理模式。<br>Zookeeper = 文件系统 + 通知机制。</p>
-<p>数据结构</p>
-<p>节点类型</p>
-<ul>
-<li><p>Znode 有两种类型<br>临时(ephemeral)：客户端和服务端断开连接后，创建的节点自己删除；<br>持久(persistent)：客户端和服务端断开连接后，创建的节点不删除；</p>
-</li>
-<li><p>Znode 有四种形式的目录节点（默认是persistent）<br>(1)持久目录节点(persistent)<br>客户端和服务端断开连接后，该节点依旧存在。<br>(2)持久顺序编号目录节点(persistent_sequential)<br>客户端和服务端断开连接后，该节点依旧存在，只是zookeeper 给该节点名称进行顺序编号。<br>(3)临时目录节点(ephemeral)<br>客户端和服务端断开连接后，该节点被删除。<br>(4)临时顺序编号目录节点(ephemeral_sequential)<br>客户端和服务端断开连接后，该节点被删除，只是zookeeper 给该节点名称进行顺序编号。</p>
-</li>
-</ul>
-<p>特点</p>
-<ul>
-<li>zookeeper 有一个领导者（Leader），多个跟随者（Follower）组成的集群；</li>
-<li>Leader 负责进行投票的发起和决议，更新系统状态；</li>
-<li>Follower 用于接收客户请求并向客户端返回结果，在选举Leader过程中参与投票；</li>
-<li>集群中只要有半数以上节点存活，zookeeper 集群就能正常服务；</li>
-<li>全局数据一致性，每个server保存一份相同的数据副本，client 无论连接到哪个server，数据都是一致的；</li>
-<li>更新请求顺序执行，来自同一个client的更新请求按其发送顺序依次执行；</li>
-<li>数据更新原子性，一次数据更新要么成功，要么失败；</li>
-<li>实时性，在一定时间范围内，client能读到最新数据。</li>
-</ul>
-<p>选举机制</p>
-<ul>
-<li>半数机制：集群中半数以上机器存活，集群可用。所以zookeeper 适合在奇数台机器上部署。</li>
-<li>zookeeper 虽然在配置文件中没有指定master和salve。<br>但是zookeeper工作时，是有一个节点为Leader，其他节点为follower。Leader 是通过内部选举机制临时产生的。</li>
-</ul>
-<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ul>
-<li>分布式消息同步和协调机制</li>
-<li>服务器节点动态上下线</li>
-<li>统一配置管理</li>
-<li>负载均衡</li>
-<li>集群管理</li>
-</ul>
-<h4 id="下载安装本地模式"><a href="#下载安装本地模式" class="headerlink" title="下载安装本地模式"></a>下载安装本地模式</h4><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/zookeeper/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/zookeeper/</a><br>选择stable版本下载zookeeper-3.4.10.tar.gz<br>解压后目录如下：<br><img src="/2019/01/11/zookeeper/00-zookeeper.png"></p>
-<p>bin目录存放启动zookeeper的脚本。以.sh结尾的脚本运行于UNIX平台(Linux、Mac OS X等)，以.cmd结尾的脚本则运行于Windows。<br>conf目录保存配置文件。<br>lib目录包括Java的jar文件，它们是允许zookeeper所需要的第三方文件。</p>
-<p>进入conf目录下，重命名mv zoo_sample.cfg zoo.cfg<br>编辑zoo.cfg配置文件<br>主要修改一下配置：<br>dataDir=/usr/local/zookeeper/data<br>dataLogDir=/usr/local/zookeeper/log</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># The number of milliseconds of each tick</span><br><span class="line">tickTime=2000</span><br><span class="line"># The number of ticks that the initial </span><br><span class="line"># synchronization phase can take</span><br><span class="line">initLimit=10</span><br><span class="line"># The number of ticks that can pass between </span><br><span class="line"># sending a request and getting an acknowledgement</span><br><span class="line">syncLimit=5</span><br><span class="line"># the directory where the snapshot is stored.</span><br><span class="line"># do not use /tmp for storage, /tmp here is just </span><br><span class="line"># example sakes.</span><br><span class="line">dataDir=/usr/local/zookeeper/data</span><br><span class="line">dataLogDir=/usr/local/zookeeper/log</span><br><span class="line"># the port at which the clients will connect</span><br><span class="line">clientPort=2181</span><br><span class="line"># the maximum number of client connections.</span><br><span class="line"># increase this if you need to handle more clients</span><br><span class="line">#maxClientCnxns=60</span><br><span class="line">#</span><br><span class="line"># Be sure to read the maintenance section of the </span><br><span class="line"># administrator guide before turning on autopurge.</span><br><span class="line">#</span><br><span class="line"># http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</span><br><span class="line">#</span><br><span class="line"># The number of snapshots to retain in dataDir</span><br><span class="line">#autopurge.snapRetainCount=3</span><br><span class="line"># Purge task interval in hours</span><br><span class="line"># Set to &quot;0&quot; to disable auto purge feature</span><br><span class="line">#autopurge.purgeInterval=1</span><br></pre></td></tr></table></figure>
-<p>启动服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ./bin/zkServer.sh start</span><br></pre></td></tr></table></figure></p>
-<p>这个命令使zookeeper在后台运行，如果在前台运行以便查看服务输出，可以通过以下命令运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ./bin/zkServer.sh start-foreground</span><br></pre></td></tr></table></figure></p>
-<p>顺利的话，现在zookeeper已经启动了，可以通过jps 查看zookeeper进程。</p>
-<p>停止zookeeper服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ./bin/zkServer.sh stop</span><br></pre></td></tr></table></figure></p>
-<p>使用客户端连接到服务端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># bin/zkCli.sh</span><br></pre></td></tr></table></figure></p>
-<p>输出信息如下：<br><img src="/2019/01/11/zookeeper/01-zookeeper.png"></p>
-<p>执行ls / 查看根下所有的znode<br>创建/workers 节点，并在这个节点上保存数据”mydata”</p>
-<p>删除节点：delete /workers<br>退出客户端连接：quit<br><img src="/2019/01/11/zookeeper/02-zookeeper.png"></p>
-<p><a href="https://juejin.im/post/5c01532ef265da61362232ed" target="_blank" rel="noopener">七张图彻底讲清楚ZooKeeper分布式锁的实现原理【石杉的架构笔记】</a><br><a href="http://www.cnblogs.com/austinspark-jessylu/p/8043726.html" target="_blank" rel="noopener">分布式锁的几种实现方式</a><br><a href="https://crossoverjie.top/2018/03/29/distributed-lock/distributed-lock-redis/" target="_blank" rel="noopener">基于 Redis 的分布式锁</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1617,7 +1636,7 @@ root       3775   1070  0 23:00 pts/0    00:00:00 grep nginx
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

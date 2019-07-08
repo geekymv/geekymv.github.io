@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="dubbo源码分析https://manzhizhen.iteye.com/category/353261">
+<meta name="description" content="数据分片 - 垂直分片：按照业务拆分，专库专用。 - 水平分片：通过某个字段（或某几个字段），根据某种规则将数据分散至多个库或表中，每个分片仅包含数据的一部分。 逻辑表真实表数据节点绑定表：指分片规则一致的主表和子表，绑定表之间的分区键要完全相同。广播表：字典表逻辑索引 分片 - 分片键：用户分片的数据库字段，是将数据库（表）水平拆分的关键字段。SQL中如果无分片字段，将执行全路由，性能较差。 -">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dubbo">
-<meta property="og:url" content="http://yoursite.com/2019/03/06/dubbo/index.html">
+<meta property="og:title" content="shardingsphere">
+<meta property="og:url" content="http://yoursite.com/2019/07/08/shardingsphere/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="dubbo源码分析https://manzhizhen.iteye.com/category/353261">
+<meta property="og:description" content="数据分片 - 垂直分片：按照业务拆分，专库专用。 - 水平分片：通过某个字段（或某几个字段），根据某种规则将数据分散至多个库或表中，每个分片仅包含数据的一部分。 逻辑表真实表数据节点绑定表：指分片规则一致的主表和子表，绑定表之间的分区键要完全相同。广播表：字典表逻辑索引 分片 - 分片键：用户分片的数据库字段，是将数据库（表）水平拆分的关键字段。SQL中如果无分片字段，将执行全路由，性能较差。 -">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-06T02:34:20.036Z">
+<meta property="og:updated_time" content="2019-07-08T03:16:43.143Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dubbo">
-<meta name="twitter:description" content="dubbo源码分析https://manzhizhen.iteye.com/category/353261">
+<meta name="twitter:title" content="shardingsphere">
+<meta name="twitter:description" content="数据分片 - 垂直分片：按照业务拆分，专库专用。 - 水平分片：通过某个字段（或某几个字段），根据某种规则将数据分散至多个库或表中，每个分片仅包含数据的一部分。 逻辑表真实表数据节点绑定表：指分片规则一致的主表和子表，绑定表之间的分区键要完全相同。广播表：字典表逻辑索引 分片 - 分片键：用户分片的数据库字段，是将数据库（表）水平拆分的关键字段。SQL中如果无分片字段，将执行全路由，性能较差。 -">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/06/dubbo/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/08/shardingsphere/">
 
 
 
 
 
-  <title>dubbo | geekymv</title>
+  <title>shardingsphere | geekymv</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/dubbo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/shardingsphere/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="geekymv">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">dubbo</h1>
+          <h1 class="post-title" itemprop="name headline">shardingsphere</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-06T10:33:02+08:00">
-                2019-03-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-08T10:59:06+08:00">
+                2019-07-08
               </time>
             
 
@@ -299,8 +299,14 @@
       
 
       
-        <p>dubbo源码分析<br><a href="https://manzhizhen.iteye.com/category/353261" target="_blank" rel="noopener">https://manzhizhen.iteye.com/category/353261</a></p>
-
+        <p>数据分片</p>
+<pre><code>- 垂直分片：按照业务拆分，专库专用。
+- 水平分片：通过某个字段（或某几个字段），根据某种规则将数据分散至多个库或表中，每个分片仅包含数据的一部分。
+</code></pre><p>逻辑表<br>真实表<br>数据节点<br>绑定表：指分片规则一致的主表和子表，绑定表之间的分区键要完全相同。<br>广播表：字典表<br>逻辑索引</p>
+<p>分片</p>
+<pre><code>- 分片键：用户分片的数据库字段，是将数据库（表）水平拆分的关键字段。SQL中如果无分片字段，将执行全路由，性能较差。
+- 分片算法：
+</code></pre>
       
     </div>
     
@@ -324,8 +330,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/19/cas-sso/" rel="next" title="cas-sso">
-                <i class="fa fa-chevron-left"></i> cas-sso
+              <a href="/2019/07/03/hbase/" rel="next" title="hbase">
+                <i class="fa fa-chevron-left"></i> hbase
               </a>
             
           </div>
@@ -333,10 +339,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/15/jenkins/" rel="prev" title="jenkins">
-                jenkins <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

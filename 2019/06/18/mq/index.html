@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="为什么要使用消息中间件？ 解决系统间耦合调用的问题-解耦异步模型-异步抵御洪峰流量，达到保护主业务的目的-削峰 要做到系统解耦，当新的模块接入进来时，可以做到代码改动最小：能够解耦设置流量缓冲池，可以让后端系统按照自身吞吐能力进行消费，不被冲垮：能够削峰强弱依赖梳理能够将非关键调用链的操作异步化并提升整体系统的吞吐能力：能够异步。">
+<meta name="description" content="为什么要使用消息中间件？ 解决系统间耦合调用的问题-解耦异步模型-异步抵御洪峰流量，达到保护主业务的目的-削峰 要做到系统解耦，当新的模块接入进来时，可以做到代码改动最小：能够解耦设置流量缓冲池，可以让后端系统按照自身吞吐能力进行消费，不被冲垮：能够削峰强弱依赖梳理能够将非关键调用链的操作异步化并提升整体系统的吞吐能力：能够异步。 activemq 安装 端口：61616 bin/activemq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mq">
 <meta property="og:url" content="http://yoursite.com/2019/06/18/mq/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="为什么要使用消息中间件？ 解决系统间耦合调用的问题-解耦异步模型-异步抵御洪峰流量，达到保护主业务的目的-削峰 要做到系统解耦，当新的模块接入进来时，可以做到代码改动最小：能够解耦设置流量缓冲池，可以让后端系统按照自身吞吐能力进行消费，不被冲垮：能够削峰强弱依赖梳理能够将非关键调用链的操作异步化并提升整体系统的吞吐能力：能够异步。">
+<meta property="og:description" content="为什么要使用消息中间件？ 解决系统间耦合调用的问题-解耦异步模型-异步抵御洪峰流量，达到保护主业务的目的-削峰 要做到系统解耦，当新的模块接入进来时，可以做到代码改动最小：能够解耦设置流量缓冲池，可以让后端系统按照自身吞吐能力进行消费，不被冲垮：能够削峰强弱依赖梳理能够将非关键调用链的操作异步化并提升整体系统的吞吐能力：能够异步。 activemq 安装 端口：61616 bin/activemq">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-20T10:41:00.856Z">
+<meta property="og:updated_time" content="2019-07-08T01:09:50.342Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mq">
-<meta name="twitter:description" content="为什么要使用消息中间件？ 解决系统间耦合调用的问题-解耦异步模型-异步抵御洪峰流量，达到保护主业务的目的-削峰 要做到系统解耦，当新的模块接入进来时，可以做到代码改动最小：能够解耦设置流量缓冲池，可以让后端系统按照自身吞吐能力进行消费，不被冲垮：能够削峰强弱依赖梳理能够将非关键调用链的操作异步化并提升整体系统的吞吐能力：能够异步。">
+<meta name="twitter:description" content="为什么要使用消息中间件？ 解决系统间耦合调用的问题-解耦异步模型-异步抵御洪峰流量，达到保护主业务的目的-削峰 要做到系统解耦，当新的模块接入进来时，可以做到代码改动最小：能够解耦设置流量缓冲池，可以让后端系统按照自身吞吐能力进行消费，不被冲垮：能够削峰强弱依赖梳理能够将非关键调用链的操作异步化并提升整体系统的吞吐能力：能够异步。 activemq 安装 端口：61616 bin/activemq">
 
 
 
@@ -302,6 +302,24 @@
         <p>为什么要使用消息中间件？</p>
 <p>解决系统间耦合调用的问题-解耦<br>异步模型-异步<br>抵御洪峰流量，达到保护主业务的目的-削峰</p>
 <p>要做到系统解耦，当新的模块接入进来时，可以做到代码改动最小：能够解耦<br>设置流量缓冲池，可以让后端系统按照自身吞吐能力进行消费，不被冲垮：能够削峰<br>强弱依赖梳理能够将非关键调用链的操作异步化并提升整体系统的吞吐能力：能够异步。</p>
+<p>activemq 安装</p>
+<p>端口：61616</p>
+<p>bin/activemq start 后台启动<br>bin/activemq restart 重启<br>bin/activemq stop 停止</p>
+<p>查看进程<br>ps -ef|grep activemq</p>
+<p>不显示grep<br>ps -ef|grep activemq | grep -v grep </p>
+<p>根据端口查看<br>netstat -anp|grep 61616<br>或者<br>lsof -i:61616</p>
+<p>带运行日志的启动方式<br>bin/activemq start &gt; /output/activemq.log</p>
+<p>通过浏览器访问<br><a href="http://127.0.0.1:8161/admin/" target="_blank" rel="noopener">http://127.0.0.1:8161/admin/</a><br>用户名密码 admin / admin</p>
+<p>JMS 规范和落地产品</p>
+<h4 id="分布式事务解决方案"><a href="#分布式事务解决方案" class="headerlink" title="分布式事务解决方案"></a>分布式事务解决方案</h4><p>刚性事务<br>    全局事务（标准的分布式事务）<br>柔性事务<br>    可靠消息最终一致（异步确保型）<br>    TCC（两阶段提交、补偿型）<br>    最大努力通知（非可靠消息、定期校对）   </p>
+<p>柔性事务解决方案：可靠消息最终一致性（异步确保型）<br>实现：业务处理服务在业务事务提交前，向实时消息服务请求发送消息，实时消息服务只记录消息数据，而不真正发送。<br>业务处理服务在业务事务提交后，向实时消息服务确认发送。只有在得到确认发送指令后，实时消息服务才真正发送。</p>
+<p>消息：业务处理服务在业务事务回滚后，向实时消息服务取消发送。<br>消息状态确认系统定期找到未确认发送或回滚发送的消息，向业务处理服务询问消息状态，<br>业务处理服务根据消息ID或消息内容确定该消息是否有效。</p>
+<p>约束：被动方的处理结果不影响主动方的处理结果，被动方的消息处理操作是幂等操作。</p>
+<p>成本：可靠消息系统建设成本；一次消息发送需要两次请求，业务处理服务需要实现消息状态回查接口。</p>
+<p>优点、适用范围<br>消息数据独立存储、独立伸缩，降低业务系统与消息系统间的耦合。<br>对最终一致性时间敏感度较高，降低业务被动方实现成本。</p>
+<p>用到的服务模式：可查询操作、幂等操作。</p>
+<p>方案特点：<br>兼容所有实现JMS标准的MQ中间件<br>确保业务数据可靠的前提下，实现业务数据的最终一致性（理想状态下基本准实时一致）。</p>
+<p>行业应用案例：<br>支付宝、eBay、去哪儿……</p>
 
       
     </div>
@@ -336,7 +354,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/20/microservices/" rel="prev" title="MicroServices">
+              <a href="/2019/06/20/springcloud/" rel="prev" title="MicroServices">
                 MicroServices <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -390,8 +408,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -406,7 +433,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -442,6 +469,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式事务解决方案"><span class="nav-number">1.</span> <span class="nav-text">分布式事务解决方案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
