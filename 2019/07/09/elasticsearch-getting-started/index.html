@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Getting Started入门 Elasticsearch is a highly scalable open-source full-text search and analytics engine.It allows you to store, search, and analyze big volumes of data quickly and in near real time.It">
+<meta property="og:type" content="article">
+<meta property="og:title" content="elasticsearch-getting-started">
+<meta property="og:url" content="http://yoursite.com/2019/07/09/elasticsearch-getting-started/index.html">
+<meta property="og:site_name" content="geekymv">
+<meta property="og:description" content="Getting Started入门 Elasticsearch is a highly scalable open-source full-text search and analytics engine.It allows you to store, search, and analyze big volumes of data quickly and in near real time.It">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-09T06:08:50.978Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="elasticsearch-getting-started">
+<meta name="twitter:description" content="Getting Started入门 Elasticsearch is a highly scalable open-source full-text search and analytics engine.It allows you to store, search, and analyze big volumes of data quickly and in near real time.It">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/09/elasticsearch-getting-started/">
+
+
+
+
+
+  <title>elasticsearch-getting-started | geekymv</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">geekymv</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/elasticsearch-getting-started/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">elasticsearch-getting-started</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-09T10:30:35+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Getting Started<br>入门</p>
+<p>Elasticsearch is a highly scalable open-source full-text search and analytics engine.<br>It allows you to store, search, and analyze big volumes of data quickly and in near real time.<br>It is generally used as the underlying engine/technology<br>that powers applications that have complex search features and requirements.<br>Elasticsearch 是一个高度可扩展的开源全文搜索和分析引擎。它允许你快速且近实时地存储、搜索、分析大量数据。<br>它通常用于底层引擎/技术，为具有复杂搜索功能和要求的应用程序提供支持。</p>
+<p>Here are a few sample use-cases that Elasticsearch could be used for:<br>Elasticsearch 使用案例</p>
+<p>You run an online web store where you allow your customers to search for products that you sell.<br>In this case, you can use Elasticsearch to store your entire product catalog and inventory and<br>provide search and autocomplete suggestions for them.<br>你运行一个在线网上商店，允许你的客户搜索您售卖的产品。在这种情况下，你可以使用Elasticsearch 存储所有产品目录和库存，<br>为他们提供搜索和自动填充建议。</p>
+<p>You want to collect log or transaction data and you want to analyze and mine this data to look for trends,<br>statistics, summarizations, or anomalies.<br>In this case, you can use Logstash (part of the Elasticsearch/Logstash/Kibana stack) to collect, aggregate,<br>and parse your data, and then have Logstash feed this data into Elasticsearch.<br>Once the data is in Elasticsearch, you can run searches and aggregations to mine any information that is of interest to you.<br>你想收集日志或交易数据，并且想要分析和挖掘这些数据以查找趋势，统计，总结或异常。在这种情况下，<br>你可以使用Logstash（Elasticsearch/Logstash/Kibana 栈的一部分）来收集，聚合，并解析你的数据，然后使用Logstash 将数据提供给Elasticsearch。<br>一旦这些数据在Elasticsearch，你就可以运行搜索和聚合来挖掘任何你感兴趣的信息。</p>
+<p>You run a price alerting platform which allows price-savvy customers to specify a rule<br>like “I am interested in buying a specific electronic gadget<br>and I want to be notified if the price of gadget falls below $X from any vendor within the next month”.<br>In this case you can scrape vendor prices, push them into Elasticsearch<br>and use its reverse-search (Percolator) capability to match price movements against customer queries<br>and eventually push the alerts out to the customer once matches are found.<br>你运行一个价格提醒平台，允许精通价格的客户指定一个规则类似<br>“我有兴趣购买特定的电子产品，如果产品价格在下个月内从任何供应商的价格降到$X 以下，我希望收到通知”。<br>并使用其反向搜索（过滤器）功能来匹配价格变动与客户查询，一旦找到匹配项，最终将会通知推送给客户。</p>
+<p>You have analytics/business-intelligence needs and want to quickly investigate, analyze, visualize,<br>and ask ad-hoc questions on a lot of data (think millions or billions of records).<br>In this case, you can use Elasticsearch to store your data<br>and then use Kibana (part of the Elasticsearch/Logstash/Kibana stack) to build custom dashboards<br>that can visualize aspects of your data that are important to you.<br>Additionally, you can use the Elasticsearch aggregations functionality<br>to perform complex business intelligence queries against your data.<br>你有分析/商业智能需求，并希望快速调查、分析、可视化，并就大量数据提出问题（认为数百万或数十亿条记录）。<br>在这种情况下，你可以使用Elasticsearch 存储你的数据，然后使用Kibana（Elasticsearch/Logstash/Kibana 栈的一部分）构建<br>自定义仪表盘，可以显示对你来说重要的数据特征。</p>
+<p>For the rest of this tutorial, you will be guided through the process of getting Elasticsearch up and running,<br>taking a peek inside it, and performing basic operations like indexing, searching, and modifying your data.<br>At the end of this tutorial, you should have a good idea of what Elasticsearch is,<br>how it works, and hopefully be inspired to see how you can use it<br>to either build sophisticated search applications or to mine intelligence from your data.<br>在教程的剩余部分，将引导你完成启动和运行Elasticsearch，深入了解它，并执行基本的操作如索引、搜索、修改你的数据。<br>在教程结束时，你应该对Elasticsearch 有所了解，它是如何工作的，并希望受到启发，你可以怎样使用它构建复杂的搜索应用程序<br>或从数据中挖掘智能。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/08/kibana/" rel="next" title="kibana">
+                <i class="fa fa-chevron-left"></i> kibana
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/09/elasticsearch-basic-concepts/" rel="prev" title="elasticsearch-basic-concepts">
+                elasticsearch-basic-concepts <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">geekymv</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">geekymv</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

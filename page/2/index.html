@@ -229,6 +229,659 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/28/distributed-systems/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/28/distributed-systems/" itemprop="url">distributed-systems</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-28T10:35:03+08:00">
+                2019-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Introduction<br>介绍<br>I wanted a text that would bring together the ideas behind many of the more recent distributed systems </p>
+<ul>
+<li>systems such as Amazon’s Dynamo, Google’s BigTable and MapReduce, Apache’s Hadoop and so on.<br>我想要一篇汇集许多最近的分布式系统（如 Amazon 的 Dynamo, Google 的 BigTable 和 MapReduce, Apache 的 Hadoop等系统）背后思想的文章。</li>
+</ul>
+<p>In this text I’ve tried to provide a more accessible introduction to distributed systems.<br>在本文中，我尝试提供一个更易于理解的分布式系统介绍。</p>
+<p>To me, that means two things: introducing the key concepts that you will need in order to<br>have a good time reading more serious texts, and providing a narrative that covers things in enough detail<br>that you get a gist of what’s going on without getting stuck on details.<br>对我而言，这意味着两件事：介绍你需要的核心概念，为了能愉快的读更重要的文章，并提供足够详细的叙述，<br>让你了解正在发生的事情，而不必拘泥于细节。</p>
+<p>It’s 2013, you’ve got the Internet, and you can selectively read more about the topics you find most interesting.<br>这是2013年，你已经拥有了互联网，你可以选择读更多你觉得最有趣的话题。</p>
+<p>In my view, much of distributed programming is about dealing with the implications of two consequences of distribution:<br>that information travels at the speed of light<br>that independent things fail independently*<br>在我看来，许多分布式编程是关于处理分布式两个后果的影响：<br>信息以光速传输</p>
+<p>In other words, that the core of distributed programming is dealing with distance (duh!) and having more than one thing (duh!).<br>These constraints define a space of possible system designs,<br>and my hope is that after reading this you’ll have a better sense of how distance, time and consistency models interact.</p>
+<p>This text is focused on distributed programming and systems concepts you’ll need to understand commercial systems in the data center.<br>It would be madness to attempt to cover everything. You’ll learn many key protocols<br>and algorithms (covering, for example, many of the most cited papers in the discipline),<br>including some new exciting ways to look at eventual consistency<br>that haven’t still made it into college textbooks - such as CRDTs and the CALM theorem.</p>
+<p>I hope you like it! If you want to say thanks, follow me on Github (or Twitter).<br>And if you spot an error, file a pull request on Github.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/27/wireshark/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/27/wireshark/" itemprop="url">wireshark</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-27T15:39:38+08:00">
+                2019-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>ARP 协议<br>对给定IP地址解析对应MAC地址。<br>为了找到对应的MAC地址，ARP协议会发送一个广播包到广播域中的每个设备。然后期望正确的客户端将做出回应。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/microservices/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/20/microservices/" itemprop="url">MicroServices</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-20T22:33:02+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="从面试题开始"><a href="#从面试题开始" class="headerlink" title="从面试题开始"></a>从面试题开始</h4><p>什么是微服务？<br>微服务之间是如何独立通讯的？<br>springcloud 和 dubbo 有哪些区别？<br>springboot 和 springcloud，请谈谈对他们的理解<br>什么是服务熔断？什么是服务降级？<br>微服务的优缺点分别是什么？说下你在项目开发中碰到的坑<br>你所知道的微服务技术栈有哪些？请举例一二<br>eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别</p>
+<h4 id="微服务是什么？"><a href="#微服务是什么？" class="headerlink" title="微服务是什么？"></a>微服务是什么？</h4><p>就目前而言，对于微服务业界并没有一个统一的、标准的定义。<br>但通常而言，微服务架构是一种架构模式或者说是一种架构风格，它是将单一应用程序分成一组小的服务，每个服务运行在其独立的自己的进程中，<br>服务之间互相协调、互相配合，为用户提供最终价值。服务之间采用轻量级的通信机制互相沟通（通常是基于HTTP的RESTful API）。每个服务<br>都围绕着具体业务进行构建，并且能够被独立地部署到生产环境、类生产环境等。另外，应尽量避免统一的、集中式的服务管理机制，对具体的一个<br>服务而言，应根据业务上下文，选择合适的语言、工具对其进行构建，可以有一个非常轻量级的集中式管理来协调这些服务，可以使用不同的语言来<br>编写服务，也可以使用不同的数据存储。</p>
+<p>单机版：All In One，在工作空间中只有一个工程；<br>分布式：专业的事情交给专业的人做，尽量降低耦合度；</p>
+<p>Dubbo 通信机制是RPC，Spring Cloud 的通信机制是基于HTTP 的RESTful API。</p>
+<p>从技术维度理解，微服务化的核心就是将传统的一站式应用，根据业务拆分成一个一个的服务，彻底的去耦合，每一个微服务提供单个业务功能的服务，<br>一个服务做一件事，从技术角度看就是一个小而独立的处理过程，类似进程概念，能够自行独立启动或销毁，甚至拥有自己独立的数据库。</p>
+<p>练武不练功，到老一场空！</p>
+<h4 id="微服务与微服务架构"><a href="#微服务与微服务架构" class="headerlink" title="微服务与微服务架构"></a>微服务与微服务架构</h4><p>微服务：强调的是服务的大小，它关注的是某一个点，是具体解决某一个问题/提供落地对应服务的一个服务应用（比如用sprigboot开发的一个小模块），<br>狭义的看，可以看作是是开发工具里面一个个微服务工程或者module。</p>
+<p>微服务架构：微服务架构是一种架构模式。</p>
+<h4 id="微服务的优缺点"><a href="#微服务的优缺点" class="headerlink" title="微服务的优缺点"></a>微服务的优缺点</h4><p>优点：<br>每个服务足够内聚，足够小，代码容易理解，这样能聚焦一个指定的业务功能或者业务需求。<br>开发简单、开发效率提高，一个服务可能就是转一的只干一件事。<br>微服务能够被小团队单独开发，这个小团队是2-5人的开发人员组成。<br>微服务是松耦合的，是有功能意义的服务，无论是在开发阶段或部署阶段都是独立的。<br>微服务能使用不同的语言开发。<br>易于和第三方集成，微服务允许容易且灵活的方式集成自动部署，通过持续集成工具。<br>微服务易于被一个开发人员理解，修改和维护，这样小团队能够关注自己的工作成果，无需通过合作才能体现价值。<br>微服务允许你利用融合最新技术。<br>微服务只是业务逻辑代码，不会和html、css或者其他界面组件混合。<br>每个微服务都有自己的存储能力，可以有自己的数据库，也可以有统一数据库。</p>
+<p>缺点：<br>开发人员要处理分布式系统的复杂性。<br>多服务运维难度，随着服务的增加，运维的压力也在增加。<br>系统部署依赖<br>服务间通信成本<br>数据一致性<br>系统集成测试<br>性能监控……</p>
+<h4 id="微服务技术栈有哪些"><a href="#微服务技术栈有哪些" class="headerlink" title="微服务技术栈有哪些"></a>微服务技术栈有哪些</h4><p>服务开发 springboot spring springmvc<br>服务配置与管理 Netflix公司的Archaius、阿里巴巴的Diamond等<br>服务注册与发现 Eureka、Consul、Zookeeper<br>服务调用 Rest、RPC、gRPC<br>服务熔断 Hystrix、Envoy<br>负载均衡 Ribbon、Nginx<br>服务接口调用（客户端调用服务的简化工具）Feign<br>消息队列 Kafka RabbitMQ ActiveMQ<br>服务配置中心管理 SpringCloudConfig Chef<br>服务路由 Zuul<br>服务监控 Zabbix Nagox Metrios Spectator<br>全链路追踪 Zipkin Brave Dapper<br>服务部署 Docker OpenStack Kubernetes<br>数据流操作开发包 SpringCloud Stream（封装与Redis，Rabbit，Kafka等发送接收消息）<br>事件消息总线 SprngCloud Bus</p>
+<h4 id="为什么选择SpringCloud作为微服务架构"><a href="#为什么选择SpringCloud作为微服务架构" class="headerlink" title="为什么选择SpringCloud作为微服务架构"></a>为什么选择SpringCloud作为微服务架构</h4><p>选型依据</p>
+<ul>
+<li>整体解决方案和框架成熟度</li>
+<li>社区热度</li>
+<li>可维护性</li>
+<li>学习曲线</li>
+</ul>
+<p>当前各大IT公司用的微服务架构有哪些？<br>阿里Dubbo/HSF（好舒服）<br>京东JSF<br>新浪微博Motan<br>当当网DubboX</p>
+<p>各微服务框架对比</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/springcloud/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/20/springcloud/" itemprop="url">MicroServices</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-20T22:33:02+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Spring-Cloud-入门概述"><a href="#Spring-Cloud-入门概述" class="headerlink" title="Spring Cloud 入门概述"></a>Spring Cloud 入门概述</h4><p>是什么<br>Spring Cloud 基于Spring Boot 提供了一套微服务解决方案，包括服务注册与发现，配置中心，全链路监控，服务网关，负载均衡，熔断器等组件，<br>除了基于Netflix 的开源组件做高度抽象封装之外，还有一些选型中立的开源组件。<br>Spring Cloud 利用Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，Spring Cloud 为开发人员提供了快速构建分布式系统<br>的一些工具，包括配置管理、服务发现、断路器、路由、微代理、事件总线、全局锁、决策竞选、分布式会话等，它们都可以用SpringBoot 的开发<br>风格做到一键启动和部署。<br>Spring Boot 并没有造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot 风格进行再封装<br>屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
+<h4 id="Spring-Boot-和-Spring-Cloud-是什么关系"><a href="#Spring-Boot-和-Spring-Cloud-是什么关系" class="headerlink" title="Spring Boot 和 Spring Cloud 是什么关系"></a>Spring Boot 和 Spring Cloud 是什么关系</h4><p>Spring Boot 专注于快速方便的开发单个个体微服务。<br>Spring Cloud 是关注全局的微服务协调治理框架，它将Spring Boot 开发的一个个单体微服务整合并管理起来，为各个微服务之间提供配置管理、<br>服务发现、断路器、路由、微代理、事件总线、全局锁、决策竞选、分布式会话等集成服务。</p>
+<p>Spring Boot 可以离开Spring Cloud 独立使用开发项目，但是Spring Cloud 离不开Sprint Boot，属于依赖关系。<br>Spring Boot 专注于快速、方便的开发单个微服务个体，Spring Cloud 关注全局的服务治理框架。</p>
+<h4 id="从Dubbo-是怎么到-Spring-Cloud-的？哪些优缺点让你去做技术选型"><a href="#从Dubbo-是怎么到-Spring-Cloud-的？哪些优缺点让你去做技术选型" class="headerlink" title="从Dubbo 是怎么到 Spring Cloud 的？哪些优缺点让你去做技术选型"></a>从Dubbo 是怎么到 Spring Cloud 的？哪些优缺点让你去做技术选型</h4><p>目前成熟的互联网架构（分布式+服务治理Dubbo）<br>Spring Cloud vs Dubbo<br>活跃度<br>对比              Dubbo               Spring Cloud<br>服务注册中心       Zookeeper           Spring Cloud Netflix Eureka<br>服务调用方式       RPC                 REST API<br>服务监控          Dubbo Monitor       Spring Boot Admin<br>断路器            不完善              Spring Cloud Netflix Hystrix<br>服务网关          无                  Spring Cloud Netflix Zuul<br>分布式配置         无                   Spring Cloud Config<br>服务跟踪          无                    Spring Cloud Sleuth<br>消息总线          无                    Spring Cloud Bus<br>数据流            无                     Spring Cloud Stream<br>批量任务          无                     Spring Cloud Task<br>最大区别：Spring Cloud 抛弃了Dubbo 的RPC 通信，采用的是基于HTTP 的REST 方式。<br>严格来说，这两种方式各有优劣。虽然从一定程度上来说，后者牺牲了服务调用的性能，但也避免了上面提到的原生RPC 带来的问题。<br>而且REST 相比RPC 更为灵活，服务提供方和调用方依赖的只是一纸契约，不存在代码级别的强依赖，这在强调快速演化的微服务环境下，<br>显得更加合适。<br>就像品牌与组装机的区别。</p>
+<p>能干嘛<br>去哪下<br>怎么玩<br>Spring Cloud 国内使用情况</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/18/mq/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/18/mq/" itemprop="url">mq</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-18T18:34:05+08:00">
+                2019-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>为什么要使用消息中间件？</p>
+<p>解决系统间耦合调用的问题-解耦<br>异步模型-异步<br>抵御洪峰流量，达到保护主业务的目的-削峰</p>
+<p>要做到系统解耦，当新的模块接入进来时，可以做到代码改动最小：能够解耦<br>设置流量缓冲池，可以让后端系统按照自身吞吐能力进行消费，不被冲垮：能够削峰<br>强弱依赖梳理能够将非关键调用链的操作异步化并提升整体系统的吞吐能力：能够异步。</p>
+<p>activemq 安装</p>
+<p>端口：61616</p>
+<p>bin/activemq start 后台启动<br>bin/activemq restart 重启<br>bin/activemq stop 停止</p>
+<p>查看进程<br>ps -ef|grep activemq</p>
+<p>不显示grep<br>ps -ef|grep activemq | grep -v grep </p>
+<p>根据端口查看<br>netstat -anp|grep 61616<br>或者<br>lsof -i:61616</p>
+<p>带运行日志的启动方式<br>bin/activemq start &gt; /output/activemq.log</p>
+<p>通过浏览器访问<br><a href="http://127.0.0.1:8161/admin/" target="_blank" rel="noopener">http://127.0.0.1:8161/admin/</a><br>用户名密码 admin / admin</p>
+<p>JMS 规范和落地产品</p>
+<h4 id="分布式事务解决方案"><a href="#分布式事务解决方案" class="headerlink" title="分布式事务解决方案"></a>分布式事务解决方案</h4><p>刚性事务<br>    全局事务（标准的分布式事务）<br>柔性事务<br>    可靠消息最终一致（异步确保型）<br>    TCC（两阶段提交、补偿型）<br>    最大努力通知（非可靠消息、定期校对）   </p>
+<p>柔性事务解决方案：可靠消息最终一致性（异步确保型）<br>实现：业务处理服务在业务事务提交前，向实时消息服务请求发送消息，实时消息服务只记录消息数据，而不真正发送。<br>业务处理服务在业务事务提交后，向实时消息服务确认发送。只有在得到确认发送指令后，实时消息服务才真正发送。</p>
+<p>消息：业务处理服务在业务事务回滚后，向实时消息服务取消发送。<br>消息状态确认系统定期找到未确认发送或回滚发送的消息，向业务处理服务询问消息状态，<br>业务处理服务根据消息ID或消息内容确定该消息是否有效。</p>
+<p>约束：被动方的处理结果不影响主动方的处理结果，被动方的消息处理操作是幂等操作。</p>
+<p>成本：可靠消息系统建设成本；一次消息发送需要两次请求，业务处理服务需要实现消息状态回查接口。</p>
+<p>优点、适用范围<br>消息数据独立存储、独立伸缩，降低业务系统与消息系统间的耦合。<br>对最终一致性时间敏感度较高，降低业务被动方实现成本。</p>
+<p>用到的服务模式：可查询操作、幂等操作。</p>
+<p>方案特点：<br>兼容所有实现JMS标准的MQ中间件<br>确保业务数据可靠的前提下，实现业务数据的最终一致性（理想状态下基本准实时一致）。</p>
+<p>行业应用案例：<br>支付宝、eBay、去哪儿……</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/kafka-install/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -892,813 +1545,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/git-command/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/29/git-command/" itemprop="url">git-command</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-29T08:56:27+08:00">
-                2019-05-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>配置并初始化一个仓库（repository）<br>开始或听着跟踪（track）文件<br>暂存（stage）或提交（commit）更改<br>配置Git来忽略指定的文件和文件模式<br>撤销错误操作<br>浏览历史版本以及不同提交间的差异<br>向远程仓库推送（push）<br>从远程仓库拉取（pull）文件</p>
-<h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4><p>创建目录mygit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir mygit</span><br></pre></td></tr></table></figure></p>
-<p>进入mygit<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd mygit</span><br></pre></td></tr></table></figure></p>
-<p>仓库初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure></p>
-<p>Windows 系统下，通过Git Bash 操作如下：<br><img src="/2019/05/29/git-command/git-init-win.png" title="git init"></p>
-<p>Mac 下，通过 Terminal 操作如下：<br><img src="/2019/05/29/git-command/git-init-mac.png" title="git init"></p>
-<p>当执行完<code>git init</code> 命令后，可以看到控制台多出了<code>(master)</code>的标识，<br>它表示当前是在master分支，这也是 Git 为我们创建的默认分支（后面会详细介绍 Git 分支）。</p>
-<p>使用<code>ls -al</code> 命令查看<code>git init</code> 命令为我们生成了哪些隐藏文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/ls-al-git.png" title="ls-al-git">
-<p>可以看到，mygit 目录下多出了.git 目录，这个子目录包含初始化的 Git 仓库所有必须的文件，<br>比如有我们在上一篇文章中介绍的关于git config –local配置方式中提到的config文件。<br><img src="/2019/05/29/git-command/git-config.png" title="git config"><br>一般我们不会直接修改这个文件，而是通过Git 提供的命令去操作。</p>
-<p>查看工作目录状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-status.png" title="git status">
-<p><code>git status</code> 命令将会成为以后经常会使用的命令，用来查看工作目录文件的状态，以便决定下一步的操作。</p>
-<p>现在我们可以创建一个文件，然后使用<code>git add</code> 命令来实现对文件对追踪。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ touch hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>编辑文件，添加如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi hello.txt</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello Git</span><br></pre></td></tr></table></figure>
-<p>查看工作目录状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-status-2.png" title="git status">
-<p>在状态报告中可以看到，当前在 master 分支，hello.txt 文件未被跟踪，<br>我们可以使用 <code>git add</code> 命令来实现对文件的跟踪。</p>
-<p>开始跟踪hello.txt文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-add.png" title="git add">
-<p>控制台没有任何信息输出（Linux/Unix系统的设计思想：没有消息就是最好的消息）<br>也可以使用<code>git add .</code> 命令对当前目录下所有文件进行跟踪。</p>
-<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-status-3.png" title="git status">
-<p>可以看到，hello.txt文件已被跟踪，并处于暂存状态，只要在<code>Changes to be committed:</code>这行下面的，就说明是已暂存状态。<br>对于已暂存的文件，我们可以将hello.txt文件从暂存区回退到工作区，也可以提交hello.txt文件。</p>
-<p>这里我们先演示从暂存区回退到工作区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm --cached hello.txt</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-rm-cached.png" title="git rm --cached">
-<p>查看状态，发现和刚创建完文件时一样。</p>
-<p>接下来，我们重新将hello.txt 文件添加到暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>提交到版本库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit</span><br></pre></td></tr></table></figure></p>
-<p>输入<code>git commit</code>直接回车，默认会调用本机文本编辑器，需要输入提交信息，我们输入commit hello.txt信息，保存，关闭文件。</p>
-<p>Windows 系统下，通过Git Bash 操作如下：<br><img src="/2019/05/29/git-command/git-commit-win.png" title="git commit"></p>
-<p>Mac 下，通过 Terminal 操作如下：<br><img src="/2019/05/29/git-command/git-commit-mac.png" title="git commit"></p>
-<p>此时，hello.txt文件已成功提交，可以看到如下信息：<br><img src="/2019/05/29/git-command/git-commit.png" title="git commit"></p>
-<p>一般情况下，我们输入的提交信息都不会特别多，这时我们可以使用 <code>git commit -m &quot;提交信息&quot;</code>。</p>
-<p>查看工作区状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure></p>
-<p>说明现在的工作目录很干净。换句话说，就是当前目录下没有出现任何未跟踪状态的新文件，<br>并且所有已跟踪文件在上次提交后都没有被修改过，否则Git 会在这里列出来。</p>
-<p>查看提交日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-log.png" title="git log">
-<p>默认不加任何参数的话，<code>git log</code> 会按提交时间列出所有的更新，最近的更新排在最上面。<br>git log 命令会列出每个提交的SHA-1 校验和、作者的名字和电子邮件地址、提交时间以及提交说明。</p>
-<h4 id="暂存修改的文件"><a href="#暂存修改的文件" class="headerlink" title="暂存修改的文件"></a>暂存修改的文件</h4><p>修改hello.txt 文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello Git</span><br><span class="line">hello Java</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-status-4.png" title="git status">
-<p>出现在<code>Changes not staged for commit</code> 这行下面，说明修改了已跟踪的文件，但还没有放到暂存区。<br>要暂存这次更新，需要运行<code>git add</code>命令。或者使用<code>git checkout</code> 命令将工作区的文件撤销修改。<br><code>git add</code> 是个多功能的命令：</p>
-<ul>
-<li>用于开始跟踪新文件；</li>
-<li>把已跟踪的文件放到暂存区；</li>
-<li>用于把有冲突的文件标记为已解决状态（这个后面会用到）。 </li>
-</ul>
-<p>我们先演示下使用<code>git checkout</code> 命令撤销修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- hello.txt</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-checkout.png" title="git checkout">
-<p>可以看到hello.txt文件中添加的一行文本（hello Java）被撤销。</p>
-<p>我们按照上面的方式再修改hello.txt文件，演示将修改添加到暂存取的功能<br>运行<code>git add</code> 命令将已修改的hello.txt 文件放到暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-add-2.png" title="git add">
-<p>通过<code>git status</code> 可以看到hello.txt文件的修改已暂存。</p>
-<h4 id="状态简览"><a href="#状态简览" class="headerlink" title="状态简览"></a>状态简览</h4><p><code>git status</code> 命令的输出十分详细，使用 <code>git status -s</code> 或 <code>git status --short</code> 命令可以得到更为紧凑的格式输出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status -s</span><br></pre></td></tr></table></figure></p>
-<p>新添加的未跟踪文件前面有 ?? 标记</p>
-<p>新添加到暂存区的文件前面有 A 标记</p>
-<p>修改过的文件前面有 M 标记，注意M有两个可以出现的位置，<br>出现在右边的M表示该文件被修改了但还没有放到暂存区，出现在左边的 M 表示该文件被修改并放入了暂存区。</p>
-<h4 id="查看已暂存和未暂存的修改"><a href="#查看已暂存和未暂存的修改" class="headerlink" title="查看已暂存和未暂存的修改"></a>查看已暂存和未暂存的修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
-<p>git diff 不加任何参数比较工作目录中的当前文件和暂存区之间的差异<br>git diff HEAD 比较工作区与最新本地版本库<br>git diff commit-id 比较工作区与指定 commit-id 之间的差异</p>
-<p>git diff –cached 比较暂存区与最新本地版本库<br>git diff –cached commit-id 比较暂存区与指定commit-id 之间差异</p>
-<h4 id="提交时跳过使用暂存区"><a href="#提交时跳过使用暂存区" class="headerlink" title="提交时跳过使用暂存区"></a>提交时跳过使用暂存区</h4><p>git commit 使用暂存区可以精心准备要提交的内容，但有时候这么做略显繁琐。Git提供了一个跳过使用暂存区的方式，<br>在提交的时候给git commit 加上-a 选项，Git会自动把所有已跟踪过的文件暂存起来一并提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am &apos;提交说明&apos;</span><br></pre></td></tr></table></figure></p>
-<h4 id="移除文件"><a href="#移除文件" class="headerlink" title="移除文件"></a>移除文件</h4><p>要从Git中移除某个文件，就必须要从已跟踪文件清单中移除，然后提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm hello.txt</span><br><span class="line">git commit -m &apos;提交说明&apos;</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-rm-1.png" title="git rm">
-<p>大部分情况下，我们会直接在文件管理器中把文件删除了或者使用rm 命令删除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm hello.txt</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
-<img src="/2019/05/29/git-command/git-rm.png" title="git rm">
-<p>有两个选择:<br>1.确实要从版本库中删除该文件，就用git rm 记录此次删除文件的操作，并用git commit。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm hello.txt</span><br><span class="line">git commit -m &apos;提交说明&apos;</span><br></pre></td></tr></table></figure></p>
-<p>现在文件就从版本库中删除了。</p>
-<p>2.删错了，把误删的文件恢复到最新版本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>用版本库里的版本替换工作区的版本，可能会丢失最近一次提交后你修改的内容。</p>
-<p>想把文件从Git仓库中删除，但是仍希望保留到当前工作目录中，<br>git rm –cached hello.txt</p>
-<h4 id="重命名文件"><a href="#重命名文件" class="headerlink" title="重命名文件"></a>重命名文件</h4><p>在我们日常开发中，可能会出现修改文件名的情况，比如觉得某个类的名字取的不能够见名知义，想要修改。<br>要在Git 中对文件重命名，可以使用<code>git mv</code> 命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git mv file_from file_to</span><br></pre></td></tr></table></figure></p>
-<p>比如，我们将文件 hello.txt 改名为hello2.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git mv hello.txt hello2.txt</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-mv.png" title="git mv">
-<p>查看状态信息，可以看到 Git 能够识别到我们对文件执行了重命名操作，并且已是暂存状态。<br>运行git mv 相当与运行了下面三条命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mv hello.txt hello2.txt</span><br><span class="line">$ git rm hello.txt</span><br><span class="line">$ git add hello2.txt</span><br></pre></td></tr></table></figure></p>
-<p>重命名已完成，这个时候我们可以提交修改 <code>git commit -m &quot;重命名文件&quot;</code>。<br>或者误操作了这个文件，想要回退。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD hello2.txt</span><br></pre></td></tr></table></figure></p>
-<img src="/2019/05/29/git-command/git-reset.png" title="git reset">
-<p>这样hello2.txt 文件处于未跟踪状态了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD hello.txt</span><br></pre></td></tr></table></figure>
-<img src="/2019/05/29/git-command/git-reset-2.png" title="git reset">
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- hello.txt</span><br><span class="line">$ rm hello2.txt</span><br></pre></td></tr></table></figure>
-<img src="/2019/05/29/git-command/git-checkout-2.png" title="git checkout">
-<h4 id="文件撤销"><a href="#文件撤销" class="headerlink" title="文件撤销"></a>文件撤销</h4><p>在日常开发的过程中，我们可能会遇到以下几种的场景：<br>场景一：<br>在工作区修改了文件内容，还没添加到暂存区，发现修改错了想要撤销修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat hello.txt</span><br><span class="line">hello Git</span><br></pre></td></tr></table></figure></p>
-<p>修改hello.txt 文件，添加一行内容hello world<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vim hello.txt</span><br><span class="line">hello Git</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
-<p>使用<code>git checkout -- &lt;file&gt;...</code> 撤销修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure></p>
-<p>查看hello.txt 文件内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat hello.txt</span><br><span class="line">hello Git</span><br></pre></td></tr></table></figure></p>
-<p>hello.txt 文件回到和版本库一样。</p>
-<p>场景二：<br>与场景一一样在工作区修改了文件内容，不同的是这个时候被修改的 hello.txt 文件已经添加到暂存区了，需要撤销修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vim hello.txt</span><br><span class="line">hello Git</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></p>
-<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure></p>
-<p>将修改的文件添加到暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>现在我们首先将文件从暂存区回退到工作区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD hello.txt</span><br><span class="line">Unstaged changes after reset:</span><br><span class="line">M       hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>查看状态，此时和场景一的状态是一样的了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure></p>
-<p>使用<code>git checkout -- &lt;file&gt;...</code> 撤销修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>场景三：<br>与场景二一样在工作区修改了文件内容，被修改的 hello.txt 文件已经添加到暂存区了，这个时候在工作区又做了修改，需要撤销本次修改。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vim hello.txt </span><br><span class="line">hello Git</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
-<p>将修改的文件添加到暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>再次编辑文件，添加新的一行内容hello Java<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vim hello.txt </span><br><span class="line">hello Git</span><br><span class="line">hello world</span><br><span class="line">hello Java</span><br></pre></td></tr></table></figure></p>
-<p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br><span class="line"></span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br></pre></td></tr></table></figure></p>
-<p>此时，hello.txt 文件同时出现在暂存区和非暂存区。<br>我们想要撤销本次的修改，那么只要执行<code>git checkout -- hello.txt</code> 就可以了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout hello.txt</span><br><span class="line">Updated 1 path from the index</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        modified:   hello.txt</span><br></pre></td></tr></table></figure>
-<p>查看文件内容，本次修改已经撤销了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat hello.txt</span><br><span class="line">hello Git</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></p>
-<h4 id="文件撤销小结"><a href="#文件撤销小结" class="headerlink" title="文件撤销小结"></a>文件撤销小结</h4><p>如果hello.txt 修改后，还没有添加到暂存区，现在想要撤销，执行<code>git checkout -- hello.txt</code> 则回到和版本库一样的状态。<br>如果hello.txt 已经添加到暂存区，又做了修改，现在想要撤销本次修改，执行<code>git checkout -- hello.txt</code> ，撤销的是工作目录的修改，则回到和暂存区一样的状态。<br>当然如果是一个新的文件还没有添加到暂存区，也就没有Git撤销操作了。总之，就是让这个文件回到最近一次git commit或git add时的状态。</p>
-<p>场景四：<br>这个时候终于把hello.txt 文件修改完了，愉快的执行了提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;fix bug #666&quot;</span><br><span class="line">[master 50b27fc] fix bug #666</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure></p>
-<p>提交完后发现bug号写错了，其实修改的是bug #66，想要修改提交说明。</p>
-<p>查看提交说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line"></span><br><span class="line">commit 50b27fce9b19dd25736893bcc3bb49c46a1242ae (HEAD -&gt; master)</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Thu Jun 13 19:22:14 2019 +0800</span><br><span class="line"></span><br><span class="line">    fix bug #666</span><br></pre></td></tr></table></figure></p>
-<p>修改最近一次的提交说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend -m &quot;fix bug #66&quot;</span><br><span class="line"></span><br><span class="line">[master 5c10da1] fix bug #66</span><br><span class="line"> Date: Thu Jun 13 19:22:14 2019 +0800</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line"></span><br><span class="line">commit 5c10da1d45b53cf2f98c538b9f8d758ff961fd81 (HEAD -&gt; master)</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Thu Jun 13 19:22:14 2019 +0800</span><br><span class="line"></span><br><span class="line">    fix bug #66</span><br></pre></td></tr></table></figure>
-<p>已经成功修改了提交说明，并没有新增commit id。</p>
-<h4 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit 5c10da1d45b53cf2f98c538b9f8d758ff961fd81 (HEAD -&gt; master)</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Thu Jun 13 19:22:14 2019 +0800</span><br><span class="line"></span><br><span class="line">    fix bug #66</span><br><span class="line"></span><br><span class="line">commit 29cf508b469fd4b89de66b8b979e14b10c2663ea</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Thu Jun 13 18:55:47 2019 +0800</span><br><span class="line"></span><br><span class="line">    修改文件</span><br><span class="line"></span><br><span class="line">commit 0a49afaf82d809568ecc942baf4c170d5027ef6d</span><br><span class="line">Author: geekymv &lt;ym2011678@foxmail.com&gt;</span><br><span class="line">Date:   Wed Jun 5 21:03:17 2019 +0800</span><br><span class="line"></span><br><span class="line">    add</span><br></pre></td></tr></table></figure>
-<p>git log 命令显示从最近到最远的提交说明，如果觉得输出的信息太多，可以加上参数<code>--pretty=oneline</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=oneline</span><br><span class="line">5c10da1d45b53cf2f98c538b9f8d758ff961fd81 (HEAD -&gt; master) fix bug #66</span><br><span class="line">29cf508b469fd4b89de66b8b979e14b10c2663ea 修改文件</span><br><span class="line">0a49afaf82d809568ecc942baf4c170d5027ef6d add</span><br></pre></td></tr></table></figure></p>
-<p>这下清爽多了！</p>
-<p>在Git中，用HEAD表示当前版本，上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，<br>当然往上10个版本写10个^比较容易数不过来，所以写成HEAD~10。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at 29cf508 修改文件</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=oneline</span><br><span class="line">29cf508b469fd4b89de66b8b979e14b10c2663ea (HEAD -&gt; master) 修改文件</span><br><span class="line">0a49afaf82d809568ecc942baf4c170d5027ef6d add</span><br></pre></td></tr></table></figure>
-<p>可以看到当前版本是<code>29cf50...</code>。</p>
-<p>现在要想还回到指定回到<code>5c10da1d45b53cf2f98c538b9f8d758ff961fd81</code>版本，<br>当然版本号没必要写全，前几位就可以了，Git会自动去找。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard 5c10da</span><br><span class="line">HEAD is now at 5c10da1 fix bug #66</span><br></pre></td></tr></table></figure>
-<p>可以看到又回到了<code>5c10da...</code>版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=oneline</span><br><span class="line">5c10da1d45b53cf2f98c538b9f8d758ff961fd81 (HEAD -&gt; master) fix bug #66</span><br><span class="line">29cf508b469fd4b89de66b8b979e14b10c2663ea 修改文件</span><br><span class="line">0a49afaf82d809568ecc942baf4c170d5027ef6d add</span><br></pre></td></tr></table></figure></p>
-<p>当你用<code>$ git reset --hard HEAD^</code>命令回退到<code>29cf50...</code>版本时，再想恢复到最新版本怎么版呢？<br>上面我们能恢复是因为我们在笔记中记录了 commit id。这个时候使用<code>git log</code> 已经看不到最新版本到commit id 了。<br>不用担心，在Git中总是有后悔药可以吃，<code>git reflog</code>记录你的每一次命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">29cf508 (HEAD -&gt; master) HEAD@&#123;0&#125;: reset: moving to 29cf</span><br><span class="line">5c10da1 HEAD@&#123;1&#125;: reset: moving to 5c10da1d45b53cf2f98c538b9f8d758ff961fd81</span><br><span class="line">29cf508 (HEAD -&gt; master) HEAD@&#123;2&#125;: reset: moving to HEAD^</span><br><span class="line">5c10da1 HEAD@&#123;3&#125;: commit (amend): fix bug #66</span><br><span class="line">50b27fc HEAD@&#123;4&#125;: commit: fix bug #666</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/27/git-install/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/27/git-install/" itemprop="url">git-install</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-27T09:05:04+08:00">
-                2019-05-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h4><ul>
-<li>在Linux上安装</li>
-<li><p>Debian / Ubuntu</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>CentOS</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Fedora</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install git-core</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Arch Linux</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pacman -Sy git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Gentoo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo emerge --ask --verbose dev-vcs/git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在Mac OS X 上安装<br>在Mac上，这里推荐使用Homebrew 安装，具体方法请参考Homebrew 的文档：<a href="http://brew.sh。" target="_blank" rel="noopener">http://brew.sh。</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在Windows上安装<br>官方版本可以在 Git 官方网站（<a href="https://git-scm.com/）下载。" target="_blank" rel="noopener">https://git-scm.com/）下载。</a></p>
-<img src="/2019/05/27/git-install/git-win-download.png" title="git-win-download">
-</li>
-</ul>
-<p>1.点击<code>Download 2.21.0 for Windows</code>下载会自动开始，下载完成得到<code>Git-2.21.0-64-bit.exe</code> 可执行文件，<br>可能下载的很慢或者下载不了，不过不用担心我已经帮你下好了（通过公众号回复关键字”Git安装包”获取）。</p>
-<p>2.然后按默认选项安装即可。安装完成后，在开始菜单里找到Git-&gt;Git Bash，弹出一个类似命令行窗口，就说明Git安装成功！<br><img src="/2019/05/27/git-install/git-install-win-13.png" title="git-install-win"></p>
-<p>使用<code>git --version</code> 命令查看Git版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 2.21.0.windows.1</span><br></pre></td></tr></table></figure></p>
-<p>查看Git的安装目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ which git</span><br><span class="line">/mingw64/bin/git</span><br></pre></td></tr></table></figure></p>
-<p>更多安装方法可以参考官网教程（<a href="https://git-scm.com/book/zh/v2/起步-安装-Git）" target="_blank" rel="noopener">https://git-scm.com/book/zh/v2/起步-安装-Git）</a></p>
-<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>Git自带一个 git config 的工具，专门用来配置或读取相应的工作环境变量。这些变量可以存储在三个不同的位置：</p>
-<ul>
-<li>/etc/gitconfig 文件：包含系统上每一个用户及他们仓库的通用配置，使用 git config –system 配置；（几乎不会使用）</li>
-<li>~/.gitconfig 文件：只针对当前用户，使用 git config –global 配置；（最常用的方式）</li>
-<li>针对于特定项目的.git/config 文件中，使用 git config –local 配置；（可以在不同的项目使用不同的配置）</li>
-</ul>
-<p>优先级：local &gt; global &gt; system</p>
-<p>设置user.name 和 user.email<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &apos;geekymv&apos;</span><br><span class="line">$ git config --global user.email &apos;ym2011678@foxmail.com&apos;</span><br></pre></td></tr></table></figure></p>
-<p>查看user.name配置值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.name</span><br></pre></td></tr></table></figure></p>
-<p>查看user.email配置值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.email</span><br></pre></td></tr></table></figure></p>
-<p>查看所有配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list</span><br></pre></td></tr></table></figure></p>
-<h4 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h4><p>若你使用 Git 时需要获取帮助，有三种方法可以找到 Git 命令的使用手册：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git help &lt;verb&gt;</span><br><span class="line">$ git &lt;verb&gt; --help</span><br><span class="line">$ man git-&lt;verb&gt;</span><br></pre></td></tr></table></figure></p>
-<p>例如，要想获得 config 命令的手册，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git help config</span><br></pre></td></tr></table></figure></p>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>本文主要介绍了Git 在Linux、Mac OS X 和 Windows 系统上的安装方法，Git 配置及如何获取 Git 命令的使用手册，下一篇文章会介绍 Git仓库和 Git基本命令的使用。</p>
-<p>「更多精彩内容请关注公众号geekymv，喜欢请分享给更多的朋友哦」</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/vi/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/21/vi/" itemprop="url">vi</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-21T21:30:20+08:00">
-                2019-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>shift + a 进入一行的末尾</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/git/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/21/git/" itemprop="url">git</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-21T20:20:18+08:00">
-                2019-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>还记得前段时间的热门话题<a href="https://996.icu" target="_blank" rel="noopener">996.ICU</a>么？<br>作为程序员的你，深恶痛绝996的你，当然要给个star。<br><img src="/2019/05/21/git/996.icu.png" title="996.icu"><br>当你点击star的时候，你会发现网页跳转到了996.ICU在 GitHub的主页，作为程序员的你如果还不知道GitHub是什么真的是有点out了！<br><img src="/2019/05/21/git/996.icu-star.png" title="996.icu.star"><br>GitHub 是什么呢，我们有必要先了解下Git。</p>
-<h4 id="Git-是什么？"><a href="#Git-是什么？" class="headerlink" title="Git 是什么？"></a>Git 是什么？</h4><p>Git 是一款开源免费的分布式版本控制系统。<br>Git 官网 <a href="https://git-scm.com，下面一段话摘自Git" target="_blank" rel="noopener">https://git-scm.com，下面一段话摘自Git</a> 官网：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Git is a free and open source distributed version control system </span><br><span class="line">designed to handle everything from small to very large projects with </span><br><span class="line">speed and efficiency.</span><br></pre></td></tr></table></figure></p>
-<h4 id="Git-的诞生"><a href="#Git-的诞生" class="headerlink" title="Git 的诞生"></a>Git 的诞生</h4><p>1991年，芬兰学生Linus Torvalds 开发出Linux 操作系统内核。为了获得更多人的一些修改建议，Linus 便将内核代码发布到网络上供大家下载。<br>Linux 内核开源项目有着来为数众多的参与者，这么多人都在为Linux 编写代码，<br>那么这些代码是如何管理的呢？早期的时候（1991-2002年），开发者把源代码通过diff的方式发送给Linus，然后由Linus本人通过手工方式合并代码！<br>这导致绝大多数Linux 内核维护的时间都花费在提交补丁和保存归档等非关键性工作上。</p>
-<p>虽然当时已经存在很多商用的版本控制系统（Version Control System），但是与Linux的开源精神不符。<br>同时也是拒绝使用CVS 和 SVN等集中式版本控制系统，因为这些系统对网络要求较高，并且速度较慢。<br>到了2002年，BitMover公司免费提供分布式版本控制系统BitKeeper<br>给Linux社区来管理和维护Linux代码。2005年，由于产生一些矛盾，两者之间的的合作终止，他们回收了Linux 内核社区免费使用BitKeeper 的权限。<br>同年，Linus Torvalds 花了两周时间自己用C开发了一个分布式版本控制系统，这就是Git。（这就是大牛造轮子的速度！）<br>Git 的目标：</p>
-<ul>
-<li>速度</li>
-<li>简单</li>
-<li>对非线性开发模式的强力支持（允许成千上万个并行开发的分支）</li>
-<li>完全分布式</li>
-<li>有能力高效管理类似Linux 内核一样超大规模项目（速度和数据量）</li>
-</ul>
-<p>自诞生于2005年以来，Git 迅速成为最流行的分布式版本控制系统。<br>尤其是2008年，<a href="https://github.com" target="_blank" rel="noopener">GitHub</a> 网站上线了，它为开源项目免费提供Git存储，无数开源项目开始迁移到GitHub。<br>很多组织和个人都在GitHub 上开源自己的代码，贡献很多优秀的项目。下图是Linus Torvalds 在GitHub上的主页。<br><img src="/2019/05/21/git/linus.png" title="Linus Torvalds"></p>
-<p>GitHub 可以托管各种Git库，并提供一个Web界面，允许用户追踪其他用户、组织、软件库的动态，对软件代码的改动和bug提出评论等。<br>GitHub 时间轴：</p>
-<ul>
-<li>2007年10月1日开始开发；</li>
-<li>2008年2月以beta版本开始上线，4月份正式上线；</li>
-<li>2018年6月4日晚上，微软宣布以75亿美元的股票收购GitHub。</li>
-</ul>
-<h4 id="Git-几乎所有操作都在本地执行"><a href="#Git-几乎所有操作都在本地执行" class="headerlink" title="Git 几乎所有操作都在本地执行"></a>Git 几乎所有操作都在本地执行</h4><p>在 Git 中的绝大多数操作都只需要访问本地文件和资源，一般不需要来自网络上其它计算机的信息。<br>如果你习惯于所有操作都有网络延时开销的集中式版本控制系统，Git 在这方面的速度绝对让你惊讶。<br>因为你在本地磁盘上就有项目的完整历史，所以大部分操作看起来瞬间完成。</p>
-<p>举个例子，要浏览项目的历史，Git 不需外连到服务器去获取，然后再显示出来，它只需直接从本地数据库中读取，你能立即看到项目历史。<br>如果你想查看当前版本与一个月前的版本之间引入的修改，Git 会查找到一个月前的文件做一次本地的差异计算，<br>而不是由远程服务器处理或从远程服务器拉回旧版本文件再来本地处理。这也意味着你离线或者没有 VPN 时，几乎可以进行任何操作。 </p>
-<p>分布式版本控制系统通常也有一台充当“中央服务器”的电脑，但这个服务器的仅仅是用来方便交换大家的修改，<br>没有它大家也是一样干活，只是不太方便交换修改而已。</p>
-<h4 id="工作区域"><a href="#工作区域" class="headerlink" title="工作区域"></a>工作区域</h4><p>Git 中的文件状态：<br>未跟踪(untracked)：新增的文件，并没有添加到 Git仓库，不参与版本控制；<br>已修改(modified)：表示已经修改了文件，还没有保存到本地数据库中；<br>已暂存(staged)：表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中；<br>已提交(committed)：表示数据已经安全的保存在本地数据库中。</p>
-<p>三个工作区域</p>
-<ul>
-<li>工作目录：在自己电脑在磁盘上供你使用或修改的文件目录；</li>
-<li>暂存区(Index/Stage)：是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。有时候也被称作`‘索引’’，不过一般说法还是叫暂存区域；</li>
-<li>Git 仓库：Git 用来保存项目的元数据和对象数据库的地方，就是工作区中的隐藏目录.git。<img src="/2019/05/21/git/areas.png" title="areas">
-</li>
-</ul>
-<p>基本的 Git 工作流程如下：</p>
-<ul>
-<li>在工作目录中修改文件；</li>
-<li>暂存文件，将文件的快照放入暂存区域；</li>
-<li>提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录。</li>
-</ul>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>本文主要介绍了Git诞生的起因，Git 特点和 Git 工作流程，下一篇文章会介绍Git的安装和Git基本命令的使用。</p>
-<p><a href="https://examples.javacodegeeks.com/software-development/git/git-diff-example/" target="_blank" rel="noopener">Git Diff Example</a><br>[Git Article]<a href="https://dzone.com/users/3208287/kristip.html" target="_blank" rel="noopener">https://dzone.com/users/3208287/kristip.html</a><br><a href="https://backlog.com/blog/git-vs-svn-version-control-system/" target="_blank" rel="noopener">Git vs. SVN</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/insight/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/21/insight/" itemprop="url">insight</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-21T13:55:58+08:00">
-                2019-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>接下来会写技术内容包括<br>git<br>dubbo<br>redis<br>kafka<br>netty<br>java8<br>jvm</p>
-<p>边看边记录，写代码，视频无法检索，视频最多看三遍。<br>Java8<br>Netty<br>JVM<br>Node<br>Spring</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1744,7 +1595,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

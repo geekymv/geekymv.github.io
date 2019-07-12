@@ -229,6 +229,789 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/delay-queue/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/delay-queue/" itemprop="url">delay-queue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T15:55:28+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>有赞延迟队列设计<br><a href="https://tech.youzan.com/queuing_delay/" target="_blank" rel="noopener">https://tech.youzan.com/queuing_delay/</a></p>
+<p>1分钟实现“延迟消息”功能<br><a href="https://mp.weixin.qq.com/s/eDMV25YqCPYjxQG-dvqSqQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/eDMV25YqCPYjxQG-dvqSqQ</a><br><a href="https://www.jianshu.com/p/331b4e11f7ab" target="_blank" rel="noopener">https://www.jianshu.com/p/331b4e11f7ab</a></p>
+<p>基于redis实现的延迟消息队列<br><a href="https://www.jianshu.com/p/e958e8590020" target="_blank" rel="noopener">https://www.jianshu.com/p/e958e8590020</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/hashmap/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/04/hashmap/" itemprop="url">hashmap</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-04T13:53:29+08:00">
+                2019-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <table>
+<thead>
+<tr>
+<th>比较</th>
+<th>HashMap</th>
+<th>HashTable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key/value 是否为null</td>
+<td>key 和 value 都可以为null</td>
+<td>key 和 value 都不可以为null</td>
+</tr>
+<tr>
+<td>是否同步</td>
+<td>不同步</td>
+<td>同步</td>
+</tr>
+</tbody>
+</table>
+<p>影响HashMap性能的两个参数</p>
+<ul>
+<li>initial capacity 初始容量，默认值 16</li>
+<li>load factor 负载因子，默认值 0.75</li>
+</ul>
+<p>阈值<br>threshold = capacity * load factor</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Associates the specified value with the specified key in this map.</span><br><span class="line"> * If the map previously contained a mapping for the key, the old</span><br><span class="line"> * value is replaced.</span><br><span class="line"> *</span><br><span class="line"> * @param key key with which the specified value is to be associated</span><br><span class="line"> * @param value value to be associated with the specified key</span><br><span class="line"> * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or</span><br><span class="line"> *         &lt;tt&gt;null&lt;/tt&gt; if there was no mapping for &lt;tt&gt;key&lt;/tt&gt;.</span><br><span class="line"> *         (A &lt;tt&gt;null&lt;/tt&gt; return can also indicate that the map</span><br><span class="line"> *         previously associated &lt;tt&gt;null&lt;/tt&gt; with &lt;tt&gt;key&lt;/tt&gt;.)</span><br><span class="line"> */</span><br><span class="line">public V put(K key, V value) &#123;</span><br><span class="line">    return putVal(hash(key), key, value, false, true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"> /**</span><br><span class="line"> * Implements Map.put and related methods</span><br><span class="line"> *</span><br><span class="line"> * @param hash hash for key</span><br><span class="line"> * @param key the key</span><br><span class="line"> * @param value the value to put</span><br><span class="line"> * @param onlyIfAbsent if true, don&apos;t change existing value</span><br><span class="line"> * @param evict if false, the table is in creation mode.</span><br><span class="line"> * @return previous value, or null if none</span><br><span class="line"> */</span><br><span class="line">final V putVal(int hash, K key, V value, boolean onlyIfAbsent,</span><br><span class="line">               boolean evict) &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; </span><br><span class="line">    Node&lt;K,V&gt; p; </span><br><span class="line">    int n, i; // n 记录记录tab.length</span><br><span class="line">    </span><br><span class="line">    if ((tab = table) == null || (n = tab.length) == 0)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">    if ((p = tab[i = (n - 1) &amp; hash]) == null)</span><br><span class="line">        tab[i] = newNode(hash, key, value, null);</span><br><span class="line">    else &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        if (p.hash == hash &amp;&amp;</span><br><span class="line">            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">            e = p;</span><br><span class="line">        else if (p instanceof TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);</span><br><span class="line">        else &#123;</span><br><span class="line">            for (int binCount = 0; ; ++binCount) &#123;</span><br><span class="line">                if ((e = p.next) == null) &#123;</span><br><span class="line">                    p.next = newNode(hash, key, value, null);</span><br><span class="line">                    if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st</span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                if (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">                    break;</span><br><span class="line">                p = e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (e != null) &#123; // existing mapping for key</span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            if (!onlyIfAbsent || oldValue == null)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            return oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    // 如果HashMap的大小超过阈值，则扩容</span><br><span class="line">    if (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Initializes or doubles table size.  If null, allocates in</span><br><span class="line"> * accord with initial capacity target held in field threshold.</span><br><span class="line"> * Otherwise, because we are using power-of-two expansion, the</span><br><span class="line"> * elements from each bin must either stay at same index, or move</span><br><span class="line"> * with a power of two offset in the new table.</span><br><span class="line"> *</span><br><span class="line"> * @return the table</span><br><span class="line"> */</span><br><span class="line">final Node&lt;K,V&gt;[] resize() &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] oldTab = table;</span><br><span class="line">    int oldCap = (oldTab == null) ? 0 : oldTab.length;</span><br><span class="line">    int oldThr = threshold;</span><br><span class="line">    int newCap, newThr = 0;</span><br><span class="line">    if (oldCap &gt; 0) &#123;</span><br><span class="line">        if (oldCap &gt;= MAXIMUM_CAPACITY) &#123;</span><br><span class="line">            threshold = Integer.MAX_VALUE;</span><br><span class="line">            return oldTab;</span><br><span class="line">        &#125;</span><br><span class="line">        else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;</span><br><span class="line">                 oldCap &gt;= DEFAULT_INITIAL_CAPACITY)</span><br><span class="line">            newThr = oldThr &lt;&lt; 1; // double threshold</span><br><span class="line">    &#125;</span><br><span class="line">    else if (oldThr &gt; 0) // initial capacity was placed in threshold</span><br><span class="line">        newCap = oldThr;</span><br><span class="line">    else &#123;               // zero initial threshold signifies using defaults</span><br><span class="line">        newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">        newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);</span><br><span class="line">    &#125;</span><br><span class="line">    if (newThr == 0) &#123;</span><br><span class="line">        float ft = (float)newCap * loadFactor;</span><br><span class="line">        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?</span><br><span class="line">                  (int)ft : Integer.MAX_VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    threshold = newThr;</span><br><span class="line">    @SuppressWarnings(&#123;&quot;rawtypes&quot;,&quot;unchecked&quot;&#125;)</span><br><span class="line">        Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];</span><br><span class="line">    table = newTab;</span><br><span class="line">    if (oldTab != null) &#123;</span><br><span class="line">        for (int j = 0; j &lt; oldCap; ++j) &#123;</span><br><span class="line">            Node&lt;K,V&gt; e;</span><br><span class="line">            if ((e = oldTab[j]) != null) &#123;</span><br><span class="line">                oldTab[j] = null;</span><br><span class="line">                if (e.next == null)</span><br><span class="line">                    newTab[e.hash &amp; (newCap - 1)] = e;</span><br><span class="line">                else if (e instanceof TreeNode)</span><br><span class="line">                    ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap);</span><br><span class="line">                else &#123; // preserve order 维持顺序</span><br><span class="line">                    Node&lt;K,V&gt; loHead = null, loTail = null;</span><br><span class="line">                    Node&lt;K,V&gt; hiHead = null, hiTail = null;</span><br><span class="line">                    Node&lt;K,V&gt; next;</span><br><span class="line">                    do &#123;</span><br><span class="line">                        next = e.next;</span><br><span class="line">                        if ((e.hash &amp; oldCap) == 0) &#123;</span><br><span class="line">                            if (loTail == null)</span><br><span class="line">                                loHead = e;</span><br><span class="line">                            else</span><br><span class="line">                                loTail.next = e;</span><br><span class="line">                            loTail = e;</span><br><span class="line">                        &#125;</span><br><span class="line">                        else &#123;</span><br><span class="line">                            if (hiTail == null)</span><br><span class="line">                                hiHead = e;</span><br><span class="line">                            else</span><br><span class="line">                                hiTail.next = e;</span><br><span class="line">                            hiTail = e;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; while ((e = next) != null);</span><br><span class="line">                    if (loTail != null) &#123;</span><br><span class="line">                        loTail.next = null;</span><br><span class="line">                        newTab[j] = loHead;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (hiTail != null) &#123;</span><br><span class="line">                        hiTail.next = null;</span><br><span class="line">                        newTab[j + oldCap] = hiHead;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return newTab;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用HashMap的put操作，当容量大小超过阈值则发生扩容（调用resize()），在并发情况下可能会产生循环链表，在执行get的时候，可能会触发死循环，引起CPU 100%问题。<br>JDK8虽然修复了死循环的BUG，将原来的链表部分改为数据量少时用链表，当超过一定数量后变为红黑树（treeifyBin()）。但是HashMap 还是非线程安全类，仍然会产生数据丢失等问题。</p>
+<p><a href="hash表处理冲突">https://blog.csdn.net/mgl934973491/article/details/57405247</a><br>不同的key用同样的hash算法，可能会得到相同的hash值，比如Ab BB的hash值一样。</p>
+<ul>
+<li>线性探测法</li>
+<li>拉链法（HashMap中使用这种方法进行冲突处理的）</li>
+</ul>
+<p><a href="HashMap在并发下可能出现的问题分析">http://www.cnblogs.com/binyue/p/3726403.html</a></p>
+<p>参考 </p>
+<ul>
+<li><a href="https://coolshell.cn/articles/9606.html" target="_blank" rel="noopener">疫苗：JAVA HASHMAP的死循环</a></li>
+<li><a href="https://my.oschina.net/alexqdjay/blog/1377268" target="_blank" rel="noopener">HashMap 多线程下死循环分析及JDK8修复</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/21/security/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/21/security/" itemprop="url">security</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-21T14:09:42+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>对称加密<br>信息的发方和接收方使用同一个密钥去加密和解密数据，它的最大优势是加/解密速度快，</p>
+<p>非对称加密：</p>
+<p>生成RSA密钥工具：<a href="https://docs.open.alipay.com/291/105971/" target="_blank" rel="noopener">https://docs.open.alipay.com/291/105971/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/machine-learning/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/19/machine-learning/" itemprop="url">machine-learning</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-19T21:51:40+08:00">
+                2018-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>电影：模仿游戏</p>
+<p>推荐系统</p>
+<ul>
+<li><p>简介</p>
+<ul>
+<li>信息过载，推荐系统是信息过载所采取的措施，面对海量的数据信息，从中快速推荐出符合用户特点的物品，解决一些人的选择恐惧症；</li>
+<li>面向没有明确需求的人；</li>
+<li>解决如何从大量信息中找到自己感兴趣的信息；</li>
+<li>解决如何让自己生产的信息脱颖而出，受到大众的喜爱；</li>
+</ul>
+</li>
+<li><p>目的</p>
+<ul>
+<li>让用户更快更好的获取自己需要的内容；</li>
+<li>让内容更快更好的推送到喜欢它的用户手中；</li>
+<li>让网站（平台）更有效的保留用户资源。</li>
+</ul>
+</li>
+<li><p>应用</p>
+<ul>
+<li>电子商务</li>
+<li>社交网络</li>
+<li>电影视频</li>
+<li>个性化音乐</li>
+<li>个性化广告</li>
+<li>个性化旅游</li>
+<li>个性化阅读</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<p>Netflix </p>
+<ul>
+<li><p>基本思想</p>
+<ul>
+<li>知你所想，精准推送<ul>
+<li>利用用户和物品的特征信息，给用户推荐那些具有用户喜欢的特征的物品。</li>
+</ul>
+</li>
+<li>物以类聚<ul>
+<li>利用用户喜欢过的物品，给用户推荐他喜欢过的物品的相似物品。</li>
+</ul>
+</li>
+<li>人以群分<ul>
+<li>利用和用户相似的其他用户，给用户推荐那些和他兴趣爱好相似的其他用户喜欢的物品。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>推荐系统的数据分析</p>
+<ul>
+<li>要推荐物品或内容的元数据，例如关键字、分类标签、基因描述等；</li>
+<li>系统用户的基本信息，例如性别、年龄、兴趣标签等；</li>
+<li>用户的行为数据，可以转换为对物品或者信息的偏好，根据应用本身的不同，可能包括用户对物品的评分，<br>用户查看物品的记录，用户的购买记录等。这些用户的偏好信息可以分为两类：<ul>
+<li>显示的用户反馈：这类是用户在网站上自然浏览或者使用网站以外显示的提供反馈的信息，<br>例如用户对物品的评分，用户收藏了某物品或者对物品的评论。</li>
+<li>隐示的用户反馈：这类是用户使用网站时产生的数据，隐示的反应了用户对物品的喜好，<br>例如用户购买了某物品，用户查看了某物品的信息等。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>推荐系统分类</p>
+<ul>
+<li><p>根据实时性分类</p>
+<ul>
+<li>离线推荐</li>
+<li>实时推荐</li>
+</ul>
+</li>
+<li><p>根据推荐是否个性化分类</p>
+<ul>
+<li>基于统计的推荐，例如热门推荐</li>
+<li>个性化推荐</li>
+</ul>
+</li>
+<li><p>根据推荐原则分类</p>
+<ul>
+<li>基于相似度的推荐</li>
+<li>基于知识的推荐</li>
+<li>基于模型的推荐</li>
+</ul>
+</li>
+<li><p>根据数据源分类    </p>
+<ul>
+<li>基于人口统计学的推荐</li>
+<li>基于内容的推荐</li>
+<li>基于协同过滤的推荐</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>推荐算法简介</p>
+<ul>
+<li>基于人口统计学的推荐</li>
+<li>基于内容的推荐</li>
+<li>基于协同过滤的推荐</li>
+<li>混合推荐</li>
+</ul>
+</li>
+<li><p>推荐系统评测    </p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/kafka/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/19/kafka/" itemprop="url">kafka</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-19T18:50:14+08:00">
+                2018-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://mp.weixin.qq.com/s/bc2YcVeBglZkeHdASg3wXw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/bc2YcVeBglZkeHdASg3wXw</a></p>
+<p>1.为什么使用消息队列？<br>引入MQ好处：</p>
+<ul>
+<li>系统解耦</li>
+<li>异步调用</li>
+<li>流量削峰</li>
+</ul>
+<p>2.使用消息队列有什么缺点?</p>
+<ul>
+<li>系统可用性降低</li>
+<li>系统复杂性增加</li>
+</ul>
+<p>3.消息队列如何选型?</p>
+<p>4.如何保证消息队列是高可用的？</p>
+<p>5.如何保证消息不被重复消费?</p>
+<p>6.如何保证消费的可靠性传输?</p>
+<p>7.如何保证消息的顺序性？</p>
+<p>kafka可靠性保证</p>
+<p>关系型数据库ACID</p>
+<ul>
+<li>原子性</li>
+<li>一致性</li>
+<li>隔离性</li>
+<li>持久性</li>
+</ul>
+<p>kafka 可靠性保证</p>
+<ul>
+<li>kafka 可以保证分区消息的顺序</li>
+<li>只有当消息被写入分区的所有同步副本时（但不一定要写入磁盘），它才被认为是“已提交”的</li>
+<li>只要还有一个副本是活跃的，那么已经提交的消息就不会丢失</li>
+<li>消费者只能读取已经提交的消息</li>
+</ul>
+<p>分区的分布：<br>默认情况下，kafka会确保分区的每个副本被放在不同的broker上。</p>
+<p>发送确认：<br>生产者可以选择3中确认模式</p>
+<ul>
+<li>acks=0 如果生产者能够通过网络把消息发送出去，那么就认为消息已成功写入Kafka；</li>
+<li>acks=1 Leader在收到消息并把它写入到分区数据文件（不一定同步到磁盘上）时会返回确认或错误响应，<br>在这个模式下，如果发生正常的Leader选举，生产者会在选举时收到一个LeaderNotAvailableException异常，</li>
+<li>acks=all </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/spring-aop/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1061,354 +1844,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/redis/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/16/redis/" itemprop="url">redis</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-16T18:35:21+08:00">
-                2018-11-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://www.jianshu.com/p/bc84b2b71c1c" target="_blank" rel="noopener">https://www.jianshu.com/p/bc84b2b71c1c</a><br><a href="https://juejin.im/post/5c3b4c4b518825253806335e" target="_blank" rel="noopener">https://juejin.im/post/5c3b4c4b518825253806335e</a></p>
-<h3 id="Redis-可以用来做什么"><a href="#Redis-可以用来做什么" class="headerlink" title="Redis 可以用来做什么"></a>Redis 可以用来做什么</h3><p>Redis 是 Remote Dictionary Service 的首字母缩写，也就是远程字典服务。</p>
-<ul>
-<li>记录帖子的点赞数、评论数、点击数；</li>
-<li></li>
-</ul>
-<p>redis 生产环境启动方案</p>
-<p>tar -zxvf redis-4.0.12.tar.gz -C /usr/local/<br>进入 Redis 的解压文件<br>cd redis-4.0.12/<br>使用 make 命令编译源码<br>make<br>可能出现的错误：fatal error: jemalloc/jemalloc.h: No such file or directory<br>在 Redis 的 README.md 文件中，可以找到解决方法，手动设置 MALLOC 环境。<br>使用 make MALLOC=libc 命令代替 make 命令。</p>
-<p>如果make的时候提示如下错误：<br>cc: error: ../deps/hiredis/libhiredis.a: No such file or directory<br>cc: error: ../deps/lua/src/liblua.a: No such file or directory<br>cc: error: ../deps/jemalloc/lib/libjemalloc.a: No such file or directory<br>make: *** [redis-server] Error 1<br>则进入redis下的deps下的运行如下命令，就OK了。<br>make lua hiredis linenoise</p>
-<p>make完成，就可以安装 Redis 了，<br>先 cd 到 Redis 解压文件的 src 目录，使用 make PREFIX=/usr/local/redis install 安装，可以设置 Redis 的安装位置。<br>make install PREFIX=/usr/local/redis</p>
-<p>配置启动脚本<br>cp /usr/local/redis-4.0.12/utils/redis_init_script /etc/init.d/<br>cd /etc/init.d/<br>mv redis_init_script redis_6379<br>编辑启动脚本redis_6379，修改启动命令路径，我们在上面将redis 安装到/usr/local/redis 目录下了<br>EXEC=/usr/local/redis/bin/redis-server<br>CLIEXEC=/usr/local/redis/bin/redis-cli</p>
-<p>根据启动脚本修改配置文件位置<br>mkdir -p /etc/redis<br>cp /usr/local/redis-4.0.12/redis.conf /etc/redis/<br>cd /etc/redis/<br>mv redis.conf 6379.conf</p>
-<p>创建持久化文件的存储位置<br>mkdir -p /var/redis/6379</p>
-<p>修改配置文件<br>vim /etc/redis/6379.conf</p>
-<p>daemonize yes<br>bind 修改成自己的IP地址<br>requirepass <strong>***</strong><br>dir /var/redis/6379</p>
-<p>启动redis<br>/etc/init.d/redis_6379 start</p>
-<p>设置开启自启动<br>chkconfig redis_6379 on</p>
-<ul>
-<li>string（字符串）可以存储字符串、整数或浮点数；</li>
-<li>list（列表）一个链表，链表上的每个节点都包含了一个字符串；</li>
-<li>set（集合）</li>
-<li>hash（哈希）</li>
-<li>zset（有序集合）</li>
-</ul>
-<p>string 字符串<br>set<br>get<br>del</p>
-<p>list 列表命令</p>
-<ul>
-<li>lpush 将元素从列表的左端(left end)推入</li>
-<li>rpush 将元素从列表的右端(right end)推入</li>
-<li>lpop 从列表的左端弹出</li>
-<li>rpop 从列表的右端弹出</li>
-<li>lrange 获取列表在给定范围内的所有值 lrange users 0 -1</li>
-<li>lindex 获取列表在给定位置上的单个元素 lindex users 0</li>
-<li>ltrim ltrim key-name start end 对列表进行修剪，只保留从start到end偏移量范围的元素，其中偏移量为start和end的元素也会保留。</li>
-<li>blpop     key-name [key-name…] timeout 阻塞式列表弹出，从第一个非空列表中弹出位于最左端的元素，或者在timeout 秒之内阻塞</li>
-<li>brpop    </li>
-</ul>
-<p>set 集合<br>sadd 将给定元素添加到集合<br>smembers 返回集合包含的所有元素，慎用！<br>sismember 检查给定元素是否存在于集合中<br>srem 如果给定的元素存在于集合中，那么删除这个元素</p>
-<p>hash 散列<br>hmget key-name key [key …] 从散列里面获取一个或多个键的值<br>hmset key-name key value [key value …] 为散列里面的一个或多个键设置值<br>hscan</p>
-<p>zset 有序集合<br>zadd    zadd zset-key score member 将一个带有给定分值的成员添加到有序集合中。<br>zrange    zrange zset-key 0 -1 [withscores] 根据元素在有序排列中所处的位置，从有序集合中获取多个元素，多个元素会按照分值从小到大进行排序。<br>zrevrange 分值从大到小进行排序<br>zrangebyscore    zrangebyscore zset-key 0 100 [withscores]    获取有序集合在给定分值范围内的所有元素。<br>zrem    zrem zset-key member    如果给定的成员存在于有序集合中，那么删除这个元素<br>zscore  zscore key-name member 返回成员member的分值<br>zcard 返回有序集合包含的成员数量</p>
-<h4 id="Redis-的持久化存储"><a href="#Redis-的持久化存储" class="headerlink" title="Redis 的持久化存储"></a>Redis 的持久化存储</h4><p>Redis支持两种数据持久化方式：RDB方式和AOF方式<br>RDB 方式会根据配置的规则定时将内存中的数据持久化的硬盘上，<br>AOF 方式则是在每次执行写命令之后将命令记录下来，两种持久化方式可以单独使用，但是通常会将两者结合使用。</p>
-<p>数据备份方案：</p>
-<ul>
-<li>写crontab定时调度脚本去做备份；</li>
-<li>每小时都拷贝一份rdb的备份，到一个目录中去，仅仅保留最近48小时的备份；</li>
-<li>每天都保留当天rdb的备份，到一个目录中去，仅仅保留最近一个月的备份；</li>
-<li>每次copy备份的时候都把太旧的备份删除；</li>
-<li>每天晚上将当前服务器上的所有备份，发送一份到远程云服务器上；</li>
-</ul>
-<p>获取当前的年月日时<br>date +%Y%m%d%k<br>减48小时<br>date -d -48hour +%Y%m%d%k</p>
-<h4 id="redis数据恢复"><a href="#redis数据恢复" class="headerlink" title="redis数据恢复"></a>redis数据恢复</h4><ul>
-<li>如果是redis进程挂掉，那么重启redis进程即可，直接基于AOF日志文件恢复数据；</li>
-<li>如果是redis进程所在机器挂掉，那么重启机器后，尝试重启redis进程，尝试直接基于AOF日志文件恢复数据，<br>如果appendonly.aof文件破损，那么可以使用redis-check-aof fix appendonly.aof 进行文件修复；</li>
-<li>如果redis 当前最新的AOF和RDB文件出现了丢失或损坏，那么可以尝试基于该机器上当前的某个最新的RDB数据副本进行数据恢复。<br>appendonly.aof 和 dump.rdb 都存在，redids会优先用appendonly.aof 恢复数据<br>热修改配置文件，磁盘文件上的配置并没有修改，需要自己手动去修改配置文件。<br>config get appendonly<br>config set appendonly yes</li>
-<li>如果当前机器上所有RDB文件全部损坏，那么从远程的云服务器上拉取最新的快照来恢复数据；</li>
-<li>如果发现有重大数据错误，可以选择更早的时间点，对数据进行恢复。</li>
-</ul>
-<h4 id="redis-如何通过读写分离来承载读请求QPS超过10万"><a href="#redis-如何通过读写分离来承载读请求QPS超过10万" class="headerlink" title="redis 如何通过读写分离来承载读请求QPS超过10万+"></a>redis 如何通过读写分离来承载读请求QPS超过10万+</h4><p>单个redis服务器的问题</p>
-<ul>
-<li>结构上，单个redis服务器会发生单点故障，只有一台服务器承受所有请求负载，这就需要为数据生成多个副本并分配在不同的服务器上；</li>
-<li>容量上，单个redis服务器的内存非常容易成为存储瓶颈，所以需要进行数据分片。</li>
-</ul>
-<h4 id="redis复制"><a href="#redis复制" class="headerlink" title="redis复制"></a>redis复制</h4><p>通过持久化功能，redis 保证了即使在服务器重启的情况下也不会丢失（或少量丢失）数据。但是由于数据都存储在一台服务器上，如果这台服务器<br>出现硬盘故障等问题，也会导致数据丢失，通常的做法是将数据复制多个副本，以部署在不同的服务器上，这样即使有一台服务器出现故障，其他服务器<br>依然可以继续提供给服务。为此redis 提供了复制（replication）功能，可以实现当一台redis中的数据更新后，自动将数据同步到其他redis上。</p>
-<p>在复制的概念中，数据库分为两类，一类是主数据库（master）,另一个是从数据库（slave）。<br>master 可以进行读写操作，当写操作导致数据发生变化时，master会自动将数据同步给slave。<br>slave 一般是只读的，并接受master同步过来的数据。<br>一个master 可以有多个slave，一个slave 只能有一个master。<br><img src="/2018/11/16/redis/master-slave.png" title="master-slave"></p>
-<h4 id="redis-主从复制搭建"><a href="#redis-主从复制搭建" class="headerlink" title="redis 主从复制搭建"></a>redis 主从复制搭建</h4><p>salve 修改配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slaveof node01 6379</span><br><span class="line">masterauth redis2019</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;info replication</span><br></pre></td></tr></table></figure>
-<h4 id="redis-主从复制原理"><a href="#redis-主从复制原理" class="headerlink" title="redis 主从复制原理"></a>redis 主从复制原理</h4><p>复制初始化过程，当一个slave启动后，会主动向master发送SYNC 命令，master 收到SYNC 命令后会开始在后台保存快照（即RDB持久化当过程），<br>并将保存快照期间收到的命令缓存起来。当快照完成后，master会将快照文件和所有缓存当命令发送给slave。<br>slave收到后，会载入快照文件并执行收到的缓存命令。复制初始化结束后，master每当收到写命令时会将命令同步给slave，从而保证主从数据一致。</p>
-<p>复制的完整流程</p>
-<ul>
-<li><p>slave 启动，仅仅保存master 的信息，包括master 的ip和port，此时复制流程还没有开始；<br>slave 配置master 的信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">slaveof &lt;masterip&gt; &lt;masterport&gt;</span><br><span class="line">masterauth &lt;master-password&gt;</span><br><span class="line">slave-read-only yes # 默认启用slave 只读</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>slave 发送sync 命令给master；</p>
-</li>
-<li>口令认证，如果master 设置了requirepass，那么slave 必须发送masterauth 的口令过去进行认证；</li>
-<li>master 第一次执行全量复制，将所有数据发送给slave；</li>
-<li>master 后续持续将写命令异步复制给slave。</li>
-</ul>
-<h4 id="哨兵"><a href="#哨兵" class="headerlink" title="哨兵"></a>哨兵</h4><p>mkdir -p /var/redis/sentinel<br>cp /usr/local/redis-4.0.12/sentinel.conf /etc/redis/<br>vim /etc/redis/sentinel.conf</p>
-<p>bind node01<br>dir /var/redis/sentinel<br>sentinel monitor mymaster node01 6379 2 # 指向master的ip 和 port<br>sentinel auth-pass mymaster geekymv<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#如果redis有访问密码，则必须配置sentinel auth-pass这个属性，如果不配置，sentinel启动时不会有任何报错，但监控不到Redis</span><br><span class="line">#而且很重要一点，这个属性必须在 sentinel monitor 之后，不然报错：“No such master with specified name.”</span><br></pre></td></tr></table></figure></p>
-<p>启动<br>/usr/local/redis/bin/redis-sentinel /etc/redis/sentinel.conf</p>
-<h4 id="Redis-过期策略"><a href="#Redis-过期策略" class="headerlink" title="Redis 过期策略"></a>Redis 过期策略</h4><p><a href="https://www.cnblogs.com/xuliangxing/p/7151812.html" target="_blank" rel="noopener">Redis数据过期策略详解</a><br>定时删除<br>惰性删除<br>定期删除</p>
-<p>阿里云Redis开发规范 <a href="https://yq.aliyun.com/articles/531067" target="_blank" rel="noopener">https://yq.aliyun.com/articles/531067</a></p>
-<h4 id="Redis-淘汰策略"><a href="#Redis-淘汰策略" class="headerlink" title="Redis 淘汰策略"></a>Redis 淘汰策略</h4><p>内存是有限的，如果不断的往redis里面写数据，肯定是没法放下所有数据在内存中的。<br>redis 会在数据超过一个最大限度之后，将数据进行一定的清理，</p>
-<p>maxmemory 最大可用内存<br>maxmemory policy 最大内存淘汰策略<br>根据自身业务类型，选好maxmemory-policy，设置好过期时间。</p>
-<p>默认策略是noeviction，不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息”(error) OOM command not allowed when used memory”，<br>此时Redis只响应读操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># maxmemory &lt;bytes&gt; 设置redis 用来存放数据的最大内存大小，一旦超过这个内存大小之后，就会立即使用maxmemory-policy 配置的策略清理数据。</span><br><span class="line"></span><br><span class="line"># MAXMEMORY POLICY: how Redis will select what to remove when maxmemory</span><br><span class="line"># is reached. You can select among five behaviors:</span><br><span class="line">#</span><br><span class="line"># volatile-lru -&gt; Evict using approximated LRU among the keys with an expire set. </span><br><span class="line"># 用lru算法删除过期的键值（用LRU算法，但是仅仅移除哪些指定了存活时间(TTL)的key）</span><br><span class="line"># allkeys-lru -&gt; Evict any key using approximated LRU. </span><br><span class="line"># 用lru算法删除所有的键值（就是我们常说的LRU算法，移除掉哪些最近最少使用的keys对应的数据）</span><br><span class="line"># volatile-lfu -&gt; Evict using approximated LFU among the keys with an expire set. 用lfu算法删除过期的键值</span><br><span class="line"># allkeys-lfu -&gt; Evict any key using approximated LFU. 用lfu算法删除所有的键值</span><br><span class="line"># volatile-random -&gt; Remove a random key among the ones with an expire set. 随机删除过期的键值</span><br><span class="line"># allkeys-random -&gt; Remove a random key, any key. 随机删除任何键值</span><br><span class="line"># volatile-ttl -&gt; Remove the key with the nearest expire time (minor TTL) 删除最近要到期的键值</span><br><span class="line"># noeviction -&gt; Don&apos;t evict anything, just return an error on write operations. </span><br><span class="line"># 不删除键，对于写操作只返回一个错误（如果内存达到了maxmemory，client还要继续写入数据，那么就直接给客户端报错）</span><br><span class="line">#</span><br><span class="line"># LRU means Least Recently Used 最近最少使用</span><br><span class="line"># LFU means Least Frequently Used 最不经常使用</span><br><span class="line">#</span><br><span class="line"># Both LRU, LFU and volatile-ttl are implemented using approximated</span><br><span class="line"># randomized algorithms.</span><br><span class="line">#</span><br><span class="line"># Note: with any of the above policies, Redis will return an error on write</span><br><span class="line">#       operations, when there are no suitable keys for eviction.</span><br><span class="line">#</span><br><span class="line">#       At the date of writing these commands are: set setnx setex append</span><br><span class="line">#       incr decr rpush lpush rpushx lpushx linsert lset rpoplpush sadd</span><br><span class="line">#       sinter sinterstore sunion sunionstore sdiff sdiffstore zadd zincrby</span><br><span class="line">#       zunionstore zinterstore hset hsetnx hmset hincrby incrby decrby</span><br><span class="line">#       getset mset msetnx exec sort</span><br><span class="line">#</span><br><span class="line"># The default is:</span><br><span class="line">#</span><br><span class="line"># maxmemory-policy noeviction 默认是不会删除任何数据，建议一般设置成allkeys-lru 策略比较好。</span><br></pre></td></tr></table></figure>
-<p>缓存淘汰算法</p>
-<ul>
-<li>LRU</li>
-<li>LFU</li>
-<li>FIFO<br>通常用于缓存使用量超过了预设的最大值时候（缓存空间不够），如何对现有的数据进行清理。</li>
-</ul>
-<h4 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h4><p><a href="https://mp.weixin.qq.com/s/nBS9sLSZEN28ZSd8QMZDjQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/nBS9sLSZEN28ZSd8QMZDjQ</a><br>我们在项目中使用缓存，通常都是先检查缓存是否存在，如果存在直接返回缓存内容，如果不存在则查询数据库然后缓存查询结果并返回。<br>如果我们查询的某一个数据</p>
-<h4 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h4><p><a href="https://www.infoq.cn/article/jingdongdaojia-inventory-system" target="_blank" rel="noopener">库存系统难破题？京东到家来分享</a></p>
-<h4 id="scan"><a href="#scan" class="headerlink" title="scan"></a>scan</h4><p><a href="https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b3d97d9e51d4519634f8512" target="_blank" rel="noopener">https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b3d97d9e51d4519634f8512</a><br><a href="https://juejin.im/post/5bbcc8325188255c74553ae3" target="_blank" rel="noopener">https://juejin.im/post/5bbcc8325188255c74553ae3</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/15/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-15T18:32:04+08:00">
-                2018-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1454,7 +1894,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
