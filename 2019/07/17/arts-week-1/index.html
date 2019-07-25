@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="每周完成一个ARTS：   每周至少做一个 leetcode 的算法题 阅读并点评至少一篇英文技术文章 学习至少一个技术技巧 分享一篇有观点和思考的技术文章。  （也就是 Algorithm、Review、Tip、Share 简称ARTS） AlgorithmLeetCode算法题two-sum  Two Sum  Given an array of integers, return indice">
+<meta property="og:type" content="article">
+<meta property="og:title" content="arts-week-1">
+<meta property="og:url" content="http://yoursite.com/2019/07/17/arts-week-1/index.html">
+<meta property="og:site_name" content="geekymv">
+<meta property="og:description" content="每周完成一个ARTS：   每周至少做一个 leetcode 的算法题 阅读并点评至少一篇英文技术文章 学习至少一个技术技巧 分享一篇有观点和思考的技术文章。  （也就是 Algorithm、Review、Tip、Share 简称ARTS） AlgorithmLeetCode算法题two-sum  Two Sum  Given an array of integers, return indice">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-18T01:29:39.605Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="arts-week-1">
+<meta name="twitter:description" content="每周完成一个ARTS：   每周至少做一个 leetcode 的算法题 阅读并点评至少一篇英文技术文章 学习至少一个技术技巧 分享一篇有观点和思考的技术文章。  （也就是 Algorithm、Review、Tip、Share 简称ARTS） AlgorithmLeetCode算法题two-sum  Two Sum  Given an array of integers, return indice">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/17/arts-week-1/">
+
+
+
+
+
+  <title>arts-week-1 | geekymv</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">geekymv</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/arts-week-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">arts-week-1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-17T10:27:54+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>每周完成一个ARTS： </p>
+<ul>
+<li>每周至少做一个 leetcode 的算法题</li>
+<li>阅读并点评至少一篇英文技术文章</li>
+<li>学习至少一个技术技巧</li>
+<li>分享一篇有观点和思考的技术文章。</li>
+</ul>
+<p>（也就是 Algorithm、Review、Tip、Share 简称ARTS）</p>
+<h1 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h1><h2 id="LeetCode算法题"><a href="#LeetCode算法题" class="headerlink" title="LeetCode算法题"></a>LeetCode算法题</h2><p><a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">two-sum</a></p>
+<ol>
+<li>Two Sum</li>
+</ol>
+<p>Given an array of integers, return <code>indices</code> of the two numbers such that they add up to a specific target.</p>
+<p>You may assume that each input would have <code>exactly</code> one solution, and you may not use the same element twice.<br>Example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Given nums = [2, 7, 11, 15], target = 9,</span><br><span class="line"></span><br><span class="line">Because nums[0] + nums[1] = 2 + 7 = 9,</span><br><span class="line">return [0, 1].</span><br></pre></td></tr></table></figure></p>
+<p>两数之和</p>
+<p>给定一个整型数组nums和一个目标值target，在数组中找出两个数相加之和等于目标值，返回它们的下标。<br>可以假设每个目标值只有一个对应的答案，但是你不能使用这个数组中同样的元素两次。</p>
+<p>思路：<br>将数组中每个数和它后面的元素依次相加之和与目标值比较，如果相等就返回这两个值的下标。</p>
+<h2 id="Java-程序实现"><a href="#Java-程序实现" class="headerlink" title="Java 程序实现"></a>Java 程序实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">        int[] result = new int[2];</span><br><span class="line"></span><br><span class="line">        for(int i = 0, len = nums.length; i &lt; len - 1; i++) &#123;</span><br><span class="line">            // j 从i 后面的一个元素开始</span><br><span class="line">            for(int j = i + 1;  j &lt; len; j++) &#123;</span><br><span class="line">                if(nums[i] + nums[j] == target) &#123;</span><br><span class="line">                    result[0] = i;</span><br><span class="line">                    result[1] = j;</span><br><span class="line">                    return result;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复杂度分析：</p>
+<ul>
+<li>时间复杂度O(n^2)</li>
+<li>空间复杂度O(1)</li>
+</ul>
+<p>LeetCode提供了时间复杂度是O(n)的解决方法，<a href="https://leetcode.com/problems/two-sum/solution/" target="_blank" rel="noopener">https://leetcode.com/problems/two-sum/solution/</a></p>
+<p>LeetCode 给出的第一种解决方法是类似我上面写的方法，也叫做 Brute Force Approach。<br>注意，LeetCode 给出的这种方法并没有直接将两个int 值相加，而是使用减法<code>if (nums[j] == target - nums[i])</code>，为什么这么做呢？<br>这样可以防止整型溢出！本周ARTS的Share部分分享了一篇关于整型溢出问题，请移步-&gt;。</p>
+<h1 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h1><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/getting-started.html" target="_blank" rel="noopener">Elasticsearch Getting Started</a><br>总结：<br>Elasticsearch 是一个高扩展的开源的全文搜索和分析引擎，它可以近实时地存储、搜索、分析大量的数据。</p>
+<p>Elasticsearch 使用场景</p>
+<ul>
+<li>网上商城，提供用户搜索产品</li>
+<li>分析挖掘收集到的日志或交易数据</li>
+<li>商业智能BI</li>
+</ul>
+<h1 id="Tip"><a href="#Tip" class="headerlink" title="Tip"></a>Tip</h1><p><a href="https://mp.weixin.qq.com/s/iPr1VAbw4sDAHTppebNEYQ" target="_blank" rel="noopener">使用 Optional 摆脱 NullPointException 的折磨</a><br><a href="https://github.com/geekymv/java-design-patterns/blob/master/src/test/java/com/geekymv/optional/OptionalTest.java" target="_blank" rel="noopener">案例代码</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">import java.util.Optional;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Optional 使用示例</span><br><span class="line"> * @see &lt;a href=&quot;https://mp.weixin.qq.com/s/iPr1VAbw4sDAHTppebNEYQ&quot;&gt;&lt;/a&gt;</span><br><span class="line"> */</span><br><span class="line">public class OptionalTest &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 可以用ofNullable 方法将一个可能为null的对象封装成Optional对象</span><br><span class="line">     * 获取值的时候用orElse 方法提供默认值</span><br><span class="line">     */</span><br><span class="line">    @Test</span><br><span class="line">    public void test01() &#123;</span><br><span class="line">        Car cat = null;</span><br><span class="line">        // 将指定指用Optional封装之后返回，如果该值为null，则返回空的Optional对象。</span><br><span class="line">        Optional&lt;Car&gt; op = Optional.ofNullable(cat);</span><br><span class="line">        // 使用map 方法获取封装对象的字段值</span><br><span class="line">        Optional&lt;String&gt; opName = op.map(Car::getName);</span><br><span class="line">        // 如果有值则返回，否则返回指定的默认值</span><br><span class="line">        String name = opName.orElse(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;name = &quot; + name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void test02() &#123;</span><br><span class="line">        Person person = new Person();</span><br><span class="line">        Car car = new Car();</span><br><span class="line">        car.setName(&quot;BM&quot;);</span><br><span class="line">        person.setCar(car);</span><br><span class="line"></span><br><span class="line">        Insurance insurance =  new Insurance();</span><br><span class="line">        insurance.setName(&quot;Insurance01&quot;);</span><br><span class="line">        car.setInsurance(insurance);</span><br><span class="line"></span><br><span class="line">        Optional&lt;Person&gt; op = Optional.ofNullable(person);</span><br><span class="line">        // flatMap 与 map类似， 区别是flatMap的mapper 需要是一个Optional 对象</span><br><span class="line">        String insuranceName = op.flatMap(Person::getCarAsOptional)</span><br><span class="line">                                .map(Car::getInsurance)</span><br><span class="line">                                .map(Insurance::getName)</span><br><span class="line">                                .orElse(&quot;Unknown&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;insuranceName = &quot; + insuranceName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line"></span><br><span class="line">    private Car car;</span><br><span class="line"></span><br><span class="line">    public Optional&lt;Car&gt; getCarAsOptional() &#123;</span><br><span class="line">        return Optional.ofNullable(car);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Car getCar() &#123;</span><br><span class="line">        return car;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCar(Car car) &#123;</span><br><span class="line">        this.car = car;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Car &#123;</span><br><span class="line"></span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    private Insurance insurance;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Insurance getInsurance() &#123;</span><br><span class="line">        return insurance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setInsurance(Insurance insurance) &#123;</span><br><span class="line">        this.insurance = insurance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Insurance &#123;</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Share"><a href="#Share" class="headerlink" title="Share"></a>Share</h1><p>分享coolshell上的一篇文章<br><a href="https://coolshell.cn/articles/11466.html" target="_blank" rel="noopener">C语言的整型溢出问题</a><br>虽然文章标题是C语言，其中提供的思路不仅限于C语言，文章中提到如何防止整型溢出，值得一读。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/16/tcpdump/" rel="next" title="tcpdump">
+                <i class="fa fa-chevron-left"></i> tcpdump
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/18/mybatis-build/" rel="prev" title="mybatis-build">
+                mybatis-build <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">geekymv</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode算法题"><span class="nav-number">1.1.</span> <span class="nav-text">LeetCode算法题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-程序实现"><span class="nav-number">1.2.</span> <span class="nav-text">Java 程序实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Review"><span class="nav-number">2.</span> <span class="nav-text">Review</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tip"><span class="nav-number">3.</span> <span class="nav-text">Tip</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Share"><span class="nav-number">4.</span> <span class="nav-text">Share</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">geekymv</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
