@@ -229,6 +229,374 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/mysql-varchar/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/15/mysql-varchar/" itemprop="url">mysql-varchar</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-15T09:24:39+08:00">
+                2019-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MySQL中varchar最大长度是多少？</p>
+<p><a href="https://blog.51cto.com/opsmysql/1343771" target="_blank" rel="noopener">https://blog.51cto.com/opsmysql/1343771</a><br><a href="http://simpleframework.net/news/view?newsId=15eb83668fe246938228163f3603e510" target="_blank" rel="noopener">http://simpleframework.net/news/view?newsId=15eb83668fe246938228163f3603e510</a></p>
+<p>MySQL中一行数据最多存储65535字节，</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/12/thread-interrupt/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/12/thread-interrupt/" itemprop="url">thread-interrupt</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-12T10:20:41+08:00">
+                2019-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.infoq.cn/article/java-interrupt-mechanism" target="_blank" rel="noopener">https://www.infoq.cn/article/java-interrupt-mechanism</a></p>
+<p>Java中断机制是一种协作机制，也就是说通过中断只是设置线程的中断状态，并不能直接终止另一个线程，而需要被中断的线程自己去检查中断状态然后做相应处理。<br>甚至可以不理会该请求，就像这个线程没有被中断一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static boolean interrupted() &#123;</span><br><span class="line">    return currentThread().isInterrupted(true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试当前线程是否已经中断。线程的中断状态由该方法清除。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public boolean isInterrupted() &#123;</span><br><span class="line">    return isInterrupted(false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试线程是否已经中断。线程的中断状态不受该方法影响。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public void interrupt() &#123;</span><br><span class="line">    if (this != Thread.currentThread())</span><br><span class="line">        checkAccess();</span><br><span class="line"></span><br><span class="line">    synchronized (blockerLock) &#123;</span><br><span class="line">        Interruptible b = blocker;</span><br><span class="line">        if (b != null) &#123;</span><br><span class="line">            interrupt0();           // Just to set the interrupt flag</span><br><span class="line">            b.interrupt(this);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    interrupt0();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>中断线程，interrupt() 方法是唯一能将中断状态设置为true的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line">public class InterruptTest &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        Thread t1 = new Thread(()-&gt; &#123;</span><br><span class="line">            while (true) &#123;</span><br><span class="line">                if(Thread.interrupted()) &#123;</span><br><span class="line">                    System.out.println(&quot;线程被中断&quot;);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(&quot;................&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        t1.start();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(1);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 中断 t1线程</span><br><span class="line">        t1.interrupt();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(1);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            Thread.currentThread().interrupt();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;主线程结束&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/12/mysql-install-yum/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/12/mysql-install-yum/" itemprop="url">mysql-install-yum</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-12T10:19:58+08:00">
+                2019-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/elasticsearch-basic-concepts/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1122,390 +1490,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/haproxy/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/01/haproxy/" itemprop="url">haproxy</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-01T13:41:46+08:00">
-                2019-07-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>tar -zxvf haproxy-1.8.20.tar.gz<br>cd haproxy-1.8.20<br>make TARGET=linux2628 ARCH=x86_64 PREFIX=/usr/local/haproxy<br>make install PREFIX=/usr/local/haproxy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">参数说明</span><br><span class="line">TARGET=linux26 #内核版本，使用uname -r查看内核，如：2.6.18-371.el5，此时该参数就为linux26；kernel 大于2.6.28的</span><br><span class="line">用：TARGET=linux2628</span><br><span class="line">ARCH=x86_64 #系统位数</span><br><span class="line">PREFIX=/usr/local/haprpxy  #/usr/local/haprpxy为haprpxy安装路径</span><br></pre></td></tr></table></figure></p>
-<p>cd /usr/local/haprpxy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ls</span><br><span class="line">doc  sbin  share</span><br></pre></td></tr></table></figure></p>
-<p>mkdir conf<br>vim conf/haproxy.cfg</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">###########全局配置#########</span><br><span class="line">global</span><br><span class="line">    daemon   # 后台方式运行</span><br><span class="line">    nbproc 1</span><br><span class="line">    pidfile haproxy.pid</span><br><span class="line"></span><br><span class="line">###########默认配置#########</span><br><span class="line">defaults</span><br><span class="line">    mode tcp               #默认的模式mode &#123; tcp|http|health &#125;，tcp是4层，http是7层，health只会返回OK</span><br><span class="line">    retries 2               #两次连接失败就认为是服务器不可用，也可以通过后面设置</span><br><span class="line">    option redispatch       #当serverId对应的服务器挂掉后，强制定向到其他健康的服务器</span><br><span class="line">    option abortonclose     #当服务器负载很高的时候，自动结束掉当前队列处理比较久的链接</span><br><span class="line">    maxconn 4096            #默认的最大连接数</span><br><span class="line">    timeout connect 5000ms  #连接超时</span><br><span class="line">    timeout client 30000ms  #客户端超时</span><br><span class="line">    timeout server 30000ms  #服务器超时</span><br><span class="line">    #timeout check 2000      #=心跳检测超时</span><br><span class="line">    log 127.0.0.1 local0 info #[err warning info debug]</span><br><span class="line">    balance roundrobin      # 采用轮询算法</span><br><span class="line"></span><br><span class="line">################# 配置#################</span><br><span class="line">listen delegate                         #这里是配置负载均衡，test1是名字，可以任意</span><br><span class="line">    bind 0.0.0.0:6033            #这里是监听的IP地址和端口，端口号可以在0-65535之间，要避免端口冲突</span><br><span class="line">    mode tcp                     #连接的协议，这里是tcp协议</span><br><span class="line">    #maxconn 4086</span><br><span class="line">    #log 127.0.0.1 local0 debug</span><br><span class="line">    server s1 192.168.159.102:3306 check #负载的MySQL实例1</span><br><span class="line">    server s2 192.168.159.104:3306 check #负载的MySQL实例2 可以有多个，往下排列即</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">listen monitor</span><br><span class="line">    bind 0.0.0.0:8080</span><br><span class="line">    mode http</span><br><span class="line">    stats enable</span><br><span class="line">    stats uri /monitor</span><br></pre></td></tr></table></figure>
-<p>启动haproxy<br>sbin/haproxy -f conf/haproxy.cfg</p>
-<h4 id="配置日志"><a href="#配置日志" class="headerlink" title="配置日志"></a>配置日志</h4><p><a href="https://blog.51cto.com/zhangshijie/1742746" target="_blank" rel="noopener">https://blog.51cto.com/zhangshijie/1742746</a><br><a href="https://www.cnblogs.com/saneri/p/5234101.html" target="_blank" rel="noopener">https://www.cnblogs.com/saneri/p/5234101.html</a></p>
-<p>vim /etc/rsyslog.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">13 $ModLoad imudp  #将13行注释去除</span><br><span class="line">14 $UDPServerRun 514 #将14行注释去除</span><br><span class="line"></span><br><span class="line">#最下方添加</span><br><span class="line">local3.*         /var/log/haproxy.log </span><br><span class="line">local0.*         /var/log/haproxy.log</span><br></pre></td></tr></table></figure></p>
-<p>重启<br>/etc/init.d/rsyslog restart</p>
-<p>在master 上创建用户，并授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">create user &apos;dev&apos;@&apos;192.168.159.%&apos; identified by &apos;p4ssword&apos;;</span><br><span class="line">grant all on *.* to dev@&apos;192.168.159.%&apos; identified by &apos;p4ssword&apos;;</span><br></pre></td></tr></table></figure></p>
-<h4 id="访问测试"><a href="#访问测试" class="headerlink" title="访问测试"></a>访问测试</h4><p> mysql -h 192.168.159.102 -udev -pp4ssword -P6033 -e “show variables like ‘server_id’”</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/28/distributed-systems/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/28/distributed-systems/" itemprop="url">distributed-systems</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-28T10:35:03+08:00">
-                2019-06-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Introduction<br>介绍<br>I wanted a text that would bring together the ideas behind many of the more recent distributed systems </p>
-<ul>
-<li>systems such as Amazon’s Dynamo, Google’s BigTable and MapReduce, Apache’s Hadoop and so on.<br>我想要一篇汇集许多最近的分布式系统（如 Amazon 的 Dynamo, Google 的 BigTable 和 MapReduce, Apache 的 Hadoop等系统）背后思想的文章。</li>
-</ul>
-<p>In this text I’ve tried to provide a more accessible introduction to distributed systems.<br>在本文中，我尝试提供一个更易于理解的分布式系统介绍。</p>
-<p>To me, that means two things: introducing the key concepts that you will need in order to<br>have a good time reading more serious texts, and providing a narrative that covers things in enough detail<br>that you get a gist of what’s going on without getting stuck on details.<br>对我而言，这意味着两件事：介绍你需要的核心概念，为了能愉快的读更重要的文章，并提供足够详细的叙述，<br>让你了解正在发生的事情，而不必拘泥于细节。</p>
-<p>It’s 2013, you’ve got the Internet, and you can selectively read more about the topics you find most interesting.<br>这是2013年，你已经拥有了互联网，你可以选择读更多你觉得最有趣的话题。</p>
-<p>In my view, much of distributed programming is about dealing with the implications of two consequences of distribution:<br>that information travels at the speed of light<br>that independent things fail independently*<br>在我看来，许多分布式编程是关于处理分布式两个后果的影响：<br>信息以光速传输</p>
-<p>In other words, that the core of distributed programming is dealing with distance (duh!) and having more than one thing (duh!).<br>These constraints define a space of possible system designs,<br>and my hope is that after reading this you’ll have a better sense of how distance, time and consistency models interact.</p>
-<p>This text is focused on distributed programming and systems concepts you’ll need to understand commercial systems in the data center.<br>It would be madness to attempt to cover everything. You’ll learn many key protocols<br>and algorithms (covering, for example, many of the most cited papers in the discipline),<br>including some new exciting ways to look at eventual consistency<br>that haven’t still made it into college textbooks - such as CRDTs and the CALM theorem.</p>
-<p>I hope you like it! If you want to say thanks, follow me on Github (or Twitter).<br>And if you spot an error, file a pull request on Github.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/27/wireshark/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/27/wireshark/" itemprop="url">wireshark</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-27T15:39:38+08:00">
-                2019-06-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>ARP 协议<br>对给定IP地址解析对应MAC地址。<br>为了找到对应的MAC地址，ARP协议会发送一个广播包到广播域中的每个设备。然后期望正确的客户端将做出回应。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1551,7 +1540,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

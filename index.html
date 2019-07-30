@@ -229,6 +229,427 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/30/elasticsearch-modifying-your-data/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/30/elasticsearch-modifying-your-data/" itemprop="url">elasticsearch-exploring-your-cluster</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-30T11:12:24+08:00">
+                2019-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Modifying-Your-Data"><a href="#Modifying-Your-Data" class="headerlink" title="Modifying Your Data"></a>Modifying Your Data</h4><h4 id="Updating-Documents"><a href="#Updating-Documents" class="headerlink" title="Updating Documents"></a>Updating Documents</h4><h4 id="Deleting-Documents"><a href="#Deleting-Documents" class="headerlink" title="Deleting Documents"></a>Deleting Documents</h4><h4 id="Batch-Processing"><a href="#Batch-Processing" class="headerlink" title="Batch Processing"></a>Batch Processing</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/elasticsearch-exploring-your-cluster/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/25/elasticsearch-exploring-your-cluster/" itemprop="url">elasticsearch-exploring-your-cluster</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T17:12:24+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Exploring-Your-Cluster"><a href="#Exploring-Your-Cluster" class="headerlink" title="Exploring Your Cluster"></a>Exploring Your Cluster</h4><h4 id="The-REST-API"><a href="#The-REST-API" class="headerlink" title="The REST API"></a>The REST API</h4><p>Now that we have our node (and cluster) up and running, the next step is to understand how to communicate with it.<br>Fortunately, Elasticsearch provides a very comprehensive and powerful REST API that you can use to interact with your cluster.<br>Among the few things that can be done with the API are as follows:<br>现在，我们已经启动并运行了节点（和集群），下一步是了解如何与之沟通。<br>幸运的是，Elasticsearch 提供了一个非常全面且强大的REST API，你可以使用它与集群进行交互。<br>使用API可以完成的一些事项如下：</p>
+<ul>
+<li>Check your cluster, node, and index health, status, and statistics</li>
+<li>Administer your cluster, node, and index data and metadata</li>
+<li>Perform CRUD (Create, Read, Update, and Delete) and search operations against your indexes</li>
+<li>Execute advanced search operations such as paging, sorting, filtering, scripting, aggregations, and many others<br>检查集群，节点，和索引运行状况，状态和统计信息<br>管理集群，节点和索引数据和元数据<br>对索引执行CRUD（创建、读取、更新和删除）和搜索操作<br>执行高级搜索操作，例如分页，排序，过滤，脚本编写，聚合等等</li>
+</ul>
+<h4 id="Cluster-Health"><a href="#Cluster-Health" class="headerlink" title="Cluster Health"></a>Cluster Health</h4><p>Let’s start with a basic health check, which we can use to see how our cluster is doing.<br>We’ll be using curl to do this but you can use any tool that allows you to make HTTP/REST calls.<br>Let’s assume that we are still on the same node where we started Elasticsearch on and open another command shell window.</p>
+<p>To check the cluster health, we will be using the <code>_cat API</code>.<br>You can run the command below in <code>Kibana’s Console</code> by clicking “VIEW IN CONSOLE”<br>or with curl by clicking the “COPY AS CURL” link below and pasting it into a terminal.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_cat/health?v</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;localhost:9200/_cat/health?v&quot;</span><br></pre></td></tr></table></figure>
+<p>And the response:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">epoch      timestamp cluster       status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent</span><br><span class="line">1475247709 17:01:49  elasticsearch green           1         1      0   0    0    0        0             0                  -                100.0%</span><br></pre></td></tr></table></figure></p>
+<p>We can see that our cluster named “elasticsearch” is up with a green status.</p>
+<p>Whenever we ask for the cluster health, we either get green, yellow, or red.</p>
+<ul>
+<li>Green - everything is good (cluster is fully functional)</li>
+<li>Yellow - all data is available but some replicas are not yet allocated (cluster is fully functional)</li>
+<li>Red - some data is not available for whatever reason (cluster is partially functional)</li>
+</ul>
+<p>Note: When a cluster is red, it will continue to serve search requests from the available shards<br>but you will likely need to fix it ASAP since there are unassigned shards.</p>
+<p>Also from the above response, we can see a total of 1 node and that we have 0 shards since we have no data in it yet.<br>Note that since we are using the default cluster name (elasticsearch) and<br>since Elasticsearch uses unicast network discovery by default to find other nodes on the same machine,<br>it is possible that you could accidentally start up more than one node on your computer and have them all join a single cluster.<br>In this scenario, you may see more than 1 node in the above response.</p>
+<p>We can also get a list of nodes in our cluster as follows:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_cat/nodes?v</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;localhost:9200/_cat/nodes?v&quot;</span><br></pre></td></tr></table></figure>
+<p>And the response:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip        heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name</span><br><span class="line">127.0.0.1           10           5   5    4.46                        mdi      *      PB2SGZY</span><br></pre></td></tr></table></figure></p>
+<p>Here, we can see our one node named “PB2SGZY”, which is the single node that is currently in our cluster.</p>
+<h4 id="List-All-Indices"><a href="#List-All-Indices" class="headerlink" title="List All Indices"></a>List All Indices</h4><p>列出所有索引<br>Now let’s take a peek at our indices:<br>现在让我们来看看我们的索引：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_cat/indices?v</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;localhost:9200/_cat/indices?v&quot;</span><br></pre></td></tr></table></figure>
+<p>And the response:<br>响应：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">health status index uuid pri rep docs.count docs.deleted store.size pri.store.size</span><br></pre></td></tr></table></figure>
+<p>Which simply means we have no indices yet in the cluster.<br>这仅仅意味着在集群中还没有索引。</p>
+<h4 id="Create-an-Index"><a href="#Create-an-Index" class="headerlink" title="Create an Index"></a>Create an Index</h4><p>创建索引</p>
+<p>Now let’s create an index named “customer” and then list all the indexes again:<br>现在让我们创建一个名为customer 的索引，然后再一次列出所有索引：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUT /customer?pretty</span><br><span class="line">GET /_cat/indices?v</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT &quot;localhost:9200/customer?pretty&quot;</span><br><span class="line">curl -X GET &quot;localhost:9200/_cat/indices?v&quot;</span><br></pre></td></tr></table></figure>
+<p>The first command creates the index named “customer” using the PUT verb.<br>第一个命令使用PUT方式创建一个名为customer的索引<br>We simply append pretty to the end of the call to tell it to pretty-print the JSON response (if any).<br>我们只是简单的追加pretty 到调用的尾部，告诉命令打印JSON响应（如果有的话）。</p>
+<p>And the response:<br>响应：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">health status index    uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">yellow open   customer 95SQ4TSUT7mWBT7VNHH67A   5   1          0            0       260b           260b</span><br></pre></td></tr></table></figure></p>
+<p>The results of the second command tells us that we now have 1 index named customer<br>and it has 5 primary shards and 1 replica (the defaults) and it contains 0 documents in it.<br>第二个命令的结果告诉我们，我们现在有1个名为customer 的索引，并且它由5个主分片和1个副本（默认值），它包含0个文档。</p>
+<p>You might also notice that the customer index has a yellow health tagged to it.<br>Recall from our previous discussion that yellow means that some replicas are not (yet) allocated.<br>The reason this happens for this index is because Elasticsearch by default created one replica for this index.<br>Since we only have one node running at the moment, that one replica cannot yet be allocated (for high availability)<br>until a later point in time when another node joins the cluster.<br>Once that replica gets allocated onto a second node, the health status for this index will turn to green.</p>
+<h4 id="Index-and-Query-a-Document"><a href="#Index-and-Query-a-Document" class="headerlink" title="Index and Query a Document"></a>Index and Query a Document</h4><h4 id="Delete-an-Index"><a href="#Delete-an-Index" class="headerlink" title="Delete an Index"></a>Delete an Index</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/elasticsearch-installation/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/25/elasticsearch-installation/" itemprop="url">elasticsearch-installation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T16:01:07+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h4><p>Tip<br>提示<br>You can skip installation completely by using our hosted Elasticsearch Service on Elastic Cloud,<br>which is available on AWS and GCP. You can try out the hosted service for free.<br>你可以完全跳过安装，使用我们在Elastic Cloud 托管的Elasticsearch Service，<br>可在AWS 和 GCP 上获得，你可以免费试用托管服务。</p>
+<p>Elasticsearch requires at least Java 8. Specifically as of this writing,<br>it is recommended that you use the Oracle JDK version 1.8.0_131.<br>Java installation varies from platform to platform so we won’t go into those details here.<br>Oracle’s recommended installation documentation can be found on Oracle’s website.<br>Suffice to say, before you install Elasticsearch,<br>please check your Java version first by running (and then install/upgrade accordingly if needed):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br><span class="line">echo $JAVA_HOME</span><br></pre></td></tr></table></figure></p>
+<p>Elasticsearch 需要至少Java8，特别是撰写本文时，推荐你使用Oracle JDK1.8.0_131 版本。<br>Java安装因平台而异，因此我们在此不会详细介绍。<br>可以在Oracle 网站找到Oracle 的推荐安装文档。<br>就是说，安装Elasticsearch 之前，请先运行<code>java -version</code>检查Java版本。</p>
+<p>Once we have Java set up, we can then download and run Elasticsearch.<br>The binaries are available from <a href="http://www.elastic.co/downloads" target="_blank" rel="noopener">www.elastic.co/downloads</a> along with all the releases that have been made in the past.<br>For each release, you have a choice among a zip or tar archive, a DEB or RPM package, or a Windows MSI installation package.<br>一旦我们安装了Java，我们可以下载并运行Elasticsearch。<br>从<a href="http://www.elastic.co/downloads" target="_blank" rel="noopener">www.elastic.co/downloads</a> 可以获得在过去已经发布的所有版本的二进制文件。<br>对于每个版本，你可以选择zip 或 tar，DEB 或 RPM包，或 Windows MSI 安装包。</p>
+<h4 id="Installation-example-with-tar"><a href="#Installation-example-with-tar" class="headerlink" title="Installation example with tar"></a>Installation example with tar</h4><p>tar 安装示例</p>
+<p>For simplicity, let’s use the tar file.<br>为简单起见，我们使用tar文件。<br>Let’s download the Elasticsearch 6.5.4 tar as follows:<br>我们按如下方式下载 Elasticsearch 6.5.4：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>Then extract it as follows:<br>然后解压如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf elasticsearch-6.5.4.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>It will then create a bunch of files and folders in your current directory. We then go into the bin directory as follows:<br>它将在当前目录创建一堆文件和目录。然后我们进入到bin目录，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd elasticsearch-6.5.4/bin</span><br></pre></td></tr></table></figure>
+<p>And now we are ready to start our node and single cluster:<br>现在，我们准备启动节点和单个集群：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./elasticsearch</span><br></pre></td></tr></table></figure></p>
+<h4 id="Installation-with-Homebrew"><a href="#Installation-with-Homebrew" class="headerlink" title="Installation with Homebrew"></a>Installation with Homebrew</h4><p>使用Homebrew 安装<br>On macOS, Elasticsearch can also be installed via Homebrew:<br>在Mac系统，可以通过Homebrew 安装Elasticsearch：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install elasticsearch</span><br></pre></td></tr></table></figure></p>
+<p>If installation succeeds, Homebrew will finish by saying that you can start Elasticsearch by entering <code>elasticsearch</code>.<br>Do that now. The expected response is described below, under Successfully running node.<br>如果安装成功，Homebrew 将完成通过说你可以通过输入 elasticsearch 启动Elasticsearch。<br>现在就这样做，在成功运行节点下，下面描述了预期的响应。</p>
+<h4 id="Installation-example-with-MSI-Windows-Installer"><a href="#Installation-example-with-MSI-Windows-Installer" class="headerlink" title="Installation example with MSI Windows Installer"></a>Installation example with MSI Windows Installer</h4><p>MSI Windows Installer 的安装示例：</p>
+<p>For Windows users, we recommend using the MSI Installer package.<br>The package contains a graphical user interface (GUI) that guides you through the installation process.<br>对于Windows 用户，我们推荐使用MSI 安装程序包。<br>该软件包包含一个用户图形界面（GUI），可指导你完成安装过程。</p>
+<p>First, download the Elasticsearch 6.5.4 MSI from <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.msi" target="_blank" rel="noopener">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.msi</a>.<br>首先，从<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.msi" target="_blank" rel="noopener">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.msi</a>. 下载Elasticsearch 6.5.4 MSI。</p>
+<p>Then double-click the downloaded file to launch the GUI.<br>Within the first screen, select the deployment directories:<br>然后双击下载的文件以启动GUI。<br>在第一个屏幕中，现在部署目录：<br><img src="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_locations.png" alt="msi_installer_locations"></p>
+<p>Then select whether to install as a service or start Elasticsearch manually as needed.<br>To align with the tar example, choose not to install as a service:<br>然后选择是作为服务安装还是根据需要手动启动Elasticsearch。<br>为了与tar示例一致，选择不作为服务安装。<br><img src="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_no_service.png" alt="msi_installer_no_service"></p>
+<p>For configuration, simply leave the default values:<br>对于配置，只需保留默认值：<br><img src="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_configuration.png" alt="msi_installer_configuration"></p>
+<p>Again, to align with the tar example, uncheck all plugins to not install any plugins:<br>再次为了与tar示例一致，取消选中所有插件不安装任何插件：<br><img src="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_plugins.png" alt="msi_installer_plugins"></p>
+<p>After clicking the install button, Elasticsearch will be installed:<br>点击安装按钮之后，将安装Elasticsearch：<br><img src="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_success.png" alt="msi_installer_success"></p>
+<p>By default, Elasticsearch will be installed at %PROGRAMFILES%\Elastic\Elasticsearch.<br>Navigate here and go into the bin directory as follows:<br>默认情况下，Elasticsearch 将被安装在%PROGRAMFILES%\Elastic\Elasticsearch 目录。<br>进入bin目录，如下所示：</p>
+<p>with Command Prompt:<br>使用命令提示符：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd %PROGRAMFILES%\Elastic\Elasticsearch\bin</span><br></pre></td></tr></table></figure></p>
+<p>使用PowerShell<br>with PowerShell:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd $env:PROGRAMFILES\Elastic\Elasticsearch\bin</span><br></pre></td></tr></table></figure></p>
+<p>And now we are ready to start our node and single cluster:<br>现在，我们准备启动节点和单个集群：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\elasticsearch.exe</span><br></pre></td></tr></table></figure></p>
+<h4 id="Successfully-running-node"><a href="#Successfully-running-node" class="headerlink" title="Successfully running node"></a>Successfully running node</h4><p>成功运行节点<br>If everything goes well with installation, you should see a bunch of messages that look like below:<br>如果一切顺利安装，你应该看到一堆如下所示的消息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[2016-09-16T14:17:51,251][INFO ][o.e.n.Node               ] [] initializing ...</span><br><span class="line">[2016-09-16T14:17:51,329][INFO ][o.e.e.NodeEnvironment    ] [6-bjhwl] using [1] data paths, mounts [[/ (/dev/sda1)]], net usable_space [317.7gb], net total_space [453.6gb], spins? [no], types [ext4]</span><br><span class="line">[2016-09-16T14:17:51,330][INFO ][o.e.e.NodeEnvironment    ] [6-bjhwl] heap size [1.9gb], compressed ordinary object pointers [true]</span><br><span class="line">[2016-09-16T14:17:51,333][INFO ][o.e.n.Node               ] [6-bjhwl] node name [6-bjhwl] derived from node ID; set [node.name] to override</span><br><span class="line">[2016-09-16T14:17:51,334][INFO ][o.e.n.Node               ] [6-bjhwl] version[6.5.4], pid[21261], build[f5daa16/2016-09-16T09:12:24.346Z], OS[Linux/4.4.0-36-generic/amd64], JVM[Oracle Corporation/Java HotSpot(TM) 64-Bit Server VM/1.8.0_60/25.60-b23]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [aggs-matrix-stats]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [ingest-common]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [lang-expression]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [lang-mustache]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [lang-painless]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [percolator]</span><br><span class="line">[2016-09-16T14:17:51,968][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [reindex]</span><br><span class="line">[2016-09-16T14:17:51,968][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [transport-netty3]</span><br><span class="line">[2016-09-16T14:17:51,968][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [transport-netty4]</span><br><span class="line">[2016-09-16T14:17:51,968][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded plugin [mapper-murmur3]</span><br><span class="line">[2016-09-16T14:17:53,521][INFO ][o.e.n.Node               ] [6-bjhwl] initialized</span><br><span class="line">[2016-09-16T14:17:53,521][INFO ][o.e.n.Node               ] [6-bjhwl] starting ...</span><br><span class="line">[2016-09-16T14:17:53,671][INFO ][o.e.t.TransportService   ] [6-bjhwl] publish_address &#123;192.168.8.112:9300&#125;, bound_addresses &#123;&#123;192.168.8.112:9300&#125;</span><br><span class="line">[2016-09-16T14:17:53,676][WARN ][o.e.b.BootstrapCheck     ] [6-bjhwl] max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]</span><br><span class="line">[2016-09-16T14:17:56,718][INFO ][o.e.c.s.ClusterService   ] [6-bjhwl] new_master &#123;6-bjhwl&#125;&#123;6-bjhwl4TkajjoD2oEipnQ&#125;&#123;8m3SNKoFR6yQl1I0JUfPig&#125;&#123;192.168.8.112&#125;&#123;192.168.8.112:9300&#125;, reason: zen-disco-elected-as-master ([0] nodes joined)</span><br><span class="line">[2016-09-16T14:17:56,731][INFO ][o.e.h.HttpServer         ] [6-bjhwl] publish_address &#123;192.168.8.112:9200&#125;, bound_addresses &#123;[::1]:9200&#125;, &#123;192.168.8.112:9200&#125;</span><br><span class="line">[2016-09-16T14:17:56,732][INFO ][o.e.g.GatewayService     ] [6-bjhwl] recovered [0] indices into cluster_state</span><br></pre></td></tr></table></figure></p>
+<p>Without going too much into detail, we can see that our node named “6-bjhwl” (which will be a different set of characters in your case)<br>has started and elected itself as a master in a single cluster.<br>Don’t worry yet at the moment what master means.<br>The main thing that is important here is that we have started one node within one cluster.<br>没有太多细节，我们可以看到名为”6-bjhwl”的节点（在你的情况下，可能是不同的字符串）已经启动并且选择自己作为单个集群中的master。<br>现在不用担心master意味着什么。 这里最重要的是我们在集群中启动了一个节点。</p>
+<p>As mentioned previously, we can override either the cluster or node name.<br>This can be done from the command line when starting Elasticsearch as follows:<br>如前所述，我们可以覆盖集群或节点名称。<br>这可以在启动Elasticsearch 的命令行完成，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./elasticsearch -Ecluster.name=my_cluster_name -Enode.name=my_node_name</span><br></pre></td></tr></table></figure></p>
+<p>Also note the line marked http with information about the HTTP address (192.168.8.112)<br>and port (9200) that our node is reachable from.<br>By default, Elasticsearch uses port 9200 to provide access to its REST API. This port is configurable if necessary.<br>另外请注意标有http的行，其中包含有关我们的节点是可以访问的http地址(192.168.8.112) 和端口（9200）的信息。<br>默认情况下，Elasticsearch 使用9200端口提供访问它的REST API。如果需要，这个端口是可配置的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/centos7/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1139,379 +1560,11 @@ protected void openConnection() throws SQLException {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/mysql-varchar/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/15/mysql-varchar/" itemprop="url">mysql-varchar</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-15T09:24:39+08:00">
-                2019-07-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>MySQL中varchar最大长度是多少？</p>
-<p><a href="https://blog.51cto.com/opsmysql/1343771" target="_blank" rel="noopener">https://blog.51cto.com/opsmysql/1343771</a><br><a href="http://simpleframework.net/news/view?newsId=15eb83668fe246938228163f3603e510" target="_blank" rel="noopener">http://simpleframework.net/news/view?newsId=15eb83668fe246938228163f3603e510</a></p>
-<p>MySQL中一行数据最多存储65535字节，</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/12/thread-interrupt/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/12/thread-interrupt/" itemprop="url">thread-interrupt</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-12T10:20:41+08:00">
-                2019-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://www.infoq.cn/article/java-interrupt-mechanism" target="_blank" rel="noopener">https://www.infoq.cn/article/java-interrupt-mechanism</a></p>
-<p>Java中断机制是一种协作机制，也就是说通过中断只是设置线程的中断状态，并不能直接终止另一个线程，而需要被中断的线程自己去检查中断状态然后做相应处理。<br>甚至可以不理会该请求，就像这个线程没有被中断一样。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static boolean interrupted() &#123;</span><br><span class="line">    return currentThread().isInterrupted(true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试当前线程是否已经中断。线程的中断状态由该方法清除。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public boolean isInterrupted() &#123;</span><br><span class="line">    return isInterrupted(false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试线程是否已经中断。线程的中断状态不受该方法影响。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public void interrupt() &#123;</span><br><span class="line">    if (this != Thread.currentThread())</span><br><span class="line">        checkAccess();</span><br><span class="line"></span><br><span class="line">    synchronized (blockerLock) &#123;</span><br><span class="line">        Interruptible b = blocker;</span><br><span class="line">        if (b != null) &#123;</span><br><span class="line">            interrupt0();           // Just to set the interrupt flag</span><br><span class="line">            b.interrupt(this);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    interrupt0();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>中断线程，interrupt() 方法是唯一能将中断状态设置为true的方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line">public class InterruptTest &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        Thread t1 = new Thread(()-&gt; &#123;</span><br><span class="line">            while (true) &#123;</span><br><span class="line">                if(Thread.interrupted()) &#123;</span><br><span class="line">                    System.out.println(&quot;线程被中断&quot;);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(&quot;................&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        t1.start();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(1);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 中断 t1线程</span><br><span class="line">        t1.interrupt();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(1);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            Thread.currentThread().interrupt();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;主线程结束&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/12/mysql-install-yum/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/12/mysql-install-yum/" itemprop="url">mysql-install-yum</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-12T10:19:58+08:00">
-                2019-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1557,7 +1610,7 @@ protected void openConnection() throws SQLException {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -229,6 +229,453 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/zookeeper/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/11/zookeeper/" itemprop="url">zookeeper</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-11T22:15:04+08:00">
+                2019-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Zookeeper-是什么"><a href="#Zookeeper-是什么" class="headerlink" title="Zookeeper 是什么"></a>Zookeeper 是什么</h4><p>Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。<br>Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理应用的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，<br>Zookeeper 就将负责通知已经在Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似Master/Slave管理模式。<br>Zookeeper = 文件系统 + 通知机制。</p>
+<p>数据结构</p>
+<p>节点类型</p>
+<ul>
+<li><p>Znode 有两种类型<br>临时(ephemeral)：客户端和服务端断开连接后，创建的节点自己删除；<br>持久(persistent)：客户端和服务端断开连接后，创建的节点不删除；</p>
+</li>
+<li><p>Znode 有四种形式的目录节点（默认是persistent）<br>(1)持久目录节点(persistent)<br>客户端和服务端断开连接后，该节点依旧存在。<br>(2)持久顺序编号目录节点(persistent_sequential)<br>客户端和服务端断开连接后，该节点依旧存在，只是zookeeper 给该节点名称进行顺序编号。<br>(3)临时目录节点(ephemeral)<br>客户端和服务端断开连接后，该节点被删除。<br>(4)临时顺序编号目录节点(ephemeral_sequential)<br>客户端和服务端断开连接后，该节点被删除，只是zookeeper 给该节点名称进行顺序编号。</p>
+</li>
+</ul>
+<p>特点</p>
+<ul>
+<li>zookeeper 有一个领导者（Leader），多个跟随者（Follower）组成的集群；</li>
+<li>Leader 负责进行投票的发起和决议，更新系统状态；</li>
+<li>Follower 用于接收客户请求并向客户端返回结果，在选举Leader过程中参与投票；</li>
+<li>集群中只要有半数以上节点存活，zookeeper 集群就能正常服务；</li>
+<li>全局数据一致性，每个server保存一份相同的数据副本，client 无论连接到哪个server，数据都是一致的；</li>
+<li>更新请求顺序执行，来自同一个client的更新请求按其发送顺序依次执行；</li>
+<li>数据更新原子性，一次数据更新要么成功，要么失败；</li>
+<li>实时性，在一定时间范围内，client能读到最新数据。</li>
+</ul>
+<p>选举机制</p>
+<ul>
+<li>半数机制：集群中半数以上机器存活，集群可用。所以zookeeper 适合在奇数台机器上部署。</li>
+<li>zookeeper 虽然在配置文件中没有指定master和salve。<br>但是zookeeper工作时，是有一个节点为Leader，其他节点为follower。Leader 是通过内部选举机制临时产生的。</li>
+</ul>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ul>
+<li>分布式消息同步和协调机制</li>
+<li>服务器节点动态上下线</li>
+<li>统一配置管理</li>
+<li>负载均衡</li>
+<li>集群管理</li>
+</ul>
+<h4 id="下载安装本地模式"><a href="#下载安装本地模式" class="headerlink" title="下载安装本地模式"></a>下载安装本地模式</h4><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/zookeeper/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/zookeeper/</a><br>选择stable版本下载zookeeper-3.4.10.tar.gz<br>解压后目录如下：<br><img src="/2019/01/11/zookeeper/00-zookeeper.png"></p>
+<p>bin目录存放启动zookeeper的脚本。以.sh结尾的脚本运行于UNIX平台(Linux、Mac OS X等)，以.cmd结尾的脚本则运行于Windows。<br>conf目录保存配置文件。<br>lib目录包括Java的jar文件，它们是允许zookeeper所需要的第三方文件。</p>
+<p>进入conf目录下，重命名mv zoo_sample.cfg zoo.cfg<br>编辑zoo.cfg配置文件<br>主要修改一下配置：<br>dataDir=/usr/local/zookeeper/data<br>dataLogDir=/usr/local/zookeeper/log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># The number of milliseconds of each tick</span><br><span class="line">tickTime=2000</span><br><span class="line"># The number of ticks that the initial </span><br><span class="line"># synchronization phase can take</span><br><span class="line">initLimit=10</span><br><span class="line"># The number of ticks that can pass between </span><br><span class="line"># sending a request and getting an acknowledgement</span><br><span class="line">syncLimit=5</span><br><span class="line"># the directory where the snapshot is stored.</span><br><span class="line"># do not use /tmp for storage, /tmp here is just </span><br><span class="line"># example sakes.</span><br><span class="line">dataDir=/usr/local/zookeeper/data</span><br><span class="line">dataLogDir=/usr/local/zookeeper/log</span><br><span class="line"># the port at which the clients will connect</span><br><span class="line">clientPort=2181</span><br><span class="line"># the maximum number of client connections.</span><br><span class="line"># increase this if you need to handle more clients</span><br><span class="line">#maxClientCnxns=60</span><br><span class="line">#</span><br><span class="line"># Be sure to read the maintenance section of the </span><br><span class="line"># administrator guide before turning on autopurge.</span><br><span class="line">#</span><br><span class="line"># http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</span><br><span class="line">#</span><br><span class="line"># The number of snapshots to retain in dataDir</span><br><span class="line">#autopurge.snapRetainCount=3</span><br><span class="line"># Purge task interval in hours</span><br><span class="line"># Set to &quot;0&quot; to disable auto purge feature</span><br><span class="line">#autopurge.purgeInterval=1</span><br></pre></td></tr></table></figure>
+<p>启动服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ./bin/zkServer.sh start</span><br></pre></td></tr></table></figure></p>
+<p>这个命令使zookeeper在后台运行，如果在前台运行以便查看服务输出，可以通过以下命令运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ./bin/zkServer.sh start-foreground</span><br></pre></td></tr></table></figure></p>
+<p>顺利的话，现在zookeeper已经启动了，可以通过jps 查看zookeeper进程。</p>
+<p>停止zookeeper服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ./bin/zkServer.sh stop</span><br></pre></td></tr></table></figure></p>
+<p>使用客户端连接到服务端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># bin/zkCli.sh</span><br></pre></td></tr></table></figure></p>
+<p>输出信息如下：<br><img src="/2019/01/11/zookeeper/01-zookeeper.png"></p>
+<p>执行ls / 查看根下所有的znode<br>创建/workers 节点，并在这个节点上保存数据”mydata”</p>
+<p>删除节点：delete /workers<br>退出客户端连接：quit<br><img src="/2019/01/11/zookeeper/02-zookeeper.png"></p>
+<p><a href="https://juejin.im/post/5c01532ef265da61362232ed" target="_blank" rel="noopener">七张图彻底讲清楚ZooKeeper分布式锁的实现原理【石杉的架构笔记】</a><br><a href="http://www.cnblogs.com/austinspark-jessylu/p/8043726.html" target="_blank" rel="noopener">分布式锁的几种实现方式</a><br><a href="https://crossoverjie.top/2018/03/29/distributed-lock/distributed-lock-redis/" target="_blank" rel="noopener">基于 Redis 的分布式锁</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/delay-queue/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/delay-queue/" itemprop="url">delay-queue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T15:55:28+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>有赞延迟队列设计<br><a href="https://tech.youzan.com/queuing_delay/" target="_blank" rel="noopener">https://tech.youzan.com/queuing_delay/</a></p>
+<p>1分钟实现“延迟消息”功能<br><a href="https://mp.weixin.qq.com/s/eDMV25YqCPYjxQG-dvqSqQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/eDMV25YqCPYjxQG-dvqSqQ</a><br><a href="https://www.jianshu.com/p/331b4e11f7ab" target="_blank" rel="noopener">https://www.jianshu.com/p/331b4e11f7ab</a></p>
+<p>基于redis实现的延迟消息队列<br><a href="https://www.jianshu.com/p/e958e8590020" target="_blank" rel="noopener">https://www.jianshu.com/p/e958e8590020</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/hashmap/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/04/hashmap/" itemprop="url">hashmap</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-04T13:53:29+08:00">
+                2019-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <table>
+<thead>
+<tr>
+<th>比较</th>
+<th>HashMap</th>
+<th>HashTable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key/value 是否为null</td>
+<td>key 和 value 都可以为null</td>
+<td>key 和 value 都不可以为null</td>
+</tr>
+<tr>
+<td>是否同步</td>
+<td>不同步</td>
+<td>同步</td>
+</tr>
+</tbody>
+</table>
+<p>影响HashMap性能的两个参数</p>
+<ul>
+<li>initial capacity 初始容量，默认值 16</li>
+<li>load factor 负载因子，默认值 0.75</li>
+</ul>
+<p>阈值<br>threshold = capacity * load factor</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Associates the specified value with the specified key in this map.</span><br><span class="line"> * If the map previously contained a mapping for the key, the old</span><br><span class="line"> * value is replaced.</span><br><span class="line"> *</span><br><span class="line"> * @param key key with which the specified value is to be associated</span><br><span class="line"> * @param value value to be associated with the specified key</span><br><span class="line"> * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or</span><br><span class="line"> *         &lt;tt&gt;null&lt;/tt&gt; if there was no mapping for &lt;tt&gt;key&lt;/tt&gt;.</span><br><span class="line"> *         (A &lt;tt&gt;null&lt;/tt&gt; return can also indicate that the map</span><br><span class="line"> *         previously associated &lt;tt&gt;null&lt;/tt&gt; with &lt;tt&gt;key&lt;/tt&gt;.)</span><br><span class="line"> */</span><br><span class="line">public V put(K key, V value) &#123;</span><br><span class="line">    return putVal(hash(key), key, value, false, true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"> /**</span><br><span class="line"> * Implements Map.put and related methods</span><br><span class="line"> *</span><br><span class="line"> * @param hash hash for key</span><br><span class="line"> * @param key the key</span><br><span class="line"> * @param value the value to put</span><br><span class="line"> * @param onlyIfAbsent if true, don&apos;t change existing value</span><br><span class="line"> * @param evict if false, the table is in creation mode.</span><br><span class="line"> * @return previous value, or null if none</span><br><span class="line"> */</span><br><span class="line">final V putVal(int hash, K key, V value, boolean onlyIfAbsent,</span><br><span class="line">               boolean evict) &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; </span><br><span class="line">    Node&lt;K,V&gt; p; </span><br><span class="line">    int n, i; // n 记录记录tab.length</span><br><span class="line">    </span><br><span class="line">    if ((tab = table) == null || (n = tab.length) == 0)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">    if ((p = tab[i = (n - 1) &amp; hash]) == null)</span><br><span class="line">        tab[i] = newNode(hash, key, value, null);</span><br><span class="line">    else &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        if (p.hash == hash &amp;&amp;</span><br><span class="line">            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">            e = p;</span><br><span class="line">        else if (p instanceof TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);</span><br><span class="line">        else &#123;</span><br><span class="line">            for (int binCount = 0; ; ++binCount) &#123;</span><br><span class="line">                if ((e = p.next) == null) &#123;</span><br><span class="line">                    p.next = newNode(hash, key, value, null);</span><br><span class="line">                    if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st</span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                if (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</span><br><span class="line">                    break;</span><br><span class="line">                p = e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (e != null) &#123; // existing mapping for key</span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            if (!onlyIfAbsent || oldValue == null)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            return oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    // 如果HashMap的大小超过阈值，则扩容</span><br><span class="line">    if (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Initializes or doubles table size.  If null, allocates in</span><br><span class="line"> * accord with initial capacity target held in field threshold.</span><br><span class="line"> * Otherwise, because we are using power-of-two expansion, the</span><br><span class="line"> * elements from each bin must either stay at same index, or move</span><br><span class="line"> * with a power of two offset in the new table.</span><br><span class="line"> *</span><br><span class="line"> * @return the table</span><br><span class="line"> */</span><br><span class="line">final Node&lt;K,V&gt;[] resize() &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] oldTab = table;</span><br><span class="line">    int oldCap = (oldTab == null) ? 0 : oldTab.length;</span><br><span class="line">    int oldThr = threshold;</span><br><span class="line">    int newCap, newThr = 0;</span><br><span class="line">    if (oldCap &gt; 0) &#123;</span><br><span class="line">        if (oldCap &gt;= MAXIMUM_CAPACITY) &#123;</span><br><span class="line">            threshold = Integer.MAX_VALUE;</span><br><span class="line">            return oldTab;</span><br><span class="line">        &#125;</span><br><span class="line">        else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;</span><br><span class="line">                 oldCap &gt;= DEFAULT_INITIAL_CAPACITY)</span><br><span class="line">            newThr = oldThr &lt;&lt; 1; // double threshold</span><br><span class="line">    &#125;</span><br><span class="line">    else if (oldThr &gt; 0) // initial capacity was placed in threshold</span><br><span class="line">        newCap = oldThr;</span><br><span class="line">    else &#123;               // zero initial threshold signifies using defaults</span><br><span class="line">        newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">        newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);</span><br><span class="line">    &#125;</span><br><span class="line">    if (newThr == 0) &#123;</span><br><span class="line">        float ft = (float)newCap * loadFactor;</span><br><span class="line">        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?</span><br><span class="line">                  (int)ft : Integer.MAX_VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    threshold = newThr;</span><br><span class="line">    @SuppressWarnings(&#123;&quot;rawtypes&quot;,&quot;unchecked&quot;&#125;)</span><br><span class="line">        Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];</span><br><span class="line">    table = newTab;</span><br><span class="line">    if (oldTab != null) &#123;</span><br><span class="line">        for (int j = 0; j &lt; oldCap; ++j) &#123;</span><br><span class="line">            Node&lt;K,V&gt; e;</span><br><span class="line">            if ((e = oldTab[j]) != null) &#123;</span><br><span class="line">                oldTab[j] = null;</span><br><span class="line">                if (e.next == null)</span><br><span class="line">                    newTab[e.hash &amp; (newCap - 1)] = e;</span><br><span class="line">                else if (e instanceof TreeNode)</span><br><span class="line">                    ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap);</span><br><span class="line">                else &#123; // preserve order 维持顺序</span><br><span class="line">                    Node&lt;K,V&gt; loHead = null, loTail = null;</span><br><span class="line">                    Node&lt;K,V&gt; hiHead = null, hiTail = null;</span><br><span class="line">                    Node&lt;K,V&gt; next;</span><br><span class="line">                    do &#123;</span><br><span class="line">                        next = e.next;</span><br><span class="line">                        if ((e.hash &amp; oldCap) == 0) &#123;</span><br><span class="line">                            if (loTail == null)</span><br><span class="line">                                loHead = e;</span><br><span class="line">                            else</span><br><span class="line">                                loTail.next = e;</span><br><span class="line">                            loTail = e;</span><br><span class="line">                        &#125;</span><br><span class="line">                        else &#123;</span><br><span class="line">                            if (hiTail == null)</span><br><span class="line">                                hiHead = e;</span><br><span class="line">                            else</span><br><span class="line">                                hiTail.next = e;</span><br><span class="line">                            hiTail = e;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; while ((e = next) != null);</span><br><span class="line">                    if (loTail != null) &#123;</span><br><span class="line">                        loTail.next = null;</span><br><span class="line">                        newTab[j] = loHead;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (hiTail != null) &#123;</span><br><span class="line">                        hiTail.next = null;</span><br><span class="line">                        newTab[j + oldCap] = hiHead;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return newTab;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用HashMap的put操作，当容量大小超过阈值则发生扩容（调用resize()），在并发情况下可能会产生循环链表，在执行get的时候，可能会触发死循环，引起CPU 100%问题。<br>JDK8虽然修复了死循环的BUG，将原来的链表部分改为数据量少时用链表，当超过一定数量后变为红黑树（treeifyBin()）。但是HashMap 还是非线程安全类，仍然会产生数据丢失等问题。</p>
+<p><a href="hash表处理冲突">https://blog.csdn.net/mgl934973491/article/details/57405247</a><br>不同的key用同样的hash算法，可能会得到相同的hash值，比如Ab BB的hash值一样。</p>
+<ul>
+<li>线性探测法</li>
+<li>拉链法（HashMap中使用这种方法进行冲突处理的）</li>
+</ul>
+<p><a href="HashMap在并发下可能出现的问题分析">http://www.cnblogs.com/binyue/p/3726403.html</a></p>
+<p>参考 </p>
+<ul>
+<li><a href="https://coolshell.cn/articles/9606.html" target="_blank" rel="noopener">疫苗：JAVA HASHMAP的死循环</a></li>
+<li><a href="https://my.oschina.net/alexqdjay/blog/1377268" target="_blank" rel="noopener">HashMap 多线程下死循环分析及JDK8修复</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/21/security/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1386,529 +1833,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/volatile/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/18/volatile/" itemprop="url">volatile 的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-18T21:58:14+08:00">
-                2018-11-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>防止指令重排序；<br>确保线程之间共享变量的立即可见性。</p>
-<p>聊聊并发</p>
-<ul>
-<li>你真的了解并发码</li>
-<li>多线程和并发</li>
-<li>多线程和多进程</li>
-<li>线程一定快吗</li>
-<li>学习并发的四个阶段</li>
-<li>学习目标</li>
-<li>适合人群</li>
-<li>推荐推荐</li>
-</ul>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>编写正确的程序很难，而编写正确的并发程序则难上加难。<br>与串行程序相比，在并发程序中存在更多容易出错的地方。那么，我们为什么还要编写并发程序呢？</p>
-<p>线程是Java语言中不可或缺的重要功能，它们能使复杂的异步代码变得更简单，从而极大地简化了复杂系统的开发。<br>此外，使用线程可以充分发挥多处理器的强大计算能力。随着处理器数量的持续增长，如何高效地使用并发正变得越来越重要。</p>
-<h4 id="并发简史"><a href="#并发简史" class="headerlink" title="并发简史"></a>并发简史</h4><p>早期的计算机不包含操作系统，在这种裸机环境中每次只能运行一个程序，浪费计算机资源。</p>
-<p>操作系统的出现使得计算机每次能运行多个程序，不同的程序在单独的<code>进程</code>中运行，操作系统为各个独立的进程分配各种资源，包括<br>内存、文件句柄以及安全证书等。在不同的进程之间可以通过一些粗粒度的机制通信，包括：套接字、信号处理器、共享内存、信号量以及文件等。</p>
-<p>线程允许在同一进程中同时存在多个程序控制流。线程会共享进程范围内的资源，例如内存句柄和文件句柄，<br>但每个线程都有自己的程序计数器（Program Counter）、栈以及局部变量等。<br>在同一个程序中的多个线程可以被同时调度到多个CPU 上运行。</p>
-<p>线程也被称为轻量级进程。在大多数现代操作系统中，都是以线程为基本的调度单位，而不是进程。</p>
-<p>由于同一个进程中的所有线程都将共享进程的内存地址空间，因此这些线程都能访问相同的变量并在同一个堆上分配对象。<br>这就需要实现一种比在进程间共享数据粒度更细的数据共享机制。如果没有明确的<code>同步机制</code>来协同对共享数据的访问，那么<br>当一个线程正在使用某个变量时，另一个线程可能同时修改这个变量，这将造成不可预测的结果。</p>
-<h4 id="线程的优势"><a href="#线程的优势" class="headerlink" title="线程的优势"></a>线程的优势</h4><ul>
-<li>线程可以有效地降低程序的开发和维护成本，同时提升复杂应用程序的性能。</li>
-<li>线程能够将大部分异步工作流转换成串行工作流，因此能更好地模拟人类的工作方式和交互方式。</li>
-<li>降低代码的复杂度，使代码更容易编写、阅读和维护。</li>
-<li>在GUI应用程序中，线程提供用户界面的灵敏度。</li>
-<li>在服务器应用程序中，可以提升资源利用率以及系统吞吐率。</li>
-<li>简化JVM的实现，垃圾收集器通常在一个或多个专门的线程中运行。</li>
-</ul>
-<h4 id="线程带来的风险"><a href="#线程带来的风险" class="headerlink" title="线程带来的风险"></a>线程带来的风险</h4><ul>
-<li>安全性问题</li>
-<li>活跃性问题</li>
-<li>性能问题</li>
-</ul>
-<p>线程安全性是非常复杂的，在没有充足同步的情况下，多个线程中的操作执行顺序是不可预测的，甚至会产生奇怪的结果。<br>在下面的UnsafeSequence 类中将产生一个整数值序列，该序列中的每个值都是唯一的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class UnsafeSequence &#123;</span><br><span class="line">    </span><br><span class="line">    private int value;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 返回一个唯一的数值</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public int getValue() &#123;</span><br><span class="line">        return value++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在单线程环境中，这个类能正常工作，但是在多线程环境中则不能。<br>UnsafeSequence 问题在于，递增运算value++ 看上去是单个操作，实际上它包含三个独立的操作：<br>读取value，将value值加1，将计算结果写入value。由于运行时可能多个线程之间的操作交替执行，结果可能返回了相同值。</p>
-<p>// 画图</p>
-<p>这是一种常见的并发安全问题，称为竞态条件（Race Condition）。<br>要使多线程程序的行为可以预测，必须对共享变量的访问操作进行协同，防治多线程之间发生彼此干扰。<br>Java提供了各种<code>同步机制</code>来协同这种访问。通过将getValue 方法改为一个同步方法，可以修复UnsafeSequence 中的错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 返回一个唯一的数值</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">public synchronized int getValue() &#123;</span><br><span class="line">    return value++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="线程无处不在"><a href="#线程无处不在" class="headerlink" title="线程无处不在"></a>线程无处不在</h4><p>为什么要学习并发编程<br>并发优点：</p>
-<ul>
-<li>发挥出多处理器的能力</li>
-<li>建模的简单性</li>
-<li>异步事件的简化处理</li>
-<li>响应更加灵敏的用户界面</li>
-</ul>
-<p>并发的缺点</p>
-<ul>
-<li>线程安全性问题</li>
-<li>活跃性问题</li>
-<li>性能问题</li>
-</ul>
-<p>学习并发的四个阶段</p>
-<ul>
-<li>熟练掌握API，能够完成并发编程</li>
-<li>熟读API源码，掌握其原理</li>
-<li>理解Java虚拟机的内存模型</li>
-<li>操作系统对并发对支持</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/redis/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/16/redis/" itemprop="url">redis</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-16T18:35:21+08:00">
-                2018-11-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://www.jianshu.com/p/bc84b2b71c1c" target="_blank" rel="noopener">https://www.jianshu.com/p/bc84b2b71c1c</a><br><a href="https://juejin.im/post/5c3b4c4b518825253806335e" target="_blank" rel="noopener">https://juejin.im/post/5c3b4c4b518825253806335e</a></p>
-<h3 id="Redis-可以用来做什么"><a href="#Redis-可以用来做什么" class="headerlink" title="Redis 可以用来做什么"></a>Redis 可以用来做什么</h3><p>Redis 是 Remote Dictionary Service 的首字母缩写，也就是远程字典服务。</p>
-<ul>
-<li>记录帖子的点赞数、评论数、点击数；</li>
-<li></li>
-</ul>
-<p>redis 生产环境启动方案</p>
-<p>tar -zxvf redis-4.0.12.tar.gz -C /usr/local/<br>进入 Redis 的解压文件<br>cd redis-4.0.12/<br>使用 make 命令编译源码<br>make<br>可能出现的错误：fatal error: jemalloc/jemalloc.h: No such file or directory<br>在 Redis 的 README.md 文件中，可以找到解决方法，手动设置 MALLOC 环境。<br>使用 make MALLOC=libc 命令代替 make 命令。</p>
-<p>如果make的时候提示如下错误：<br>cc: error: ../deps/hiredis/libhiredis.a: No such file or directory<br>cc: error: ../deps/lua/src/liblua.a: No such file or directory<br>cc: error: ../deps/jemalloc/lib/libjemalloc.a: No such file or directory<br>make: *** [redis-server] Error 1<br>则进入redis下的deps下的运行如下命令，就OK了。<br>make lua hiredis linenoise</p>
-<p>make完成，就可以安装 Redis 了，<br>先 cd 到 Redis 解压文件的 src 目录，使用 make PREFIX=/usr/local/redis install 安装，可以设置 Redis 的安装位置。<br>make install PREFIX=/usr/local/redis</p>
-<p>配置启动脚本<br>cp /usr/local/redis-4.0.12/utils/redis_init_script /etc/init.d/<br>cd /etc/init.d/<br>mv redis_init_script redis_6379<br>编辑启动脚本redis_6379，修改启动命令路径，我们在上面将redis 安装到/usr/local/redis 目录下了<br>EXEC=/usr/local/redis/bin/redis-server<br>CLIEXEC=/usr/local/redis/bin/redis-cli</p>
-<p>根据启动脚本修改配置文件位置<br>mkdir -p /etc/redis<br>cp /usr/local/redis-4.0.12/redis.conf /etc/redis/<br>cd /etc/redis/<br>mv redis.conf 6379.conf</p>
-<p>创建持久化文件的存储位置<br>mkdir -p /var/redis/6379</p>
-<p>修改配置文件<br>vim /etc/redis/6379.conf</p>
-<p>daemonize yes<br>bind 修改成自己的IP地址<br>requirepass <strong>***</strong><br>dir /var/redis/6379</p>
-<p>启动redis<br>/etc/init.d/redis_6379 start</p>
-<p>设置开启自启动<br>chkconfig redis_6379 on</p>
-<ul>
-<li>string（字符串）可以存储字符串、整数或浮点数；</li>
-<li>list（列表）一个链表，链表上的每个节点都包含了一个字符串；</li>
-<li>set（集合）</li>
-<li>hash（哈希）</li>
-<li>zset（有序集合）</li>
-</ul>
-<p>string 字符串<br>set<br>get<br>del</p>
-<p>list 列表命令</p>
-<ul>
-<li>lpush 将元素从列表的左端(left end)推入</li>
-<li>rpush 将元素从列表的右端(right end)推入</li>
-<li>lpop 从列表的左端弹出</li>
-<li>rpop 从列表的右端弹出</li>
-<li>lrange 获取列表在给定范围内的所有值 lrange users 0 -1</li>
-<li>lindex 获取列表在给定位置上的单个元素 lindex users 0</li>
-<li>ltrim ltrim key-name start end 对列表进行修剪，只保留从start到end偏移量范围的元素，其中偏移量为start和end的元素也会保留。</li>
-<li>blpop     key-name [key-name…] timeout 阻塞式列表弹出，从第一个非空列表中弹出位于最左端的元素，或者在timeout 秒之内阻塞</li>
-<li>brpop    </li>
-</ul>
-<p>set 集合<br>sadd 将给定元素添加到集合<br>smembers 返回集合包含的所有元素，慎用！<br>sismember 检查给定元素是否存在于集合中<br>srem 如果给定的元素存在于集合中，那么删除这个元素</p>
-<p>hash 散列<br>hmget key-name key [key …] 从散列里面获取一个或多个键的值<br>hmset key-name key value [key value …] 为散列里面的一个或多个键设置值<br>hscan</p>
-<p>zset 有序集合<br>zadd    zadd zset-key score member 将一个带有给定分值的成员添加到有序集合中。<br>zrange    zrange zset-key 0 -1 [withscores] 根据元素在有序排列中所处的位置，从有序集合中获取多个元素，多个元素会按照分值从小到大进行排序。<br>zrevrange 分值从大到小进行排序<br>zrangebyscore    zrangebyscore zset-key 0 100 [withscores]    获取有序集合在给定分值范围内的所有元素。<br>zrem    zrem zset-key member    如果给定的成员存在于有序集合中，那么删除这个元素<br>zscore  zscore key-name member 返回成员member的分值<br>zcard 返回有序集合包含的成员数量</p>
-<h4 id="Redis-的持久化存储"><a href="#Redis-的持久化存储" class="headerlink" title="Redis 的持久化存储"></a>Redis 的持久化存储</h4><p>Redis支持两种数据持久化方式：RDB方式和AOF方式<br>RDB 方式会根据配置的规则定时将内存中的数据持久化的硬盘上，<br>AOF 方式则是在每次执行写命令之后将命令记录下来，两种持久化方式可以单独使用，但是通常会将两者结合使用。</p>
-<p>数据备份方案：</p>
-<ul>
-<li>写crontab定时调度脚本去做备份；</li>
-<li>每小时都拷贝一份rdb的备份，到一个目录中去，仅仅保留最近48小时的备份；</li>
-<li>每天都保留当天rdb的备份，到一个目录中去，仅仅保留最近一个月的备份；</li>
-<li>每次copy备份的时候都把太旧的备份删除；</li>
-<li>每天晚上将当前服务器上的所有备份，发送一份到远程云服务器上；</li>
-</ul>
-<p>获取当前的年月日时<br>date +%Y%m%d%k<br>减48小时<br>date -d -48hour +%Y%m%d%k</p>
-<h4 id="redis数据恢复"><a href="#redis数据恢复" class="headerlink" title="redis数据恢复"></a>redis数据恢复</h4><ul>
-<li>如果是redis进程挂掉，那么重启redis进程即可，直接基于AOF日志文件恢复数据；</li>
-<li>如果是redis进程所在机器挂掉，那么重启机器后，尝试重启redis进程，尝试直接基于AOF日志文件恢复数据，<br>如果appendonly.aof文件破损，那么可以使用redis-check-aof fix appendonly.aof 进行文件修复；</li>
-<li>如果redis 当前最新的AOF和RDB文件出现了丢失或损坏，那么可以尝试基于该机器上当前的某个最新的RDB数据副本进行数据恢复。<br>appendonly.aof 和 dump.rdb 都存在，redids会优先用appendonly.aof 恢复数据<br>热修改配置文件，磁盘文件上的配置并没有修改，需要自己手动去修改配置文件。<br>config get appendonly<br>config set appendonly yes</li>
-<li>如果当前机器上所有RDB文件全部损坏，那么从远程的云服务器上拉取最新的快照来恢复数据；</li>
-<li>如果发现有重大数据错误，可以选择更早的时间点，对数据进行恢复。</li>
-</ul>
-<h4 id="redis-如何通过读写分离来承载读请求QPS超过10万"><a href="#redis-如何通过读写分离来承载读请求QPS超过10万" class="headerlink" title="redis 如何通过读写分离来承载读请求QPS超过10万+"></a>redis 如何通过读写分离来承载读请求QPS超过10万+</h4><p>单个redis服务器的问题</p>
-<ul>
-<li>结构上，单个redis服务器会发生单点故障，只有一台服务器承受所有请求负载，这就需要为数据生成多个副本并分配在不同的服务器上；</li>
-<li>容量上，单个redis服务器的内存非常容易成为存储瓶颈，所以需要进行数据分片。</li>
-</ul>
-<h4 id="redis复制"><a href="#redis复制" class="headerlink" title="redis复制"></a>redis复制</h4><p>通过持久化功能，redis 保证了即使在服务器重启的情况下也不会丢失（或少量丢失）数据。但是由于数据都存储在一台服务器上，如果这台服务器<br>出现硬盘故障等问题，也会导致数据丢失，通常的做法是将数据复制多个副本，以部署在不同的服务器上，这样即使有一台服务器出现故障，其他服务器<br>依然可以继续提供给服务。为此redis 提供了复制（replication）功能，可以实现当一台redis中的数据更新后，自动将数据同步到其他redis上。</p>
-<p>在复制的概念中，数据库分为两类，一类是主数据库（master）,另一个是从数据库（slave）。<br>master 可以进行读写操作，当写操作导致数据发生变化时，master会自动将数据同步给slave。<br>slave 一般是只读的，并接受master同步过来的数据。<br>一个master 可以有多个slave，一个slave 只能有一个master。<br><img src="/2018/11/16/redis/master-slave.png" title="master-slave"></p>
-<h4 id="redis-主从复制搭建"><a href="#redis-主从复制搭建" class="headerlink" title="redis 主从复制搭建"></a>redis 主从复制搭建</h4><p>salve 修改配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slaveof node01 6379</span><br><span class="line">masterauth redis2019</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;info replication</span><br></pre></td></tr></table></figure>
-<h4 id="redis-主从复制原理"><a href="#redis-主从复制原理" class="headerlink" title="redis 主从复制原理"></a>redis 主从复制原理</h4><p>复制初始化过程，当一个slave启动后，会主动向master发送SYNC 命令，master 收到SYNC 命令后会开始在后台保存快照（即RDB持久化当过程），<br>并将保存快照期间收到的命令缓存起来。当快照完成后，master会将快照文件和所有缓存当命令发送给slave。<br>slave收到后，会载入快照文件并执行收到的缓存命令。复制初始化结束后，master每当收到写命令时会将命令同步给slave，从而保证主从数据一致。</p>
-<p>复制的完整流程</p>
-<ul>
-<li><p>slave 启动，仅仅保存master 的信息，包括master 的ip和port，此时复制流程还没有开始；<br>slave 配置master 的信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">slaveof &lt;masterip&gt; &lt;masterport&gt;</span><br><span class="line">masterauth &lt;master-password&gt;</span><br><span class="line">slave-read-only yes # 默认启用slave 只读</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>slave 发送sync 命令给master；</p>
-</li>
-<li>口令认证，如果master 设置了requirepass，那么slave 必须发送masterauth 的口令过去进行认证；</li>
-<li>master 第一次执行全量复制，将所有数据发送给slave；</li>
-<li>master 后续持续将写命令异步复制给slave。</li>
-</ul>
-<h4 id="哨兵"><a href="#哨兵" class="headerlink" title="哨兵"></a>哨兵</h4><p>mkdir -p /var/redis/sentinel<br>cp /usr/local/redis-4.0.12/sentinel.conf /etc/redis/<br>vim /etc/redis/sentinel.conf</p>
-<p>bind node01<br>dir /var/redis/sentinel<br>sentinel monitor mymaster node01 6379 2 # 指向master的ip 和 port<br>sentinel auth-pass mymaster geekymv<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#如果redis有访问密码，则必须配置sentinel auth-pass这个属性，如果不配置，sentinel启动时不会有任何报错，但监控不到Redis</span><br><span class="line">#而且很重要一点，这个属性必须在 sentinel monitor 之后，不然报错：“No such master with specified name.”</span><br></pre></td></tr></table></figure></p>
-<p>启动<br>/usr/local/redis/bin/redis-sentinel /etc/redis/sentinel.conf</p>
-<h4 id="Redis-过期策略"><a href="#Redis-过期策略" class="headerlink" title="Redis 过期策略"></a>Redis 过期策略</h4><p><a href="https://www.cnblogs.com/xuliangxing/p/7151812.html" target="_blank" rel="noopener">Redis数据过期策略详解</a><br>定时删除<br>惰性删除<br>定期删除</p>
-<p>阿里云Redis开发规范 <a href="https://yq.aliyun.com/articles/531067" target="_blank" rel="noopener">https://yq.aliyun.com/articles/531067</a></p>
-<h4 id="Redis-淘汰策略"><a href="#Redis-淘汰策略" class="headerlink" title="Redis 淘汰策略"></a>Redis 淘汰策略</h4><p>内存是有限的，如果不断的往redis里面写数据，肯定是没法放下所有数据在内存中的。<br>redis 会在数据超过一个最大限度之后，将数据进行一定的清理，</p>
-<p>maxmemory 最大可用内存<br>maxmemory policy 最大内存淘汰策略<br>根据自身业务类型，选好maxmemory-policy，设置好过期时间。</p>
-<p>默认策略是noeviction，不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息”(error) OOM command not allowed when used memory”，<br>此时Redis只响应读操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># maxmemory &lt;bytes&gt; 设置redis 用来存放数据的最大内存大小，一旦超过这个内存大小之后，就会立即使用maxmemory-policy 配置的策略清理数据。</span><br><span class="line"></span><br><span class="line"># MAXMEMORY POLICY: how Redis will select what to remove when maxmemory</span><br><span class="line"># is reached. You can select among five behaviors:</span><br><span class="line">#</span><br><span class="line"># volatile-lru -&gt; Evict using approximated LRU among the keys with an expire set. </span><br><span class="line"># 用lru算法删除过期的键值（用LRU算法，但是仅仅移除哪些指定了存活时间(TTL)的key）</span><br><span class="line"># allkeys-lru -&gt; Evict any key using approximated LRU. </span><br><span class="line"># 用lru算法删除所有的键值（就是我们常说的LRU算法，移除掉哪些最近最少使用的keys对应的数据）</span><br><span class="line"># volatile-lfu -&gt; Evict using approximated LFU among the keys with an expire set. 用lfu算法删除过期的键值</span><br><span class="line"># allkeys-lfu -&gt; Evict any key using approximated LFU. 用lfu算法删除所有的键值</span><br><span class="line"># volatile-random -&gt; Remove a random key among the ones with an expire set. 随机删除过期的键值</span><br><span class="line"># allkeys-random -&gt; Remove a random key, any key. 随机删除任何键值</span><br><span class="line"># volatile-ttl -&gt; Remove the key with the nearest expire time (minor TTL) 删除最近要到期的键值</span><br><span class="line"># noeviction -&gt; Don&apos;t evict anything, just return an error on write operations. </span><br><span class="line"># 不删除键，对于写操作只返回一个错误（如果内存达到了maxmemory，client还要继续写入数据，那么就直接给客户端报错）</span><br><span class="line">#</span><br><span class="line"># LRU means Least Recently Used 最近最少使用</span><br><span class="line"># LFU means Least Frequently Used 最不经常使用</span><br><span class="line">#</span><br><span class="line"># Both LRU, LFU and volatile-ttl are implemented using approximated</span><br><span class="line"># randomized algorithms.</span><br><span class="line">#</span><br><span class="line"># Note: with any of the above policies, Redis will return an error on write</span><br><span class="line">#       operations, when there are no suitable keys for eviction.</span><br><span class="line">#</span><br><span class="line">#       At the date of writing these commands are: set setnx setex append</span><br><span class="line">#       incr decr rpush lpush rpushx lpushx linsert lset rpoplpush sadd</span><br><span class="line">#       sinter sinterstore sunion sunionstore sdiff sdiffstore zadd zincrby</span><br><span class="line">#       zunionstore zinterstore hset hsetnx hmset hincrby incrby decrby</span><br><span class="line">#       getset mset msetnx exec sort</span><br><span class="line">#</span><br><span class="line"># The default is:</span><br><span class="line">#</span><br><span class="line"># maxmemory-policy noeviction 默认是不会删除任何数据，建议一般设置成allkeys-lru 策略比较好。</span><br></pre></td></tr></table></figure>
-<p>缓存淘汰算法</p>
-<ul>
-<li>LRU</li>
-<li>LFU</li>
-<li>FIFO<br>通常用于缓存使用量超过了预设的最大值时候（缓存空间不够），如何对现有的数据进行清理。</li>
-</ul>
-<h4 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h4><p><a href="https://mp.weixin.qq.com/s/nBS9sLSZEN28ZSd8QMZDjQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/nBS9sLSZEN28ZSd8QMZDjQ</a><br>我们在项目中使用缓存，通常都是先检查缓存是否存在，如果存在直接返回缓存内容，如果不存在则查询数据库然后缓存查询结果并返回。<br>如果我们查询的某一个数据</p>
-<h4 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h4><p><a href="https://www.infoq.cn/article/jingdongdaojia-inventory-system" target="_blank" rel="noopener">库存系统难破题？京东到家来分享</a></p>
-<h4 id="scan"><a href="#scan" class="headerlink" title="scan"></a>scan</h4><p><a href="https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b3d97d9e51d4519634f8512" target="_blank" rel="noopener">https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b3d97d9e51d4519634f8512</a><br><a href="https://juejin.im/post/5bbcc8325188255c74553ae3" target="_blank" rel="noopener">https://juejin.im/post/5bbcc8325188255c74553ae3</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/15/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-15T18:32:04+08:00">
-                2018-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1954,7 +1883,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

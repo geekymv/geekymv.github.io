@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="InstallationTip提示You can skip installation completely by using our hosted Elasticsearch Service on Elastic Cloud,which is available on AWS and GCP. You can try out the hosted service for free.你可以完全跳过安">
+<meta property="og:type" content="article">
+<meta property="og:title" content="elasticsearch-installation">
+<meta property="og:url" content="http://yoursite.com/2019/07/25/elasticsearch-installation/index.html">
+<meta property="og:site_name" content="geekymv">
+<meta property="og:description" content="InstallationTip提示You can skip installation completely by using our hosted Elasticsearch Service on Elastic Cloud,which is available on AWS and GCP. You can try out the hosted service for free.你可以完全跳过安">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_locations.png">
+<meta property="og:image" content="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_no_service.png">
+<meta property="og:image" content="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_configuration.png">
+<meta property="og:image" content="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_plugins.png">
+<meta property="og:image" content="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_success.png">
+<meta property="og:updated_time" content="2019-07-30T07:16:58.128Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="elasticsearch-installation">
+<meta name="twitter:description" content="InstallationTip提示You can skip installation completely by using our hosted Elasticsearch Service on Elastic Cloud,which is available on AWS and GCP. You can try out the hosted service for free.你可以完全跳过安">
+<meta name="twitter:image" content="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_locations.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/25/elasticsearch-installation/">
+
+
+
+
+
+  <title>elasticsearch-installation | geekymv</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">geekymv</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/elasticsearch-installation/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">elasticsearch-installation</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T16:01:07+08:00">
+                2019-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h4><p>Tip<br>提示<br>You can skip installation completely by using our hosted Elasticsearch Service on Elastic Cloud,<br>which is available on AWS and GCP. You can try out the hosted service for free.<br>你可以完全跳过安装，使用我们在Elastic Cloud 托管的Elasticsearch Service，<br>可在AWS 和 GCP 上获得，你可以免费试用托管服务。</p>
+<p>Elasticsearch requires at least Java 8. Specifically as of this writing,<br>it is recommended that you use the Oracle JDK version 1.8.0_131.<br>Java installation varies from platform to platform so we won’t go into those details here.<br>Oracle’s recommended installation documentation can be found on Oracle’s website.<br>Suffice to say, before you install Elasticsearch,<br>please check your Java version first by running (and then install/upgrade accordingly if needed):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br><span class="line">echo $JAVA_HOME</span><br></pre></td></tr></table></figure></p>
+<p>Elasticsearch 需要至少Java8，特别是撰写本文时，推荐你使用Oracle JDK1.8.0_131 版本。<br>Java安装因平台而异，因此我们在此不会详细介绍。<br>可以在Oracle 网站找到Oracle 的推荐安装文档。<br>就是说，安装Elasticsearch 之前，请先运行<code>java -version</code>检查Java版本。</p>
+<p>Once we have Java set up, we can then download and run Elasticsearch.<br>The binaries are available from <a href="http://www.elastic.co/downloads" target="_blank" rel="noopener">www.elastic.co/downloads</a> along with all the releases that have been made in the past.<br>For each release, you have a choice among a zip or tar archive, a DEB or RPM package, or a Windows MSI installation package.<br>一旦我们安装了Java，我们可以下载并运行Elasticsearch。<br>从<a href="http://www.elastic.co/downloads" target="_blank" rel="noopener">www.elastic.co/downloads</a> 可以获得在过去已经发布的所有版本的二进制文件。<br>对于每个版本，你可以选择zip 或 tar，DEB 或 RPM包，或 Windows MSI 安装包。</p>
+<h4 id="Installation-example-with-tar"><a href="#Installation-example-with-tar" class="headerlink" title="Installation example with tar"></a>Installation example with tar</h4><p>tar 安装示例</p>
+<p>For simplicity, let’s use the tar file.<br>为简单起见，我们使用tar文件。<br>Let’s download the Elasticsearch 6.5.4 tar as follows:<br>我们按如下方式下载 Elasticsearch 6.5.4：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>Then extract it as follows:<br>然后解压如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf elasticsearch-6.5.4.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>It will then create a bunch of files and folders in your current directory. We then go into the bin directory as follows:<br>它将在当前目录创建一堆文件和目录。然后我们进入到bin目录，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd elasticsearch-6.5.4/bin</span><br></pre></td></tr></table></figure>
+<p>And now we are ready to start our node and single cluster:<br>现在，我们准备启动节点和单个集群：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./elasticsearch</span><br></pre></td></tr></table></figure></p>
+<h4 id="Installation-with-Homebrew"><a href="#Installation-with-Homebrew" class="headerlink" title="Installation with Homebrew"></a>Installation with Homebrew</h4><p>使用Homebrew 安装<br>On macOS, Elasticsearch can also be installed via Homebrew:<br>在Mac系统，可以通过Homebrew 安装Elasticsearch：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install elasticsearch</span><br></pre></td></tr></table></figure></p>
+<p>If installation succeeds, Homebrew will finish by saying that you can start Elasticsearch by entering <code>elasticsearch</code>.<br>Do that now. The expected response is described below, under Successfully running node.<br>如果安装成功，Homebrew 将完成通过说你可以通过输入 elasticsearch 启动Elasticsearch。<br>现在就这样做，在成功运行节点下，下面描述了预期的响应。</p>
+<h4 id="Installation-example-with-MSI-Windows-Installer"><a href="#Installation-example-with-MSI-Windows-Installer" class="headerlink" title="Installation example with MSI Windows Installer"></a>Installation example with MSI Windows Installer</h4><p>MSI Windows Installer 的安装示例：</p>
+<p>For Windows users, we recommend using the MSI Installer package.<br>The package contains a graphical user interface (GUI) that guides you through the installation process.<br>对于Windows 用户，我们推荐使用MSI 安装程序包。<br>该软件包包含一个用户图形界面（GUI），可指导你完成安装过程。</p>
+<p>First, download the Elasticsearch 6.5.4 MSI from <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.msi" target="_blank" rel="noopener">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.msi</a>.<br>首先，从<a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.msi" target="_blank" rel="noopener">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.msi</a>. 下载Elasticsearch 6.5.4 MSI。</p>
+<p>Then double-click the downloaded file to launch the GUI.<br>Within the first screen, select the deployment directories:<br>然后双击下载的文件以启动GUI。<br>在第一个屏幕中，现在部署目录：<br><img src="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_locations.png" alt="msi_installer_locations"></p>
+<p>Then select whether to install as a service or start Elasticsearch manually as needed.<br>To align with the tar example, choose not to install as a service:<br>然后选择是作为服务安装还是根据需要手动启动Elasticsearch。<br>为了与tar示例一致，选择不作为服务安装。<br><img src="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_no_service.png" alt="msi_installer_no_service"></p>
+<p>For configuration, simply leave the default values:<br>对于配置，只需保留默认值：<br><img src="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_configuration.png" alt="msi_installer_configuration"></p>
+<p>Again, to align with the tar example, uncheck all plugins to not install any plugins:<br>再次为了与tar示例一致，取消选中所有插件不安装任何插件：<br><img src="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_plugins.png" alt="msi_installer_plugins"></p>
+<p>After clicking the install button, Elasticsearch will be installed:<br>点击安装按钮之后，将安装Elasticsearch：<br><img src="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/images/msi_installer/msi_installer_success.png" alt="msi_installer_success"></p>
+<p>By default, Elasticsearch will be installed at %PROGRAMFILES%\Elastic\Elasticsearch.<br>Navigate here and go into the bin directory as follows:<br>默认情况下，Elasticsearch 将被安装在%PROGRAMFILES%\Elastic\Elasticsearch 目录。<br>进入bin目录，如下所示：</p>
+<p>with Command Prompt:<br>使用命令提示符：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd %PROGRAMFILES%\Elastic\Elasticsearch\bin</span><br></pre></td></tr></table></figure></p>
+<p>使用PowerShell<br>with PowerShell:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd $env:PROGRAMFILES\Elastic\Elasticsearch\bin</span><br></pre></td></tr></table></figure></p>
+<p>And now we are ready to start our node and single cluster:<br>现在，我们准备启动节点和单个集群：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\elasticsearch.exe</span><br></pre></td></tr></table></figure></p>
+<h4 id="Successfully-running-node"><a href="#Successfully-running-node" class="headerlink" title="Successfully running node"></a>Successfully running node</h4><p>成功运行节点<br>If everything goes well with installation, you should see a bunch of messages that look like below:<br>如果一切顺利安装，你应该看到一堆如下所示的消息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[2016-09-16T14:17:51,251][INFO ][o.e.n.Node               ] [] initializing ...</span><br><span class="line">[2016-09-16T14:17:51,329][INFO ][o.e.e.NodeEnvironment    ] [6-bjhwl] using [1] data paths, mounts [[/ (/dev/sda1)]], net usable_space [317.7gb], net total_space [453.6gb], spins? [no], types [ext4]</span><br><span class="line">[2016-09-16T14:17:51,330][INFO ][o.e.e.NodeEnvironment    ] [6-bjhwl] heap size [1.9gb], compressed ordinary object pointers [true]</span><br><span class="line">[2016-09-16T14:17:51,333][INFO ][o.e.n.Node               ] [6-bjhwl] node name [6-bjhwl] derived from node ID; set [node.name] to override</span><br><span class="line">[2016-09-16T14:17:51,334][INFO ][o.e.n.Node               ] [6-bjhwl] version[6.5.4], pid[21261], build[f5daa16/2016-09-16T09:12:24.346Z], OS[Linux/4.4.0-36-generic/amd64], JVM[Oracle Corporation/Java HotSpot(TM) 64-Bit Server VM/1.8.0_60/25.60-b23]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [aggs-matrix-stats]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [ingest-common]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [lang-expression]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [lang-mustache]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [lang-painless]</span><br><span class="line">[2016-09-16T14:17:51,967][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [percolator]</span><br><span class="line">[2016-09-16T14:17:51,968][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [reindex]</span><br><span class="line">[2016-09-16T14:17:51,968][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [transport-netty3]</span><br><span class="line">[2016-09-16T14:17:51,968][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded module [transport-netty4]</span><br><span class="line">[2016-09-16T14:17:51,968][INFO ][o.e.p.PluginsService     ] [6-bjhwl] loaded plugin [mapper-murmur3]</span><br><span class="line">[2016-09-16T14:17:53,521][INFO ][o.e.n.Node               ] [6-bjhwl] initialized</span><br><span class="line">[2016-09-16T14:17:53,521][INFO ][o.e.n.Node               ] [6-bjhwl] starting ...</span><br><span class="line">[2016-09-16T14:17:53,671][INFO ][o.e.t.TransportService   ] [6-bjhwl] publish_address &#123;192.168.8.112:9300&#125;, bound_addresses &#123;&#123;192.168.8.112:9300&#125;</span><br><span class="line">[2016-09-16T14:17:53,676][WARN ][o.e.b.BootstrapCheck     ] [6-bjhwl] max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]</span><br><span class="line">[2016-09-16T14:17:56,718][INFO ][o.e.c.s.ClusterService   ] [6-bjhwl] new_master &#123;6-bjhwl&#125;&#123;6-bjhwl4TkajjoD2oEipnQ&#125;&#123;8m3SNKoFR6yQl1I0JUfPig&#125;&#123;192.168.8.112&#125;&#123;192.168.8.112:9300&#125;, reason: zen-disco-elected-as-master ([0] nodes joined)</span><br><span class="line">[2016-09-16T14:17:56,731][INFO ][o.e.h.HttpServer         ] [6-bjhwl] publish_address &#123;192.168.8.112:9200&#125;, bound_addresses &#123;[::1]:9200&#125;, &#123;192.168.8.112:9200&#125;</span><br><span class="line">[2016-09-16T14:17:56,732][INFO ][o.e.g.GatewayService     ] [6-bjhwl] recovered [0] indices into cluster_state</span><br></pre></td></tr></table></figure></p>
+<p>Without going too much into detail, we can see that our node named “6-bjhwl” (which will be a different set of characters in your case)<br>has started and elected itself as a master in a single cluster.<br>Don’t worry yet at the moment what master means.<br>The main thing that is important here is that we have started one node within one cluster.<br>没有太多细节，我们可以看到名为”6-bjhwl”的节点（在你的情况下，可能是不同的字符串）已经启动并且选择自己作为单个集群中的master。<br>现在不用担心master意味着什么。 这里最重要的是我们在集群中启动了一个节点。</p>
+<p>As mentioned previously, we can override either the cluster or node name.<br>This can be done from the command line when starting Elasticsearch as follows:<br>如前所述，我们可以覆盖集群或节点名称。<br>这可以在启动Elasticsearch 的命令行完成，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./elasticsearch -Ecluster.name=my_cluster_name -Enode.name=my_node_name</span><br></pre></td></tr></table></figure></p>
+<p>Also note the line marked http with information about the HTTP address (192.168.8.112)<br>and port (9200) that our node is reachable from.<br>By default, Elasticsearch uses port 9200 to provide access to its REST API. This port is configurable if necessary.<br>另外请注意标有http的行，其中包含有关我们的节点是可以访问的http地址(192.168.8.112) 和端口（9200）的信息。<br>默认情况下，Elasticsearch 使用9200端口提供访问它的REST API。如果需要，这个端口是可配置的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/23/centos7/" rel="next" title="centos7">
+                <i class="fa fa-chevron-left"></i> centos7
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/25/elasticsearch-exploring-your-cluster/" rel="prev" title="elasticsearch-exploring-your-cluster">
+                elasticsearch-exploring-your-cluster <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">geekymv</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Installation"><span class="nav-number">1.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Installation-example-with-tar"><span class="nav-number">2.</span> <span class="nav-text">Installation example with tar</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Installation-with-Homebrew"><span class="nav-number">3.</span> <span class="nav-text">Installation with Homebrew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Installation-example-with-MSI-Windows-Installer"><span class="nav-number">4.</span> <span class="nav-text">Installation example with MSI Windows Installer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Successfully-running-node"><span class="nav-number">5.</span> <span class="nav-text">Successfully running node</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">geekymv</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
