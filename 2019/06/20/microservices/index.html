@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="从面试题开始什么是微服务？微服务之间是如何独立通讯的？springcloud 和 dubbo 有哪些区别？springboot 和 springcloud，请谈谈对他们的理解什么是服务熔断？什么是服务降级？微服务的优缺点分别是什么？说下你在项目开发中碰到的坑你所知道的微服务技术栈有哪些？请举例一二eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别 微服务是什么？就">
+<meta name="description" content="从面试题开始什么是微服务？微服务之间是如何独立通讯的？springcloud 和 dubbo 有哪些区别？springboot 和 springcloud，请谈谈对他们的理解什么是服务熔断？什么是服务降级？微服务的优缺点分别是什么？说下你在项目开发中碰到的坑你所知道的微服务技术栈有哪些？请举例一二eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MicroServices">
 <meta property="og:url" content="http://yoursite.com/2019/06/20/microservices/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="从面试题开始什么是微服务？微服务之间是如何独立通讯的？springcloud 和 dubbo 有哪些区别？springboot 和 springcloud，请谈谈对他们的理解什么是服务熔断？什么是服务降级？微服务的优缺点分别是什么？说下你在项目开发中碰到的坑你所知道的微服务技术栈有哪些？请举例一二eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别 微服务是什么？就">
+<meta property="og:description" content="从面试题开始什么是微服务？微服务之间是如何独立通讯的？springcloud 和 dubbo 有哪些区别？springboot 和 springcloud，请谈谈对他们的理解什么是服务熔断？什么是服务降级？微服务的优缺点分别是什么？说下你在项目开发中碰到的坑你所知道的微服务技术栈有哪些？请举例一二eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-20T10:41:00.853Z">
+<meta property="og:updated_time" content="2019-08-01T07:51:57.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MicroServices">
-<meta name="twitter:description" content="从面试题开始什么是微服务？微服务之间是如何独立通讯的？springcloud 和 dubbo 有哪些区别？springboot 和 springcloud，请谈谈对他们的理解什么是服务熔断？什么是服务降级？微服务的优缺点分别是什么？说下你在项目开发中碰到的坑你所知道的微服务技术栈有哪些？请举例一二eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别 微服务是什么？就">
+<meta name="twitter:description" content="从面试题开始什么是微服务？微服务之间是如何独立通讯的？springcloud 和 dubbo 有哪些区别？springboot 和 springcloud，请谈谈对他们的理解什么是服务熔断？什么是服务降级？微服务的优缺点分别是什么？说下你在项目开发中碰到的坑你所知道的微服务技术栈有哪些？请举例一二eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别">
 
 
 
@@ -299,7 +299,7 @@
       
 
       
-        <h4 id="从面试题开始"><a href="#从面试题开始" class="headerlink" title="从面试题开始"></a>从面试题开始</h4><p>什么是微服务？<br>微服务之间是如何独立通讯的？<br>springcloud 和 dubbo 有哪些区别？<br>springboot 和 springcloud，请谈谈对他们的理解<br>什么是服务熔断？什么是服务降级？<br>微服务的优缺点分别是什么？说下你在项目开发中碰到的坑<br>你所知道的微服务技术栈有哪些？请举例一二<br>eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别</p>
+        <h4 id="从面试题开始"><a href="#从面试题开始" class="headerlink" title="从面试题开始"></a>从面试题开始</h4><p>什么是微服务？<br>微服务之间是如何独立通讯的？<br>springcloud 和 dubbo 有哪些区别？<br>springboot 和 springcloud，请谈谈对他们的理解<br>什么是服务熔断？什么是服务降级？<br>微服务的优缺点分别是什么？说下你在项目开发中碰到的坑<br>你所知道的微服务技术栈有哪些？请举例一二<br>eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别<br><a id="more"></a></p>
 <h4 id="微服务是什么？"><a href="#微服务是什么？" class="headerlink" title="微服务是什么？"></a>微服务是什么？</h4><p>就目前而言，对于微服务业界并没有一个统一的、标准的定义。<br>但通常而言，微服务架构是一种架构模式或者说是一种架构风格，它是将单一应用程序分成一组小的服务，每个服务运行在其独立的自己的进程中，<br>服务之间互相协调、互相配合，为用户提供最终价值。服务之间采用轻量级的通信机制互相沟通（通常是基于HTTP的RESTful API）。每个服务<br>都围绕着具体业务进行构建，并且能够被独立地部署到生产环境、类生产环境等。另外，应尽量避免统一的、集中式的服务管理机制，对具体的一个<br>服务而言，应根据业务上下文，选择合适的语言、工具对其进行构建，可以有一个非常轻量级的集中式管理来协调这些服务，可以使用不同的语言来<br>编写服务，也可以使用不同的数据存储。</p>
 <p>单机版：All In One，在工作空间中只有一个工程；<br>分布式：专业的事情交给专业的人做，尽量降低耦合度；</p>
 <p>Dubbo 通信机制是RPC，Spring Cloud 的通信机制是基于HTTP 的RESTful API。</p>
@@ -367,8 +367,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/18/mq/" rel="next" title="mq">
-                <i class="fa fa-chevron-left"></i> mq
+              <a href="/2019/06/20/springcloud/" rel="next" title="MicroServices">
+                <i class="fa fa-chevron-left"></i> MicroServices
               </a>
             
           </div>
@@ -377,8 +377,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/20/springcloud/" rel="prev" title="MicroServices">
-                MicroServices <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/27/wireshark/" rel="prev" title="wireshark">
+                wireshark <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

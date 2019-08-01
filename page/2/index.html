@@ -421,17 +421,19 @@
 
       
         
-          
-            <p><a href="https://www.infoq.cn/article/java-interrupt-mechanism" target="_blank" rel="noopener">https://www.infoq.cn/article/java-interrupt-mechanism</a></p>
+          <p><a href="https://www.infoq.cn/article/java-interrupt-mechanism" target="_blank" rel="noopener">https://www.infoq.cn/article/java-interrupt-mechanism</a></p>
 <p>Java中断机制是一种协作机制，也就是说通过中断只是设置线程的中断状态，并不能直接终止另一个线程，而需要被中断的线程自己去检查中断状态然后做相应处理。<br>甚至可以不理会该请求，就像这个线程没有被中断一样。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static boolean interrupted() &#123;</span><br><span class="line">    return currentThread().isInterrupted(true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>测试当前线程是否已经中断。线程的中断状态由该方法清除。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public boolean isInterrupted() &#123;</span><br><span class="line">    return isInterrupted(false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>测试线程是否已经中断。线程的中断状态不受该方法影响。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public void interrupt() &#123;</span><br><span class="line">    if (this != Thread.currentThread())</span><br><span class="line">        checkAccess();</span><br><span class="line"></span><br><span class="line">    synchronized (blockerLock) &#123;</span><br><span class="line">        Interruptible b = blocker;</span><br><span class="line">        if (b != null) &#123;</span><br><span class="line">            interrupt0();           // Just to set the interrupt flag</span><br><span class="line">            b.interrupt(this);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    interrupt0();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>中断线程，interrupt() 方法是唯一能将中断状态设置为true的方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line">public class InterruptTest &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        Thread t1 = new Thread(()-&gt; &#123;</span><br><span class="line">            while (true) &#123;</span><br><span class="line">                if(Thread.interrupted()) &#123;</span><br><span class="line">                    System.out.println(&quot;线程被中断&quot;);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(&quot;................&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        t1.start();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(1);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 中断 t1线程</span><br><span class="line">        t1.interrupt();</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(1);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            Thread.currentThread().interrupt();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;主线程结束&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/12/thread-interrupt/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -667,39 +669,18 @@
 
       
         
-          
-            <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/getting-started-concepts.html#getting-started-concepts" target="_blank" rel="noopener">Basic Concepts</a><br>There are a few concepts that are core to Elasticsearch.<br>Understanding these concepts from the outset will tremendously help ease the learning process.<br>Elasticsearch 的核心概念，从一开始就理解这些概念将极大地帮助简化学习过程。</p>
-<p>Near Realtime (NRT)<br>近实时<br>Elasticsearch is a near-realtime search platform.<br>What this means is there is a slight latency (normally one second)<br>from the time you index a document until the time it becomes searchable.<br>Elasticsearch 是一个近实时的搜索平台，这意味着从搜索文档到可搜索文档的时间有一点延迟（通常是1s）。</p>
-<p>Cluster<br>集群<br>A cluster is a collection of one or more nodes (servers) that together holds your entire data<br>and provides federated indexing and search capabilities across all nodes.<br>A cluster is identified by a unique name which by default is “elasticsearch”.<br>This name is important because a node can only be part of a cluster if the node is set up to join the cluster by its name.<br>集群是一个或更多节点（服务器）的集合，它们共同保存你的整个数据，并通过所有节点提供联合索引和搜索功能。<br>集群由唯一名称标识，默认情况下为”elasticsearch”。这个名称很重要，因为如果节点设置为按名称加入集群，则该节点只能是集群的一部分。</p>
-<p>Make sure that you don’t reuse the same cluster names in different environments,<br>otherwise you might end up with nodes joining the wrong cluster.<br>For instance you could use logging-dev, logging-stage, and logging-prod for the development, staging, and production clusters.<br>确保你没有在不同环境重用相同集群名称，否则你可能将节点加入错误的集群。<br>例如，你可以使用logging-dev、logging-stage 和 logging-prod 用于开发、stage和生产集群。</p>
-<p>Note that it is valid and perfectly fine to have a cluster with only a single node in it.<br>Furthermore, you may also have multiple independent clusters each with its own unique cluster name.<br>注意，一个集群只有一个节点是完全正常的。此外，你还可以有多个独立的集群，每个集群有自己唯一的集群名称。</p>
-<p>Node<br>节点<br>A node is a single server that is part of your cluster, stores your data,<br>and participates in the cluster’s indexing and search capabilities. Just like a cluster,<br>a node is identified by a name which by default is a random Universally Unique IDentifier (UUID)<br>that is assigned to the node at startup.<br>You can define any node name you want if you do not want the default.<br>This name is important for administration purposes where you want to<br>identify which servers in your network correspond to which nodes in your Elasticsearch cluster.<br>一个节点是作为集群一部分的单个服务器，存储数据，并且参与集群索引和搜索功能。<br>像集群一样，一个节点是通过名称唯一标识，默认是一个随机的UUID，在节点启动的时候分配给节点。<br>如果你不想使用默认的，你可以定义你需要的的任何节点名称。<br>这个名称对于管理目的很重要，你可以识别网络中的哪些服务器与Elasticsearch 集群中的哪些节点相对应。</p>
-<p>A node can be configured to join a specific cluster by the cluster name.<br>By default, each node is set up to join a cluster named elasticsearch which means that if you start up a number of<br>nodes on your network and—​assuming they can discover each other—​they will all automatically<br>form and join a single cluster named elasticsearch.<br>一个节点可以通过配置集群名称加入到一个指定的集群。<br>默认情况下，每个节点设置为加入集群名为elasticsearch 的集群，这意味着如果启动了多个网络上的节点-假设它们可以发现彼此-他们将自动完成组成<br>并加入名为elasticsearch 的单个集群。</p>
-<p>In a single cluster, you can have as many nodes as you want.<br>Furthermore, if there are no other Elasticsearch nodes currently running on your network,<br>starting a single node will by default form a new single-node cluster named elasticsearch.<br>在单个集群，你可以有任意多的节点。此外，如果当前运行在你的网络中没有其他Elasticsearch 节点，<br>默认情况下，启动一个单节点将形成一个名为elasticsearch 的新单节点集群。</p>
-<p>Index<br>索引<br>An index is a collection of documents that have somewhat similar characteristics.<br>For example, you can have an index for customer data, another index for a product catalog,<br>and yet another index for order data. An index is identified by a name (that must be all lowercase)<br>and this name is used to refer to the index when performing indexing, search, update, and delete operations against the documents in it.<br>索引是具有某些相似特征的文档(document)集合。<br>例如，你可以有客户数据的索引，产品目录的索引，还有另一个订单数据的索引。<br>一个索引通过名称（必须全部小写）唯一标识。<br>并且这个名称是用于在对其中的文档执行索引、搜索、更新和删除操作时引用索引。</p>
-<p>In a single cluster, you can define as many indexes as you want.<br>在单个集群中，你可以定义任意多的索引。</p>
-<p>Type<br>类型<br>Warning<br>Deprecated in 6.0.0.<br>See Removal of mapping types<br>在6.0.0中被废弃。</p>
-<p>A type used to be a logical category/partition of your index to allow you to<br>store different types of documents in the same index, e.g. one type for users,<br>another type for blog posts.<br>It is no longer possible to create multiple types in an index,<br>and the whole concept of types will be removed in a later version. See Removal of mapping types for more.<br>一个类型(type)曾经是索引的一个逻辑类别/分区，允许你在同一个索引(index)中存储不同类型的文档(document)，<br>例如，一个用户类型，另一个博客文章类型。<br>在一个索引中不能创建多个类型，并且在以后的版本中类型概念将被移除。</p>
-<p>Document<br>文档<br>A document is a basic unit of information that can be indexed.<br>For example, you can have a document for a single customer, another document for a single product,<br>and yet another for a single order. This document is expressed in JSON (JavaScript Object Notation)<br>which is a ubiquitous internet data interchange format.<br>文档是可以建立索引的基本信息单元。<br>例如，你可以为单个客户创建一个文档(document)，为单个产品创建一个文档(document)，还有单个订单。<br>这个文档(document)用JSON表示（这是一种无处不在的互联网数据交换格式）。</p>
-<p>Within an index/type, you can store as many documents as you want.<br>Note that although a document physically resides in an index,<br>a document actually must be indexed/assigned to a type inside an index.<br>在索引/类型中，可以存储任意类型的文档。<br>注意，尽管文档实际上位于索引中，文档实际上必须被索引/分配 给索引中的类型。</p>
-<p>Shards &amp; Replicas<br>分片和副本<br>An index can potentially store a large amount of data that can exceed the hardware limits of a single node.<br>For example, a single index of a billion documents taking up 1TB of disk space may not fit on the disk<br>of a single node or may be too slow to serve search requests from a single node alone.<br>索引可能存储大量的数据，可能超过单节点的硬盘限制。<br>例如，占用1TB磁盘空间的十亿文档的单索引可能不适合在单节点的磁盘，或者可能对于单节点服务搜索请求会太慢。</p>
-<p>To solve this problem, Elasticsearch provides the ability to subdivide your index into multiple pieces called shards.<br>When you create an index, you can simply define the number of shards that you want.<br>Each shard is in itself a fully-functional and independent “index” that can be hosted on any node in the cluster.<br>为了解决这个问题，Elasticsearch 提供了拆分索引成多个片的功能叫作分片(shards)。<br>当你创建一个索引的时候，你可以定义你想要的分片数量。<br>每个分片本身都是功能齐全且独立的索引，可以托管在集群中的任何节点上。</p>
-<p>Sharding is important for two primary reasons:<br>分片之所以重要，主要有两个原因：</p>
-<p>It allows you to horizontally split/scale your content volume<br>It allows you to distribute and parallelize operations across shards (potentially on multiple nodes) thus increasing performance/throughput<br>允许你水平拆分/扩展你的数据<br>允许你跨分片(可能在多个节点)分布和并行操作，从而提升性能/吞吐量</p>
-<p>The mechanics of how a shard is distributed and also how its documents are aggregated back into search requests<br>are completely managed by Elasticsearch and is transparent to you as the user.<br>分片如何分布以及如何将其文档聚合回搜索请求的机制完全由Elasticsearch 管理，对用户来说是透明的。</p>
-<p>In a network/cloud environment where failures can be expected anytime, it is very useful and highly recommended to<br>have a failover mechanism in case a shard/node somehow goes offline or disappears for whatever reason.<br>To this end, Elasticsearch allows you to make one or more copies<br>of your index’s shards into what are called replica shards, or replicas for short.<br>在一个网络/云环境中可能随时出现故障，这是非常有用并且强烈推荐有一个失败转移机制，以防一个分片/节点由于某种原因离线或消失。<br>为此，Elasticsearch 允许你创建一个或多个复制索引分片，被称作副本分片，或简称副本。</p>
-<p>Replication is important for two primary reasons:<br>副本之所以重要，主要有两个原因：</p>
-<p>It provides high availability in case a shard/node fails. For this reason,<br>it is important to note that a replica shard is never allocated on the same node as the original/primary shard that it was copied from.<br>It allows you to scale out your search volume/throughput since searches can be executed on all replicas in parallel.<br>它在一个分片/节点出现故障时提供高可用，为此原因，请务必注意，一个副本分片从不与它复制的源/主分配(original/primary shard)分配在同一节点上。<br>它允许你扩展搜索量/吞吐量，因为可以在所有副本上并行执行搜索。</p>
-<p>To summarize, each index can be split into multiple shards. An index can also be replicated zero (meaning no replicas) or more times.<br>Once replicated, each index will have primary shards (the original shards that were replicated from) and replica shards (the copies of the primary shards).<br>总结，每个索引可以被拆分成多个分片，一个索引可以被复制零（意味着没有副本）或多次。<br>复制后，每个索引将具有主分片(primary shards，从中复制的原始分片)和副本分片(replica shards，主分片的副本)。</p>
-<p>The number of shards and replicas can be defined per index at the time the index is created.<br>After the index is created, you may also change the number of replicas dynamically anytime.<br>You can change the number of shards for an existing index using the _shrink and _split APIs,<br>however this is not a trivial task and pre-planning for the correct number of shards is the optimal approach.<br>在创建索引的时候，分片和副本的数量可以自定义。索引被创建之后，你也可以在任何时候动态的改变副本数量。<br>对于已存在的索引，你可以使用_shrink 和 _split API改变分片数量，<br>然而，这不是一个微不足道的任务，预先规划正确数量的分片是最佳方法。</p>
-<p>By default, each index in Elasticsearch is allocated 5 primary shards and 1 replica which means that<br>if you have at least two nodes in your cluster, your index will have 5 primary shards<br>and another 5 replica shards (1 complete replica) for a total of 10 shards per index.<br>默认情况下，Elasticsearch 中的每个索引分配了5个主分片和1个副本，这意味着如果在你的集群中至少2个节点，<br>你的索引将有5个主分片和另外5个副本分片（1个完整副本），每个索引总共有10个分片。</p>
-<p>Each Elasticsearch shard is a Lucene index.<br>There is a maximum number of documents you can have in a single Lucene index.<br>As of LUCENE-5843, the limit is 2,147,483,519 (= Integer.MAX_VALUE - 128) documents.<br>You can monitor shard sizes using the _cat/shards API.<br>每个Elasticsearch 分片都是Lucene 索引。<br>在单个Lucene 索引上包含最多文档，在LUCENE-5843中，限制为2,147,483,519 (= Integer.MAX_VALUE - 128) 个文档。<br>你可以使用_cat/shards API 监控分片大小。</p>
-<p>With that out of the way, let’s get started with the fun part…​<br>有了这个，让我们开始有趣的部分…</p>
-
-          
+          <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.5/getting-started-concepts.html#getting-started-concepts" target="_blank" rel="noopener">Basic Concepts</a><br>There are a few concepts that are core to Elasticsearch.<br>Understanding these concepts from the outset will tremendously help ease the learning process.<br>Elasticsearch 的核心概念，从一开始就理解这些概念将极大地帮助简化学习过程。</p>
+<p>Near Realtime (NRT)<br>近实时<br>Elasticsearch is a near-realtime search platform.<br>What this means is there is a slight latency (normally one second)<br>from the time you index a document until the time it becomes searchable.<br>Elasticsearch 是一个近实时的搜索平台，这意味着从搜索文档到可搜索文档的时间有一点延迟（通常是1s）。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/09/elasticsearch-basic-concepts/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -813,20 +794,19 @@
 
       
         
-          
-            <p>Getting Started<br>入门</p>
+          <p>Getting Started<br>入门</p>
 <p>Elasticsearch is a highly scalable open-source full-text search and analytics engine.<br>It allows you to store, search, and analyze big volumes of data quickly and in near real time.<br>It is generally used as the underlying engine/technology<br>that powers applications that have complex search features and requirements.<br>Elasticsearch 是一个高度可扩展的开源全文搜索和分析引擎。它允许你快速且近实时地存储、搜索、分析大量数据。<br>它通常用于底层引擎/技术，为具有复杂搜索功能和要求的应用程序提供支持。</p>
-<p>Here are a few sample use-cases that Elasticsearch could be used for:<br>Elasticsearch 使用案例</p>
-<p>You run an online web store where you allow your customers to search for products that you sell.<br>In this case, you can use Elasticsearch to store your entire product catalog and inventory and<br>provide search and autocomplete suggestions for them.<br>你运行一个在线网上商店，允许你的客户搜索您售卖的产品。在这种情况下，你可以使用Elasticsearch 存储所有产品目录和库存，<br>为他们提供搜索和自动填充建议。</p>
-<p>You want to collect log or transaction data and you want to analyze and mine this data to look for trends,<br>statistics, summarizations, or anomalies.<br>In this case, you can use Logstash (part of the Elasticsearch/Logstash/Kibana stack) to collect, aggregate,<br>and parse your data, and then have Logstash feed this data into Elasticsearch.<br>Once the data is in Elasticsearch, you can run searches and aggregations to mine any information that is of interest to you.<br>你想收集日志或交易数据，并且想要分析和挖掘这些数据以查找趋势，统计，总结或异常。在这种情况下，<br>你可以使用Logstash（Elasticsearch/Logstash/Kibana 栈的一部分）来收集，聚合，并解析你的数据，然后使用Logstash 将数据提供给Elasticsearch。<br>一旦这些数据在Elasticsearch，你就可以运行搜索和聚合来挖掘任何你感兴趣的信息。</p>
-<p>You run a price alerting platform which allows price-savvy customers to specify a rule<br>like “I am interested in buying a specific electronic gadget<br>and I want to be notified if the price of gadget falls below $X from any vendor within the next month”.<br>In this case you can scrape vendor prices, push them into Elasticsearch<br>and use its reverse-search (Percolator) capability to match price movements against customer queries<br>and eventually push the alerts out to the customer once matches are found.<br>你运行一个价格提醒平台，允许精通价格的客户指定一个规则类似<br>“我有兴趣购买特定的电子产品，如果产品价格在下个月内从任何供应商的价格降到$X 以下，我希望收到通知”。<br>并使用其反向搜索（过滤器）功能来匹配价格变动与客户查询，一旦找到匹配项，最终将会通知推送给客户。</p>
-<p>You have analytics/business-intelligence needs and want to quickly investigate, analyze, visualize,<br>and ask ad-hoc questions on a lot of data (think millions or billions of records).<br>In this case, you can use Elasticsearch to store your data<br>and then use Kibana (part of the Elasticsearch/Logstash/Kibana stack) to build custom dashboards<br>that can visualize aspects of your data that are important to you.<br>Additionally, you can use the Elasticsearch aggregations functionality<br>to perform complex business intelligence queries against your data.<br>你有分析/商业智能需求，并希望快速调查、分析、可视化，并就大量数据提出问题（认为数百万或数十亿条记录）。<br>在这种情况下，你可以使用Elasticsearch 存储你的数据，然后使用Kibana（Elasticsearch/Logstash/Kibana 栈的一部分）构建<br>自定义仪表盘，可以显示对你来说重要的数据特征。</p>
-<p>For the rest of this tutorial, you will be guided through the process of getting Elasticsearch up and running,<br>taking a peek inside it, and performing basic operations like indexing, searching, and modifying your data.<br>At the end of this tutorial, you should have a good idea of what Elasticsearch is,<br>how it works, and hopefully be inspired to see how you can use it<br>to either build sophisticated search applications or to mine intelligence from your data.<br>在教程的剩余部分，将引导你完成启动和运行Elasticsearch，深入了解它，并执行基本的操作如索引、搜索、修改你的数据。<br>在教程结束时，你应该对Elasticsearch 有所了解，它是如何工作的，并希望受到启发，你可以怎样使用它构建复杂的搜索应用程序<br>或从数据中挖掘智能。</p>
-
-          
+<p>Here are a few sample use-cases that Elasticsearch could be used for:<br>Elasticsearch 使用案例<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/09/elasticsearch-getting-started/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -940,17 +920,19 @@
 
       
         
-          
-            <p>下载kibana<br>wget <a href="https://artifacts.elastic.co/downloads/kibana/kibana-6.5.4-linux-x86_64.tar.gz" target="_blank" rel="noopener">https://artifacts.elastic.co/downloads/kibana/kibana-6.5.4-linux-x86_64.tar.gz</a></p>
+          <p>下载kibana<br>wget <a href="https://artifacts.elastic.co/downloads/kibana/kibana-6.5.4-linux-x86_64.tar.gz" target="_blank" rel="noopener">https://artifacts.elastic.co/downloads/kibana/kibana-6.5.4-linux-x86_64.tar.gz</a></p>
 <p>解压<br>tar -zxvf kibana-6.5.4-linux-x86_64.tar.gz -C /usr/local/software/</p>
-<p>修改配置<br>vim config/kibana.yml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># Kibana is served by a back end server. This setting specifies the port to use.</span><br><span class="line">server.port: 5601</span><br><span class="line"></span><br><span class="line"># Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.</span><br><span class="line"># The default is &apos;localhost&apos;, which usually means remote machines will not be able to connect.</span><br><span class="line"># To allow connections from remote users, set this parameter to a non-loopback address.</span><br><span class="line">server.host: &quot;node02&quot;</span><br><span class="line"></span><br><span class="line"># The Kibana server&apos;s name.  This is used for display purposes.</span><br><span class="line">server.name: &quot;node02&quot;</span><br><span class="line"></span><br><span class="line"># The URL of the Elasticsearch instance to use for all your queries.</span><br><span class="line">elasticsearch.url: &quot;http://node02:9200&quot;</span><br><span class="line"></span><br><span class="line"># Kibana uses an index in Elasticsearch to store saved searches, visualizations and</span><br><span class="line"># dashboards. Kibana creates a new index if the index doesn&apos;t already exist.</span><br><span class="line">kibana.index: &quot;.kibana&quot;</span><br></pre></td></tr></table></figure></p>
-<p>启动<br>bin/kibana</p>
-<p>相关文章<br><a href="https://www.cnblogs.com/ding2016/p/9700592.html" target="_blank" rel="noopener">https://www.cnblogs.com/ding2016/p/9700592.html</a><br><a href="https://blog.csdn.net/liukuan73/article/details/52635602" target="_blank" rel="noopener">https://blog.csdn.net/liukuan73/article/details/52635602</a></p>
-
-          
+<p>修改配置<br>vim config/kibana.yml<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/08/kibana/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -1064,20 +1046,20 @@
 
       
         
-          
-            <h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><p><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik</a></p>
+          <h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><p><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik</a></p>
 <p>从elasticsearch 的release中选择对应的ik版本，进行下载<br>wget <a href="https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.5.4/elasticsearch-analysis-ik-6.5.4.zip" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.5.4/elasticsearch-analysis-ik-6.5.4.zip</a></p>
 <p>在elasticsearch 安装目录下创建目录<br>mkdir -p /usr/local/software/elasticsearch-6.5.4/plugins/ik</p>
-<p>将elasticsearch-analysis-ik-6.5.4.zip 解压到ik 目录下<br>unzip -d /usr/local/software/elasticsearch-6.5.4/plugins/ik elasticsearch-analysis-ik-6.5.4.zip</p>
-<p>同步到其他节点<br>scp -r /usr/local/software/elasticsearch-6.5.4/plugins/ik geekymv@node03:/usr/local/software/elasticsearch-6.5.4/plugins/</p>
-<h4 id="重启elasticsearch"><a href="#重启elasticsearch" class="headerlink" title="重启elasticsearch"></a>重启elasticsearch</h4><p>jps 查看pid<br>kill pid</p>
-<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET &quot;http://node02:9200/your_index/_analyze&quot; -H &apos;Content-Type: application/json&apos; -d&apos;</span><br><span class="line">&#123;</span><br><span class="line">   &quot;text&quot;:&quot;中华人民共和国万岁&quot;,&quot;tokenizer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">&#125;&apos;</span><br></pre></td></tr></table></figure>
-<p>相关文章<br><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik</a><br><a href="https://www.jianshu.com/p/dfd88972dae0" target="_blank" rel="noopener">https://www.jianshu.com/p/dfd88972dae0</a></p>
-
-          
+<p>将elasticsearch-analysis-ik-6.5.4.zip 解压到ik 目录下<br>unzip -d /usr/local/software/elasticsearch-6.5.4/plugins/ik elasticsearch-analysis-ik-6.5.4.zip<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/08/elasticsearch-analysis-ik/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -1191,19 +1173,20 @@
 
       
         
-          
-            <p>数据分片</p>
+          <p>数据分片</p>
 <pre><code>- 垂直分片：按照业务拆分，专库专用。
 - 水平分片：通过某个字段（或某几个字段），根据某种规则将数据分散至多个库或表中，每个分片仅包含数据的一部分。
-</code></pre><p>逻辑表<br>真实表<br>数据节点<br>绑定表：指分片规则一致的主表和子表，绑定表之间的分区键要完全相同。<br>广播表：字典表<br>逻辑索引</p>
-<p>分片</p>
-<pre><code>- 分片键：用户分片的数据库字段，是将数据库（表）水平拆分的关键字段。SQL中如果无分片字段，将执行全路由，性能较差。
-- 分片算法：
-</code></pre>
-          
+</code></pre><p>逻辑表<br>真实表<br>数据节点<br>绑定表：指分片规则一致的主表和子表，绑定表之间的分区键要完全相同。<br>广播表：字典表<br>逻辑索引<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/08/shardingsphere/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -1317,25 +1300,19 @@
 
       
         
-          
-            <p><a href="https://mirrors.tuna.tsinghua.edu.cn/apache/hbase/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/hbase/</a></p>
+          <p><a href="https://mirrors.tuna.tsinghua.edu.cn/apache/hbase/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/hbase/</a></p>
 <p>vim conf/hbase-site.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hbase.rootdir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;file:///opt/data/hbase&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
-<p>启动<br>bin/start-hbase.sh</p>
-<p>进入shell<br>bin/hbase shell<br>创建表<br>create ‘test’,’colfam1’</p>
-<p>查看表<br>list ‘testtable’</p>
-<p>插入数据<br>put ‘test’, ‘myrow-1’, ‘colfam1:q1’, ‘v1’<br>put ‘test’, ‘myrow-2’, ‘colfam1:q1’, ‘v1’<br>put ‘test’, ‘myrow-2’, ‘colfam1:q2’, ‘v2’</p>
-<p>查询表<br>scan ‘test’</p>
-<p>查询一行<br>get ‘test’, ‘myrow-1’</p>
-<p>删除一个单元格<br>delete ‘test’, ‘myrow-2’, ‘colfam1:q1’</p>
-<p>禁用表<br>disable ‘test’</p>
-<p>删除表<br>drop ‘test’</p>
-<p>退出shell<br>exit</p>
-<p>关闭hbase<br>bin/stop-hbase.sh</p>
-
-          
+<p>启动<br>bin/start-hbase.sh<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/03/hbase/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     

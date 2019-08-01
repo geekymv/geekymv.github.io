@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/17/java-bytecode/init2.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/17/java-bytecode/init_store2.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/17/java-bytecode/area2.png">
-<meta property="og:updated_time" content="2019-05-25T05:30:41.446Z">
+<meta property="og:updated_time" content="2019-08-01T07:55:12.095Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="introduction-to-java-bytecode">
 <meta name="twitter:description" content="阅读原文Reading compiled Java bytecode can be tedious, even for experienced Java developers.即使对于经验丰富的Java开发人员来说，阅读编译后的Java字节码也可能很乏味。 Why do we need to know about such low-level stuff in the first place?首先">
@@ -322,8 +322,7 @@
         <p><a href="https://dzone.com/articles/introduction-to-java-bytecode" target="_blank" rel="noopener">阅读原文</a><br>Reading compiled Java bytecode can be tedious, even for experienced Java developers.<br>即使对于经验丰富的Java开发人员来说，阅读编译后的Java字节码也可能很乏味。</p>
 <p>Why do we need to know about such low-level stuff in the first place?<br>首先，我们为什么需要知道这些底层的东西呢？</p>
 <p>Here is a simple scenario that happened to me last week:<br>下面是上周发生在我身上的一个简单场景：</p>
-<p>I had made some code changes on my machine a long time ago, compiled a JAR,<br>很久以前，我在自己的机器上修改了一些代码，编译成一个JAR包，</p>
-<p>and deployed it on a server to test a potential fix for a performance issue.<br>并且部署在一台服务器上以测试性能问题的潜在修复。</p>
+<p>I had made some code changes on my machine a long time ago, compiled a JAR,<br>很久以前，我在自己的机器上修改了一些代码，编译成一个JAR包，<br><a id="more"></a><br>and deployed it on a server to test a potential fix for a performance issue.<br>并且部署在一台服务器上以测试性能问题的潜在修复。</p>
 <p>Unfortunately, the code was never checked into a version control system,<br>不幸的是，这些代码从没有被检入版本控制系统，</p>
 <p>and for whatever reason, the local changes were deleted without a trace.<br>并且由于一些原因，本地的修改被删除的毫无踪迹。</p>
 <p>After a couple of months, I needed those changes in source form again (which took quite an effort to come up with),<br>几个月后，我再一次需要这些修改的源码（这需要付出很大的努力），<br>but I could not find them!<br>但是我没有找到它们！</p>

@@ -299,19 +299,14 @@
 
       
         
-          
-            <p>tar -zxvf haproxy-1.8.20.tar.gz<br>cd haproxy-1.8.20<br>make TARGET=linux2628 ARCH=x86_64 PREFIX=/usr/local/haproxy<br>make install PREFIX=/usr/local/haproxy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">参数说明</span><br><span class="line">TARGET=linux26 #内核版本，使用uname -r查看内核，如：2.6.18-371.el5，此时该参数就为linux26；kernel 大于2.6.28的</span><br><span class="line">用：TARGET=linux2628</span><br><span class="line">ARCH=x86_64 #系统位数</span><br><span class="line">PREFIX=/usr/local/haprpxy  #/usr/local/haprpxy为haprpxy安装路径</span><br></pre></td></tr></table></figure></p>
-<p>cd /usr/local/haprpxy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ls</span><br><span class="line">doc  sbin  share</span><br></pre></td></tr></table></figure></p>
-<p>mkdir conf<br>vim conf/haproxy.cfg</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">###########全局配置#########</span><br><span class="line">global</span><br><span class="line">    daemon   # 后台方式运行</span><br><span class="line">    nbproc 1</span><br><span class="line">    pidfile haproxy.pid</span><br><span class="line"></span><br><span class="line">###########默认配置#########</span><br><span class="line">defaults</span><br><span class="line">    mode tcp               #默认的模式mode &#123; tcp|http|health &#125;，tcp是4层，http是7层，health只会返回OK</span><br><span class="line">    retries 2               #两次连接失败就认为是服务器不可用，也可以通过后面设置</span><br><span class="line">    option redispatch       #当serverId对应的服务器挂掉后，强制定向到其他健康的服务器</span><br><span class="line">    option abortonclose     #当服务器负载很高的时候，自动结束掉当前队列处理比较久的链接</span><br><span class="line">    maxconn 4096            #默认的最大连接数</span><br><span class="line">    timeout connect 5000ms  #连接超时</span><br><span class="line">    timeout client 30000ms  #客户端超时</span><br><span class="line">    timeout server 30000ms  #服务器超时</span><br><span class="line">    #timeout check 2000      #=心跳检测超时</span><br><span class="line">    log 127.0.0.1 local0 info #[err warning info debug]</span><br><span class="line">    balance roundrobin      # 采用轮询算法</span><br><span class="line"></span><br><span class="line">################# 配置#################</span><br><span class="line">listen delegate                         #这里是配置负载均衡，test1是名字，可以任意</span><br><span class="line">    bind 0.0.0.0:6033            #这里是监听的IP地址和端口，端口号可以在0-65535之间，要避免端口冲突</span><br><span class="line">    mode tcp                     #连接的协议，这里是tcp协议</span><br><span class="line">    #maxconn 4086</span><br><span class="line">    #log 127.0.0.1 local0 debug</span><br><span class="line">    server s1 192.168.159.102:3306 check #负载的MySQL实例1</span><br><span class="line">    server s2 192.168.159.104:3306 check #负载的MySQL实例2 可以有多个，往下排列即</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">listen monitor</span><br><span class="line">    bind 0.0.0.0:8080</span><br><span class="line">    mode http</span><br><span class="line">    stats enable</span><br><span class="line">    stats uri /monitor</span><br></pre></td></tr></table></figure>
-<p>启动haproxy<br>sbin/haproxy -f conf/haproxy.cfg</p>
-<h4 id="配置日志"><a href="#配置日志" class="headerlink" title="配置日志"></a>配置日志</h4><p><a href="https://blog.51cto.com/zhangshijie/1742746" target="_blank" rel="noopener">https://blog.51cto.com/zhangshijie/1742746</a><br><a href="https://www.cnblogs.com/saneri/p/5234101.html" target="_blank" rel="noopener">https://www.cnblogs.com/saneri/p/5234101.html</a></p>
-<p>vim /etc/rsyslog.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">13 $ModLoad imudp  #将13行注释去除</span><br><span class="line">14 $UDPServerRun 514 #将14行注释去除</span><br><span class="line"></span><br><span class="line">#最下方添加</span><br><span class="line">local3.*         /var/log/haproxy.log </span><br><span class="line">local0.*         /var/log/haproxy.log</span><br></pre></td></tr></table></figure></p>
-<p>重启<br>/etc/init.d/rsyslog restart</p>
-<p>在master 上创建用户，并授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">create user &apos;dev&apos;@&apos;192.168.159.%&apos; identified by &apos;p4ssword&apos;;</span><br><span class="line">grant all on *.* to dev@&apos;192.168.159.%&apos; identified by &apos;p4ssword&apos;;</span><br></pre></td></tr></table></figure></p>
-<h4 id="访问测试"><a href="#访问测试" class="headerlink" title="访问测试"></a>访问测试</h4><p> mysql -h 192.168.159.102 -udev -pp4ssword -P6033 -e “show variables like ‘server_id’”</p>
-
-          
+          <p>tar -zxvf haproxy-1.8.20.tar.gz<br>cd haproxy-1.8.20<br>make TARGET=linux2628 ARCH=x86_64 PREFIX=/usr/local/haproxy<br>make install PREFIX=/usr/local/haproxy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">参数说明</span><br><span class="line">TARGET=linux26 #内核版本，使用uname -r查看内核，如：2.6.18-371.el5，此时该参数就为linux26；kernel 大于2.6.28的</span><br><span class="line">用：TARGET=linux2628</span><br><span class="line">ARCH=x86_64 #系统位数</span><br><span class="line">PREFIX=/usr/local/haprpxy  #/usr/local/haprpxy为haprpxy安装路径</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/01/haproxy/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -428,23 +423,21 @@
 
       
         
-          
-            <p>Introduction<br>介绍<br>I wanted a text that would bring together the ideas behind many of the more recent distributed systems </p>
+          <p>Introduction<br>介绍<br>I wanted a text that would bring together the ideas behind many of the more recent distributed systems </p>
 <ul>
 <li>systems such as Amazon’s Dynamo, Google’s BigTable and MapReduce, Apache’s Hadoop and so on.<br>我想要一篇汇集许多最近的分布式系统（如 Amazon 的 Dynamo, Google 的 BigTable 和 MapReduce, Apache 的 Hadoop等系统）背后思想的文章。</li>
 </ul>
-<p>In this text I’ve tried to provide a more accessible introduction to distributed systems.<br>在本文中，我尝试提供一个更易于理解的分布式系统介绍。</p>
-<p>To me, that means two things: introducing the key concepts that you will need in order to<br>have a good time reading more serious texts, and providing a narrative that covers things in enough detail<br>that you get a gist of what’s going on without getting stuck on details.<br>对我而言，这意味着两件事：介绍你需要的核心概念，为了能愉快的读更重要的文章，并提供足够详细的叙述，<br>让你了解正在发生的事情，而不必拘泥于细节。</p>
-<p>It’s 2013, you’ve got the Internet, and you can selectively read more about the topics you find most interesting.<br>这是2013年，你已经拥有了互联网，你可以选择读更多你觉得最有趣的话题。</p>
-<p>In my view, much of distributed programming is about dealing with the implications of two consequences of distribution:<br>that information travels at the speed of light<br>that independent things fail independently*<br>在我看来，许多分布式编程是关于处理分布式两个后果的影响：<br>信息以光速传输</p>
-<p>In other words, that the core of distributed programming is dealing with distance (duh!) and having more than one thing (duh!).<br>These constraints define a space of possible system designs,<br>and my hope is that after reading this you’ll have a better sense of how distance, time and consistency models interact.</p>
-<p>This text is focused on distributed programming and systems concepts you’ll need to understand commercial systems in the data center.<br>It would be madness to attempt to cover everything. You’ll learn many key protocols<br>and algorithms (covering, for example, many of the most cited papers in the discipline),<br>including some new exciting ways to look at eventual consistency<br>that haven’t still made it into college textbooks - such as CRDTs and the CALM theorem.</p>
-<p>I hope you like it! If you want to say thanks, follow me on Github (or Twitter).<br>And if you spot an error, file a pull request on Github.</p>
-
-          
+<p>In this text I’ve tried to provide a more accessible introduction to distributed systems.<br>在本文中，我尝试提供一个更易于理解的分布式系统介绍。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/28/distributed-systems/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -608,130 +601,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/springcloud/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/20/springcloud/" itemprop="url">MicroServices</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T22:33:02+08:00">
-                2019-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Spring-Cloud-入门概述"><a href="#Spring-Cloud-入门概述" class="headerlink" title="Spring Cloud 入门概述"></a>Spring Cloud 入门概述</h4><p>是什么<br>Spring Cloud 基于Spring Boot 提供了一套微服务解决方案，包括服务注册与发现，配置中心，全链路监控，服务网关，负载均衡，熔断器等组件，<br>除了基于Netflix 的开源组件做高度抽象封装之外，还有一些选型中立的开源组件。<br>Spring Cloud 利用Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，Spring Cloud 为开发人员提供了快速构建分布式系统<br>的一些工具，包括配置管理、服务发现、断路器、路由、微代理、事件总线、全局锁、决策竞选、分布式会话等，它们都可以用SpringBoot 的开发<br>风格做到一键启动和部署。<br>Spring Boot 并没有造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot 风格进行再封装<br>屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
-<h4 id="Spring-Boot-和-Spring-Cloud-是什么关系"><a href="#Spring-Boot-和-Spring-Cloud-是什么关系" class="headerlink" title="Spring Boot 和 Spring Cloud 是什么关系"></a>Spring Boot 和 Spring Cloud 是什么关系</h4><p>Spring Boot 专注于快速方便的开发单个个体微服务。<br>Spring Cloud 是关注全局的微服务协调治理框架，它将Spring Boot 开发的一个个单体微服务整合并管理起来，为各个微服务之间提供配置管理、<br>服务发现、断路器、路由、微代理、事件总线、全局锁、决策竞选、分布式会话等集成服务。</p>
-<p>Spring Boot 可以离开Spring Cloud 独立使用开发项目，但是Spring Cloud 离不开Sprint Boot，属于依赖关系。<br>Spring Boot 专注于快速、方便的开发单个微服务个体，Spring Cloud 关注全局的服务治理框架。</p>
-<h4 id="从Dubbo-是怎么到-Spring-Cloud-的？哪些优缺点让你去做技术选型"><a href="#从Dubbo-是怎么到-Spring-Cloud-的？哪些优缺点让你去做技术选型" class="headerlink" title="从Dubbo 是怎么到 Spring Cloud 的？哪些优缺点让你去做技术选型"></a>从Dubbo 是怎么到 Spring Cloud 的？哪些优缺点让你去做技术选型</h4><p>目前成熟的互联网架构（分布式+服务治理Dubbo）<br>Spring Cloud vs Dubbo<br>活跃度<br>对比              Dubbo               Spring Cloud<br>服务注册中心       Zookeeper           Spring Cloud Netflix Eureka<br>服务调用方式       RPC                 REST API<br>服务监控          Dubbo Monitor       Spring Boot Admin<br>断路器            不完善              Spring Cloud Netflix Hystrix<br>服务网关          无                  Spring Cloud Netflix Zuul<br>分布式配置         无                   Spring Cloud Config<br>服务跟踪          无                    Spring Cloud Sleuth<br>消息总线          无                    Spring Cloud Bus<br>数据流            无                     Spring Cloud Stream<br>批量任务          无                     Spring Cloud Task<br>最大区别：Spring Cloud 抛弃了Dubbo 的RPC 通信，采用的是基于HTTP 的REST 方式。<br>严格来说，这两种方式各有优劣。虽然从一定程度上来说，后者牺牲了服务调用的性能，但也避免了上面提到的原生RPC 带来的问题。<br>而且REST 相比RPC 更为灵活，服务提供方和调用方依赖的只是一纸契约，不存在代码级别的强依赖，这在强调快速演化的微服务环境下，<br>显得更加合适。<br>就像品牌与组装机的区别。</p>
-<p>能干嘛<br>去哪下<br>怎么玩<br>Spring Cloud 国内使用情况</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/microservices/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -802,32 +671,141 @@
 
       
         
-          
-            <h4 id="从面试题开始"><a href="#从面试题开始" class="headerlink" title="从面试题开始"></a>从面试题开始</h4><p>什么是微服务？<br>微服务之间是如何独立通讯的？<br>springcloud 和 dubbo 有哪些区别？<br>springboot 和 springcloud，请谈谈对他们的理解<br>什么是服务熔断？什么是服务降级？<br>微服务的优缺点分别是什么？说下你在项目开发中碰到的坑<br>你所知道的微服务技术栈有哪些？请举例一二<br>eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别</p>
-<h4 id="微服务是什么？"><a href="#微服务是什么？" class="headerlink" title="微服务是什么？"></a>微服务是什么？</h4><p>就目前而言，对于微服务业界并没有一个统一的、标准的定义。<br>但通常而言，微服务架构是一种架构模式或者说是一种架构风格，它是将单一应用程序分成一组小的服务，每个服务运行在其独立的自己的进程中，<br>服务之间互相协调、互相配合，为用户提供最终价值。服务之间采用轻量级的通信机制互相沟通（通常是基于HTTP的RESTful API）。每个服务<br>都围绕着具体业务进行构建，并且能够被独立地部署到生产环境、类生产环境等。另外，应尽量避免统一的、集中式的服务管理机制，对具体的一个<br>服务而言，应根据业务上下文，选择合适的语言、工具对其进行构建，可以有一个非常轻量级的集中式管理来协调这些服务，可以使用不同的语言来<br>编写服务，也可以使用不同的数据存储。</p>
-<p>单机版：All In One，在工作空间中只有一个工程；<br>分布式：专业的事情交给专业的人做，尽量降低耦合度；</p>
-<p>Dubbo 通信机制是RPC，Spring Cloud 的通信机制是基于HTTP 的RESTful API。</p>
-<p>从技术维度理解，微服务化的核心就是将传统的一站式应用，根据业务拆分成一个一个的服务，彻底的去耦合，每一个微服务提供单个业务功能的服务，<br>一个服务做一件事，从技术角度看就是一个小而独立的处理过程，类似进程概念，能够自行独立启动或销毁，甚至拥有自己独立的数据库。</p>
-<p>练武不练功，到老一场空！</p>
-<h4 id="微服务与微服务架构"><a href="#微服务与微服务架构" class="headerlink" title="微服务与微服务架构"></a>微服务与微服务架构</h4><p>微服务：强调的是服务的大小，它关注的是某一个点，是具体解决某一个问题/提供落地对应服务的一个服务应用（比如用sprigboot开发的一个小模块），<br>狭义的看，可以看作是是开发工具里面一个个微服务工程或者module。</p>
-<p>微服务架构：微服务架构是一种架构模式。</p>
-<h4 id="微服务的优缺点"><a href="#微服务的优缺点" class="headerlink" title="微服务的优缺点"></a>微服务的优缺点</h4><p>优点：<br>每个服务足够内聚，足够小，代码容易理解，这样能聚焦一个指定的业务功能或者业务需求。<br>开发简单、开发效率提高，一个服务可能就是转一的只干一件事。<br>微服务能够被小团队单独开发，这个小团队是2-5人的开发人员组成。<br>微服务是松耦合的，是有功能意义的服务，无论是在开发阶段或部署阶段都是独立的。<br>微服务能使用不同的语言开发。<br>易于和第三方集成，微服务允许容易且灵活的方式集成自动部署，通过持续集成工具。<br>微服务易于被一个开发人员理解，修改和维护，这样小团队能够关注自己的工作成果，无需通过合作才能体现价值。<br>微服务允许你利用融合最新技术。<br>微服务只是业务逻辑代码，不会和html、css或者其他界面组件混合。<br>每个微服务都有自己的存储能力，可以有自己的数据库，也可以有统一数据库。</p>
-<p>缺点：<br>开发人员要处理分布式系统的复杂性。<br>多服务运维难度，随着服务的增加，运维的压力也在增加。<br>系统部署依赖<br>服务间通信成本<br>数据一致性<br>系统集成测试<br>性能监控……</p>
-<h4 id="微服务技术栈有哪些"><a href="#微服务技术栈有哪些" class="headerlink" title="微服务技术栈有哪些"></a>微服务技术栈有哪些</h4><p>服务开发 springboot spring springmvc<br>服务配置与管理 Netflix公司的Archaius、阿里巴巴的Diamond等<br>服务注册与发现 Eureka、Consul、Zookeeper<br>服务调用 Rest、RPC、gRPC<br>服务熔断 Hystrix、Envoy<br>负载均衡 Ribbon、Nginx<br>服务接口调用（客户端调用服务的简化工具）Feign<br>消息队列 Kafka RabbitMQ ActiveMQ<br>服务配置中心管理 SpringCloudConfig Chef<br>服务路由 Zuul<br>服务监控 Zabbix Nagox Metrios Spectator<br>全链路追踪 Zipkin Brave Dapper<br>服务部署 Docker OpenStack Kubernetes<br>数据流操作开发包 SpringCloud Stream（封装与Redis，Rabbit，Kafka等发送接收消息）<br>事件消息总线 SprngCloud Bus</p>
-<h4 id="为什么选择SpringCloud作为微服务架构"><a href="#为什么选择SpringCloud作为微服务架构" class="headerlink" title="为什么选择SpringCloud作为微服务架构"></a>为什么选择SpringCloud作为微服务架构</h4><p>选型依据</p>
-<ul>
-<li>整体解决方案和框架成熟度</li>
-<li>社区热度</li>
-<li>可维护性</li>
-<li>学习曲线</li>
-</ul>
-<p>当前各大IT公司用的微服务架构有哪些？<br>阿里Dubbo/HSF（好舒服）<br>京东JSF<br>新浪微博Motan<br>当当网DubboX</p>
-<p>各微服务框架对比</p>
-
-          
+          <h4 id="从面试题开始"><a href="#从面试题开始" class="headerlink" title="从面试题开始"></a>从面试题开始</h4><p>什么是微服务？<br>微服务之间是如何独立通讯的？<br>springcloud 和 dubbo 有哪些区别？<br>springboot 和 springcloud，请谈谈对他们的理解<br>什么是服务熔断？什么是服务降级？<br>微服务的优缺点分别是什么？说下你在项目开发中碰到的坑<br>你所知道的微服务技术栈有哪些？请举例一二<br>eureka 和 zookeeper 都可以提供服务注册与发现功能，请说说两个的区别<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/20/microservices/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/springcloud/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/20/springcloud/" itemprop="url">MicroServices</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T22:33:02+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="Spring-Cloud-入门概述"><a href="#Spring-Cloud-入门概述" class="headerlink" title="Spring Cloud 入门概述"></a>Spring Cloud 入门概述</h4><p>是什么<br>Spring Cloud 基于Spring Boot 提供了一套微服务解决方案，包括服务注册与发现，配置中心，全链路监控，服务网关，负载均衡，熔断器等组件，<br>除了基于Netflix 的开源组件做高度抽象封装之外，还有一些选型中立的开源组件。<br>Spring Cloud 利用Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，Spring Cloud 为开发人员提供了快速构建分布式系统<br>的一些工具，包括配置管理、服务发现、断路器、路由、微代理、事件总线、全局锁、决策竞选、分布式会话等，它们都可以用SpringBoot 的开发<br>风格做到一键启动和部署。<br>Spring Boot 并没有造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot 风格进行再封装<br>屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/20/springcloud/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
     
     
     
@@ -941,33 +919,20 @@
 
       
         
-          
-            <p>为什么要使用消息中间件？</p>
+          <p>为什么要使用消息中间件？</p>
 <p>解决系统间耦合调用的问题-解耦<br>异步模型-异步<br>抵御洪峰流量，达到保护主业务的目的-削峰</p>
 <p>要做到系统解耦，当新的模块接入进来时，可以做到代码改动最小：能够解耦<br>设置流量缓冲池，可以让后端系统按照自身吞吐能力进行消费，不被冲垮：能够削峰<br>强弱依赖梳理能够将非关键调用链的操作异步化并提升整体系统的吞吐能力：能够异步。</p>
-<p>activemq 安装</p>
-<p>端口：61616</p>
-<p>bin/activemq start 后台启动<br>bin/activemq restart 重启<br>bin/activemq stop 停止</p>
-<p>查看进程<br>ps -ef|grep activemq</p>
-<p>不显示grep<br>ps -ef|grep activemq | grep -v grep </p>
-<p>根据端口查看<br>netstat -anp|grep 61616<br>或者<br>lsof -i:61616</p>
-<p>带运行日志的启动方式<br>bin/activemq start &gt; /output/activemq.log</p>
-<p>通过浏览器访问<br><a href="http://127.0.0.1:8161/admin/" target="_blank" rel="noopener">http://127.0.0.1:8161/admin/</a><br>用户名密码 admin / admin</p>
-<p>JMS 规范和落地产品</p>
-<h4 id="分布式事务解决方案"><a href="#分布式事务解决方案" class="headerlink" title="分布式事务解决方案"></a>分布式事务解决方案</h4><p>刚性事务<br>    全局事务（标准的分布式事务）<br>柔性事务<br>    可靠消息最终一致（异步确保型）<br>    TCC（两阶段提交、补偿型）<br>    最大努力通知（非可靠消息、定期校对）   </p>
-<p>柔性事务解决方案：可靠消息最终一致性（异步确保型）<br>实现：业务处理服务在业务事务提交前，向实时消息服务请求发送消息，实时消息服务只记录消息数据，而不真正发送。<br>业务处理服务在业务事务提交后，向实时消息服务确认发送。只有在得到确认发送指令后，实时消息服务才真正发送。</p>
-<p>消息：业务处理服务在业务事务回滚后，向实时消息服务取消发送。<br>消息状态确认系统定期找到未确认发送或回滚发送的消息，向业务处理服务询问消息状态，<br>业务处理服务根据消息ID或消息内容确定该消息是否有效。</p>
-<p>约束：被动方的处理结果不影响主动方的处理结果，被动方的消息处理操作是幂等操作。</p>
-<p>成本：可靠消息系统建设成本；一次消息发送需要两次请求，业务处理服务需要实现消息状态回查接口。</p>
-<p>优点、适用范围<br>消息数据独立存储、独立伸缩，降低业务系统与消息系统间的耦合。<br>对最终一致性时间敏感度较高，降低业务被动方实现成本。</p>
-<p>用到的服务模式：可查询操作、幂等操作。</p>
-<p>方案特点：<br>兼容所有实现JMS标准的MQ中间件<br>确保业务数据可靠的前提下，实现业务数据的最终一致性（理想状态下基本准实时一致）。</p>
-<p>行业应用案例：<br>支付宝、eBay、去哪儿……</p>
-
-          
+<p>activemq 安装<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/18/mq/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -1081,8 +1046,7 @@
 
       
         
-          
-            <p>这一章将介绍如何安装和运行Kafka，包括如何设置Zookeeper（Kafka使用Zookeeper保存Broker的元数据），<br>还会介绍Kafka的基本配置，以及如何为Kafka选择合适的硬件，最后介绍如何在一个集群中安装多个Kafka broker，<br>以及把Kafka应用到生产环境要注意的事项。</p>
+          <p>这一章将介绍如何安装和运行Kafka，包括如何设置Zookeeper（Kafka使用Zookeeper保存Broker的元数据），<br>还会介绍Kafka的基本配置，以及如何为Kafka选择合适的硬件，最后介绍如何在一个集群中安装多个Kafka broker，<br>以及把Kafka应用到生产环境要注意的事项。</p>
 <h3 id="2-1-安装JDK和Zookeeper"><a href="#2-1-安装JDK和Zookeeper" class="headerlink" title="2.1 安装JDK和Zookeeper"></a>2.1 安装JDK和Zookeeper</h3><p>安装Kafka之前，需要先安装JDK和Zookeeper，可以参考我的另一篇文章 <a href="https://blog.csdn.net/Geek_ymv/article/details/52003735" target="_blank" rel="noopener">zookeeper的安装与配置</a></p>
 <h3 id="2-2-安装Kafka-Broker"><a href="#2-2-安装Kafka-Broker" class="headerlink" title="2.2 安装Kafka Broker"></a>2.2 安装Kafka Broker</h3><p>可以从<a href="http://kafka.apache.org/downloads选择合适的版本安装，本系列文章使用的是kafka_2.10-0.9.0.0版本，Kafka的版本是0.9.0.0，对应Scala版本是2.10。" target="_blank" rel="noopener">http://kafka.apache.org/downloads选择合适的版本安装，本系列文章使用的是kafka_2.10-0.9.0.0版本，Kafka的版本是0.9.0.0，对应Scala版本是2.10。</a><br>将Kafka安装在/usr/local/software目录下。</p>
 <ul>
@@ -1092,10 +1056,13 @@
 <li>vim config/server.properties</li>
 <li>bin/kafka-server-start.sh -daemon ./config/server.properties</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"># Licensed to the Apache Software Foundation (ASF) under one or more</span><br><span class="line"># contributor license agreements.  See the NOTICE file distributed with</span><br><span class="line"># this work for additional information regarding copyright ownership.</span><br><span class="line"># The ASF licenses this file to You under the Apache License, Version 2.0</span><br><span class="line"># (the &quot;License&quot;); you may not use this file except in compliance with</span><br><span class="line"># the License.  You may obtain a copy of the License at</span><br><span class="line"># </span><br><span class="line">#    http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line"># </span><br><span class="line"># Unless required by applicable law or agreed to in writing, software</span><br><span class="line"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span><br><span class="line"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line"># See the License for the specific language governing permissions and</span><br><span class="line"># limitations under the License.</span><br><span class="line"># see kafka.server.KafkaConfig for additional details and defaults</span><br><span class="line"></span><br><span class="line">############################# Server Basics #############################</span><br><span class="line"></span><br><span class="line"># The id of the broker. This must be set to a unique integer for each broker.</span><br><span class="line">broker.id=0</span><br><span class="line"></span><br><span class="line">############################# Socket Server Settings #############################</span><br><span class="line"></span><br><span class="line">listeners=PLAINTEXT://:9092</span><br><span class="line"></span><br><span class="line"># The port the socket server listens on</span><br><span class="line">port=9092</span><br><span class="line"></span><br><span class="line"># Hostname the broker will bind to. If not set, the server will bind to all interfaces</span><br><span class="line">#host.name=localhost</span><br><span class="line"></span><br><span class="line"># Hostname the broker will advertise to producers and consumers. If not set, it uses the</span><br><span class="line"># value for &quot;host.name&quot; if configured.  Otherwise, it will use the value returned from</span><br><span class="line"># java.net.InetAddress.getCanonicalHostName().</span><br><span class="line">#advertised.host.name=&lt;hostname routable by clients&gt;</span><br><span class="line"></span><br><span class="line"># The port to publish to ZooKeeper for clients to use. If this is not set,</span><br><span class="line"># it will publish the same port that the broker binds to.</span><br><span class="line">#advertised.port=&lt;port accessible by clients&gt;</span><br><span class="line"></span><br><span class="line"># The number of threads handling network requests</span><br><span class="line">num.network.threads=3</span><br><span class="line"></span><br><span class="line"># The number of threads doing disk I/O</span><br><span class="line">num.io.threads=8</span><br><span class="line"></span><br><span class="line"># The send buffer (SO_SNDBUF) used by the socket server</span><br><span class="line">socket.send.buffer.bytes=102400</span><br><span class="line"></span><br><span class="line"># The receive buffer (SO_RCVBUF) used by the socket server</span><br><span class="line">socket.receive.buffer.bytes=102400</span><br><span class="line"></span><br><span class="line"># The maximum size of a request that the socket server will accept (protection against OOM)</span><br><span class="line">socket.request.max.bytes=104857600</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">############################# Log Basics #############################</span><br><span class="line"></span><br><span class="line"># A comma seperated list of directories under which to store log files</span><br><span class="line">log.dirs=/opt/data/kafka/kafka-logs</span><br><span class="line"></span><br><span class="line"># The default number of log partitions per topic. More partitions allow greater</span><br><span class="line"># parallelism for consumption, but this will also result in more files across</span><br><span class="line"># the brokers.</span><br><span class="line">num.partitions=1</span><br><span class="line"></span><br><span class="line"># The number of threads per data directory to be used for log recovery at startup and flushing at shutdown.</span><br><span class="line"># This value is recommended to be increased for installations with data dirs located in RAID array.</span><br><span class="line">num.recovery.threads.per.data.dir=1</span><br><span class="line"></span><br><span class="line">############################# Log Flush Policy #############################</span><br><span class="line"></span><br><span class="line"># Messages are immediately written to the filesystem but by default we only fsync() to sync</span><br><span class="line"># the OS cache lazily. The following configurations control the flush of data to disk. </span><br><span class="line"># There are a few important trade-offs here:</span><br><span class="line">#    1. Durability: Unflushed data may be lost if you are not using replication.</span><br><span class="line">#    2. Latency: Very large flush intervals may lead to latency spikes when the flush does occur as there will be a lot of data to flush.</span><br><span class="line">#    3. Throughput: The flush is generally the most expensive operation, and a small flush interval may lead to exceessive seeks. </span><br><span class="line"># The settings below allow one to configure the flush policy to flush data after a period of time or</span><br><span class="line"># every N messages (or both). This can be done globally and overridden on a per-topic basis.</span><br><span class="line"></span><br><span class="line"># The number of messages to accept before forcing a flush of data to disk</span><br><span class="line">#log.flush.interval.messages=10000</span><br><span class="line"></span><br><span class="line"># The maximum amount of time a message can sit in a log before we force a flush</span><br><span class="line">#log.flush.interval.ms=1000</span><br><span class="line"></span><br><span class="line">############################# Log Retention Policy #############################</span><br><span class="line"></span><br><span class="line"># The following configurations control the disposal of log segments. The policy can</span><br><span class="line"># be set to delete segments after a period of time, or after a given size has accumulated.</span><br><span class="line"># A segment will be deleted whenever *either* of these criteria are met. Deletion always happens</span><br><span class="line"># from the end of the log.</span><br><span class="line"></span><br><span class="line"># The minimum age of a log file to be eligible for deletion</span><br><span class="line">log.retention.hours=168</span><br><span class="line"></span><br><span class="line"># A size-based retention policy for logs. Segments are pruned from the log as long as the remaining</span><br><span class="line"># segments don&apos;t drop below log.retention.bytes.</span><br><span class="line">#log.retention.bytes=1073741824</span><br><span class="line"></span><br><span class="line"># The maximum size of a log segment file. When this size is reached a new log segment will be created.</span><br><span class="line">log.segment.bytes=1073741824</span><br><span class="line"></span><br><span class="line"># The interval at which log segments are checked to see if they can be deleted according </span><br><span class="line"># to the retention policies</span><br><span class="line">log.retention.check.interval.ms=300000</span><br><span class="line"></span><br><span class="line"># By default the log cleaner is disabled and the log retention policy will default to just delete segments after their retention expires.</span><br><span class="line"># If log.cleaner.enable=true is set the cleaner will be enabled and individual logs can then be marked for log compaction.</span><br><span class="line">log.cleaner.enable=false</span><br><span class="line"></span><br><span class="line">############################# Zookeeper #############################</span><br><span class="line"></span><br><span class="line"># Zookeeper connection string (see zookeeper docs for details).</span><br><span class="line"># This is a comma separated host:port pairs, each corresponding to a zk</span><br><span class="line"># server. e.g. &quot;127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002&quot;.</span><br><span class="line"># You can also append an optional chroot string to the urls to specify the</span><br><span class="line"># root directory for all kafka znodes.</span><br><span class="line">zookeeper.connect=node01:2181,node02:2181,node03:2181/kafka</span><br><span class="line"></span><br><span class="line"># Timeout in ms for connecting to zookeeper</span><br><span class="line">zookeeper.connection.timeout.ms=6000</span><br></pre></td></tr></table></figure>
-<p>主要修改了<br>log.dirs=/opt/data/kafka/kafka-logs<br>zookeeper.connect=node01:2181,node02:2181,node03:2181/kafka</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/14/kafka-install/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1458,8 +1425,7 @@
 
       
         
-          
-            <p>Flink 在中国的采用情况</p>
+          <p>Flink 在中国的采用情况</p>
 <p>Apache Flink 定义/原理/应用<br>定义：Apache Flink 是一个框架，分布式处理引擎，有状态计算，支持无界的和有界的数据流。</p>
 <p>Flink Application</p>
 <ul>
@@ -1470,17 +1436,16 @@
 <li><p>Time<br>Event Time 数据产生的时间<br>Ingestion Time 进入Flink 数据流的时间<br>Processing Time </p>
 </li>
 <li><p>API</p>
-</li>
-</ul>
-<p>Flink Architecture<br>有界和无界数据流：Flink 具备一套框架处理两种数据集合；<br>部署灵活：支持多种部署方式，包括Yarn、K8s；<br>极高可伸缩性：峰值达17亿条/s，无需任何业务语义调整；<br>极致流式处理性能：本地状态存取，极致性能优化。</p>
-<p>Flink Operation<br>7 * 24 小时高可用<br>业务应用监控运维</p>
-<p>Flink Scenario: Data Pipeline</p>
-<h4 id="学习建议"><a href="#学习建议" class="headerlink" title="学习建议"></a>学习建议</h4><p>先实践再理论<br>横向扩展<br>关注Apache Flink 社区 多交流 多提问 多输出</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/29/flink/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </li></ul></div>
     
     
     

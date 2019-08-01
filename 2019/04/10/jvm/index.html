@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="类加载器深入解析与阶段分解类加载机制 在Java代码中，类型（class）的加载、连接与初始化过程都是在程序运行期间完成的； 通过这种方式提供了更大的灵活性，增加了更多的可能性。  阶段分解 加载：查找并加载类的二进制数据，将类的class文件加载到内存； 连接：  将类与类的关系给确定好，将类与类之间符号引用转换成直接引用，并且对字节码进行相关的处理、验证。 验证：确保被加载类的正确性； 准备：">
+<meta name="description" content="类加载器深入解析与阶段分解类加载机制 在Java代码中，类型（class）的加载、连接与初始化过程都是在程序运行期间完成的； 通过这种方式提供了更大的灵活性，增加了更多的可能性。  阶段分解">
 <meta name="keywords" content="学习 好记性不如烂笔头 输入输出 按部就班 保持节奏">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jvm">
 <meta property="og:url" content="http://yoursite.com/2019/04/10/jvm/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="类加载器深入解析与阶段分解类加载机制 在Java代码中，类型（class）的加载、连接与初始化过程都是在程序运行期间完成的； 通过这种方式提供了更大的灵活性，增加了更多的可能性。  阶段分解 加载：查找并加载类的二进制数据，将类的class文件加载到内存； 连接：  将类与类的关系给确定好，将类与类之间符号引用转换成直接引用，并且对字节码进行相关的处理、验证。 验证：确保被加载类的正确性； 准备：">
+<meta property="og:description" content="类加载器深入解析与阶段分解类加载机制 在Java代码中，类型（class）的加载、连接与初始化过程都是在程序运行期间完成的； 通过这种方式提供了更大的灵活性，增加了更多的可能性。  阶段分解">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-26T05:36:16.204Z">
+<meta property="og:updated_time" content="2019-08-01T07:56:03.478Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm">
-<meta name="twitter:description" content="类加载器深入解析与阶段分解类加载机制 在Java代码中，类型（class）的加载、连接与初始化过程都是在程序运行期间完成的； 通过这种方式提供了更大的灵活性，增加了更多的可能性。  阶段分解 加载：查找并加载类的二进制数据，将类的class文件加载到内存； 连接：  将类与类的关系给确定好，将类与类之间符号引用转换成直接引用，并且对字节码进行相关的处理、验证。 验证：确保被加载类的正确性； 准备：">
+<meta name="twitter:description" content="类加载器深入解析与阶段分解类加载机制 在Java代码中，类型（class）的加载、连接与初始化过程都是在程序运行期间完成的； 通过这种方式提供了更大的灵活性，增加了更多的可能性。  阶段分解">
 
 
 
@@ -304,7 +304,8 @@
 <li>在Java代码中，<code>类型</code>（class）的加载、连接与初始化过程都是在程序<code>运行期间</code>完成的；</li>
 <li>通过这种方式提供了更大的灵活性，增加了更多的可能性。</li>
 </ul>
-<h4 id="阶段分解"><a href="#阶段分解" class="headerlink" title="阶段分解"></a>阶段分解</h4><ul>
+<h4 id="阶段分解"><a href="#阶段分解" class="headerlink" title="阶段分解"></a>阶段分解</h4><a id="more"></a>
+<ul>
 <li>加载：查找并加载类的二进制数据，将类的class文件加载到内存；</li>
 <li>连接：<br>  将类与类的关系给确定好，将类与类之间符号引用转换成直接引用，并且对字节码进行相关的处理、验证。<ul>
 <li>验证：确保被加载类的正确性；</li>

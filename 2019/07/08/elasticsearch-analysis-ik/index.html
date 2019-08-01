@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="下载https://github.com/medcl/elasticsearch-analysis-ik 从elasticsearch 的release中选择对应的ik版本，进行下载wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.5.4/elasticsearch-analysis-ik-6.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-08T07:23:41.229Z">
+<meta property="og:updated_time" content="2019-08-01T07:47:24.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="elasticsearch-analysis-ik">
 <meta name="twitter:description" content="下载https://github.com/medcl/elasticsearch-analysis-ik 从elasticsearch 的release中选择对应的ik版本，进行下载wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.5.4/elasticsearch-analysis-ik-6.">
@@ -302,7 +302,7 @@
         <h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><p><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik</a></p>
 <p>从elasticsearch 的release中选择对应的ik版本，进行下载<br>wget <a href="https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.5.4/elasticsearch-analysis-ik-6.5.4.zip" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.5.4/elasticsearch-analysis-ik-6.5.4.zip</a></p>
 <p>在elasticsearch 安装目录下创建目录<br>mkdir -p /usr/local/software/elasticsearch-6.5.4/plugins/ik</p>
-<p>将elasticsearch-analysis-ik-6.5.4.zip 解压到ik 目录下<br>unzip -d /usr/local/software/elasticsearch-6.5.4/plugins/ik elasticsearch-analysis-ik-6.5.4.zip</p>
+<p>将elasticsearch-analysis-ik-6.5.4.zip 解压到ik 目录下<br>unzip -d /usr/local/software/elasticsearch-6.5.4/plugins/ik elasticsearch-analysis-ik-6.5.4.zip<br><a id="more"></a></p>
 <p>同步到其他节点<br>scp -r /usr/local/software/elasticsearch-6.5.4/plugins/ik geekymv@node03:/usr/local/software/elasticsearch-6.5.4/plugins/</p>
 <h4 id="重启elasticsearch"><a href="#重启elasticsearch" class="headerlink" title="重启elasticsearch"></a>重启elasticsearch</h4><p>jps 查看pid<br>kill pid</p>
 <h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET &quot;http://node02:9200/your_index/_analyze&quot; -H &apos;Content-Type: application/json&apos; -d&apos;</span><br><span class="line">&#123;</span><br><span class="line">   &quot;text&quot;:&quot;中华人民共和国万岁&quot;,&quot;tokenizer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">&#125;&apos;</span><br></pre></td></tr></table></figure>

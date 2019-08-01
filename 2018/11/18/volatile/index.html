@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐  简介编写正确的程序很难，而编写正确的并发程序则难上加难。与串行程序相比，在并发程序中存在更多容易出错的地方。那么，我们为什么还要编写并发程序呢？ 线程是Java语言中不可或缺的重要功能，它们能使复杂的异步代码变得更简单，从">
+<meta name="description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐">
 <meta property="og:type" content="article">
 <meta property="og:title" content="volatile 的使用">
 <meta property="og:url" content="http://yoursite.com/2018/11/18/volatile/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐  简介编写正确的程序很难，而编写正确的并发程序则难上加难。与串行程序相比，在并发程序中存在更多容易出错的地方。那么，我们为什么还要编写并发程序呢？ 线程是Java语言中不可或缺的重要功能，它们能使复杂的异步代码变得更简单，从">
+<meta property="og:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-01T01:54:18.055Z">
+<meta property="og:updated_time" content="2019-08-01T07:59:59.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile 的使用">
-<meta name="twitter:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐  简介编写正确的程序很难，而编写正确的并发程序则难上加难。与串行程序相比，在并发程序中存在更多容易出错的地方。那么，我们为什么还要编写并发程序呢？ 线程是Java语言中不可或缺的重要功能，它们能使复杂的异步代码变得更简单，从">
+<meta name="twitter:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐">
 
 
 
@@ -311,6 +311,7 @@
 <li>适合人群</li>
 <li>推荐推荐</li>
 </ul>
+<a id="more"></a>
 <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>编写正确的程序很难，而编写正确的并发程序则难上加难。<br>与串行程序相比，在并发程序中存在更多容易出错的地方。那么，我们为什么还要编写并发程序呢？</p>
 <p>线程是Java语言中不可或缺的重要功能，它们能使复杂的异步代码变得更简单，从而极大地简化了复杂系统的开发。<br>此外，使用线程可以充分发挥多处理器的强大计算能力。随着处理器数量的持续增长，如何高效地使用并发正变得越来越重要。</p>
 <h4 id="并发简史"><a href="#并发简史" class="headerlink" title="并发简史"></a>并发简史</h4><p>早期的计算机不包含操作系统，在这种裸机环境中每次只能运行一个程序，浪费计算机资源。</p>
