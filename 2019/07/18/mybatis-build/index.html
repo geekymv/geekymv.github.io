@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="SqlSessionFactoryBuilder    build方法    构造 SqlSessionFactory 类型的默认实现 DefaultSqlSessionFactory(Configuration configuration) // mybatis-config.xml 配置信息Configuration    protected Environment environment;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-18T06:46:06.275Z">
+<meta property="og:updated_time" content="2019-08-01T03:25:16.833Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mybatis-build">
 <meta name="twitter:description" content="SqlSessionFactoryBuilder    build方法    构造 SqlSessionFactory 类型的默认实现 DefaultSqlSessionFactory(Configuration configuration) // mybatis-config.xml 配置信息Configuration    protected Environment environment;">
@@ -305,7 +305,8 @@
 <p>DefaultSqlSessionFactory 实现接口 SqlSessionFactory</p>
 <pre><code>// DefaultSqlSessionFactory 中只有一个成员变量 configuration
 private final Configuration configuration;    
-</code></pre><p>// 创建 SqlSession<br>SqlSession sqlSession = sqlSessionFactory.openSession()<br>    // execType 执行器类型，默认是ExecutorType.SIMPLE<br>    // level 事务隔离级别 null<br>    // autoCommit 自动提交，默认false<br>    openSessionFromDataSource(ExecutorType execType, TransactionIsolationLevel level, boolean autoCommit)</p>
+</code></pre><a id="more"></a>    
+<p>// 创建 SqlSession<br>SqlSession sqlSession = sqlSessionFactory.openSession()<br>    // execType 执行器类型，默认是ExecutorType.SIMPLE<br>    // level 事务隔离级别 null<br>    // autoCommit 自动提交，默认false<br>    openSessionFromDataSource(ExecutorType execType, TransactionIsolationLevel level, boolean autoCommit)</p>
 <pre><code>// 从配置中获取环境信息
 final Environment environment = configuration.getEnvironment();
 
