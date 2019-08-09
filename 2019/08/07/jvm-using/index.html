@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Elasticsearch,">
+  <meta name="keywords" content="jvm,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="linux下.xz文件的解压方式安装xz：yum -y install xzxz -d .tar.xz //生成了.tar文件tar -xvf .tar">
-<meta name="keywords" content="Elasticsearch">
+<meta name="description" content="Java中类的主动使用举例在上一节中，我们知道Java程序对类对使用方式有两种：主动使用和被动使用。其中Java程序对类的主动使用有5种情况，其余情况均为被动使用。下面我们通过一个例子来看看主动使用：1234567891011121314151617181920212223public class Test01ClassInit &amp;#123;    public static void main(">
+<meta name="keywords" content="jvm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="elasticsearch-head">
-<meta property="og:url" content="http://yoursite.com/2019/01/17/elasticsearch-head/index.html">
+<meta property="og:title" content="jvm">
+<meta property="og:url" content="http://yoursite.com/2019/08/07/jvm-using/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="linux下.xz文件的解压方式安装xz：yum -y install xzxz -d .tar.xz //生成了.tar文件tar -xvf .tar">
+<meta property="og:description" content="Java中类的主动使用举例在上一节中，我们知道Java程序对类对使用方式有两种：主动使用和被动使用。其中Java程序对类的主动使用有5种情况，其余情况均为被动使用。下面我们通过一个例子来看看主动使用：1234567891011121314151617181920212223public class Test01ClassInit &amp;#123;    public static void main(">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-02T07:50:14.207Z">
+<meta property="og:updated_time" content="2019-08-08T01:04:45.721Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="elasticsearch-head">
-<meta name="twitter:description" content="linux下.xz文件的解压方式安装xz：yum -y install xzxz -d .tar.xz //生成了.tar文件tar -xvf .tar">
+<meta name="twitter:title" content="jvm">
+<meta name="twitter:description" content="Java中类的主动使用举例在上一节中，我们知道Java程序对类对使用方式有两种：主动使用和被动使用。其中Java程序对类的主动使用有5种情况，其余情况均为被动使用。下面我们通过一个例子来看看主动使用：1234567891011121314151617181920212223public class Test01ClassInit &amp;#123;    public static void main(">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/17/elasticsearch-head/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/07/jvm-using/">
 
 
 
 
 
-  <title>elasticsearch-head | geekymv</title>
+  <title>jvm | geekymv</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/17/elasticsearch-head/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/jvm-using/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="geekymv">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">elasticsearch-head</h1>
+          <h1 class="post-title" itemprop="name headline">jvm</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T17:21:37+08:00">
-                2019-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T22:20:22+08:00">
+                2019-08-07
               </time>
             
 
@@ -302,28 +302,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -352,15 +330,17 @@
       
 
       
-        <p>linux下.xz文件的解压方式<br>安装xz：yum -y install xz<br>xz -d <em>.tar.xz //生成了.tar文件<br>tar -xvf </em>.tar<br><a id="more"></a><br>解压.xz文件<br>xz -d node-v10.15.0-linux-x64.tar.xz<br>解压tar文件<br>tar -xvf node-v10.15.0-linux-x64.tar<br>配置NODE_HOME<br>vim /etc/profile<br>export NODE_HOME=/usr/local/software/node-v10.15.0-linux-x64<br>export PATH=$PATH:$JAVA_HOME/bin:$NODE_HOME/bin</p>
-<p>source /etc/profile</p>
-<p>[root@node02 ~]# node -v<br>v10.15.0</p>
-<p>[root@node02 ~]# npm -v<br>6.4.1</p>
-<p>安装unzip包<br>yum -y install unzip<br>解压zip包<br>unzip elasticsearch-head-master.zip </p>
-<p>grunt安装：<br>进入下载的elasticsearch-head-master<br>cd elasticsearch-head-master</p>
-<h1 id="安装依赖-指定淘宝的npm源加速"><a href="#安装依赖-指定淘宝的npm源加速" class="headerlink" title="安装依赖 指定淘宝的npm源加速"></a>安装依赖 指定淘宝的npm源加速</h1><p>npm install –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p>
-<p>启动<br>cd elasticsearch-head<br>node_modules/grunt/bin/grunt server</p>
-<p>参考文章<br><a href="https://segmentfault.com/a/1190000014347757" target="_blank" rel="noopener">https://segmentfault.com/a/1190000014347757</a><br><a href="https://blog.csdn.net/u011418530/article/details/84782477" target="_blank" rel="noopener">https://blog.csdn.net/u011418530/article/details/84782477</a></p>
+        <h4 id="Java中类的主动使用举例"><a href="#Java中类的主动使用举例" class="headerlink" title="Java中类的主动使用举例"></a>Java中类的主动使用举例</h4><p>在上一节中，我们知道Java程序对类对使用方式有两种：主动使用和被动使用。<br>其中Java程序对类的主动使用有5种情况，其余情况均为被动使用。<br>下面我们通过一个例子来看看主动使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class Test01ClassInit &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(SubClass.count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class SuperClass &#123;</span><br><span class="line"></span><br><span class="line">    public static int count = 123;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        System.out.println(&quot;super class static block&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class SubClass extends SuperClass &#123;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        System.out.println(&quot;sub class static block&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上述代码中定义了Test01ClassInit，SuperClass，SubClass 三个类，其中Test01ClassInit是包含main方法的主类，<br>SubClass 继承SuperClass，Test01ClassInit的main方法打印了SubClass引用父类中静态变量count的值。</p>
+<p>我们知道在Java中，static静态代码块发生在<code>初始化</code>阶段，在初始化阶段，JVM主要完成对静态变量对初始化，静态代码块执行等动作。<br>执行上述代码，控制台输入如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">super class static block</span><br><span class="line">123</span><br></pre></td></tr></table></figure></p>
+<p>从结果中我们可以看到子类SubClass 的静态代码块并没有执行，说明子类并没有被初始化。<br>对于静态字段，只有直接定义这个字段的类才会被初始化，通过其子类来引用父类定义的静态字段，只会触发父类的初始化而不会触发子类的初始化。</p>
+<p>既然子类没有被初始化，那么子类是否加载了呢？我们可以通过-XX:+TraceClassLoading 参数观察到此操作是否会导致子类的加载。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">[Loaded sun.net.sdp.SdpProvider from /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/rt.jar]</span><br><span class="line">[Loaded com.geekymv.test.jvm.Test01ClassInit from file:/Users/yingmi/develop/project/helloworld/out/production/helloworld/]</span><br><span class="line">[Loaded sun.launcher.LauncherHelper$FXHelper from /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/rt.jar]</span><br><span class="line">[Loaded java.lang.Class$MethodArray from /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/rt.jar]</span><br><span class="line">[Loaded java.lang.Void from /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/rt.jar]</span><br><span class="line">[Loaded java.net.NetworkInterface from /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/rt.jar]</span><br><span class="line">[Loaded java.net.NetworkInterface$1 from /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/rt.jar]</span><br><span class="line">[Loaded com.geekymv.test.jvm.SuperClass from file:/Users/yingmi/develop/project/helloworld/out/production/helloworld/]</span><br><span class="line">[Loaded com.geekymv.test.jvm.SubClass from file:/Users/yingmi/develop/project/helloworld/out/production/helloworld/]</span><br><span class="line">[Loaded java.net.InterfaceAddress from /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/rt.jar]</span><br><span class="line">[Loaded java.net.DefaultInterface from /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/rt.jar]</span><br><span class="line">super class static block</span><br><span class="line">123</span><br><span class="line">[Loaded java.lang.Shutdown from /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/rt.jar]</span><br><span class="line">[Loaded java.lang.Shutdown$Lock from /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/rt.jar]</span><br></pre></td></tr></table></figure>
+<p>通过在IDEA工具中设置VM options 值为<code>-XX:+TraceClassLoading</code>，再次运行代码，在控制台可以看到子类SubClass被加载。</p>
+<p>接下来，我们对上述代码稍作调整，将父类中的静态变量count 移到子类中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class Test01ClassInit &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(SubClass.count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class SuperClass &#123;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        System.out.println(&quot;super class static block&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class SubClass extends SuperClass &#123;</span><br><span class="line"></span><br><span class="line">    public static int count = 123;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        System.out.println(&quot;sub class static block&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行上述代码，控制台输入如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">super class static block</span><br><span class="line">sub class static block</span><br><span class="line">123</span><br></pre></td></tr></table></figure></p>
+<p>根据上一节中的主动使用情况中的第1种情况，读取类的静态变量会导致类被初始化，所以执行了SubClass的静态代码块；<br>同样的根据第3中情况，当初始化一个类的时候，如果发现其父类还没有进行过初始化，<br>则要先触发其父类的初始化。所以这里的父类SuperClass的静态代码块先执行。</p>
+<p>「更多精彩内容请关注公众号geekymv，喜欢请分享给更多的朋友哦」</p>
 
       
     </div>
@@ -402,7 +382,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Elasticsearch/" rel="tag"># Elasticsearch</a>
+            <a href="/tags/jvm/" rel="tag"># jvm</a>
           
         </div>
       
@@ -415,8 +395,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/16/elastic-search/" rel="next" title="elastic-search">
-                <i class="fa fa-chevron-left"></i> elastic-search
+              <a href="/2019/08/02/elasticsearch-exploring-your-data/" rel="next" title="elasticsearch-exploring-your-data">
+                <i class="fa fa-chevron-left"></i> elasticsearch-exploring-your-data
               </a>
             
           </div>
@@ -424,10 +404,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/18/spring/" rel="prev" title="spring">
-                spring <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -562,7 +538,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装依赖-指定淘宝的npm源加速"><span class="nav-number">1.</span> <span class="nav-text">安装依赖 指定淘宝的npm源加速</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java中类的主动使用举例"><span class="nav-number">1.</span> <span class="nav-text">Java中类的主动使用举例</span></a></li></ol></div>
             
 
           </div>
