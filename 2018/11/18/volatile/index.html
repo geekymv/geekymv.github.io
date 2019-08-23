@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐">
+<meta name="description" content="防止指令重排序；确保线程之间共享变量的立即可见性。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="volatile 的使用">
 <meta property="og:url" content="http://yoursite.com/2018/11/18/volatile/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐">
+<meta property="og:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-01T07:59:59.593Z">
+<meta property="og:updated_time" content="2019-08-23T01:42:31.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile 的使用">
-<meta name="twitter:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐">
+<meta name="twitter:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。">
 
 
 
@@ -330,62 +330,6 @@
 
       
         <p>防止指令重排序；<br>确保线程之间共享变量的立即可见性。</p>
-<p>聊聊并发</p>
-<ul>
-<li>你真的了解并发码</li>
-<li>多线程和并发</li>
-<li>多线程和多进程</li>
-<li>线程一定快吗</li>
-<li>学习并发的四个阶段</li>
-<li>学习目标</li>
-<li>适合人群</li>
-<li>推荐推荐</li>
-</ul>
-<a id="more"></a>
-<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>编写正确的程序很难，而编写正确的并发程序则难上加难。<br>与串行程序相比，在并发程序中存在更多容易出错的地方。那么，我们为什么还要编写并发程序呢？</p>
-<p>线程是Java语言中不可或缺的重要功能，它们能使复杂的异步代码变得更简单，从而极大地简化了复杂系统的开发。<br>此外，使用线程可以充分发挥多处理器的强大计算能力。随着处理器数量的持续增长，如何高效地使用并发正变得越来越重要。</p>
-<h4 id="并发简史"><a href="#并发简史" class="headerlink" title="并发简史"></a>并发简史</h4><p>早期的计算机不包含操作系统，在这种裸机环境中每次只能运行一个程序，浪费计算机资源。</p>
-<p>操作系统的出现使得计算机每次能运行多个程序，不同的程序在单独的<code>进程</code>中运行，操作系统为各个独立的进程分配各种资源，包括<br>内存、文件句柄以及安全证书等。在不同的进程之间可以通过一些粗粒度的机制通信，包括：套接字、信号处理器、共享内存、信号量以及文件等。</p>
-<p>线程允许在同一进程中同时存在多个程序控制流。线程会共享进程范围内的资源，例如内存句柄和文件句柄，<br>但每个线程都有自己的程序计数器（Program Counter）、栈以及局部变量等。<br>在同一个程序中的多个线程可以被同时调度到多个CPU 上运行。</p>
-<p>线程也被称为轻量级进程。在大多数现代操作系统中，都是以线程为基本的调度单位，而不是进程。</p>
-<p>由于同一个进程中的所有线程都将共享进程的内存地址空间，因此这些线程都能访问相同的变量并在同一个堆上分配对象。<br>这就需要实现一种比在进程间共享数据粒度更细的数据共享机制。如果没有明确的<code>同步机制</code>来协同对共享数据的访问，那么<br>当一个线程正在使用某个变量时，另一个线程可能同时修改这个变量，这将造成不可预测的结果。</p>
-<h4 id="线程的优势"><a href="#线程的优势" class="headerlink" title="线程的优势"></a>线程的优势</h4><ul>
-<li>线程可以有效地降低程序的开发和维护成本，同时提升复杂应用程序的性能。</li>
-<li>线程能够将大部分异步工作流转换成串行工作流，因此能更好地模拟人类的工作方式和交互方式。</li>
-<li>降低代码的复杂度，使代码更容易编写、阅读和维护。</li>
-<li>在GUI应用程序中，线程提供用户界面的灵敏度。</li>
-<li>在服务器应用程序中，可以提升资源利用率以及系统吞吐率。</li>
-<li>简化JVM的实现，垃圾收集器通常在一个或多个专门的线程中运行。</li>
-</ul>
-<h4 id="线程带来的风险"><a href="#线程带来的风险" class="headerlink" title="线程带来的风险"></a>线程带来的风险</h4><ul>
-<li>安全性问题</li>
-<li>活跃性问题</li>
-<li>性能问题</li>
-</ul>
-<p>线程安全性是非常复杂的，在没有充足同步的情况下，多个线程中的操作执行顺序是不可预测的，甚至会产生奇怪的结果。<br>在下面的UnsafeSequence 类中将产生一个整数值序列，该序列中的每个值都是唯一的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class UnsafeSequence &#123;</span><br><span class="line">    </span><br><span class="line">    private int value;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 返回一个唯一的数值</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public int getValue() &#123;</span><br><span class="line">        return value++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在单线程环境中，这个类能正常工作，但是在多线程环境中则不能。<br>UnsafeSequence 问题在于，递增运算value++ 看上去是单个操作，实际上它包含三个独立的操作：<br>读取value，将value值加1，将计算结果写入value。由于运行时可能多个线程之间的操作交替执行，结果可能返回了相同值。</p>
-<p>// 画图</p>
-<p>这是一种常见的并发安全问题，称为竞态条件（Race Condition）。<br>要使多线程程序的行为可以预测，必须对共享变量的访问操作进行协同，防治多线程之间发生彼此干扰。<br>Java提供了各种<code>同步机制</code>来协同这种访问。通过将getValue 方法改为一个同步方法，可以修复UnsafeSequence 中的错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 返回一个唯一的数值</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">public synchronized int getValue() &#123;</span><br><span class="line">    return value++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="线程无处不在"><a href="#线程无处不在" class="headerlink" title="线程无处不在"></a>线程无处不在</h4><p>为什么要学习并发编程<br>并发优点：</p>
-<ul>
-<li>发挥出多处理器的能力</li>
-<li>建模的简单性</li>
-<li>异步事件的简化处理</li>
-<li>响应更加灵敏的用户界面</li>
-</ul>
-<p>并发的缺点</p>
-<ul>
-<li>线程安全性问题</li>
-<li>活跃性问题</li>
-<li>性能问题</li>
-</ul>
-<p>学习并发的四个阶段</p>
-<ul>
-<li>熟练掌握API，能够完成并发编程</li>
-<li>熟读API源码，掌握其原理</li>
-<li>理解Java虚拟机的内存模型</li>
-<li>操作系统对并发对支持</li>
-</ul>
 
       
     </div>
@@ -501,17 +445,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -526,7 +461,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -537,7 +472,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -548,7 +483,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -571,22 +506,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并发简史"><span class="nav-number">2.</span> <span class="nav-text">并发简史</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的优势"><span class="nav-number">3.</span> <span class="nav-text">线程的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程带来的风险"><span class="nav-number">4.</span> <span class="nav-text">线程带来的风险</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程无处不在"><span class="nav-number">5.</span> <span class="nav-text">线程无处不在</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
