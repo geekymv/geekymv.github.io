@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-23T01:43:25.670Z">
+<meta property="og:updated_time" content="2019-08-23T08:27:33.071Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="thread">
 <meta name="twitter:description" content="聊聊并发  你真的了解并发码 多线程和并发 多线程和多进程 线程一定快吗 学习并发的四个阶段 学习目标 适合人群 推荐推荐">
@@ -388,7 +388,9 @@
 <p>在单线程环境中，这个类能正常工作，但是在多线程环境中则不能。<br>UnsafeSequence 问题在于，递增运算value++ 看上去是单个操作，实际上它包含三个独立的操作：<br>读取value，将value值加1，将计算结果写入value。由于运行时可能多个线程之间的操作交替执行，结果可能返回了相同值。</p>
 <p>// 画图</p>
 <p>这是一种常见的并发安全问题，称为竞态条件（Race Condition）。<br>要使多线程程序的行为可以预测，必须对共享变量的访问操作进行协同，防治多线程之间发生彼此干扰。<br>Java提供了各种<code>同步机制</code>来协同这种访问。通过将getValue 方法改为一个同步方法，可以修复UnsafeSequence 中的错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 返回一个唯一的数值</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">public synchronized int getValue() &#123;</span><br><span class="line">    return value++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="线程无处不在"><a href="#线程无处不在" class="headerlink" title="线程无处不在"></a>线程无处不在</h4><p>为什么要学习并发编程<br>并发优点：</p>
+<h4 id="线程无处不在"><a href="#线程无处不在" class="headerlink" title="线程无处不在"></a>线程无处不在</h4><p>Thread t1 = new Thread() {<br>    @Overvide<br>    public void run() {<br>    }<br>};<br>t1 是指向Thread 实例的一个引用，并不是一个真正的线程。<br>t1.start();</p>
+<p>1.Java程序的main方法是一个线程，是被JVM启动时候调用，线程的名字是main。<br>2.实现一个线程，必须创建Thread实例，Override run方法，并且调用start方法。<br>3.当</p>
+<p>为什么要学习并发编程<br>并发优点：</p>
 <ul>
 <li>发挥出多处理器的能力</li>
 <li>建模的简单性</li>
@@ -474,6 +476,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/08/26/thread-lifecycle/" rel="prev" title="thread-lifecycle">
+                thread-lifecycle <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -552,7 +558,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
