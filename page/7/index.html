@@ -710,6 +710,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -752,7 +774,16 @@
 <p>“叵” 字<br>中间的那一“口” 就是Joinpoint<br>上下一横就是要执行的逻辑</p>
 <p>Aspect<br>Aspect 是对系统中的横切关注点逻辑进行模块化封装的AOP概念实体。通常情况下，Aspect 可以包含多个Pointcut 以及相关的Advice。</p>
 <p>Spring AOP<br>Spring AOP 采用动态代理机制和字节码生成技术实现。在运行期间为目标对象生成一个代理对象，将横切逻辑织入到这个代理对象中，系统<br>最终使用的是织入了横切逻辑的代理对象，而不是真正的目标对象。</p>
-<p>代理模式（Proxy Pattern）</p>
+<ul>
+<li><p>代理模式（Proxy Pattern）</p>
+</li>
+<li><p>动态代理（Dynamic Proxy）<br>InvocationHandler 就是我们要实现横切逻辑的地方，它是横切逻辑的载体，作用跟Advice是一样的。<br>动态代理机制只能对实现了相应interface 的类使用，如果某个类没有实现任何interface，就无法使用动态代理机制为其生成相应的动态代理对象。</p>
+</li>
+</ul>
+<p>默认情况下，Spring AOP 发现目标对象如果实现了相应interface，则采用动态代理机制为其生成代理对象实例，如果目标对象没有实现任何interface，<br>Spring AOP 会尝试使用CGLIB（Code Generation Library）动态字节码生成技术为目标对象生成动态的代理对象实例。</p>
+<ul>
+<li>动态字节码生成技术<br>动态字节码生成是对目标对象进行继承扩展，在系统运行期间动态地为目标对象生成相应子类。<br>而子类可以通过重写来扩展父类的行为，只要将横切逻辑的实现放到子类中，然后让系统使用扩展后的目标对象的子类，就可以达到与代理模式相同的效果了。<br>使用CGLIB 对类进行扩展的唯一限制就是无法对final方法进行重写。</li>
+</ul>
 
           
         
@@ -1605,7 +1636,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1616,7 +1647,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
