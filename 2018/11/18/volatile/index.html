@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="防止指令重排序；确保线程之间共享变量的立即可见性。">
+<meta name="description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 Lock 指令在多处理器系统上，将当前处理器缓存行的内容写回到系统内存 CPU缓存 volatile 无法保证原子性操作。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="volatile 的使用">
 <meta property="og:url" content="http://yoursite.com/2018/11/18/volatile/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。">
+<meta property="og:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 Lock 指令在多处理器系统上，将当前处理器缓存行的内容写回到系统内存 CPU缓存 volatile 无法保证原子性操作。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-23T01:42:31.443Z">
+<meta property="og:updated_time" content="2020-09-15T03:04:47.068Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile 的使用">
-<meta name="twitter:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。">
+<meta name="twitter:description" content="防止指令重排序；确保线程之间共享变量的立即可见性。 Lock 指令在多处理器系统上，将当前处理器缓存行的内容写回到系统内存 CPU缓存 volatile 无法保证原子性操作。">
 
 
 
@@ -330,6 +330,9 @@
 
       
         <p>防止指令重排序；<br>确保线程之间共享变量的立即可见性。</p>
+<p>Lock 指令<br>在多处理器系统上，将当前处理器缓存行的内容写回到系统内存</p>
+<p>CPU缓存</p>
+<p>volatile 无法保证原子性操作。</p>
 
       
     </div>
@@ -461,7 +464,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

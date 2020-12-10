@@ -259,6 +259,543 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/18/minio/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/18/minio/" itemprop="url">minio</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-18T10:34:05+08:00">
+                2020-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">https://rplib.cn/archives/da-jian-zi-ji-de-fen-bu-shi-yun-cun-chu-minio.html</span><br><span class="line"></span><br><span class="line">配置客户端</span><br><span class="line">./mc config host add minio7 http://10.0.213.7:8000 ACCESS_KEY SECRET_KEY</span><br><span class="line">./mc config host add minio9 http://10.0.213.9:9000 ACCESS_KEY SECRET_KEY</span><br><span class="line"></span><br><span class="line">测试连通性</span><br><span class="line">./mc ls minio9</span><br><span class="line">./mc ls minio7</span><br><span class="line"></span><br><span class="line">对拷镜像</span><br><span class="line">./mc mirror $SrcCluster/$srcBucket $DestCluster</span><br></pre></td></tr></table></figure>
+<p>数据迁移</p>
+<p><a href="https://www.jianshu.com/p/5c6bc2e3b886" target="_blank" rel="noopener">https://www.jianshu.com/p/5c6bc2e3b886</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/int和Integer有什么区别？/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/14/int和Integer有什么区别？/" itemprop="url">Java中Integer类有坑吗</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-14T16:04:07+08:00">
+                2020-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="一切皆对象？"><a href="#一切皆对象？" class="headerlink" title="一切皆对象？"></a>一切皆对象？</h5><p>我们知道Java是一门面向对象的编程语言，但是原始数据类型（boolean、byte、short、char、int、float、double、long）并不是对象。<br>Integer 是int 对应的包装类，它内部包含一个int 类型的成员变量用于存储数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * The value of the &#123;@code Integer&#125;.</span><br><span class="line"> *</span><br><span class="line"> * @serial</span><br><span class="line"> */</span><br><span class="line">private final int value;</span><br></pre></td></tr></table></figure></p>
+<p>Integer 类提供了基础的常量比如最大值、最小值等，还是一些方法比如转换为不同进制的字符串、int和字符串之间的转换等。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 将字符串数字转换成int   </span><br><span class="line">public static int parseInt(String s) throws NumberFormatException &#123;</span><br><span class="line">    return parseInt(s,10);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="自动装箱、自动拆箱"><a href="#自动装箱、自动拆箱" class="headerlink" title="自动装箱、自动拆箱"></a>自动装箱、自动拆箱</h5><p>在Java5中引入了自动装箱(auto boxing)和自动拆箱(auto unboxing)的功能，<br>自动装箱和自动拆箱是一种语法糖，Java根据上下文自动进行转换，它发生在编译阶段，可以保证不同的写法在运行时等价，极大地简化了编程。<br>示例代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class IntegerTest &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Integer i = 100;</span><br><span class="line">        int j = i + 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>反编译一下 <code>javap -v IntegerTest.class</code>，部分输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public static void main(java.lang.String[]);</span><br><span class="line">    descriptor: ([Ljava/lang/String;)V</span><br><span class="line">    flags: ACC_PUBLIC, ACC_STATIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=2, locals=3, args_size=1</span><br><span class="line">         0: bipush        100</span><br><span class="line">         2: invokestatic  #2                  // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;</span><br><span class="line">         5: astore_1</span><br><span class="line">         6: aload_1</span><br><span class="line">         7: invokevirtual #3                  // Method java/lang/Integer.intValue:()I</span><br><span class="line">        10: iconst_1</span><br><span class="line">        11: iadd</span><br><span class="line">        12: istore_2</span><br><span class="line">        13: return</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 6: 0</span><br><span class="line">        line 8: 6</span><br><span class="line">        line 9: 13</span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            0      14     0  args   [Ljava/lang/String;</span><br><span class="line">            6       8     1     i   Ljava/lang/Integer;</span><br><span class="line">           13       1     2     j   I</span><br></pre></td></tr></table></figure></p>
+<p>这里我们主要关注这两行反编译的代码（其他部分代码，感兴趣的朋友可以参考我的另一篇文章）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2: invokestatic  #2                  // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;</span><br><span class="line">7: invokevirtual #3                  // Method java/lang/Integer.intValue:()I</span><br></pre></td></tr></table></figure></p>
+<p>可以看出，Java在编译阶段自动把装箱转换为<code>Integer.valueOf()</code>，把拆箱转换为<code>Integer.intValue()</code></p>
+<h5 id="Integer的值缓存IntegerCache"><a href="#Integer的值缓存IntegerCache" class="headerlink" title="Integer的值缓存IntegerCache"></a>Integer的值缓存IntegerCache</h5><p>我们先看段代码，大家可以先猜测下运行结果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IntegerCacheTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Integer i1 = <span class="number">100</span>;</span><br><span class="line">        Integer i2 = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">        System.out.println(i1 == i2);</span><br><span class="line"></span><br><span class="line">        Integer i3 = <span class="number">200</span>;</span><br><span class="line">        Integer i4 = <span class="number">200</span>;</span><br><span class="line"></span><br><span class="line">        System.out.println(i3 == i4);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实际输出结果：<br>true<br>false</p>
+<p><code>Integer i = 100</code> 这行代码涉及到了自动装箱，通过上面分析我们知道自动装箱调用了<code>Integer.valueOf()</code>方法，<br>这个时候我们有必要看下Integer.valueOf()方法的源代码了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* Returns an &#123;@code Integer&#125; instance representing the specified</span><br><span class="line">* &#123;@code int&#125; value.  If a new &#123;@code Integer&#125; instance is not</span><br><span class="line">* required, this method should generally be used in preference to</span><br><span class="line">* the constructor &#123;@link #Integer(int)&#125;, as this method is likely</span><br><span class="line">* to yield significantly better space and time performance by</span><br><span class="line">* caching frequently requested values.</span><br><span class="line">*</span><br><span class="line">* This method will always cache values in the range -128 to 127,</span><br><span class="line">* inclusive, and may cache other values outside of this range.</span><br><span class="line">*</span><br><span class="line">* @param  i an &#123;@code int&#125; value.</span><br><span class="line">* @return an &#123;@code Integer&#125; instance representing &#123;@code i&#125;.</span><br><span class="line">* @since  1.5</span><br><span class="line">*/</span><br><span class="line">public static Integer valueOf(int i) &#123;</span><br><span class="line">   if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">       return IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">   return new Integer(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里涉及到一个很重要的类IntegerCache，下面是IntegerCache类的源码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Cache to support the object identity semantics of autoboxing for values between</span></span><br><span class="line"><span class="comment"> * -128 and 127 (inclusive) as required by JLS.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The cache is initialized on first usage.  The size of the cache</span></span><br><span class="line"><span class="comment"> * may be controlled by the &#123;<span class="doctag">@code</span> -XX:AutoBoxCacheMax=&lt;size&gt;&#125; option.</span></span><br><span class="line"><span class="comment"> * During VM initialization, java.lang.Integer.IntegerCache.high property</span></span><br><span class="line"><span class="comment"> * may be set and saved in the private system properties in the</span></span><br><span class="line"><span class="comment"> * sun.misc.VM class.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">IntegerCache</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> low = -<span class="number">128</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> high;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> Integer cache[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// high value may be configured by property</span></span><br><span class="line">        <span class="keyword">int</span> h = <span class="number">127</span>;</span><br><span class="line">        String integerCacheHighPropValue =</span><br><span class="line">            sun.misc.VM.getSavedProperty(<span class="string">"java.lang.Integer.IntegerCache.high"</span>);</span><br><span class="line">        <span class="keyword">if</span> (integerCacheHighPropValue != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> i = parseInt(integerCacheHighPropValue);</span><br><span class="line">                i = Math.max(i, <span class="number">127</span>);</span><br><span class="line">                <span class="comment">// Maximum array size is Integer.MAX_VALUE</span></span><br><span class="line">                h = Math.min(i, Integer.MAX_VALUE - (-low) -<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span>( NumberFormatException nfe) &#123;</span><br><span class="line">                <span class="comment">// If the property cannot be parsed into an int, ignore it.</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        high = h;</span><br><span class="line"></span><br><span class="line">        cache = <span class="keyword">new</span> Integer[(high - low) + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> j = low;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; cache.length; k++)</span><br><span class="line">            cache[k] = <span class="keyword">new</span> Integer(j++);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// range [-128, 127] must be interned (JLS7 5.1.7)</span></span><br><span class="line">        <span class="keyword">assert</span> IntegerCache.high &gt;= <span class="number">127</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">IntegerCache</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过javadoc 可以获知Integer 的缓存范围默认是-128到127，<br>当然缓存上限值也是可以根据需要调整的，JVM提供了参数设置<code>-XX:AutoBoxCacheMax=&lt;size&gt;</code>，这也就解释了上述代码中<code>i1 == i2</code> 结果为true，<br>而<code>i3 == i4</code> 为false的根本原因，即在-128到127（包含）之间的数值都是IntegerCache.cache[] 数组中到同一个Integer对象。</p>
+<p>举一反三，这种缓存机制并不只有Integer才有，同样存在于其他一些包装类：</p>
+<ul>
+<li>Boolean，缓存了true/false实例</li>
+<li>Byte，数值全部被缓存</li>
+<li>Short，缓存了-128到127之间到数值</li>
+<li>Character，缓存范围’\u0000’到’\u007f’（0到127）</li>
+<li>Long，缓存了-128到127之间到数值</li>
+</ul>
+<h5 id="如何正确比较Integer值"><a href="#如何正确比较Integer值" class="headerlink" title="如何正确比较Integer值"></a>如何正确比较Integer值</h5><p>通过上面分析，我们发现了两个都是200的Integer变量i3和i4使用<code>==</code>比较的结果为false，那么我们该如何比较两个Integer类型的值呢？<br>其实我们想要比较的是Integer类中的value值，我们可以使用equals进行值的比较，<br>通过阅读Integer类的源码，发现Integer类重写了java.lang.Object类的equals方法，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Compares this object to the specified object.  The result is</span><br><span class="line"> * &#123;@code true&#125; if and only if the argument is not</span><br><span class="line"> * &#123;@code null&#125; and is an &#123;@code Integer&#125; object that</span><br><span class="line"> * contains the same &#123;@code int&#125; value as this object.</span><br><span class="line"> *</span><br><span class="line"> * @param   obj   the object to compare with.</span><br><span class="line"> * @return  &#123;@code true&#125; if the objects are the same;</span><br><span class="line"> *          &#123;@code false&#125; otherwise.</span><br><span class="line"> */</span><br><span class="line">public boolean equals(Object obj) &#123;</span><br><span class="line">    if (obj instanceof Integer) &#123;</span><br><span class="line">        return value == ((Integer)obj).intValue();</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们在实际开发中，经常会遇到比较Integer、Long类型值大小，这里要特别注意不能直接使用<code>==</code>，而应该使用equals方法。</p>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li>基本数据类型都有取值范围，特别注意越界问题，当一个大的数值与另一个大的数值进行相加或相乘容易出现越界</li>
+<li>慎用基本数据类型存储货币，如果采用double会带来一定的误差，常采用BigDecimal、整型（比如金额要精确到分，可将其扩大100倍转换成整型存储）</li>
+<li>优先使用基本数据类型，原则上要避免自动装箱、拆箱行为，尤其是在性能敏感的场景</li>
+<li>如果有线程安全的计算，建议考虑使用类似AtomicInteger、AtomicLong 这样线程安全类。</li>
+</ul>
+<p>这里简单说下基础数据类型越界问题，因为之前没太注意，在一个项目中就遇到过这个问题。记得代码中需要计算一个月的毫秒数，<br>开始代码是这么写的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">long ONE_MONTH = 3600 * 24 * 1000 * 30;</span><br></pre></td></tr></table></figure></p>
+<p>看起来没什么问题，实际运行结果却是个负数，这显然是超过int范围了，如果改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">long ONE_MONTH = 3600 * 24 * 1000 * 30L;</span><br></pre></td></tr></table></figure></p>
+<p>结果就是正确的了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/13/京东返现只要三步/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/13/京东返现只要三步/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-13T17:18:00+08:00">
+                2020-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>第一步，打开京东APP 搜索要购买的商品，查看商品</p>
+<p>第二步 在商品详情页面点击右上角分享，点击下方复制链接</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/12/京粉/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/12/京粉/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-12T13:47:43+08:00">
+                2020-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>业余时间给个人公众号开发京东返利功能</p>
+<p>开发过程中使用的相关技术</p>
+<ul>
+<li><a href="https://www.telerik.com/fiddler" target="_blank" rel="noopener">Fiddler 抓包</a>：，抓取京粉APP中转链接口请求</li>
+<li><a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener">Spring Boot</a>：开发公众号接口服务</li>
+<li><a href="https://github.com/Wechat-Group/WxJava" target="_blank" rel="noopener">WxJava</a>：SDK封装了微信公众平台上大部分Api接口 </li>
+<li><a href="https://www.hutool.cn/" target="_blank" rel="noopener">Hutool</a>：Java工具包，用于发送http请求，调用转链接口获取推广链接</li>
+<li><a href="https://mp.baomidou.com/" target="_blank" rel="noopener">MyBatis-Plus</a> ORM 框架</li>
+<li><a href="https://www.mysql.com/" target="_blank" rel="noopener">MySQL</a> 存储用户转链信息</li>
+<li><a href="https://ngrok.com/" target="_blank" rel="noopener">ngrok</a> 一个让外网访问本机的工具</li>
+</ul>
+<h5 id="选购商品"><a href="#选购商品" class="headerlink" title="选购商品"></a>选购商品</h5>
+<h5 id="京粉APP抓包"><a href="#京粉APP抓包" class="headerlink" title="京粉APP抓包"></a>京粉APP抓包</h5><p>对于怎么安装Fiddler工具，以及怎么使用Fiddler抓手机APP包，大家可以自行搜索，网上有很多的教程，我也是自己通过一点点搜索，然后自己动手操作。</p>
+<ul>
+<li>请求信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET https://qwd.jd.com/cps/zl?content=https%3A%2F%2Fitem.m.jd.com%2Fproduct%2F12469371.html%3Fwxa_abtest%3Do%26ad_od%3Dshare%26utm_source%3Dandroidapp%26utm_medium%3Dappshare%26utm_campaign%3Dt_335139774%26utm_term%3DCopyURL&amp;shareSource=1_2_1 HTTP/1.1</span><br><span class="line">Cookie: client_type=android;app_id=161;login_mode=2;jxjpin=jd_42aa223e6xxxx;tgt=AAJeuTwzAEAdX7JcRYrDc-xxxxxx-nP2jmXqbzbt3_mqbVFUWvkRlAyg6S9kVZW_4rzxFwvAKxxxxxxxN9_xoWMRSaYuTWhL;qwd_chn=99;qwd_schn=1;jfShareSource=1_2_1</span><br><span class="line">User-Agent: jxj/3.7.2</span><br><span class="line">Host: qwd.jd.com</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">Accept-Encoding: gzip</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>通过分析可以看出来GET请求参数中的content就是我们输入的商品地址，则通用接口请求是 <a href="https://qwd.jd.com/cps/zl?content=输入的商品地址&amp;shareSource=1_2_1" target="_blank" rel="noopener">https://qwd.jd.com/cps/zl?content=输入的商品地址&amp;shareSource=1_2_1</a><br>我们需要将Cookie拷贝下来保存到一个配置文件中，后面会用到。</p>
+<ul>
+<li>响应信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;content&quot;:&quot;【京东】曾国藩传（张宏杰新作，随书附赠曾国藩家书典藏本）\n————————\n京东价：¥68.00\n抢购链接：https://u.jd.com/aLkrvK\n&quot;,&quot;errCode&quot;:&quot;0&quot;,&quot;skuInfos&quot;:[&#123;&quot;skuId&quot;:12469371,&quot;imageUrl&quot;:&quot;//m.360buyimg.com/mobilecms/s750x750_jfs/t1/31008/15/1311/244914/5c497860E7e814e9b/48fe7909246755ec.jpg&quot;,&quot;commission&quot;:2.72,&quot;unionUrl&quot;:&quot;https://u.jd.com/aLkrvK&quot;&#125;],&quot;moreGoodsUrl&quot;:&quot;https://u.jd.com/4CyTLd&quot;,&quot;doubtfulUrls&quot;:[]&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>接口响应信息我们可以通过<a href="http://json.cn" target="_blank" rel="noopener">http://json.cn</a> 这个工具来格式化下</p>
+<p>通过与京粉APP转链结果对比分析：<br>commission 字段表示预估佣金，unionUrl 就是我们需要的转链后的抢购链接。<br>至此抓包部分已经完成了，后面我们会使用Hutool工具类（当然也可以自己去编写一个HttpUtil）模拟发送转链请求获取推广链接。</p>
+<h5 id="公众号开发"><a href="#公众号开发" class="headerlink" title="公众号开发"></a>公众号开发</h5><p>打包微信公众号管理后台（<a href="https://mp.weixin.qq.com/），找到" target="_blank" rel="noopener">https://mp.weixin.qq.com/），找到</a> 开发-基本配置</p>
+<p>微信官方也提供了入门指引 <a href="https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Getting_Started_Guide.html" target="_blank" rel="noopener">https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Getting_Started_Guide.html</a><br>其中包含微信开放平台的基础常见功能，看完这些对于本文要实现的功能已经绰绰有余了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/crontab/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -694,14 +1231,20 @@
           
             <p><a href="https://certbot.eff.org/" target="_blank" rel="noopener">https://certbot.eff.org/</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://dl.eff.org/certbot-auto</span><br><span class="line">$ sudo mv certbot-auto /usr/local/bin/certbot-auto</span><br><span class="line">$ sudo chown root /usr/local/bin/certbot-auto</span><br><span class="line">$ sudo chmod 0755 /usr/local/bin/certbot-auto</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/bin/certbot-auto --nginx</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">```text</span><br><span class="line">Could not choose appropriate plugin: The nginx plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: NoInstallationError(&quot;Could not find a usable &apos;nginx&apos; binary. Ensure nginx exists, the binary is executable, and your PATH is set correctly.&quot;,)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/bin/certbot-auto --nginx</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Could not choose appropriate plugin: The nginx plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: NoInstallationError(&quot;Could not find a usable &apos;nginx&apos; binary. Ensure nginx exists, the binary is executable, and your PATH is set correctly.&quot;,)</span><br></pre></td></tr></table></figure>
 <p>由于没有将nginx放到环境变量中，设置nginx软连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx</span><br><span class="line">$ ln -s /usr/local/nginx/conf/ /etc/nginx</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/bin/certbot-auto --nginx</span><br><span class="line">Saving debug log to /var/log/letsencrypt/letsencrypt.log</span><br><span class="line">The nginx plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: PluginError(&apos;Nginx build is missing SSL module (--with-http_ssl_module).&apos;,)</span><br></pre></td></tr></table></figure>
 <p><a href="https://blog.csdn.net/guangcaiwudong/article/details/98858337" target="_blank" rel="noopener">https://blog.csdn.net/guangcaiwudong/article/details/98858337</a></p>
-<p>通过nginx -V查看nginxconfigure arguments没有安装ssl模板，在nginx目录中重新构建<br>cd /opt/nginx-1.14.0<br>./configure –with-http_ssl_module<br>make &amp;&amp; make install</p>
-<p>使用sudo certbot certonly –nginx生成证书，中间需要填写email和域名，生成成功后会提示证书存放路径：</p>
+<p>通过nginx -V查看nginxconfigure arguments没有安装ssl模板，在nginx目录中重新构建<br>cd /opt/nginx-1.14.0<br>./configure –with-http_ssl_module<br>执行 make<br>这里不要进行make install，否则就是覆盖安装。</p>
+<p><a href="http://hacksteven.com/?p=183" target="_blank" rel="noopener">Nginx安装后增加SSL模块</a></p>
+<p>使用<code>sudo certbot certonly --nginx</code>生成证书，中间需要填写email和域名，生成成功后会提示证书存放路径：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/bin/certbot-auto --nginx</span><br><span class="line">Saving debug log to /var/log/letsencrypt/letsencrypt.log</span><br><span class="line">Plugins selected: Authenticator nginx, Installer nginx</span><br><span class="line">Enter email address (used for urgent renewal and security notices) (Enter &apos;c&apos; to</span><br><span class="line">cancel): c</span><br><span class="line">An e-mail address or --register-unsafely-without-email must be provided.</span><br><span class="line">[root@VM_0_13_centos nginx]# sudo /usr/local/bin/certbot-auto --nginx</span><br><span class="line">Saving debug log to /var/log/letsencrypt/letsencrypt.log</span><br><span class="line">Plugins selected: Authenticator nginx, Installer nginx</span><br><span class="line">Enter email address (used for urgent renewal and security notices) (Enter &apos;c&apos; to</span><br><span class="line">cancel): ym2011678@foxmail.com</span><br><span class="line"></span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">Please read the Terms of Service at</span><br><span class="line">https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must</span><br><span class="line">agree in order to register with the ACME server at</span><br><span class="line">https://acme-v02.api.letsencrypt.org/directory</span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">(A)gree/(C)ancel: A</span><br><span class="line"></span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">Would you be willing to share your email address with the Electronic Frontier</span><br><span class="line">Foundation, a founding partner of the Let&apos;s Encrypt project and the non-profit</span><br><span class="line">organization that develops Certbot? We&apos;d like to send you email about our work</span><br><span class="line">encrypting the web, EFF news, campaigns, and ways to support digital freedom.</span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">(Y)es/(N)o: N</span><br><span class="line">No names were found in your configuration files. Please enter in your domain</span><br><span class="line">name(s) (comma and/or space separated)  (Enter &apos;c&apos; to cancel): npe4j.com</span><br><span class="line">Obtaining a new certificate</span><br><span class="line">Performing the following challenges:</span><br><span class="line">http-01 challenge for npe4j.com</span><br><span class="line">Using default address 80 for authentication.</span><br><span class="line">Waiting for verification...</span><br><span class="line">Cleaning up challenges</span><br><span class="line">Could not automatically find a matching server block for npe4j.com. Set the `server_name` directive to use the Nginx installer.</span><br><span class="line"></span><br><span class="line">IMPORTANT NOTES:</span><br><span class="line"> - Unable to install the certificate</span><br><span class="line"> - Congratulations! Your certificate and chain have been saved at:</span><br><span class="line">   /etc/letsencrypt/live/npe4j.com/fullchain.pem</span><br><span class="line">   Your key file has been saved at:</span><br><span class="line">   /etc/letsencrypt/live/npe4j.com/privkey.pem</span><br><span class="line">   Your cert will expire on 2019-12-09. To obtain a new or tweaked</span><br><span class="line">   version of this certificate in the future, simply run certbot-auto</span><br><span class="line">   again with the &quot;certonly&quot; option. To non-interactively renew *all*</span><br><span class="line">   of your certificates, run &quot;certbot-auto renew&quot;</span><br><span class="line"> - Your account credentials have been saved in your Certbot</span><br><span class="line">   configuration directory at /etc/letsencrypt. You should make a</span><br><span class="line">   secure backup of this folder now. This configuration directory will</span><br><span class="line">   also contain certificates and private keys obtained by Certbot so</span><br><span class="line">   making regular backups of this folder is ideal.</span><br></pre></td></tr></table></figure>
 <p>nginx从http跳转到https<br><a href="https://www.cnblogs.com/nuccch/p/7681592.html" target="_blank" rel="noopener">https://www.cnblogs.com/nuccch/p/7681592.html</a></p>
+<h5 id="CentOS-7-下-安装-Let’s-Encrypt-的通配符证书"><a href="#CentOS-7-下-安装-Let’s-Encrypt-的通配符证书" class="headerlink" title="CentOS 7 下 安装 Let’s Encrypt 的通配符证书"></a>CentOS 7 下 安装 Let’s Encrypt 的通配符证书</h5><p>sudo yum install epel-release<br>sudo yum install certbot</p>
+<p>certbot –server <a href="https://acme-v02.api.letsencrypt.org/directory" target="_blank" rel="noopener">https://acme-v02.api.letsencrypt.org/directory</a> -d npe4j.com -d *.npe4j.com –manual –preferred-challenges dns-01 certonly</p>
+<p><a href="https://qizhanming.com/blog/2019/04/23/how-to-install-let-s-encrypt-wildcards-certificate-on-centos-7" target="_blank" rel="noopener">https://qizhanming.com/blog/2019/04/23/how-to-install-let-s-encrypt-wildcards-certificate-on-centos-7</a><br><a href="https://www.infoq.cn/article/2018/03/lets-encrypt-wildcard-https" target="_blank" rel="noopener">https://www.infoq.cn/article/2018/03/lets-encrypt-wildcard-https</a><br><a href="https://www.jianshu.com/p/c5c9d071e395" target="_blank" rel="noopener">https://www.jianshu.com/p/c5c9d071e395</a></p>
+<p>删除弃用的Let’s encrypt安全证书的域名<br><a href="https://www.vmvps.com/how-to-delete-unused-lets-encrypt-ssl-domain.html" target="_blank" rel="noopener">https://www.vmvps.com/how-to-delete-unused-lets-encrypt-ssl-domain.html</a></p>
 
           
         
@@ -1013,525 +1556,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/22/linux/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/22/linux/" itemprop="url">linux</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T08:51:19+08:00">
-                2019-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>linux性能优化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ uptime</span><br><span class="line">09:04:56 up 489 days, 19:26,  1 user,  load average: 0.47, 0.42, 0.37</span><br><span class="line"></span><br><span class="line">#当前服务器时间：    09:04:56</span><br><span class="line">#当前服务器运行时长  489 days</span><br><span class="line">#当前用户数          1 user</span><br><span class="line">#当前的平均负载      load average: 0.47, 0.42, 0.37，分别取1min,5min,15min的均值</span><br></pre></td></tr></table></figure>
-<p>可以通过man uptime 查看详细信息。</p>
-<p>平均负载：特定时间间隔内运行队列中的平均进程数。</p>
-<p>查看cpu信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/14/csrf/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/14/csrf/" itemprop="url">csrf</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-14T11:13:33+08:00">
-                2019-08-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://segmentfault.com/a/1190000006944760" target="_blank" rel="noopener">https://segmentfault.com/a/1190000006944760</a></p>
-<p>浏览器安全<br>同源策略（Same Origin Policy）<br>影响因素有：host（域名或IP地址，如果是IP地址则看做一个根域名）、子域名、端口、协议。<br>在浏览器中，<script>、<img>、<iframe>、<link> 等标签都可以跨域加载资源，而不受同源策略的限制。</p>
-<p>XMLHttpRequest 受到同源策略的约束，不能跨域访问资源，在AJAX应用的开发中需要注意这一点。</p>
-<p>跨站脚本攻击（Cross Site Script）XSS，通常指黑客通过“html注入”篡改了网页，插入了恶意脚本，<br>从而在用户浏览网页时，控制用户浏览器的一种攻击。</p>
-<p>跨站点请求伪造（Cross Site Request Forgery）CSRF，</p>
-</script></p>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/jvm-using/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/07/jvm-using/" itemprop="url">Java中类的主动使用举例</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T22:20:22+08:00">
-                2019-08-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="Java中类的主动使用举例"><a href="#Java中类的主动使用举例" class="headerlink" title="Java中类的主动使用举例"></a>Java中类的主动使用举例</h4><p>在上一节中，我们知道Java程序对类对使用方式有两种：主动使用和被动使用。<br>其中Java程序对类的主动使用有5种情况，其余情况均为被动使用。<br>下面我们通过一个例子来看看主动使用：<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/07/jvm-using/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/02/elasticsearch-modifying-your-data/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/02/elasticsearch-modifying-your-data/" itemprop="url">elasticsearch-modifying-your-data</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T11:12:24+08:00">
-                2019-08-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="Modifying-Your-Data"><a href="#Modifying-Your-Data" class="headerlink" title="Modifying Your Data"></a>Modifying Your Data</h4><h4 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h4><p>Elasticsearch provides data manipulation and search capabilities in near real time.<br>By default, you can expect a one second delay (refresh interval) from the time you index/update/delete your data<br>until the time that it appears in your search results.<br>This is an important distinction from other platforms like SQL wherein data is immediately available after a transaction is completed.<br>Elasticsearch 提供了近实时的数据处理和搜索功能。<br>默认情况下，从搜索/更新/删除数据到它出现在搜索结果中，你可以期望1秒的延迟（刷新间隔）。<br>这是与SQL等其他平台的重要区别，在SQL中，事务完成后数据是立即可用的。</p>
-<h4 id="Indexing-Replacing-Documents"><a href="#Indexing-Replacing-Documents" class="headerlink" title="Indexing/Replacing Documents"></a>Indexing/Replacing Documents</h4><h4 id="搜索-替换文档"><a href="#搜索-替换文档" class="headerlink" title="搜索/替换文档"></a>搜索/替换文档</h4>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/02/elasticsearch-modifying-your-data/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1582,7 +1606,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

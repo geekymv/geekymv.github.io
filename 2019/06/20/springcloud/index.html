@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="Spring Cloud 入门概述是什么Spring Cloud 基于Spring Boot 提供了一套微服务解决方案，包括服务注册与发现，配置中心，全链路监控，服务网关，负载均衡，熔断器等组件，除了基于Netflix 的开源组件做高度抽象封装之外，还有一些选型中立的开源组件。Spring Cloud 利用Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，Spring Cl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-01T07:51:40.839Z">
+<meta property="og:updated_time" content="2020-09-15T03:04:47.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MicroServices">
 <meta name="twitter:description" content="Spring Cloud 入门概述是什么Spring Cloud 基于Spring Boot 提供了一套微服务解决方案，包括服务注册与发现，配置中心，全链路监控，服务网关，负载均衡，熔断器等组件，除了基于Netflix 的开源组件做高度抽象封装之外，还有一些选型中立的开源组件。Spring Cloud 利用Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，Spring Cl">
@@ -334,6 +334,8 @@
 <p>Spring Boot 可以离开Spring Cloud 独立使用开发项目，但是Spring Cloud 离不开Sprint Boot，属于依赖关系。<br>Spring Boot 专注于快速、方便的开发单个微服务个体，Spring Cloud 关注全局的服务治理框架。</p>
 <h4 id="从Dubbo-是怎么到-Spring-Cloud-的？哪些优缺点让你去做技术选型"><a href="#从Dubbo-是怎么到-Spring-Cloud-的？哪些优缺点让你去做技术选型" class="headerlink" title="从Dubbo 是怎么到 Spring Cloud 的？哪些优缺点让你去做技术选型"></a>从Dubbo 是怎么到 Spring Cloud 的？哪些优缺点让你去做技术选型</h4><p>目前成熟的互联网架构（分布式+服务治理Dubbo）<br>Spring Cloud vs Dubbo<br>活跃度<br>对比              Dubbo               Spring Cloud<br>服务注册中心       Zookeeper           Spring Cloud Netflix Eureka<br>服务调用方式       RPC                 REST API<br>服务监控          Dubbo Monitor       Spring Boot Admin<br>断路器            不完善              Spring Cloud Netflix Hystrix<br>服务网关          无                  Spring Cloud Netflix Zuul<br>分布式配置         无                   Spring Cloud Config<br>服务跟踪          无                    Spring Cloud Sleuth<br>消息总线          无                    Spring Cloud Bus<br>数据流            无                     Spring Cloud Stream<br>批量任务          无                     Spring Cloud Task<br>最大区别：Spring Cloud 抛弃了Dubbo 的RPC 通信，采用的是基于HTTP 的REST 方式。<br>严格来说，这两种方式各有优劣。虽然从一定程度上来说，后者牺牲了服务调用的性能，但也避免了上面提到的原生RPC 带来的问题。<br>而且REST 相比RPC 更为灵活，服务提供方和调用方依赖的只是一纸契约，不存在代码级别的强依赖，这在强调快速演化的微服务环境下，<br>显得更加合适。<br>就像品牌与组装机的区别。</p>
 <p>能干嘛<br>去哪下<br>怎么玩<br>Spring Cloud 国内使用情况</p>
+<p>业务拆分</p>
+<p>会员服务<br>商品服务<br>订单服务<br>支付服务<br>秒杀服务<br>优惠券服务<br>消息服务<br>搜索服务</p>
 
       
     </div>
@@ -382,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/20/microservices/" rel="next" title="MicroServices">
-                <i class="fa fa-chevron-left"></i> MicroServices
+              <a href="/2019/06/18/mq/" rel="next" title="mq">
+                <i class="fa fa-chevron-left"></i> mq
               </a>
             
           </div>
@@ -392,8 +394,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/27/wireshark/" rel="prev" title="wireshark">
-                wireshark <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/20/microservices/" rel="prev" title="MicroServices">
+                MicroServices <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -474,7 +476,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

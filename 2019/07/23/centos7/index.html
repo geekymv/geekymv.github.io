@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635">
+<meta name="description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 centos7 防火墙https://www.4spaces.org/centos-open-porter/ 禁止开机启动systemctl disable fi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos7">
 <meta property="og:url" content="http://yoursite.com/2019/07/23/centos7/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635">
+<meta property="og:description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 centos7 防火墙https://www.4spaces.org/centos-open-porter/ 禁止开机启动systemctl disable fi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-23T08:23:30.062Z">
+<meta property="og:updated_time" content="2020-05-25T03:31:34.682Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7">
-<meta name="twitter:description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635">
+<meta name="twitter:description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 centos7 防火墙https://www.4spaces.org/centos-open-porter/ 禁止开机启动systemctl disable fi">
 
 
 
@@ -331,6 +331,16 @@
       
         <p>配置网络<br><a href="https://blog.csdn.net/akipa11/article/details/81414875" target="_blank" rel="noopener">https://blog.csdn.net/akipa11/article/details/81414875</a></p>
 <p>设置时区<br><a href="https://blog.csdn.net/jkjkjkll/article/details/80015635" target="_blank" rel="noopener">https://blog.csdn.net/jkjkjkll/article/details/80015635</a></p>
+<h5 id="centos7-防火墙"><a href="#centos7-防火墙" class="headerlink" title="centos7 防火墙"></a>centos7 防火墙</h5><p><a href="https://www.4spaces.org/centos-open-porter/" target="_blank" rel="noopener">https://www.4spaces.org/centos-open-porter/</a></p>
+<p>禁止开机启动<br>systemctl disable firewalld</p>
+<p>启动防火墙<br>systemctl start firewalld</p>
+<p>设置开机启动<br>systemctl enable firewalld</p>
+<p>查看状态<br>systemctl status firewalld</p>
+<p>查看zone名称<br>firewall-cmd –get-active-zones</p>
+<p>开放443端口<br>firewall-cmd –zone=public –add-port=443/tcp –permanent</p>
+<p>重启防火墙<br>firewall-cmd –reload</p>
+<p>查看指定区域所有打开的端口<br>firewall-cmd –zone=public –list-ports</p>
+<p>删除端口<br>firewall-cmd –zone=public –remove-port=3080/tcp –permanent</p>
 
       
     </div>
@@ -446,8 +456,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -462,7 +481,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -507,6 +526,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#centos7-防火墙"><span class="nav-number">1.</span> <span class="nav-text">centos7 防火墙</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
