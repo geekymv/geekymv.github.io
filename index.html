@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/03/谈谈JVM内存区域的划分/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/03/jvm-runtime-dataarea/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="geekymv">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/03/谈谈JVM内存区域的划分/" itemprop="url">谈谈JVM内存区域的划分</a></h1>
+                <a class="post-title-link" href="/2021/03/03/jvm-runtime-dataarea/" itemprop="url">谈谈JVM内存区域的划分</a></h1>
         
 
         <div class="post-meta">
@@ -353,11 +353,11 @@
         
           <p>对 Java 程序员来说我们不用自己手动管理对象内存的申请与释放，全部交由 Java 虚拟机（JVM）来管理内存的分配与回收。<br>因此，日常开发中我们不用关心内存分配与回收，减少了很多繁琐的工作，大大提高了开发效率。<br>也正是因为如此，一旦出内存泄漏和溢出方面的问题，如果不了解 JVM 内部的内存结构、工作机制，那么排查问题将变得异常艰难。</p>
 <p>接下来，我们一起学习 JVM 内存区域的划分、作用以及可能产生的问题。</p>
-<p>根据 Java 虚拟机规范，Java 虚拟机在执行 Java 程序的过程中会把它所管理的内存划分为几个不同的数据区域，如下所示：<br><img src="/2021/03/03/谈谈JVM内存区域的划分/JVM内存区域.jpg" title="JVM内存区域划分"></p>
+<p>根据 Java 虚拟机规范，Java 虚拟机在执行 Java 程序的过程中会把它所管理的内存划分为几个不同的数据区域，如下所示：<br><img src="/2021/03/03/jvm-runtime-dataarea/JVM内存区域.jpg" title="JVM内存区域划分"></p>
 <p>其中，有些区域会在虚拟机进程启动的时候创建，由所有线程共享。还有些区域则在用户线程的启动的时候创建，线程结束的时候销毁。<br>这部分区域则是线程私有的。JVM 内存区域主要分为线程共享区域（Java堆、方法区）、线程私有区域（程序计数器、虚拟机栈、本地方法栈）。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/03/谈谈JVM内存区域的划分/#more" rel="contents">
+            <a class="btn" href="/2021/03/03/jvm-runtime-dataarea/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
