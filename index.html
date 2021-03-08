@@ -408,132 +408,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/17/3-things-every-java-developer-should-stop-doing/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/17/3-things-every-java-developer-should-stop-doing/" itemprop="url">3-things-every-java-developer-should-stop-doing</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-17T17:00:53+08:00">
-                2020-12-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>From returning null values to overusing getters and setters,<br>there are idioms that we as Java developers are accustom to making, even when unwarranted.<br>While they may be appropriate in some occasions,<br>they are usually forces of habit or fallbacks that we make to get the system working.<br>In this article, we will go through three things that are common among Java developers,<br>both novice and advanced, and explore how they can get us into trouble.<br>It should be noted that these are not hard-and-fast rules that should always be adhered to,<br>regardless of the circumstances. At times, there may be a good reason to use these patterns to solve a problem,<br>but on the whole, they should be used a lot less than they are now.<br>To start us off, we will begin with one of the most prolific, but double-edged keywords in Java: Null.</p>
-<p>从返回null值到过度使用 getters 和 setters，</p>
-<ol>
-<li>Returning Null<br>Null has been the best friend and worst enemy of developers for decades and null in Java is no different.<br>In high-performance applications,<br>null can be a solid means of reducing the number of objects and signaling that a method does not have a value to return.<br>In contrast to throwing an exception, which has to capture the entire stack trace when it is created,<br>null serves as a quick and low-overhead way to signal clients that no value can be obtained.</li>
-</ol>
-<p>Outside the context of high-performance systems,<br> null can wreak havoc in an application by creating more tedious checks for null return values<br> and causing NullPointerExceptions when dereferencing a null object. In most applications,<br> nulls are returned for three primary reasons:<br>  (1) to denote no elements could be found for a list,<br>  (2) to signal that no valid value could be found, even if an error did not occur,<br>  or (3) to denote a special case return value.</p>
-<p>Barring any performance reasons,<br>each of these cases has a much better solution which does not use null and force developers to handle null cases.<br>Whatsmore, clients of these methods are not left scratching their heads wondering<br>if the method will return a null in some edge case.<br>In each case, we will devise a cleaner approach that does not involve returning a null value.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/14/mybatis-param/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1072,272 +946,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/13/京东返现只要三步/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/13/京东返现只要三步/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-13T17:18:00+08:00">
-                2020-05-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>第一步，打开京东APP 搜索要购买的商品，查看商品</p>
-<p>第二步 在商品详情页面点击右上角分享，点击下方复制链接</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/12/京粉/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/12/京粉/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-12T13:47:43+08:00">
-                2020-05-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>业余时间给个人公众号开发京东返利功能</p>
-<p>开发过程中使用的相关技术</p>
-<ul>
-<li><a href="https://www.telerik.com/fiddler" target="_blank" rel="noopener">Fiddler 抓包</a>：，抓取京粉APP中转链接口请求</li>
-<li><a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener">Spring Boot</a>：开发公众号接口服务</li>
-<li><a href="https://github.com/Wechat-Group/WxJava" target="_blank" rel="noopener">WxJava</a>：SDK封装了微信公众平台上大部分Api接口 </li>
-<li><a href="https://www.hutool.cn/" target="_blank" rel="noopener">Hutool</a>：Java工具包，用于发送http请求，调用转链接口获取推广链接</li>
-<li><a href="https://mp.baomidou.com/" target="_blank" rel="noopener">MyBatis-Plus</a> ORM 框架</li>
-<li><a href="https://www.mysql.com/" target="_blank" rel="noopener">MySQL</a> 存储用户转链信息</li>
-<li><a href="https://ngrok.com/" target="_blank" rel="noopener">ngrok</a> 一个让外网访问本机的工具</li>
-</ul>
-<h5 id="选购商品"><a href="#选购商品" class="headerlink" title="选购商品"></a>选购商品</h5>
-<h5 id="京粉APP抓包"><a href="#京粉APP抓包" class="headerlink" title="京粉APP抓包"></a>京粉APP抓包</h5><p>对于怎么安装Fiddler工具，以及怎么使用Fiddler抓手机APP包，大家可以自行搜索，网上有很多的教程，我也是自己通过一点点搜索，然后自己动手操作。</p>
-<ul>
-<li>请求信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET https://qwd.jd.com/cps/zl?content=https%3A%2F%2Fitem.m.jd.com%2Fproduct%2F12469371.html%3Fwxa_abtest%3Do%26ad_od%3Dshare%26utm_source%3Dandroidapp%26utm_medium%3Dappshare%26utm_campaign%3Dt_335139774%26utm_term%3DCopyURL&amp;shareSource=1_2_1 HTTP/1.1</span><br><span class="line">Cookie: client_type=android;app_id=161;login_mode=2;jxjpin=jd_42aa223e6xxxx;tgt=AAJeuTwzAEAdX7JcRYrDc-xxxxxx-nP2jmXqbzbt3_mqbVFUWvkRlAyg6S9kVZW_4rzxFwvAKxxxxxxxN9_xoWMRSaYuTWhL;qwd_chn=99;qwd_schn=1;jfShareSource=1_2_1</span><br><span class="line">User-Agent: jxj/3.7.2</span><br><span class="line">Host: qwd.jd.com</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">Accept-Encoding: gzip</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>通过分析可以看出来GET请求参数中的content就是我们输入的商品地址，则通用接口请求是 <a href="https://qwd.jd.com/cps/zl?content=输入的商品地址&amp;shareSource=1_2_1" target="_blank" rel="noopener">https://qwd.jd.com/cps/zl?content=输入的商品地址&amp;shareSource=1_2_1</a><br>我们需要将Cookie拷贝下来保存到一个配置文件中，后面会用到。</p>
-<ul>
-<li>响应信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;content&quot;:&quot;【京东】曾国藩传（张宏杰新作，随书附赠曾国藩家书典藏本）\n————————\n京东价：¥68.00\n抢购链接：https://u.jd.com/aLkrvK\n&quot;,&quot;errCode&quot;:&quot;0&quot;,&quot;skuInfos&quot;:[&#123;&quot;skuId&quot;:12469371,&quot;imageUrl&quot;:&quot;//m.360buyimg.com/mobilecms/s750x750_jfs/t1/31008/15/1311/244914/5c497860E7e814e9b/48fe7909246755ec.jpg&quot;,&quot;commission&quot;:2.72,&quot;unionUrl&quot;:&quot;https://u.jd.com/aLkrvK&quot;&#125;],&quot;moreGoodsUrl&quot;:&quot;https://u.jd.com/4CyTLd&quot;,&quot;doubtfulUrls&quot;:[]&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>接口响应信息我们可以通过<a href="http://json.cn" target="_blank" rel="noopener">http://json.cn</a> 这个工具来格式化下</p>
-<p>通过与京粉APP转链结果对比分析：<br>commission 字段表示预估佣金，unionUrl 就是我们需要的转链后的抢购链接。<br>至此抓包部分已经完成了，后面我们会使用Hutool工具类（当然也可以自己去编写一个HttpUtil）模拟发送转链请求获取推广链接。</p>
-<h5 id="公众号开发"><a href="#公众号开发" class="headerlink" title="公众号开发"></a>公众号开发</h5><p>打包微信公众号管理后台（<a href="https://mp.weixin.qq.com/），找到" target="_blank" rel="noopener">https://mp.weixin.qq.com/），找到</a> 开发-基本配置</p>
-<p>微信官方也提供了入门指引 <a href="https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Getting_Started_Guide.html" target="_blank" rel="noopener">https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Getting_Started_Guide.html</a><br>其中包含微信开放平台的基础常见功能，看完这些对于本文要实现的功能已经绰绰有余了。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/crontab/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1567,11 +1175,386 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/mysql-config/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/09/mysql-config/" itemprop="url">mysql-config</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-09T15:17:08+08:00">
+                2020-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>查看最大连接数<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like 'max_connections';</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/let-s-encrypt/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/10/let-s-encrypt/" itemprop="url">let's-encrypt</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T13:53:48+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://certbot.eff.org/" target="_blank" rel="noopener">https://certbot.eff.org/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://dl.eff.org/certbot-auto</span><br><span class="line">$ sudo mv certbot-auto /usr/local/bin/certbot-auto</span><br><span class="line">$ sudo chown root /usr/local/bin/certbot-auto</span><br><span class="line">$ sudo chmod 0755 /usr/local/bin/certbot-auto</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/bin/certbot-auto --nginx</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Could not choose appropriate plugin: The nginx plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: NoInstallationError(&quot;Could not find a usable &apos;nginx&apos; binary. Ensure nginx exists, the binary is executable, and your PATH is set correctly.&quot;,)</span><br></pre></td></tr></table></figure>
+<p>由于没有将nginx放到环境变量中，设置nginx软连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx</span><br><span class="line">$ ln -s /usr/local/nginx/conf/ /etc/nginx</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/bin/certbot-auto --nginx</span><br><span class="line">Saving debug log to /var/log/letsencrypt/letsencrypt.log</span><br><span class="line">The nginx plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: PluginError(&apos;Nginx build is missing SSL module (--with-http_ssl_module).&apos;,)</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/guangcaiwudong/article/details/98858337" target="_blank" rel="noopener">https://blog.csdn.net/guangcaiwudong/article/details/98858337</a></p>
+<p>通过nginx -V查看nginxconfigure arguments没有安装ssl模板，在nginx目录中重新构建<br>cd /opt/nginx-1.14.0<br>./configure –with-http_ssl_module<br>执行 make<br>这里不要进行make install，否则就是覆盖安装。</p>
+<p><a href="http://hacksteven.com/?p=183" target="_blank" rel="noopener">Nginx安装后增加SSL模块</a></p>
+<p>使用<code>sudo certbot certonly --nginx</code>生成证书，中间需要填写email和域名，生成成功后会提示证书存放路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/bin/certbot-auto --nginx</span><br><span class="line">Saving debug log to /var/log/letsencrypt/letsencrypt.log</span><br><span class="line">Plugins selected: Authenticator nginx, Installer nginx</span><br><span class="line">Enter email address (used for urgent renewal and security notices) (Enter &apos;c&apos; to</span><br><span class="line">cancel): c</span><br><span class="line">An e-mail address or --register-unsafely-without-email must be provided.</span><br><span class="line">[root@VM_0_13_centos nginx]# sudo /usr/local/bin/certbot-auto --nginx</span><br><span class="line">Saving debug log to /var/log/letsencrypt/letsencrypt.log</span><br><span class="line">Plugins selected: Authenticator nginx, Installer nginx</span><br><span class="line">Enter email address (used for urgent renewal and security notices) (Enter &apos;c&apos; to</span><br><span class="line">cancel): ym2011678@foxmail.com</span><br><span class="line"></span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">Please read the Terms of Service at</span><br><span class="line">https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must</span><br><span class="line">agree in order to register with the ACME server at</span><br><span class="line">https://acme-v02.api.letsencrypt.org/directory</span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">(A)gree/(C)ancel: A</span><br><span class="line"></span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">Would you be willing to share your email address with the Electronic Frontier</span><br><span class="line">Foundation, a founding partner of the Let&apos;s Encrypt project and the non-profit</span><br><span class="line">organization that develops Certbot? We&apos;d like to send you email about our work</span><br><span class="line">encrypting the web, EFF news, campaigns, and ways to support digital freedom.</span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">(Y)es/(N)o: N</span><br><span class="line">No names were found in your configuration files. Please enter in your domain</span><br><span class="line">name(s) (comma and/or space separated)  (Enter &apos;c&apos; to cancel): npe4j.com</span><br><span class="line">Obtaining a new certificate</span><br><span class="line">Performing the following challenges:</span><br><span class="line">http-01 challenge for npe4j.com</span><br><span class="line">Using default address 80 for authentication.</span><br><span class="line">Waiting for verification...</span><br><span class="line">Cleaning up challenges</span><br><span class="line">Could not automatically find a matching server block for npe4j.com. Set the `server_name` directive to use the Nginx installer.</span><br><span class="line"></span><br><span class="line">IMPORTANT NOTES:</span><br><span class="line"> - Unable to install the certificate</span><br><span class="line"> - Congratulations! Your certificate and chain have been saved at:</span><br><span class="line">   /etc/letsencrypt/live/npe4j.com/fullchain.pem</span><br><span class="line">   Your key file has been saved at:</span><br><span class="line">   /etc/letsencrypt/live/npe4j.com/privkey.pem</span><br><span class="line">   Your cert will expire on 2019-12-09. To obtain a new or tweaked</span><br><span class="line">   version of this certificate in the future, simply run certbot-auto</span><br><span class="line">   again with the &quot;certonly&quot; option. To non-interactively renew *all*</span><br><span class="line">   of your certificates, run &quot;certbot-auto renew&quot;</span><br><span class="line"> - Your account credentials have been saved in your Certbot</span><br><span class="line">   configuration directory at /etc/letsencrypt. You should make a</span><br><span class="line">   secure backup of this folder now. This configuration directory will</span><br><span class="line">   also contain certificates and private keys obtained by Certbot so</span><br><span class="line">   making regular backups of this folder is ideal.</span><br></pre></td></tr></table></figure>
+<p>nginx从http跳转到https<br><a href="https://www.cnblogs.com/nuccch/p/7681592.html" target="_blank" rel="noopener">https://www.cnblogs.com/nuccch/p/7681592.html</a></p>
+<h5 id="CentOS-7-下-安装-Let’s-Encrypt-的通配符证书"><a href="#CentOS-7-下-安装-Let’s-Encrypt-的通配符证书" class="headerlink" title="CentOS 7 下 安装 Let’s Encrypt 的通配符证书"></a>CentOS 7 下 安装 Let’s Encrypt 的通配符证书</h5><p>sudo yum install epel-release<br>sudo yum install certbot</p>
+<p>certbot –server <a href="https://acme-v02.api.letsencrypt.org/directory" target="_blank" rel="noopener">https://acme-v02.api.letsencrypt.org/directory</a> -d npe4j.com -d *.npe4j.com –manual –preferred-challenges dns-01 certonly</p>
+<p><a href="https://qizhanming.com/blog/2019/04/23/how-to-install-let-s-encrypt-wildcards-certificate-on-centos-7" target="_blank" rel="noopener">https://qizhanming.com/blog/2019/04/23/how-to-install-let-s-encrypt-wildcards-certificate-on-centos-7</a><br><a href="https://www.infoq.cn/article/2018/03/lets-encrypt-wildcard-https" target="_blank" rel="noopener">https://www.infoq.cn/article/2018/03/lets-encrypt-wildcard-https</a><br><a href="https://www.jianshu.com/p/c5c9d071e395" target="_blank" rel="noopener">https://www.jianshu.com/p/c5c9d071e395</a></p>
+<p>删除弃用的Let’s encrypt安全证书的域名<br><a href="https://www.vmvps.com/how-to-delete-unused-lets-encrypt-ssl-domain.html" target="_blank" rel="noopener">https://www.vmvps.com/how-to-delete-unused-lets-encrypt-ssl-domain.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/26/thread-lifecycle/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/26/thread-lifecycle/" itemprop="url">thread-lifecycle</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-26T14:37:32+08:00">
+                2019-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.baeldung.com/java-thread-lifecycle" target="_blank" rel="noopener">Java 线程生命周期</a></p>
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1617,7 +1600,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">80</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
