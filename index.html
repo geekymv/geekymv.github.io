@@ -259,140 +259,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/03/谈谈JVM内存区域的划分/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/03/谈谈JVM内存区域的划分/" itemprop="url">谈谈JVM内存区域的划分</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-03T17:21:51+08:00">
-                2021-03-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1、程序计数器（Program Counter Register）<br>程序计数器也叫PC寄存器。是一块较小的内存空间。<br>在 JVM 规范中，每个线程都有自己的程序计数器，独立存储，互不影响，也就是说程序计数器是线程私有的。<br>如果当前线程执行的是一个 Java 方法，程序计数器记录的是正在执行的虚拟机字节码指令的地址，如果正在执行的是本地（Native）方法，则是空（Undefined）。<br>此内存区域是唯一一个在 JVM 规范中没有规定任何 OutOfMemoryError 情况的区域。</p>
-<p>2、Java 虚拟机栈（VM Stack）<br>Java 虚拟机栈也是线程私有的，每个线程在创建时都会创建一个虚拟机栈，生命周期与线程相同。<br>虚拟机栈描述的是 Java 方法执行的线程内存模型：每个方法被执行的时候，Java虚拟机都会同步创建一个栈帧（Stack Frame）压入虚拟机栈，方法执行完毕栈帧出栈。<br>栈帧中存储着局部变量表、操作数栈、动态链接、方法出口等信息。<br>在 JVM 规范中对虚拟机栈规定了两类异常：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出 StackOverflowError 异常；<br>如果 Java 虚拟机栈容量可以动态扩展，当栈扩展时无法申请到足够的内存会抛出 OutOfMemoryError 异常。<br>可以通过参数-Xss 设定Java虚拟机栈空间大小。</p>
-<p>3、本地方法栈（Native Method Stack）<br>本地方法栈与虚拟机栈类似，也是每个线程都会创建一个。区别是，虚拟机栈为虚拟机执行 Java 方法服务，本地方法栈则是为虚拟机使用到的本地（Native）方法服务。<br>JVM 规范中并未对本地方法栈的实现做强制规定，具体虚拟机可以根据需要自由实现它。甚至在 Oracle Hotspot JVM 中将本地方法栈和虚拟机栈合二为一。<br>与虚拟机栈一样，本地方法栈也会在栈深度溢出或者栈扩展失败时分别抛出 StackOverflowError 和 OutOfMemoryError 异常。</p>
-<p>4、堆（Heap）<br>Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。它是Java内存管理的核心区域，用来存放 Java 对象实例，几乎所有的 Java 对象实例都被直接分配在堆上。<br>但是随着即时编译技术的进步和逃逸分析技术的逐渐成熟，栈上分配、标量替换优化手段将会导致一些微妙的变化，所有的对象都分配到堆上也渐渐变得不那么“绝对”了。<br>从 JDK1.7 开始已经默认开启逃逸分析，如果某些方法中的对象引用没有被返回或者未被外面使用（也就是未逃逸出去），那么对象可以直接在栈上分配内存。</p>
-<p>Java堆是垃圾收集器管理的主要区域，因此也被称为GC堆。从垃圾回收的角度看，由于现代垃圾收集器大部分都是基于分代收集理论设计的，<br>所以 Java堆还可以细分为：新生代和老年代。进一步可以将新生代分为 Eden空间、From Survivor空间 和 To Survivor空间。<br>无论如何划分，Java 中存储的都是对象的实例，这一点上是不变的，而将 Java堆细分的目的只是为了更好的回收内存，或者更快的分配内存。</p>
-<p>如果在Java堆中没有足够的内存完成实例分配，并且堆也无法再扩展时，Java虚拟机将抛出 OutOfMemoryError 异常。<br>通过参数-Xms 和 -Xmx 设定初始堆大小和最大堆大小。</p>
-<p>5、方法区（Method Area）<br>方法区也是所有线程共享的一块内存区域，用于存储已被虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等数据。<br>由于早期 HotSpot JVM 使用永久代实现方法区，很多人习惯将方法区称为永久代（Permanent Generation）。<br>方法区是Java虚拟机规范中的定义，是一种规范，而永久代则是一种是实现，一个是标准一个是实现，<br>其他的虚拟机（比如 BEA JRockit、IBM J9等）实现并没有永久代这一说法。</p>
-<p>方法区的发展<br>由于永久代的大小是有限的，并且JVM对永久代垃圾回收（如，常量池回收、类型的卸载）的效果比较难以令人满意，<br>我们通常使用 -XX:PermSize 和 -XX:MaxPermSize 设置永久代的大小, 这个大小就决定了永久代的上限，容易出现OOM问题。</p>
-<p>在 JDK6 的时候 HotSpot 团队就有放弃永久代逐步改为本地内存（Native Memory）来实现方法区的计划了，<br>到了 JDK7 已经把原本放在永久代的字符串常量池、静态变量等移到堆上分配，<br>在 JDK8 中彻底移除了永久代，将 JDK7 中永久代剩余的内容（主要是类型信息）移到元空间（Metaspace）中。</p>
-<p>相关文章</p>
-<ul>
-<li><a href="http://openjdk.java.net/jeps/122" target="_blank" rel="noopener">http://openjdk.java.net/jeps/122</a></li>
-<li><a href="https://xie.infoq.cn/article/e5e566b566d4aeb1d04a2c0de" target="_blank" rel="noopener">https://xie.infoq.cn/article/e5e566b566d4aeb1d04a2c0de</a></li>
-<li><a href="https://www.jianshu.com/p/3ecece7ece20" target="_blank" rel="noopener">https://www.jianshu.com/p/3ecece7ece20</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/30/ArrayList 扩容策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1580,6 +1446,127 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/tomcat/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/09/tomcat/" itemprop="url">tomcat</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-09T15:36:02+08:00">
+                2020-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>tomcat 线程池<br>org.apache.catalina.core.StandardThreadExecutor</p>
+<p><a href="https://blog.csdn.net/huangshanchun/article/details/78567501?utm_source=blogxgwz9" target="_blank" rel="noopener">https://blog.csdn.net/huangshanchun/article/details/78567501?utm_source=blogxgwz9</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1630,7 +1617,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
