@@ -259,6 +259,401 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/jvm/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/10/jvm/" itemprop="url">jvm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T15:20:22+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h4><p>Java虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被直接使用的Java类型。<br>在Java语言中，<code>类型</code>（class）的加载、连接与初始化过程都是在程序<code>运行期间</code>完成的，通过这种方式提供了更大的灵活性，<br>增加了更多的可能性。Java里天生支持的<code>动态扩展</code>的语言特性就是依赖运行期动态加载和动态连接这个特点实现的。<br>例如，如果编写一个面向接口的应用程序，可以等到运行时再指定其实际的实现类。</p>
+<h4 id="类加载时机"><a href="#类加载时机" class="headerlink" title="类加载时机"></a>类加载时机</h4><p>类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括以下几个阶段：</p>
+<ul>
+<li>加载(Loading)：查找并加载类的二进制数据，将类的class文件加载到内存；</li>
+<li>连接(Linking)：将类与类的关系给确定好，将类与类之间符号引用转换成直接引用，并且对字节码进行相关的处理、验证。<ul>
+<li>验证(Verification)：确保被加载类的正确性；</li>
+<li>准备(Preparation)：为类的<code>静态变量</code>（类变量）分配内存，并将其<code>初始化为默认值</code>，但在到达初始化之前，类变量都没有初始化为真正的初始值；</li>
+<li>解析(Resolution)：把类中的符号引用转换为直接引用；</li>
+</ul>
+</li>
+<li>初始化(Initialization)：为类的静态变量赋予正确的初始值（真实值覆盖默认值）。</li>
+<li>使用(Using)<ul>
+<li>类实例化：为新的对象分配内存，为实例变量赋默认值，为实例变量赋正确的初始值（开发人员设置的初始值）。</li>
+</ul>
+</li>
+<li>卸载(Unloading)</li>
+</ul>
+<p>加载、验证、准备、初始化和卸载5个阶段的顺序是确定的，类的加载过程必须按照这种顺序按部就班地<code>开始</code><br>（注意，这里写的是开始，而不是进行或完成，因为这些阶段通常都是互相交叉地混合式进行的，通常会在一个阶段执行的过程中调用、激活另一个阶段）。<br>而解析阶段则不一定，它在某些情况下可以在初始化之后再开始。</p>
+<p>对于类加载过程的第一个阶段（加载）什么时候开始，Java虚拟机规范中并没有进行强制约束，由虚拟机的实现自由把握。但是对于<code>初始化阶段</code>，<br>虚拟机规范严格规定了有且只有5种情况必须立即对类进行初始化（而加载、验证、准备自然需要在此之前开始）：</p>
+<ul>
+<li>遇到new、getstatic、putstatic或invokestatic 这4条字节码指令时，如果类还没进行过初始化，则需要先触发其初始化。<br>生成这4条指令的最常见的场景有：使用new关键字创建类的实例，读取或设置类的静态变量（被final修饰、已在编译期把结果放入常量池的静态字段除外），<br>调用类的静态方法。</li>
+<li>使用java.lang.reflect包的方法对类进行反射调用的时候，如果类还没进行过初始化，则需要先触发其初始化。</li>
+<li>当初始化一个类的时候，如果发现其父类还没有进行过初始化，则先要触发其父类的初始化。</li>
+<li>当虚拟机启动时，用户需要指定一个要执行的主类（包含main方法的那个类），虚拟机会先初始化这个主类。</li>
+<li>当使用JDK1.7的动态语言支持时，如果一个java.lang.invoke.methodHandle实例的解析结果REF_getStatic, REF_putStatic,<br>REF_invokeStatic的方法句柄，并且这个方法句柄对应的类没有初始化则初始化。</li>
+</ul>
+<p>以上5种情况对应的行为称为对一个<code>类的主动使用</code>。除此之外，所有引用类的方式都不会触发初始化，被称为<code>被动使用</code>。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/10/jvm/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/tools/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/04/tools/" itemprop="url">tools</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-04T15:57:57+08:00">
+                2019-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/fighting41love/funNLP" target="_blank" rel="noopener">从文本中抽取结构化信息</a><br><a href="https://github.com/ovity/octotree" target="_blank" rel="noopener">octotree</a><br><a href="https://github.com/threerocks/studyFiles" target="_blank" rel="noopener">studyFiles</a></p>
+<p><a href="https://tech.youzan.com/" target="_blank" rel="noopener">有赞技术团队</a><br><a href="https://crossoverjie.top/" target="_blank" rel="noopener">crossoverjie</a><br><a href="https://blog.csdn.net/u013871100" target="_blank" rel="noopener">CSDN博客</a><br><a href="https://indiehackers.net/topics/367" target="_blank" rel="noopener">indiehackers</a><br><a href="http://sideidea.com/" target="_blank" rel="noopener">sideide</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/lru-cache/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/04/lru-cache/" itemprop="url">用 LinkedHashMap 实现一个 LRU</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-04T11:04:54+08:00">
+                2019-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>参考 org.apache.kafka.common.cache.LRUCache<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/04/lru-cache/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/nginx/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1186,383 +1581,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/java-interview/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/15/java-interview/" itemprop="url">java-interview</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T18:30:48+08:00">
-                2019-01-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>大神博客<br><a href="https://www.hollischuang.com/list" target="_blank" rel="noopener">Hollis</a><br><a href="https://www.52pojie.cn/" target="_blank" rel="noopener">吾爱破解</a></p>
-<p><a href="https://www.w3cschool.cn/u/56375" target="_blank" rel="noopener">https://www.w3cschool.cn/u/56375</a></p>
-<p>线程池用过哪些，线程池有哪些参数，线程池的用法和实际应用场景</p>
-<p>分布式下redis如何保证线程安全<br>redis持久化方式及区别</p>
-<p>zookeeper 如何实现分布式锁，其他分布式锁怎么实现<br>dubbo中的zookeeper是做什么的</p>
-<p>kafka 的架构，如何用kafka保证消息的有序性</p>
-<p>Cloneable接口实现原理</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/java-interview/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/zookeeper/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/11/zookeeper/" itemprop="url">zookeeper</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T22:15:04+08:00">
-                2019-01-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="Zookeeper-是什么"><a href="#Zookeeper-是什么" class="headerlink" title="Zookeeper 是什么"></a>Zookeeper 是什么</h4><p>Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。<br>Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理应用的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，<br>Zookeeper 就将负责通知已经在Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似Master/Slave管理模式。<br>Zookeeper = 文件系统 + 通知机制。</p>
-<p>数据结构<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/11/zookeeper/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/delay-queue/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/10/delay-queue/" itemprop="url">delay-queue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T15:55:28+08:00">
-                2019-01-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>有赞延迟队列设计<br><a href="https://tech.youzan.com/queuing_delay/" target="_blank" rel="noopener">https://tech.youzan.com/queuing_delay/</a></p>
-<p>1分钟实现“延迟消息”功能<br><a href="https://mp.weixin.qq.com/s/eDMV25YqCPYjxQG-dvqSqQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/eDMV25YqCPYjxQG-dvqSqQ</a><br><a href="https://www.jianshu.com/p/331b4e11f7ab" target="_blank" rel="noopener">https://www.jianshu.com/p/331b4e11f7ab</a></p>
-<p>基于redis实现的延迟消息队列<br><a href="https://www.jianshu.com/p/e958e8590020" target="_blank" rel="noopener">https://www.jianshu.com/p/e958e8590020</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1613,7 +1631,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">84</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1635,7 +1653,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
