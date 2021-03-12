@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="我们一般会有这么一个场景，比如从数据库中查询出一些数据，放入了ArrayList中。现在要对这些数据进行过滤，删除部分那些不满足条件的元素。为了简化，我这里就不从数据库中查询了，而是模拟一些数据，ArrayList中存放了5个用户信息，现在要求将年龄小于18的用户从ArrayList中移除。 123456789101112131415161718192021public class User &amp;#">
+<meta name="description" content="我们一般会有这么一个场景，比如从数据库中查询出一些数据，放入了ArrayList中。现在要对这些数据进行过滤，删除那些不满足条件的元素。为了简化，我这里就不从数据库中查询了，而是模拟一些数据，ArrayList中存放了5个用户信息，现在要求将年龄小于18的用户从ArrayList中移除。 123456789101112131415161718192021public class User &amp;#12">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ArrayList类执行remove操作竟然抛出了ConcurrentModificationException 异常">
 <meta property="og:url" content="http://yoursite.com/2021/03/11/arraylist-concurrent-modification-exception/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="我们一般会有这么一个场景，比如从数据库中查询出一些数据，放入了ArrayList中。现在要对这些数据进行过滤，删除部分那些不满足条件的元素。为了简化，我这里就不从数据库中查询了，而是模拟一些数据，ArrayList中存放了5个用户信息，现在要求将年龄小于18的用户从ArrayList中移除。 123456789101112131415161718192021public class User &amp;#">
+<meta property="og:description" content="我们一般会有这么一个场景，比如从数据库中查询出一些数据，放入了ArrayList中。现在要对这些数据进行过滤，删除那些不满足条件的元素。为了简化，我这里就不从数据库中查询了，而是模拟一些数据，ArrayList中存放了5个用户信息，现在要求将年龄小于18的用户从ArrayList中移除。 123456789101112131415161718192021public class User &amp;#12">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-11T09:29:32.058Z">
+<meta property="og:updated_time" content="2021-03-11T09:32:32.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ArrayList类执行remove操作竟然抛出了ConcurrentModificationException 异常">
-<meta name="twitter:description" content="我们一般会有这么一个场景，比如从数据库中查询出一些数据，放入了ArrayList中。现在要对这些数据进行过滤，删除部分那些不满足条件的元素。为了简化，我这里就不从数据库中查询了，而是模拟一些数据，ArrayList中存放了5个用户信息，现在要求将年龄小于18的用户从ArrayList中移除。 123456789101112131415161718192021public class User &amp;#">
+<meta name="twitter:description" content="我们一般会有这么一个场景，比如从数据库中查询出一些数据，放入了ArrayList中。现在要对这些数据进行过滤，删除那些不满足条件的元素。为了简化，我这里就不从数据库中查询了，而是模拟一些数据，ArrayList中存放了5个用户信息，现在要求将年龄小于18的用户从ArrayList中移除。 123456789101112131415161718192021public class User &amp;#12">
 
 
 
@@ -329,7 +329,7 @@
       
 
       
-        <p>我们一般会有这么一个场景，比如从数据库中查询出一些数据，放入了ArrayList中。现在要对这些数据进行过滤，删除部分那些不满足条件的元素。<br>为了简化，我这里就不从数据库中查询了，而是模拟一些数据，ArrayList中存放了5个用户信息，现在要求将年龄小于18的用户从ArrayList中移除。</p>
+        <p>我们一般会有这么一个场景，比如从数据库中查询出一些数据，放入了ArrayList中。现在要对这些数据进行过滤，删除那些不满足条件的元素。<br>为了简化，我这里就不从数据库中查询了，而是模拟一些数据，ArrayList中存放了5个用户信息，现在要求将年龄小于18的用户从ArrayList中移除。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// id</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">// 年龄</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(<span class="keyword">int</span> id, String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略 getter setter 方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟数据</span></span><br><span class="line">list.add(<span class="keyword">new</span> User(<span class="number">1000</span>, <span class="string">"张三"</span>, <span class="number">22</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> User(<span class="number">1001</span>, <span class="string">"李四"</span>, <span class="number">27</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> User(<span class="number">1002</span>, <span class="string">"王五"</span>, <span class="number">16</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> User(<span class="number">1003</span>, <span class="string">"赵六"</span>, <span class="number">18</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> User(<span class="number">1004</span>, <span class="string">"孙七"</span>, <span class="number">22</span>));</span><br><span class="line"></span><br><span class="line">Iterator&lt;User&gt; iterator = list.iterator();</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    User user = iterator.next();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除不满足条件的用户</span></span><br><span class="line">    <span class="keyword">if</span>(user.getAge() &lt; <span class="number">18</span>) &#123;</span><br><span class="line">        list.remove(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>执行会抛出如下异常信息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.util.ConcurrentModificationException</span><br><span class="line">	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:<span class="number">909</span>)</span><br><span class="line">	at java.util.ArrayList$Itr.next(ArrayList.java:<span class="number">859</span>)</span><br></pre></td></tr></table></figure></p>
@@ -391,6 +391,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/12/sharding-jdbc/" rel="prev" title="sharding-jdbc">
+                sharding-jdbc <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -461,7 +465,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-count">86</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
