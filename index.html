@@ -259,6 +259,134 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/thread-and-process/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/03/18/thread-and-process/" itemprop="url">thread-and-process</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T16:02:25+08:00">
+                2021-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><p>程序由指令和数据组成，但这些指令要运行，数据要读写，就必须将指令加载至CPU，数据加载至内存。<br>在指令运行过程中还需要用到磁盘、网络等设备。进程就是用来加载指令、管理内存和IO的。</p>
+<p>当一个程序被运行，从磁盘加载这个程序的代码到内存，这时就开启了一个进程。</p>
+<p>进程可以视为程序的一个实例，大部分程序可以同时运行多个实例进程（例如记事本、画图、浏览器等），<br>也有的程序只能启动一个实例进程（例如微信、360安全卫士等）。</p>
+<h4 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h4><p>一个进程内可以分为一到多个线程。<br>一个线程就是一个指令流，将指令流中的一条条指令以一定的顺序交给CPU执行。<br>Java中，线程作为最小调度单位，进程作为资源分配的最小单位。</p>
+<h4 id="进程和线程对比"><a href="#进程和线程对比" class="headerlink" title="进程和线程对比"></a>进程和线程对比</h4><p>进程基本上相互独立，而线程存在于进程内，是进程的一个子集。<br>进程拥有共享的资源，如内存空间等，供其内部的线程共享。<br>进程间通信较为复杂，同一台计算机的进程通信称为IPC（Inter-process communication），<br>不同计算机之间的进程通信，需要通过网络，并遵守共同的协议，例如HTTP。<br>线程通信相对简单，因为它们共享进程内的内存，一个例子是多个线程可以访问同一个共享变量。<br>线程更轻量，线程上下文切换成本一般要比进程上下文切换要低。</p>
+<h4 id="并行与并发"><a href="#并行与并发" class="headerlink" title="并行与并发"></a>并行与并发</h4><p>单核CPU下，线程实际还是串行执行的，操作系统中有一个组件叫作任务调度器，将CPU的时间片分给不同的线程使用。</p>
+<h4 id="查看进程线程的方法"><a href="#查看进程线程的方法" class="headerlink" title="查看进程线程的方法"></a>查看进程线程的方法</h4><p>Linux<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ps -fe 查看所有进程</span><br><span class="line"></span><br><span class="line">ps -fT -p pid 查看某个进程(pid)的所有线程</span><br><span class="line"></span><br><span class="line">kill 杀死进程</span><br><span class="line"></span><br><span class="line">top 按大写 H 切换是否显示线程</span><br><span class="line"></span><br><span class="line">top -H -p pid 查看某个进程(pid)的所有线程</span><br></pre></td></tr></table></figure></p>
+<p>Java<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jps 查看所有Java进程</span><br><span class="line">jps -l 显示完整的包名</span><br><span class="line"></span><br><span class="line">jstack pid 查看某个Java进程(pid)的所有线程状态</span><br></pre></td></tr></table></figure></p>
+<p>jconsole 远程连接配置<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar \</span><br><span class="line">-Djava.rmi.server.hostname=10.0.231.7 -Dcom.sun.management.jmxremote \</span><br><span class="line">-Dcom.sun.management.jmxremote.port=8999 \</span><br><span class="line">-Dcom.sun.management.jmxremote.ssl=false \</span><br><span class="line">-Dcom.sun.management.jmxremote.authenticate=false \</span><br><span class="line">geek-1.0-SNAPSHOT.jar &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/12/sharding-jdbc/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -332,8 +460,10 @@
           
             <p>垂直分表：将一个表按照字段分成多个表，每个表存储其中一部分字段。<br>它带来的提升：<br>1、为了避免IO争抢并减少锁表的几率，查看详情的用户与商品信息浏览互不影响。<br>2、充分发挥热门数据的操作效率，商品信息的操作的高效不会被商品描述的低效率所拖累。</p>
 <p>为什么大字段的IO效率低？<br>由于数据量本身大，需要更长的读取时间；<br>跨页，页是数据库存储单位，很多查找及定位操作都是以页为单位的，单页内的数据行越多数据库整体性能越好，而大字段占用空间大，单页内存储行少，因此IO效率较低。<br>数据库以行为单位将数据加载到内存中，这样表中字段长度较短且访问频率较高，内存能加载更多的数据，命中率更高，减少了磁盘IO，从而提升了数据库性能。</p>
-<p>一般来说，某业务实体中的各个数据项的访问频次是不一样的，部分字段可能是占用存储空间比较大的BLOB或TEXT。例如商品描述。所以，当表数据量很大时，可以将表按<br>字段切开，将热门字段、冷门字段分来放置在不同库中，这些库可以放在不同的存储设备上，避免IO争抢。垂直切分带来的性能提升主要集中在热门数据的操作效率上，而且<br>磁盘争用情况减少。</p>
+<p>一般来说，某业务实体中的各个数据项的访问频次是不一样的，部分字段可能是占用存储空间比较大的BLOB或TEXT。例如商品描述。所以，当表数据量很大时，可以将表按<br>字段切开，将热门字段、冷门字段分来放置在不同表中，这些表可以放在不同的存储设备上，避免IO争抢。垂直切分带来的性能提升主要集中在热门数据的操作效率上，而且<br>磁盘争用情况减少。</p>
 <p>通常我们按以下原则进行垂直拆分：<br>1、把不常用的字段单独放在一张表；<br>2、把text、blob 等大字段拆分出来放置在附表中；<br>3、经常组合查询的列放在一张表中。</p>
+<p>垂直分库<br>通过垂直分表性能得到了一定程度的提升，但是还没有达到要求，并且磁盘空间也快不够了，因为数据始终在一台服务器，垂直分表只解决了单一表数据量过大问题，但没有将表<br>分布到不同的服务器上，因此每个表还是竞争同一个物理机的CPU、内存、网络IO、磁盘。<br>根据业务可以拆分为用户库、商品库、订单库。并把这些库分散到不同服务器上。</p>
+<p>垂直分库是指按照业务将表进行分类，分布到不同的数据库上，每个库可以放在不同的服务器上，它的核心理念是专库占用。<br>它带来的提升是：<br>1、解决业务层面的耦合，业务清晰；<br>2、</p>
 
           
         
@@ -1427,128 +1557,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/18/minio/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/09/18/minio/" itemprop="url">minio</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-18T10:34:05+08:00">
-                2020-09-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">https://rplib.cn/archives/da-jian-zi-ji-de-fen-bu-shi-yun-cun-chu-minio.html</span><br><span class="line"></span><br><span class="line">配置客户端</span><br><span class="line">./mc config host add minio7 http://10.0.213.7:8000 ACCESS_KEY SECRET_KEY</span><br><span class="line">./mc config host add minio9 http://10.0.213.9:9000 ACCESS_KEY SECRET_KEY</span><br><span class="line"></span><br><span class="line">测试连通性</span><br><span class="line">./mc ls minio9</span><br><span class="line">./mc ls minio7</span><br><span class="line"></span><br><span class="line">对拷镜像</span><br><span class="line">./mc mirror $SrcCluster/$srcBucket $DestCluster</span><br></pre></td></tr></table></figure>
-<p>数据迁移</p>
-<p><a href="https://www.jianshu.com/p/5c6bc2e3b886" target="_blank" rel="noopener">https://www.jianshu.com/p/5c6bc2e3b886</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1599,7 +1607,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
