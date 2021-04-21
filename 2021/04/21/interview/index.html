@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="Java并发篇一、Java如何开启线程？怎么保证线程安全？线程和进程的区别：进程是操作系统进行资源分配的最小单元，线程是操作系统进行任务调度的最小单元。线程属于进程。如何开启线程？1、继承Thread类，重写run方法；2、实现Runnable接口，实现run方法；3、实现Callable接口，实现call方法，通过FutureTask创建一个线程，获取到线程执行的返回值；4、通过线程池来开启线程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-04-21T08:56:23.729Z">
+<meta property="og:updated_time" content="2021-04-21T09:05:40.284Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java面试题汇总">
 <meta name="twitter:description" content="Java并发篇一、Java如何开启线程？怎么保证线程安全？线程和进程的区别：进程是操作系统进行资源分配的最小单元，线程是操作系统进行任务调度的最小单元。线程属于进程。如何开启线程？1、继承Thread类，重写run方法；2、实现Runnable接口，实现run方法；3、实现Callable接口，实现call方法，通过FutureTask创建一个线程，获取到线程执行的返回值；4、通过线程池来开启线程">
@@ -341,7 +341,7 @@
 <p>二、Java有哪几种IO模型？有什么区别？<br>BIO 同步阻塞IO<br>可靠性差，吞吐量低，适用于连接比较少且比较固定的场景，JDK1.4之前唯一的选择。编程模型最简单。</p>
 <p>NIO 同步非阻塞IO<br>可靠性比较好，吞吐量比较高，适用于连接数比较多，并且连接比较短（轻操作）的场景，例如聊天室。JDK1.4开始支持。<br>编程模型复杂。</p>
 <p>AIO 异步非阻塞IO<br>可靠性是最好的，吞吐量非常高。适用于连接比较多，并且连接比较长（重操作）的场景。例如相册服务器。<br>编程模型比较简单，需要操作系统支持。</p>
-<p>三、Java NIO 的几个核心组件是什么？分别有什么作用？</p>
+<p>三、Java NIO 的几个核心组件是什么？分别有什么作用？<br>Channel、Buffer、Selector<br>Channel 类似于流，每个Channel对应一个Buffer缓冲区，Channel会注册到Selector 上。<br>Selector 会根据Channel上发生的读写事件，将请求交给某个空闲的线程处理。Selector 对应一个或多个线程。<br>Buffer 和 Channel 都是可读可写的。</p>
 <p>四、select poll和epoll 有什么区别？</p>
 <p>五、描述Http 和 Https的区别</p>
 <p>#### </p>
