@@ -259,6 +259,129 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/jenkins/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/15/jenkins/" itemprop="url">jenkins</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T13:43:34+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>如何从零开始搭建Jenkins及项目部署<br>Jenkins 原名Hudson，2011年改为现在的名字，它是一个用Java编写的开源的持续集成工具。<br>本文带你从零开始安装和使用Jenkins部署项目。</p>
+<p>配置jenkins_home<br>vi /etc/profile<br>export JENKINS_HOME=/home/soft/jenkins/jenkinshome</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java –jar Jenkins.war --httpPort=80</span><br><span class="line">nohup java -jar jenkins.war --httpPort=8080 --prefix=/jenkins &amp;</span><br><span class="line">nohup java -jar jenkins.war --httpPort=8084 --prefix=/jenkins  &gt;out.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>相关文章<br><a href="https://mp.weixin.qq.com/s/-Wdx-g5vln0aGUmh6uofoA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/-Wdx-g5vln0aGUmh6uofoA</a><br><a href="https://mp.weixin.qq.com/s/EAgNfLQGo_d1hq1b3E1x6w" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/EAgNfLQGo_d1hq1b3E1x6w</a><br><a href="https://www.cnblogs.com/yanxinjiang/p/10026390.html" target="_blank" rel="noopener">https://www.cnblogs.com/yanxinjiang/p/10026390.html</a><br><a href="https://blog.csdn.net/testinggdr/article/details/82414379" target="_blank" rel="noopener">https://blog.csdn.net/testinggdr/article/details/82414379</a><br><a href="http://www.mixfate.com/tools/tomcat/2016/05/07/jenkins-tomcat-deploy.html" target="_blank" rel="noopener">http://www.mixfate.com/tools/tomcat/2016/05/07/jenkins-tomcat-deploy.html</a><br><a href="https://blog.csdn.net/youyouwoxing1991/article/details/84192756" target="_blank" rel="noopener">https://blog.csdn.net/youyouwoxing1991/article/details/84192756</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/dubbo/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -581,6 +704,11 @@
 <p>/*<em> List of bean definition names, in registration order </em>/<br>private volatile List<string> beanDefinitionNames = new ArrayList<string>(256);</string></string></p>
 <p>Spring MVC 框架主要角色<br>DispatcherServlet<br>HandlerMapping 负责查找相应的Handler以处理Web请求<br>Controller<br>ModelAndView<br>ViewResolver<br>View</p>
 <p>HandlerInterceptor</p>
+<p>Bean 生命周期<br>Bean factory implementations should support the standard bean lifecycle interfaces as far as possible. The full set of initialization methods and their standard order is:</p>
+<p>1.BeanNameAware’s setBeanName<br>2.BeanClassLoaderAware’s setBeanClassLoader<br>3.BeanFactoryAware’s setBeanFactory<br>4.EnvironmentAware’s setEnvironment<br>5.EmbeddedValueResolverAware’s setEmbeddedValueResolver<br>6.ResourceLoaderAware’s setResourceLoader (only applicable when running in an application context)<br>7.ApplicationEventPublisherAware’s setApplicationEventPublisher (only applicable when running in an application context)<br>8.MessageSourceAware’s setMessageSource (only applicable when running in an application context)<br>9.ApplicationContextAware’s setApplicationContext (only applicable when running in an application context)<br>10.ServletContextAware’s setServletContext (only applicable when running in a web application context)<br>前面10个都是XxxAware接口的方法</p>
+<p>11.postProcessBeforeInitialization methods of BeanPostProcessors<br>12.InitializingBean’s afterPropertiesSet<br>13.a custom init-method definition<br>14.postProcessAfterInitialization methods of BeanPostProcessors</p>
+<p>On shutdown of a bean factory, the following lifecycle methods apply:</p>
+<p>1.postProcessBeforeDestruction methods of DestructionAwareBeanPostProcessors<br>2.DisposableBean’s destroy<br>3.a custom destroy-method definition</p>
 
           
         
@@ -1455,128 +1583,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/21/security/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/21/security/" itemprop="url">security</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T14:09:42+08:00">
-                2018-12-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>对称加密<br>信息的发方和接收方使用同一个密钥去加密和解密数据，它的最大优势是加/解密速度快，</p>
-<p>非对称加密：</p>
-<p>生成RSA密钥工具：<a href="https://docs.open.alipay.com/291/105971/" target="_blank" rel="noopener">https://docs.open.alipay.com/291/105971/</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1627,7 +1633,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="HandlerMethodArgumentResolver https://www.cnblogs.com/yangzhilong/p/7605889.html1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859package com">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-31T08:13:25.988Z">
+<meta property="og:updated_time" content="2021-04-14T03:01:08.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring">
 <meta name="twitter:description" content="HandlerMethodArgumentResolver https://www.cnblogs.com/yangzhilong/p/7605889.html1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859package com">
@@ -340,6 +340,11 @@
 <p>/*<em> List of bean definition names, in registration order </em>/<br>private volatile List<string> beanDefinitionNames = new ArrayList<string>(256);</string></string></p>
 <p>Spring MVC 框架主要角色<br>DispatcherServlet<br>HandlerMapping 负责查找相应的Handler以处理Web请求<br>Controller<br>ModelAndView<br>ViewResolver<br>View</p>
 <p>HandlerInterceptor</p>
+<p>Bean 生命周期<br>Bean factory implementations should support the standard bean lifecycle interfaces as far as possible. The full set of initialization methods and their standard order is:</p>
+<p>1.BeanNameAware’s setBeanName<br>2.BeanClassLoaderAware’s setBeanClassLoader<br>3.BeanFactoryAware’s setBeanFactory<br>4.EnvironmentAware’s setEnvironment<br>5.EmbeddedValueResolverAware’s setEmbeddedValueResolver<br>6.ResourceLoaderAware’s setResourceLoader (only applicable when running in an application context)<br>7.ApplicationEventPublisherAware’s setApplicationEventPublisher (only applicable when running in an application context)<br>8.MessageSourceAware’s setMessageSource (only applicable when running in an application context)<br>9.ApplicationContextAware’s setApplicationContext (only applicable when running in an application context)<br>10.ServletContextAware’s setServletContext (only applicable when running in a web application context)<br>前面10个都是XxxAware接口的方法</p>
+<p>11.postProcessBeforeInitialization methods of BeanPostProcessors<br>12.InitializingBean’s afterPropertiesSet<br>13.a custom init-method definition<br>14.postProcessAfterInitialization methods of BeanPostProcessors</p>
+<p>On shutdown of a bean factory, the following lifecycle methods apply:</p>
+<p>1.postProcessBeforeDestruction methods of DestructionAwareBeanPostProcessors<br>2.DisposableBean’s destroy<br>3.a custom destroy-method definition</p>
 
       
     </div>
@@ -471,7 +476,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
