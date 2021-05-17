@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="Java并发篇一、Java如何开启线程？怎么保证线程安全？线程和进程的区别：进程是操作系统进行资源分配的最小单元，线程是操作系统进行任务调度的最小单元。线程属于进程。如何开启线程？1、继承Thread类，重写run方法；2、实现Runnable接口，实现run方法；3、实现Callable接口，实现call方法，通过FutureTask创建一个线程，获取到线程执行的返回值；4、通过线程池来开启线程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-04-21T09:05:40.284Z">
+<meta property="og:updated_time" content="2021-04-28T08:31:18.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java面试题汇总">
 <meta name="twitter:description" content="Java并发篇一、Java如何开启线程？怎么保证线程安全？线程和进程的区别：进程是操作系统进行资源分配的最小单元，线程是操作系统进行任务调度的最小单元。线程属于进程。如何开启线程？1、继承Thread类，重写run方法；2、实现Runnable接口，实现run方法；3、实现Callable接口，实现call方法，通过FutureTask创建一个线程，获取到线程执行的返回值；4、通过线程池来开启线程">
@@ -342,9 +342,126 @@
 <p>NIO 同步非阻塞IO<br>可靠性比较好，吞吐量比较高，适用于连接数比较多，并且连接比较短（轻操作）的场景，例如聊天室。JDK1.4开始支持。<br>编程模型复杂。</p>
 <p>AIO 异步非阻塞IO<br>可靠性是最好的，吞吐量非常高。适用于连接比较多，并且连接比较长（重操作）的场景。例如相册服务器。<br>编程模型比较简单，需要操作系统支持。</p>
 <p>三、Java NIO 的几个核心组件是什么？分别有什么作用？<br>Channel、Buffer、Selector<br>Channel 类似于流，每个Channel对应一个Buffer缓冲区，Channel会注册到Selector 上。<br>Selector 会根据Channel上发生的读写事件，将请求交给某个空闲的线程处理。Selector 对应一个或多个线程。<br>Buffer 和 Channel 都是可读可写的。</p>
-<p>四、select poll和epoll 有什么区别？</p>
-<p>五、描述Http 和 Https的区别</p>
-<p>#### </p>
+<p>四、Select Poll和EPoll 有什么区别？<br>它们是NIO中多路复用的三种实现机制，是由操作系统提供的。</p>
+<p>Java 的NIO当中使用哪种机制？可以查看JDK中 DefaultSelectorProvider 源码，在Windows和Linux 实现方式是不同的。<br>在Windows下是 WindowsSelectorProvider，而Linux下，根据Linux内核版本，2.6版本以上就是EPollSelectorProvider，否则就是默认的 PollSelectorProvider。</p>
+<p>五、描述Http 和 Https的区别<br>HTTP: 是互联网上应用最为广泛的一种网络通信协议，基于TCP，可以使浏览器工作更为高效，减少网络传输。<br>HTTPS: 是HTTP的加强版，可以认为是HTTP+SSL（Secure Socket Layer）。在HTTP的基础上增加了一系列的安全机制。一方面保证<br>数据传输安全，另一方面对访问者增加了验证机制。是目前现行架构下，最为安全的解决方案。</p>
+<p>主要区别：<br>1、HTTP的连接是简单无状态的，HTTPS的数据传输是经过证书加密的，安全性更高。<br>2、HTTP是免费的，而HTTPS需要申请证书，而证书通常是需要收费的，并且费用一般不低。<br>3、它们的传输协议不同，所以它们使用的端口也不一样，HTTP默认是80端口，而HTTPS默认是443端口。</p>
+<p>HTTPS的缺点：<br>1、HTTPS的握手协议比较耗时，所以会影响服务的响应速度和吞吐量；<br>2、HTTPS也并不是完全安全的，它的证书体系并不是完全安全的，HTTPS在面对DDOS这样的攻击时，几乎起不到任何作用。</p>
+<h4 id="消息队列篇"><a href="#消息队列篇" class="headerlink" title="消息队列篇"></a>消息队列篇</h4><p>一、MQ有什么用？有哪些具体的使用场景？</p>
+<p>MQ：Message Queue ，消息队列。队列是一种FIFO先进先出的数据结构。消息由生产者发送到MQ进行排队，然后由消费者对消息进行处理。</p>
+<p>MQ的作用主要有三个方面：</p>
+<p>1、异步</p>
+<p>作用：异步将提高系统的响应速度和吞吐量。</p>
+<p>2、解耦</p>
+<p>作用：服务之间进行解耦，可以减少服务之间的影响，提高系统的稳定性和可扩展性。</p>
+<p>另外，解耦之后可以实现数据分发，生产者发送一个消息后，可以由多个消费者来处理。</p>
+<p>3、削峰</p>
+<p>作用：以稳定的系统资源应对突发的流量冲击。</p>
+<p>MQ的缺点：</p>
+<p>1、系统可用性降低，一旦MQ宕机，整个业务系统就会产生影响。高可用</p>
+<p>2、系统的复杂度提高：引入MQ之后，数据链路就会变得很复杂。如何保证消息不丢失？消息不会重复调用？怎么保证消息的顺序性？</p>
+<p>3、数据一致性：A系统发消息，需要由B、C两个系统一同处理。如果B系统处理成功、C系统处理失败，这就会造成数据一致性的问题。</p>
+<p>二、如何进行产品选型？</p>
+<p>Kafka</p>
+<p>优点：吞吐量非常大，性能非常好，集群高可用。</p>
+<p>缺点：会丢数据，功能比较单一。</p>
+<p>使用场景：日志分析，大数据采集。</p>
+<p>RabbitMQ</p>
+<p>优点：消息可靠性，功能全面。</p>
+<p>缺点：吞吐量比较低，消息积累会严重影响。erlang语言不好定制。</p>
+<p>使用场景：小规模场景。</p>
+<p>RocketMQ</p>
+<p>优点：高吞吐、高性能、高可用，功能非常全面。</p>
+<p>缺点：开源版功能不如商业版。官方文档和周边生态还不够成熟，客户端只支持java。</p>
+<p>使用场景：几乎是所有场景。</p>
+<p>三、如何保证消息不丢失？</p>
+<p>1、生产者发送消息不丢失</p>
+<p>Kafka：消息发送 + 回调。</p>
+<p>RocketMQ：1)、消息发送 + 回调；2)、事务消息。</p>
+<p>RabbitMQ：</p>
+<p>1)、消息发送 + 回调；</p>
+<p>2)、手动事务，</p>
+<p>channel.txSelect() 开启事务，channel.txCommit()提交事务，channel.txRollback()回滚事务。这种方式对channel是会产生阻塞的，造成吞吐量下降。</p>
+<p>3)、Publish Confirm，整个处理流程跟RocketMQ的事务消息基本是一致的。</p>
+<p>2、MQ主从消息同步不丢失</p>
+<p>RocketMQ：1)、普通集群中，同步同步消息、异步同步消息。异步同步消息效率更高，但是由丢失消息的风险。同步同步消息不会丢消息。2)、Dledger集群-两阶段提交。</p>
+<p>RabbitMQ：普通集群，消息是分散存储的，节点之间不会主动进行消息的同步，是有可能丢失消息的。镜像集群，会在节点之间主动进行数据同步，这样数据安全性得到提高。</p>
+<p>Kafka：通常都是在允许消息少量丢失的场景。acks 0 1 all 参数配置。</p>
+<p>3、MQ消息存盘不丢失</p>
+<p>RocketMQ：同步刷盘、异步刷盘，异步刷盘效率更高，但是有可能丢消息。同步刷盘消息安全性更高，但是效率会降低。</p>
+<p>RabbitMQ：将队列配置成持久化队列。新增的Quorum类型的队列，会采用Raft协议来进行消息同步。</p>
+<p>4、MQ消费者消费消息不丢失</p>
+<p>RocketMQ：使用默认的方式消费就行，不要采用异步方式。</p>
+<p>RabbitMQ：autoCommit -&gt; 手动提交offset。</p>
+<p>Kafka：手动提交offset。</p>
+<p>四、如何保证消息消费的幂等性？</p>
+<p>其实就是解决消费者重复消费消息的问题。</p>
+<p>所有MQ产品都没有提供主动解决幂等性的机制，需要由消费者自行控制。</p>
+<p>RocketMQ：给每个消息分配MessageID，这个MessageID就可以作为消费者判断幂等的依据，这种方式不太建议。</p>
+<p>最好的方式就是自己带一个有业务标识的ID来进行幂等判断，比如订单ID。</p>
+<p>五、如何保证消息的顺序消费？</p>
+<p>全局有序和局部有序：MQ只需要保证局部有序，不需要保证全局有序。</p>
+<p>生产者把一组有序的消息放到同一个队列当中，而消费者一次消费整个队列当中的消息。</p>
+<p>RocketMQ中有完整的设计，但是在RabbitMQ和Kafka当中并没有完整的设计，需要自己进行配置。</p>
+<p>RabbitMQ：要保证目标exchange只对应一个队列，并且一个队列只对应一个消费者。</p>
+<p>Kafka: 生产者通过定制partition分配规则，将消息分配到同一个partition。topic下只对应一个消费者。</p>
+<p>消息顺序消费会影响性能。</p>
+<p>六、如何保证消息的高效读写？</p>
+<p>零拷贝、顺序写。</p>
+<p>七、使用MQ如何保证分布式事务的最终一致性？</p>
+<p>分布式事务：业务相关的多个操作，保证它们同时成功或同时失败。</p>
+<p>最终一致性：与之对应的就是强一致性。</p>
+<p>MQ中要保证事务的最终一致性，就需要做到两点</p>
+<p>1、生产者要保证100%的消息投递。事务消息机制。</p>
+<p>2、消费者需要保证幂等消费，唯一ID + 业务自己实现幂等。</p>
+<p>分布式MQ的三种语义：</p>
+<p>at least once</p>
+<p>at most once</p>
+<p>exactly once</p>
+<p>八、让你设计一个MQ，你会如何设计？</p>
+<h4 id="数据库篇"><a href="#数据库篇" class="headerlink" title="数据库篇"></a>数据库篇</h4><p>一、索引的基本原理</p>
+<h4 id="缓存篇"><a href="#缓存篇" class="headerlink" title="缓存篇"></a>缓存篇</h4><p>一、如何避免缓存穿透、缓存击穿、缓存雪崩？</p>
+<p>缓存雪崩是指缓存同一时间大面积失效，导致后面的请求都会落到数据库上，造成数据库短时间内承受大量请求而崩掉。</p>
+<p>解决方案：</p>
+<ul>
+<li>缓存数据的过期时间设置随机，防止同一时间大量数据过期现象发生。</li>
+<li>缓存预热</li>
+<li>互斥锁</li>
+</ul>
+<p>缓存穿透是指缓存和数据库中都没有的数据，导致所有请求都落到数据库上，造成数据库短时间内承受大量请求而崩掉。</p>
+<p>解决方案：</p>
+<ul>
+<li>接口增加校验，如用户授权校验，id&lt;=0的直接拦截；</li>
+<li>从缓存和数据库都取不到的数据，这时也可以将key-value对写成key-null 写入缓存，缓存有效时间可以设置的短点，如30秒（设置太长会导致后面这个ID对应的数据存在了也没法使用）。这样可以防止攻击用户反复用同一个ID暴力攻击。</li>
+<li>采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmp中，一个一定不存在的数据会被这个bitmap拦截，从而避免了对底层存储系统的查询压力。（由于存在哈希冲突，一个bitmap中存在的数据不一定真的存在，而一个bitmap中不存在的数据肯定不存在）。</li>
+</ul>
+<p>缓存击穿是指缓存中没有但数据库中有的数据（一般是缓存时间到期），这时如果并发访问特别多，同时读取缓存没有读到数据，又同时去数据库去读取，引起数据库压力瞬间增大，造成过大压力。和缓存雪崩不同的是，缓存击穿指并发查询同一条数据，缓存雪崩是不同数据大面积过期，很多数据都查不到从而查数据库。</p>
+<p>解决方案：</p>
+<ul>
+<li>设置热点数据永不过期；</li>
+<li>加互斥锁，只允许一个请求查询数据库，其他排队等待，做double check。</li>
+</ul>
+<p>二、分布式系统中常用的缓存方案有哪些</p>
+<p>客户端缓存：页面和浏览器缓存，APP缓存，H5缓存，localStorage 和 sessionStorage；<br>CDN缓存：内容存储：数据的缓存，内容分发：负载均衡；<br>nginx缓存：静态资源；<br>服务端缓存：本地缓存、外部缓存；<br>数据库缓存：持久层缓存（mybatis, hibernate 多级缓存），mysql查询缓存。<br>操作系统缓存：Page Cache、Buffer Cache。</p>
+<p>三、缓存过期都有哪些策略</p>
+<p>定时过期：每个设置过期时间的key都需要创建一个定时器，到过期时间就会立即清除，该策略可以立即清除过期的数据，对内存很友好；但是会占用大量的CPU资源去处理过期的数据，从而影响缓存的响应时间和吞吐量。<br>惰性过期：只有访问一个key时，才会判断该key是否已经过期，过期则删除。该策略可以最大化地节省CPU资源，但是很消耗内存、许多的过期数据都还存在内存中，极端情况可能出现大量的过期key没有再次被访问，从而不回被清除，占用大量内存。<br>定期过期：每隔一定的时间，会扫描一定数量的数据库的expires字典中一定数量的key（随机的），并清除其中已过期的key。该策略是定时过期和惰性过期的这种方案。通过调整定时扫描的时间间隔和每次扫码的限定耗时，可以在不同情况下使得CPU和内存资源达到最优的平衡效果。</p>
+<p>四、常见的缓存淘汰算法</p>
+<p>FIFO（Fitst In First Out，先入先出），根据缓存被存储的时间，离当前时间最远的数据优先被淘汰；<br>LRU（Least Recently Used，最近最少使用），根据最近被使用的时间，离当前时间最远的数据优先被淘汰；<br>LFU（Least Frequently Used，最不经常使用），在一段时间内，缓存数据被使用次数最少的会被淘汰。</p>
+<p>五、如何保证数据库和缓存的一致性</p>
+<p>由于缓存和数据库是分开的，无法做到原子性的同时进行数据修改，可能出现缓存更新失败，或者数据库更新失败的情况，这时候会出现数据不一致，影响业务。</p>
+<ul>
+<li>先更新数据库，再更新缓存。缓存可能更新失败，读到老数据；</li>
+<li>先删缓存，再更新数据库。并发时，读操作可能还会将旧数据读回缓存；</li>
+<li>先更新数据库，再删除缓存。也存在缓存删除失败的可能。</li>
+</ul>
+<p>最经典的缓存+数据库读写的模式：Cache Aside Pattern。<br>读的时候先读缓存，缓存没有的话就读数据库，然后取出数据放入缓存，同时返回响应。<br>更新的时候，先更新数据库，然后再删除缓存。</p>
+<p>为什么是删除而不是更新？<br>删除更加轻量，延迟加载的一种表现，更新可能涉及多个表，比较耗时。</p>
+<p>延时双删：先删除缓存，再更新数据库，休眠1s、再次删除缓存。<br>写数据的休眠时间则在读数据业务逻辑的耗时基础上加几百毫秒即可。这么做的目的就是确保读请求结束，写请求可以删除读请求造成的缓存脏数据，并发还是可能读到旧值覆盖缓存。</p>
+<p>终极方案：<br>将访问操作串行化<br>1、先删缓存，将更新数据库的操作放进有序队列中<br>2、从缓存查询不到的查询操作，都进入有序队列<br>面临的问题:<br>1、读请求积压，大量超时，导致数据量的压力：限流、熔断<br>2、如何避免大量请求积压：将队列水平拆分，提高并行度<br>3、确保相同的请求路由正确</p>
+<p>六、布隆过滤器原理，优缺点<br>bitmap<br>int[10] 每个int类型的整数是4*8=32个bit，则int[10]一共有320 bit，每个bit非0即1，初始化时都是0<br>添加数据时。</p>
+<p>在开发中遇到过什么问题，怎么解决的？</p>
+<p>1、Redis 设置最大内存和淘汰策略；</p>
+<p>2、Quartz定时任务，使用Redis的zset替代订单超时未支付检查。</p>
 
       
     </div>
@@ -402,6 +519,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/30/mysql-innodb/" rel="prev" title="mysql-innodb">
+                mysql-innodb <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -481,7 +602,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -536,7 +657,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java并发篇"><span class="nav-number">1.</span> <span class="nav-text">Java并发篇</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java网络通信篇"><span class="nav-number">2.</span> <span class="nav-text">Java网络通信篇</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java并发篇"><span class="nav-number">1.</span> <span class="nav-text">Java并发篇</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java网络通信篇"><span class="nav-number">2.</span> <span class="nav-text">Java网络通信篇</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息队列篇"><span class="nav-number">3.</span> <span class="nav-text">消息队列篇</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库篇"><span class="nav-number">4.</span> <span class="nav-text">数据库篇</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存篇"><span class="nav-number">5.</span> <span class="nav-text">缓存篇</span></a></li></ol></div>
             
 
           </div>

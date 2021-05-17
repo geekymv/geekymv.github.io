@@ -259,6 +259,261 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/10/let-s-encrypt/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/10/let-s-encrypt/" itemprop="url">let's-encrypt</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T13:53:48+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://certbot.eff.org/" target="_blank" rel="noopener">https://certbot.eff.org/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://dl.eff.org/certbot-auto</span><br><span class="line">$ sudo mv certbot-auto /usr/local/bin/certbot-auto</span><br><span class="line">$ sudo chown root /usr/local/bin/certbot-auto</span><br><span class="line">$ sudo chmod 0755 /usr/local/bin/certbot-auto</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/bin/certbot-auto --nginx</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Could not choose appropriate plugin: The nginx plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: NoInstallationError(&quot;Could not find a usable &apos;nginx&apos; binary. Ensure nginx exists, the binary is executable, and your PATH is set correctly.&quot;,)</span><br></pre></td></tr></table></figure>
+<p>由于没有将nginx放到环境变量中，设置nginx软连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx</span><br><span class="line">$ ln -s /usr/local/nginx/conf/ /etc/nginx</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/bin/certbot-auto --nginx</span><br><span class="line">Saving debug log to /var/log/letsencrypt/letsencrypt.log</span><br><span class="line">The nginx plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: PluginError(&apos;Nginx build is missing SSL module (--with-http_ssl_module).&apos;,)</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/guangcaiwudong/article/details/98858337" target="_blank" rel="noopener">https://blog.csdn.net/guangcaiwudong/article/details/98858337</a></p>
+<p>通过nginx -V查看nginxconfigure arguments没有安装ssl模板，在nginx目录中重新构建<br>cd /opt/nginx-1.14.0<br>./configure –with-http_ssl_module<br>执行 make<br>这里不要进行make install，否则就是覆盖安装。</p>
+<p><a href="http://hacksteven.com/?p=183" target="_blank" rel="noopener">Nginx安装后增加SSL模块</a></p>
+<p>使用<code>sudo certbot certonly --nginx</code>生成证书，中间需要填写email和域名，生成成功后会提示证书存放路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /usr/local/bin/certbot-auto --nginx</span><br><span class="line">Saving debug log to /var/log/letsencrypt/letsencrypt.log</span><br><span class="line">Plugins selected: Authenticator nginx, Installer nginx</span><br><span class="line">Enter email address (used for urgent renewal and security notices) (Enter &apos;c&apos; to</span><br><span class="line">cancel): c</span><br><span class="line">An e-mail address or --register-unsafely-without-email must be provided.</span><br><span class="line">[root@VM_0_13_centos nginx]# sudo /usr/local/bin/certbot-auto --nginx</span><br><span class="line">Saving debug log to /var/log/letsencrypt/letsencrypt.log</span><br><span class="line">Plugins selected: Authenticator nginx, Installer nginx</span><br><span class="line">Enter email address (used for urgent renewal and security notices) (Enter &apos;c&apos; to</span><br><span class="line">cancel): ym2011678@foxmail.com</span><br><span class="line"></span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">Please read the Terms of Service at</span><br><span class="line">https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must</span><br><span class="line">agree in order to register with the ACME server at</span><br><span class="line">https://acme-v02.api.letsencrypt.org/directory</span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">(A)gree/(C)ancel: A</span><br><span class="line"></span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">Would you be willing to share your email address with the Electronic Frontier</span><br><span class="line">Foundation, a founding partner of the Let&apos;s Encrypt project and the non-profit</span><br><span class="line">organization that develops Certbot? We&apos;d like to send you email about our work</span><br><span class="line">encrypting the web, EFF news, campaigns, and ways to support digital freedom.</span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">(Y)es/(N)o: N</span><br><span class="line">No names were found in your configuration files. Please enter in your domain</span><br><span class="line">name(s) (comma and/or space separated)  (Enter &apos;c&apos; to cancel): npe4j.com</span><br><span class="line">Obtaining a new certificate</span><br><span class="line">Performing the following challenges:</span><br><span class="line">http-01 challenge for npe4j.com</span><br><span class="line">Using default address 80 for authentication.</span><br><span class="line">Waiting for verification...</span><br><span class="line">Cleaning up challenges</span><br><span class="line">Could not automatically find a matching server block for npe4j.com. Set the `server_name` directive to use the Nginx installer.</span><br><span class="line"></span><br><span class="line">IMPORTANT NOTES:</span><br><span class="line"> - Unable to install the certificate</span><br><span class="line"> - Congratulations! Your certificate and chain have been saved at:</span><br><span class="line">   /etc/letsencrypt/live/npe4j.com/fullchain.pem</span><br><span class="line">   Your key file has been saved at:</span><br><span class="line">   /etc/letsencrypt/live/npe4j.com/privkey.pem</span><br><span class="line">   Your cert will expire on 2019-12-09. To obtain a new or tweaked</span><br><span class="line">   version of this certificate in the future, simply run certbot-auto</span><br><span class="line">   again with the &quot;certonly&quot; option. To non-interactively renew *all*</span><br><span class="line">   of your certificates, run &quot;certbot-auto renew&quot;</span><br><span class="line"> - Your account credentials have been saved in your Certbot</span><br><span class="line">   configuration directory at /etc/letsencrypt. You should make a</span><br><span class="line">   secure backup of this folder now. This configuration directory will</span><br><span class="line">   also contain certificates and private keys obtained by Certbot so</span><br><span class="line">   making regular backups of this folder is ideal.</span><br></pre></td></tr></table></figure>
+<p>nginx从http跳转到https<br><a href="https://www.cnblogs.com/nuccch/p/7681592.html" target="_blank" rel="noopener">https://www.cnblogs.com/nuccch/p/7681592.html</a></p>
+<h5 id="CentOS-7-下-安装-Let’s-Encrypt-的通配符证书"><a href="#CentOS-7-下-安装-Let’s-Encrypt-的通配符证书" class="headerlink" title="CentOS 7 下 安装 Let’s Encrypt 的通配符证书"></a>CentOS 7 下 安装 Let’s Encrypt 的通配符证书</h5><p>sudo yum install epel-release<br>sudo yum install certbot</p>
+<p>certbot –server <a href="https://acme-v02.api.letsencrypt.org/directory" target="_blank" rel="noopener">https://acme-v02.api.letsencrypt.org/directory</a> -d npe4j.com -d *.npe4j.com –manual –preferred-challenges dns-01 certonly</p>
+<p><a href="https://qizhanming.com/blog/2019/04/23/how-to-install-let-s-encrypt-wildcards-certificate-on-centos-7" target="_blank" rel="noopener">https://qizhanming.com/blog/2019/04/23/how-to-install-let-s-encrypt-wildcards-certificate-on-centos-7</a><br><a href="https://www.infoq.cn/article/2018/03/lets-encrypt-wildcard-https" target="_blank" rel="noopener">https://www.infoq.cn/article/2018/03/lets-encrypt-wildcard-https</a><br><a href="https://www.jianshu.com/p/c5c9d071e395" target="_blank" rel="noopener">https://www.jianshu.com/p/c5c9d071e395</a></p>
+<p>删除弃用的Let’s encrypt安全证书的域名<br><a href="https://www.vmvps.com/how-to-delete-unused-lets-encrypt-ssl-domain.html" target="_blank" rel="noopener">https://www.vmvps.com/how-to-delete-unused-lets-encrypt-ssl-domain.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/26/thread-lifecycle/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/26/thread-lifecycle/" itemprop="url">thread-lifecycle</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-26T14:37:32+08:00">
+                2019-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.baeldung.com/java-thread-lifecycle" target="_blank" rel="noopener">Java 线程生命周期</a></p>
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/thread/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -925,152 +1180,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/02/elasticsearch-exploring-your-data/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/02/elasticsearch-exploring-your-data/" itemprop="url">elasticsearch-exploring-your-data</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T11:12:24+08:00">
-                2019-08-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="Exploring-Your-Data"><a href="#Exploring-Your-Data" class="headerlink" title="Exploring Your Data"></a>Exploring Your Data</h4><h4 id="Sample-Dataset"><a href="#Sample-Dataset" class="headerlink" title="Sample Dataset"></a>Sample Dataset</h4><h4 id="样本数据集"><a href="#样本数据集" class="headerlink" title="样本数据集"></a>样本数据集</h4><p>Now that we’ve gotten a glimpse of the basics, let’s try to work on a more realistic dataset.<br>I’ve prepared a sample of fictitious JSON documents of customer bank account information.<br>Each document has the following schema:<br>现在我们已经了解了基础知识，让我们尝试更真实的数据集。<br>我已经准备了一份客户银行账户信息的虚拟JSON文档样本。<br>每个文档都有以下结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;account_number&quot;: 0,</span><br><span class="line">    &quot;balance&quot;: 16623,</span><br><span class="line">    &quot;firstname&quot;: &quot;Bradshaw&quot;,</span><br><span class="line">    &quot;lastname&quot;: &quot;Mckenzie&quot;,</span><br><span class="line">    &quot;age&quot;: 29,</span><br><span class="line">    &quot;gender&quot;: &quot;F&quot;,</span><br><span class="line">    &quot;address&quot;: &quot;244 Columbus Place&quot;,</span><br><span class="line">    &quot;employer&quot;: &quot;Euron&quot;,</span><br><span class="line">    &quot;email&quot;: &quot;bradshawmckenzie@euron.com&quot;,</span><br><span class="line">    &quot;city&quot;: &quot;Hobucken&quot;,</span><br><span class="line">    &quot;state&quot;: &quot;CO&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/02/elasticsearch-exploring-your-data/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/02/elasticsearch-modifying-your-data/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1168,6 +1277,152 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/08/02/elasticsearch-modifying-your-data/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/02/elasticsearch-exploring-your-data/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/02/elasticsearch-exploring-your-data/" itemprop="url">elasticsearch-exploring-your-data</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T11:12:24+08:00">
+                2019-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="Exploring-Your-Data"><a href="#Exploring-Your-Data" class="headerlink" title="Exploring Your Data"></a>Exploring Your Data</h4><h4 id="Sample-Dataset"><a href="#Sample-Dataset" class="headerlink" title="Sample Dataset"></a>Sample Dataset</h4><h4 id="样本数据集"><a href="#样本数据集" class="headerlink" title="样本数据集"></a>样本数据集</h4><p>Now that we’ve gotten a glimpse of the basics, let’s try to work on a more realistic dataset.<br>I’ve prepared a sample of fictitious JSON documents of customer bank account information.<br>Each document has the following schema:<br>现在我们已经了解了基础知识，让我们尝试更真实的数据集。<br>我已经准备了一份客户银行账户信息的虚拟JSON文档样本。<br>每个文档都有以下结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;account_number&quot;: 0,</span><br><span class="line">    &quot;balance&quot;: 16623,</span><br><span class="line">    &quot;firstname&quot;: &quot;Bradshaw&quot;,</span><br><span class="line">    &quot;lastname&quot;: &quot;Mckenzie&quot;,</span><br><span class="line">    &quot;age&quot;: 29,</span><br><span class="line">    &quot;gender&quot;: &quot;F&quot;,</span><br><span class="line">    &quot;address&quot;: &quot;244 Columbus Place&quot;,</span><br><span class="line">    &quot;employer&quot;: &quot;Euron&quot;,</span><br><span class="line">    &quot;email&quot;: &quot;bradshawmckenzie@euron.com&quot;,</span><br><span class="line">    &quot;city&quot;: &quot;Hobucken&quot;,</span><br><span class="line">    &quot;state&quot;: &quot;CO&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/02/elasticsearch-exploring-your-data/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1351,290 +1606,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/elasticsearch-installation/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/25/elasticsearch-installation/" itemprop="url">elasticsearch-installation</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-25T16:01:07+08:00">
-                2019-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h4><p>Tip<br>提示<br>You can skip installation completely by using our hosted Elasticsearch Service on Elastic Cloud,<br>which is available on AWS and GCP. You can try out the hosted service for free.<br>你可以完全跳过安装，使用我们在Elastic Cloud 托管的Elasticsearch Service，<br>可在AWS 和 GCP 上获得，你可以免费试用托管服务。</p>
-<p>Elasticsearch requires at least Java 8. Specifically as of this writing,<br>it is recommended that you use the Oracle JDK version 1.8.0_131.<br>Java installation varies from platform to platform so we won’t go into those details here.<br>Oracle’s recommended installation documentation can be found on Oracle’s website.<br>Suffice to say, before you install Elasticsearch,<br>please check your Java version first by running (and then install/upgrade accordingly if needed):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br><span class="line">echo $JAVA_HOME</span><br></pre></td></tr></table></figure></p>
-<p>Elasticsearch 需要至少Java8，特别是撰写本文时，推荐你使用Oracle JDK1.8.0_131 版本。<br>Java安装因平台而异，因此我们在此不会详细介绍。<br>可以在Oracle 网站找到Oracle 的推荐安装文档。<br>就是说，安装Elasticsearch 之前，请先运行<code>java -version</code>检查Java版本。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/25/elasticsearch-installation/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/centos7/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/23/centos7/" itemprop="url">centos7</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-23T16:15:47+08:00">
-                2019-07-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>配置网络<br><a href="https://blog.csdn.net/akipa11/article/details/81414875" target="_blank" rel="noopener">https://blog.csdn.net/akipa11/article/details/81414875</a></p>
-<p>设置时区<br><a href="https://blog.csdn.net/jkjkjkll/article/details/80015635" target="_blank" rel="noopener">https://blog.csdn.net/jkjkjkll/article/details/80015635</a></p>
-<h5 id="centos7-防火墙"><a href="#centos7-防火墙" class="headerlink" title="centos7 防火墙"></a>centos7 防火墙</h5><p><a href="https://www.4spaces.org/centos-open-porter/" target="_blank" rel="noopener">https://www.4spaces.org/centos-open-porter/</a></p>
-<p>禁止开机启动<br>systemctl disable firewalld</p>
-<p>启动防火墙<br>systemctl start firewalld</p>
-<p>设置开机启动<br>systemctl enable firewalld</p>
-<p>查看状态<br>systemctl status firewalld</p>
-<p>查看zone名称<br>firewall-cmd –get-active-zones</p>
-<p>开放443端口<br>firewall-cmd –zone=public –add-port=443/tcp –permanent</p>
-<p>重启防火墙<br>firewall-cmd –reload</p>
-<p>查看指定区域所有打开的端口<br>firewall-cmd –zone=public –list-ports</p>
-<p>删除端口<br>firewall-cmd –zone=public –remove-port=3080/tcp –permanent</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1680,7 +1656,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="Zookeeper 是什么Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理应用的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似Master/Slave管理模式。Zo">
+<meta name="description" content="分布式环境的特点分布性并发性：程序运行过程中，并发操作是很常见的，比如同一个分布式系统中的多个节点，同时访问一个共享资源，比如数据库、分布式存储。无序性：进程之间的消息通信，会出现顺序不一致问题。 分布式环境下面临的问题网络通信：网络本身的不可靠性。网络分区（脑裂）：当网络发生异常，分布式系统中部分节点之间的网络延迟不断增大，最终导致组成分布式架构的所有节点，只有部分节点能够正常通信。三态：在分布">
 <meta property="og:type" content="article">
 <meta property="og:title" content="zookeeper">
 <meta property="og:url" content="http://yoursite.com/2019/01/11/zookeeper/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="Zookeeper 是什么Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理应用的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似Master/Slave管理模式。Zo">
+<meta property="og:description" content="分布式环境的特点分布性并发性：程序运行过程中，并发操作是很常见的，比如同一个分布式系统中的多个节点，同时访问一个共享资源，比如数据库、分布式存储。无序性：进程之间的消息通信，会出现顺序不一致问题。 分布式环境下面临的问题网络通信：网络本身的不可靠性。网络分区（脑裂）：当网络发生异常，分布式系统中部分节点之间的网络延迟不断增大，最终导致组成分布式架构的所有节点，只有部分节点能够正常通信。三态：在分布">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/01/11/zookeeper/00-zookeeper.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/11/zookeeper/01-zookeeper.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/11/zookeeper/02-zookeeper.png">
-<meta property="og:updated_time" content="2019-08-01T07:58:08.347Z">
+<meta property="og:updated_time" content="2021-04-30T09:26:41.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zookeeper">
-<meta name="twitter:description" content="Zookeeper 是什么Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理应用的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，Zookeeper 就将负责通知已经在Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似Master/Slave管理模式。Zo">
+<meta name="twitter:description" content="分布式环境的特点分布性并发性：程序运行过程中，并发操作是很常见的，比如同一个分布式系统中的多个节点，同时访问一个共享资源，比如数据库、分布式存储。无序性：进程之间的消息通信，会出现顺序不一致问题。 分布式环境下面临的问题网络通信：网络本身的不可靠性。网络分区（脑裂）：当网络发生异常，分布式系统中部分节点之间的网络延迟不断增大，最终导致组成分布式架构的所有节点，只有部分节点能够正常通信。三态：在分布">
 <meta name="twitter:image" content="http://yoursite.com/2019/01/11/zookeeper/00-zookeeper.png">
 
 
@@ -333,7 +333,9 @@
       
 
       
-        <h4 id="Zookeeper-是什么"><a href="#Zookeeper-是什么" class="headerlink" title="Zookeeper 是什么"></a>Zookeeper 是什么</h4><p>Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。<br>Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理应用的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，<br>Zookeeper 就将负责通知已经在Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似Master/Slave管理模式。<br>Zookeeper = 文件系统 + 通知机制。</p>
+        <h4 id="分布式环境的特点"><a href="#分布式环境的特点" class="headerlink" title="分布式环境的特点"></a>分布式环境的特点</h4><p>分布性<br>并发性：程序运行过程中，并发操作是很常见的，比如同一个分布式系统中的多个节点，同时访问一个共享资源，比如数据库、分布式存储。<br>无序性：进程之间的消息通信，会出现顺序不一致问题。</p>
+<h4 id="分布式环境下面临的问题"><a href="#分布式环境下面临的问题" class="headerlink" title="分布式环境下面临的问题"></a>分布式环境下面临的问题</h4><p>网络通信：网络本身的不可靠性。<br>网络分区（脑裂）：当网络发生异常，分布式系统中部分节点之间的网络延迟不断增大，最终导致组成分布式架构的所有节点，只有部分节点能够正常通信。<br>三态：在分布式架构里面，除了成功、失败、超时。<br>分布式事务</p>
+<h4 id="Zookeeper-是什么"><a href="#Zookeeper-是什么" class="headerlink" title="Zookeeper 是什么"></a>Zookeeper 是什么</h4><p>Zookeeper 是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。<br>Zookeeper 是一个基于观察者模式的分布式服务管理框架，它负责存储和管理应用的数据，然后接受观察者的注册，一旦这些数据的状态发生变化，<br>Zookeeper 就将负责通知已经在Zookeeper 上注册的那些观察者做出相应的反应，从而实现集群中类似Master/Slave管理模式。<br>Zookeeper = 文件系统 + 通知机制。</p>
 <p>数据结构<br><a id="more"></a><br>节点类型</p>
 <ul>
 <li><p>Znode 有两种类型<br>临时(ephemeral)：客户端和服务端断开连接后，创建的节点自己删除；<br>持久(persistent)：客户端和服务端断开连接后，创建的节点不删除；</p>
@@ -357,6 +359,8 @@
 <li>半数机制：集群中半数以上机器存活，集群可用。所以zookeeper 适合在奇数台机器上部署。</li>
 <li>zookeeper 虽然在配置文件中没有指定master和salve。<br>但是zookeeper工作时，是有一个节点为Leader，其他节点为follower。Leader 是通过内部选举机制临时产生的。</li>
 </ul>
+<h4 id="经典的CAP-BASE理论"><a href="#经典的CAP-BASE理论" class="headerlink" title="经典的CAP/BASE理论"></a>经典的CAP/BASE理论</h4><p>CAP<br><a href="https://www.ruanyifeng.com/blog/2018/07/cap.html" target="_blank" rel="noopener">https://www.ruanyifeng.com/blog/2018/07/cap.html</a><br>指出分布式存储不可能同时满足三个条件<br>一致性(Consistency)：每次读取要么获得最近写入的数据，要么获得一个错误；<br>可用性(Availability)：每次请求都能获得一个（非错误）响应，但不保证返回的是最新写入的数据；<br>分区容错性(Partition tolerance)：尽管任意数量的消息被节点间的网络丢失（或延迟），系统仍继续运行。</p>
+<p>BASE<br>基本可用<br>软状态<br>最终一致性</p>
 <h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ul>
 <li>分布式消息同步和协调机制</li>
 <li>服务器节点动态上下线</li>
@@ -517,7 +521,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -572,7 +576,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Zookeeper-是什么"><span class="nav-number">1.</span> <span class="nav-text">Zookeeper 是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用场景"><span class="nav-number">2.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载安装本地模式"><span class="nav-number">3.</span> <span class="nav-text">下载安装本地模式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式环境的特点"><span class="nav-number">1.</span> <span class="nav-text">分布式环境的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式环境下面临的问题"><span class="nav-number">2.</span> <span class="nav-text">分布式环境下面临的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zookeeper-是什么"><span class="nav-number">3.</span> <span class="nav-text">Zookeeper 是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#经典的CAP-BASE理论"><span class="nav-number">4.</span> <span class="nav-text">经典的CAP/BASE理论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用场景"><span class="nav-number">5.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载安装本地模式"><span class="nav-number">6.</span> <span class="nav-text">下载安装本地模式</span></a></li></ol></div>
             
 
           </div>
