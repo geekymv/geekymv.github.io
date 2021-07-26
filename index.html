@@ -259,6 +259,979 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/14/spring-annotation/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/07/14/spring-annotation/" itemprop="url">spring-annotation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-14T12:12:33+08:00">
+                2021-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.AnnotationConfigApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringAnnotationApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AnnotationConfigApplicationContext ctx = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig.class);</span><br><span class="line">        </span><br><span class="line">        MyBean bean = ctx.getBean(MyBean.class);</span><br><span class="line">        System.out.println(bean.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>AppConfig 配置类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyBean <span class="title">myBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyBean(<span class="string">"tom"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MyBean类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"my bean"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyBean</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>AnnotationConfigApplicationContext 类的构造方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create a new AnnotationConfigApplicationContext, deriving bean definitions</span></span><br><span class="line"><span class="comment"> * from the given annotated classes and automatically refreshing the context.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> annotatedClasses one or more annotated classes,</span></span><br><span class="line"><span class="comment"> * e.g. &#123;<span class="doctag">@link</span> Configuration <span class="doctag">@Configuration</span>&#125; classes</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AnnotationConfigApplicationContext</span><span class="params">(Class&lt;?&gt;... annotatedClasses)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 调用默认构造方法</span></span><br><span class="line">    <span class="keyword">this</span>();</span><br><span class="line">    <span class="comment">// 注册注解配置类</span></span><br><span class="line">    register(annotatedClasses);</span><br><span class="line">    <span class="comment">// 刷新</span></span><br><span class="line">    refresh();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create a new AnnotationConfigApplicationContext that needs to be populated</span></span><br><span class="line"><span class="comment"> * through &#123;<span class="doctag">@link</span> #register&#125; calls and then manually &#123;<span class="doctag">@linkplain</span> #refresh refreshed&#125;.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AnnotationConfigApplicationContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.reader = <span class="keyword">new</span> AnnotatedBeanDefinitionReader(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">this</span>.scanner = <span class="keyword">new</span> ClassPathBeanDefinitionScanner(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>AnnotatedBeanDefinitionReader 类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create a new &#123;<span class="doctag">@code</span> AnnotatedBeanDefinitionReader&#125; for the given registry.</span></span><br><span class="line"><span class="comment"> * If the registry is &#123;<span class="doctag">@link</span> EnvironmentCapable&#125;, e.g. is an &#123;<span class="doctag">@code</span> ApplicationContext&#125;,</span></span><br><span class="line"><span class="comment"> * the &#123;<span class="doctag">@link</span> Environment&#125; will be inherited, otherwise a new</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> StandardEnvironment&#125; will be created and used.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> registry the &#123;<span class="doctag">@code</span> BeanFactory&#125; to load bean definitions into,</span></span><br><span class="line"><span class="comment"> * in the form of a &#123;<span class="doctag">@code</span> BeanDefinitionRegistry&#125;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #AnnotatedBeanDefinitionReader(BeanDefinitionRegistry, Environment)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #setEnvironment(Environment)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AnnotatedBeanDefinitionReader</span><span class="params">(BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(registry, getOrCreateEnvironment(registry));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create a new &#123;<span class="doctag">@code</span> AnnotatedBeanDefinitionReader&#125; for the given registry and using</span></span><br><span class="line"><span class="comment"> * the given &#123;<span class="doctag">@link</span> Environment&#125;.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> registry the &#123;<span class="doctag">@code</span> BeanFactory&#125; to load bean definitions into,</span></span><br><span class="line"><span class="comment"> * in the form of a &#123;<span class="doctag">@code</span> BeanDefinitionRegistry&#125;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> environment the &#123;<span class="doctag">@code</span> Environment&#125; to use when evaluating bean definition</span></span><br><span class="line"><span class="comment"> * profiles.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 3.1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AnnotatedBeanDefinitionReader</span><span class="params">(BeanDefinitionRegistry registry, Environment environment)</span> </span>&#123;</span><br><span class="line">    Assert.notNull(registry, <span class="string">"BeanDefinitionRegistry must not be null"</span>);</span><br><span class="line">    Assert.notNull(environment, <span class="string">"Environment must not be null"</span>);</span><br><span class="line">    <span class="keyword">this</span>.registry = registry;</span><br><span class="line">    <span class="keyword">this</span>.conditionEvaluator = <span class="keyword">new</span> ConditionEvaluator(registry, environment, <span class="keyword">null</span>);</span><br><span class="line">    <span class="comment">// 注册Processor</span></span><br><span class="line">    AnnotationConfigUtils.registerAnnotationConfigProcessors(<span class="keyword">this</span>.registry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>AnnotationConfigUtils.registerAnnotationConfigProcessors 方法将注解相关的post processor 注册到registry</p>
+<ul>
+<li>ConfigurationClassPostProcessor</li>
+<li>AutowiredAnnotationBeanPostProcessor</li>
+<li>RequiredAnnotationBeanPostProcessor</li>
+<li>CommonAnnotationBeanPostProcessor</li>
+<li>PersistenceAnnotationBeanPostProcessor</li>
+<li>EventListenerMethodProcessor</li>
+<li>DefaultEventListenerFactory</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Register all relevant annotation post processors in the given registry.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> registry the registry to operate on</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">registerAnnotationConfigProcessors</span><span class="params">(BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">    registerAnnotationConfigProcessors(registry, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Register all relevant annotation post processors in the given registry.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> registry the registry to operate on</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> source the configuration source element (already extracted)</span></span><br><span class="line"><span class="comment"> * that this registration was triggered from. May be &#123;<span class="doctag">@code</span> null&#125;.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> a Set of BeanDefinitionHolders, containing all bean definitions</span></span><br><span class="line"><span class="comment"> * that have actually been registered by this call</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Set&lt;BeanDefinitionHolder&gt; <span class="title">registerAnnotationConfigProcessors</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        BeanDefinitionRegistry registry, Object source)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    DefaultListableBeanFactory beanFactory = unwrapDefaultListableBeanFactory(registry);</span><br><span class="line">    <span class="keyword">if</span> (beanFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!(beanFactory.getDependencyComparator() <span class="keyword">instanceof</span> AnnotationAwareOrderComparator)) &#123;</span><br><span class="line">            beanFactory.setDependencyComparator(AnnotationAwareOrderComparator.INSTANCE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!(beanFactory.getAutowireCandidateResolver() <span class="keyword">instanceof</span> ContextAnnotationAutowireCandidateResolver)) &#123;</span><br><span class="line">            beanFactory.setAutowireCandidateResolver(<span class="keyword">new</span> ContextAnnotationAutowireCandidateResolver());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Set&lt;BeanDefinitionHolder&gt; beanDefs = <span class="keyword">new</span> LinkedHashSet&lt;BeanDefinitionHolder&gt;(<span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!registry.containsBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)) &#123;</span><br><span class="line">        RootBeanDefinition def = <span class="keyword">new</span> RootBeanDefinition(ConfigurationClassPostProcessor.class);</span><br><span class="line">        def.setSource(source);</span><br><span class="line">        beanDefs.add(registerPostProcessor(registry, def, CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!registry.containsBeanDefinition(AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME)) &#123;</span><br><span class="line">        RootBeanDefinition def = <span class="keyword">new</span> RootBeanDefinition(AutowiredAnnotationBeanPostProcessor.class);</span><br><span class="line">        def.setSource(source);</span><br><span class="line">        beanDefs.add(registerPostProcessor(registry, def, AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!registry.containsBeanDefinition(REQUIRED_ANNOTATION_PROCESSOR_BEAN_NAME)) &#123;</span><br><span class="line">        RootBeanDefinition def = <span class="keyword">new</span> RootBeanDefinition(RequiredAnnotationBeanPostProcessor.class);</span><br><span class="line">        def.setSource(source);</span><br><span class="line">        beanDefs.add(registerPostProcessor(registry, def, REQUIRED_ANNOTATION_PROCESSOR_BEAN_NAME));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check for JSR-250 support, and if present add the CommonAnnotationBeanPostProcessor.</span></span><br><span class="line">    <span class="keyword">if</span> (jsr250Present &amp;&amp; !registry.containsBeanDefinition(COMMON_ANNOTATION_PROCESSOR_BEAN_NAME)) &#123;</span><br><span class="line">        RootBeanDefinition def = <span class="keyword">new</span> RootBeanDefinition(CommonAnnotationBeanPostProcessor.class);</span><br><span class="line">        def.setSource(source);</span><br><span class="line">        beanDefs.add(registerPostProcessor(registry, def, COMMON_ANNOTATION_PROCESSOR_BEAN_NAME));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check for JPA support, and if present add the PersistenceAnnotationBeanPostProcessor.</span></span><br><span class="line">    <span class="keyword">if</span> (jpaPresent &amp;&amp; !registry.containsBeanDefinition(PERSISTENCE_ANNOTATION_PROCESSOR_BEAN_NAME)) &#123;</span><br><span class="line">        RootBeanDefinition def = <span class="keyword">new</span> RootBeanDefinition();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            def.setBeanClass(ClassUtils.forName(PERSISTENCE_ANNOTATION_PROCESSOR_CLASS_NAME,</span><br><span class="line">                    AnnotationConfigUtils.class.getClassLoader()));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (ClassNotFoundException ex) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(</span><br><span class="line">                    <span class="string">"Cannot load optional framework class: "</span> + PERSISTENCE_ANNOTATION_PROCESSOR_CLASS_NAME, ex);</span><br><span class="line">        &#125;</span><br><span class="line">        def.setSource(source);</span><br><span class="line">        beanDefs.add(registerPostProcessor(registry, def, PERSISTENCE_ANNOTATION_PROCESSOR_BEAN_NAME));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!registry.containsBeanDefinition(EVENT_LISTENER_PROCESSOR_BEAN_NAME)) &#123;</span><br><span class="line">        RootBeanDefinition def = <span class="keyword">new</span> RootBeanDefinition(EventListenerMethodProcessor.class);</span><br><span class="line">        def.setSource(source);</span><br><span class="line">        beanDefs.add(registerPostProcessor(registry, def, EVENT_LISTENER_PROCESSOR_BEAN_NAME));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!registry.containsBeanDefinition(EVENT_LISTENER_FACTORY_BEAN_NAME)) &#123;</span><br><span class="line">        RootBeanDefinition def = <span class="keyword">new</span> RootBeanDefinition(DefaultEventListenerFactory.class);</span><br><span class="line">        def.setSource(source);</span><br><span class="line">        beanDefs.add(registerPostProcessor(registry, def, EVENT_LISTENER_FACTORY_BEAN_NAME));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> beanDefs;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ClassPathBeanDefinitionScanner 类的构造方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create a new &#123;<span class="doctag">@code</span> ClassPathBeanDefinitionScanner&#125; for the given bean factory.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> registry the &#123;<span class="doctag">@code</span> BeanFactory&#125; to load bean definitions into, in the form</span></span><br><span class="line"><span class="comment"> * of a &#123;<span class="doctag">@code</span> BeanDefinitionRegistry&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ClassPathBeanDefinitionScanner</span><span class="params">(BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(registry, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ClassPathBeanDefinitionScanner</span><span class="params">(BeanDefinitionRegistry registry, <span class="keyword">boolean</span> useDefaultFilters)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(registry, useDefaultFilters, getOrCreateEnvironment(registry));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ClassPathBeanDefinitionScanner</span><span class="params">(BeanDefinitionRegistry registry, <span class="keyword">boolean</span> useDefaultFilters,</span></span></span><br><span class="line"><span class="function"><span class="params">			Environment environment)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>(registry, useDefaultFilters, environment,</span><br><span class="line">            (registry <span class="keyword">instanceof</span> ResourceLoader ? (ResourceLoader) registry : <span class="keyword">null</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ClassPathBeanDefinitionScanner</span><span class="params">(BeanDefinitionRegistry registry, <span class="keyword">boolean</span> useDefaultFilters,</span></span></span><br><span class="line"><span class="function"><span class="params">			Environment environment, ResourceLoader resourceLoader)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Assert.notNull(registry, <span class="string">"BeanDefinitionRegistry must not be null"</span>);</span><br><span class="line">    <span class="keyword">this</span>.registry = registry;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (useDefaultFilters) &#123;</span><br><span class="line">        <span class="comment">// 注册默认过滤器</span></span><br><span class="line">        registerDefaultFilters();</span><br><span class="line">    &#125;</span><br><span class="line">    setEnvironment(environment);</span><br><span class="line">    setResourceLoader(resourceLoader);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ClassPathBeanDefinitionScanner 继承自 ClassPathScanningCandidateComponentProvider</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Register the default filter for &#123;<span class="doctag">@link</span> Component <span class="doctag">@Component</span>&#125;.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;This will implicitly register all annotations that have the</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> Component <span class="doctag">@Component</span>&#125; meta-annotation including the</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> Repository <span class="doctag">@Repository</span>&#125;, &#123;<span class="doctag">@link</span> Service <span class="doctag">@Service</span>&#125;, and</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> Controller <span class="doctag">@Controller</span>&#125; stereotype annotations.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Also supports Java EE 6's &#123;<span class="doctag">@link</span> javax.annotation.ManagedBean&#125; and</span></span><br><span class="line"><span class="comment"> * JSR-330's &#123;<span class="doctag">@link</span> javax.inject.Named&#125; annotations, if available.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">registerDefaultFilters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.includeFilters.add(<span class="keyword">new</span> AnnotationTypeFilter(Component.class));</span><br><span class="line">    ClassLoader cl = ClassPathScanningCandidateComponentProvider.class.getClassLoader();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.includeFilters.add(<span class="keyword">new</span> AnnotationTypeFilter(</span><br><span class="line">                ((Class&lt;? extends Annotation&gt;) ClassUtils.forName(<span class="string">"javax.annotation.ManagedBean"</span>, cl)), <span class="keyword">false</span>));</span><br><span class="line">        logger.debug(<span class="string">"JSR-250 'javax.annotation.ManagedBean' found and supported for component scanning"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (ClassNotFoundException ex) &#123;</span><br><span class="line">        <span class="comment">// JSR-250 1.1 API (as included in Java EE 6) not available - simply skip.</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.includeFilters.add(<span class="keyword">new</span> AnnotationTypeFilter(</span><br><span class="line">                ((Class&lt;? extends Annotation&gt;) ClassUtils.forName(<span class="string">"javax.inject.Named"</span>, cl)), <span class="keyword">false</span>));</span><br><span class="line">        logger.debug(<span class="string">"JSR-330 'javax.inject.Named' annotation found and supported for component scanning"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (ClassNotFoundException ex) &#123;</span><br><span class="line">        <span class="comment">// JSR-330 API not available - simply skip.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>AnnotationConfigApplicationContext 类 register方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Register one or more annotated classes to be processed.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Note that &#123;<span class="doctag">@link</span> #refresh()&#125; must be called in order for the context</span></span><br><span class="line"><span class="comment"> * to fully process the new classes.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> annotatedClasses one or more annotated classes,</span></span><br><span class="line"><span class="comment"> * e.g. &#123;<span class="doctag">@link</span> Configuration <span class="doctag">@Configuration</span>&#125; classes</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #scan(String...)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #refresh()</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(Class&lt;?&gt;... annotatedClasses)</span> </span>&#123;</span><br><span class="line">    Assert.notEmpty(annotatedClasses, <span class="string">"At least one annotated class must be specified"</span>);</span><br><span class="line">    <span class="keyword">this</span>.reader.register(annotatedClasses);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用 AnnotatedBeanDefinitionReader 类的 register 方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Register one or more annotated classes to be processed.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Calls to &#123;<span class="doctag">@code</span> register&#125; are idempotent; adding the same</span></span><br><span class="line"><span class="comment"> * annotated class more than once has no additional effect.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> annotatedClasses one or more annotated classes,</span></span><br><span class="line"><span class="comment"> * e.g. &#123;<span class="doctag">@link</span> Configuration <span class="doctag">@Configuration</span>&#125; classes</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(Class&lt;?&gt;... annotatedClasses)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (Class&lt;?&gt; annotatedClass : annotatedClasses) &#123;</span><br><span class="line">        registerBean(annotatedClass);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Register a bean from the given bean class, deriving its metadata from</span></span><br><span class="line"><span class="comment"> * class-declared annotations.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> annotatedClass the class of the bean</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBean</span><span class="params">(Class&lt;?&gt; annotatedClass)</span> </span>&#123;</span><br><span class="line">    registerBean(annotatedClass, <span class="keyword">null</span>, (Class&lt;? extends Annotation&gt;[]) <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Register a bean from the given bean class, deriving its metadata from</span></span><br><span class="line"><span class="comment"> * class-declared annotations.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> annotatedClass the class of the bean</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> name an explicit name for the bean</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> qualifiers specific qualifier annotations to consider,</span></span><br><span class="line"><span class="comment"> * in addition to qualifiers at the bean class level</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBean</span><span class="params">(Class&lt;?&gt; annotatedClass, String name, Class&lt;? extends Annotation&gt;... qualifiers)</span> </span>&#123;</span><br><span class="line">    AnnotatedGenericBeanDefinition abd = <span class="keyword">new</span> AnnotatedGenericBeanDefinition(annotatedClass);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.conditionEvaluator.shouldSkip(abd.getMetadata())) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ScopeMetadata scopeMetadata = <span class="keyword">this</span>.scopeMetadataResolver.resolveScopeMetadata(abd);</span><br><span class="line">    abd.setScope(scopeMetadata.getScopeName());</span><br><span class="line">    String beanName = (name != <span class="keyword">null</span> ? name : <span class="keyword">this</span>.beanNameGenerator.generateBeanName(abd, <span class="keyword">this</span>.registry));</span><br><span class="line">    AnnotationConfigUtils.processCommonDefinitionAnnotations(abd);</span><br><span class="line">    <span class="keyword">if</span> (qualifiers != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (Class&lt;? extends Annotation&gt; qualifier : qualifiers) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Primary.class == qualifier) &#123;</span><br><span class="line">                abd.setPrimary(<span class="keyword">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (Lazy.class == qualifier) &#123;</span><br><span class="line">                abd.setLazyInit(<span class="keyword">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                abd.addQualifier(<span class="keyword">new</span> AutowireCandidateQualifier(qualifier));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    BeanDefinitionHolder definitionHolder = <span class="keyword">new</span> BeanDefinitionHolder(abd, beanName);</span><br><span class="line">    definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, <span class="keyword">this</span>.registry);</span><br><span class="line">    BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, <span class="keyword">this</span>.registry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>BeanDefinitionReaderUtils 工具类的registerBeanDefinition 方法将bean注册到registry。</p>
+<p>@Bean注解<br>ConfigurationClassPostProcessor 类</p>
+<p>ConfigurationClassBeanDefinitionReader.loadBeanDefinitionsForBeanMethod</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/09/springboot/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/07/09/springboot/" itemprop="url">springboot</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-09T09:12:33+08:00">
+                2021-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>看看SpringBoot是如何加载META-INF/spring.factories 配置的</p>
+<p>SpringApplication.run(BackupCloudWebApplication.class, args);</p>
+<p>SpringFactoriesLoader 类<br>从多个classpath下的jar包中加载META-INF/spring.factories 配置，<br>META-INF/spring.factories 中的key是接口或抽象类，value是实现类，多个实现类使用逗号分割。<br>比如spring-beans-5.2.2.RELEASE.jar 中的spring.factories，内容如下：<br>org.springframework.beans.BeanInfoFactory=org.springframework.beans.ExtendedBeanInfoFactory</p>
+<p>SpringApplication 类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SpringApplication</span><span class="params">(ResourceLoader resourceLoader, Class&lt;?&gt;... primarySources)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.resourceLoader = resourceLoader;</span><br><span class="line">    Assert.notNull(primarySources, <span class="string">"PrimarySources must not be null"</span>);</span><br><span class="line">    <span class="keyword">this</span>.primarySources = <span class="keyword">new</span> LinkedHashSet&lt;&gt;(Arrays.asList(primarySources));</span><br><span class="line">    <span class="keyword">this</span>.webApplicationType = WebApplicationType.deduceFromClasspath();</span><br><span class="line">    setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));</span><br><span class="line">    setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));</span><br><span class="line">    <span class="keyword">this</span>.mainApplicationClass = deduceMainApplicationClass();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>getSpringFactoriesInstances 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> &lt;T&gt; <span class="function">Collection&lt;T&gt; <span class="title">getSpringFactoriesInstances</span><span class="params">(Class&lt;T&gt; type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getSpringFactoriesInstances(type, <span class="keyword">new</span> Class&lt;?&gt;[] &#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> &lt;T&gt; <span class="function">Collection&lt;T&gt; <span class="title">getSpringFactoriesInstances</span><span class="params">(Class&lt;T&gt; type, Class&lt;?&gt;[] parameterTypes, Object... args)</span> </span>&#123;</span><br><span class="line">    ClassLoader classLoader = getClassLoader();</span><br><span class="line">    <span class="comment">// 加载配置</span></span><br><span class="line">    <span class="comment">// Use names and ensure unique to protect against duplicates</span></span><br><span class="line">    Set&lt;String&gt; names = <span class="keyword">new</span> LinkedHashSet&lt;&gt;(SpringFactoriesLoader.loadFactoryNames(type, classLoader));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建实例</span></span><br><span class="line">    List&lt;T&gt; instances = createSpringFactoriesInstances(type, parameterTypes, classLoader, args, names);</span><br><span class="line">    <span class="comment">// 排序</span></span><br><span class="line">    AnnotationAwareOrderComparator.sort(instances);</span><br><span class="line">    <span class="keyword">return</span> instances;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>SpringFactoriesLoader 类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringFactoriesLoader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * The location to look for factories.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;Can be present in multiple JAR files.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String FACTORIES_RESOURCE_LOCATION = <span class="string">"META-INF/spring.factories"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(SpringFactoriesLoader.class);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;ClassLoader, MultiValueMap&lt;String, String&gt;&gt; cache = <span class="keyword">new</span> ConcurrentReferenceHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">SpringFactoriesLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略其他方法...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>SpringFactoriesLoader.loadFactoryNames 方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Load the fully qualified class names of factory implementations of the</span></span><br><span class="line"><span class="comment"> * given type from &#123;<span class="doctag">@value</span> #FACTORIES_RESOURCE_LOCATION&#125;, using the given</span></span><br><span class="line"><span class="comment"> * class loader.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> factoryType the interface or abstract class representing the factory</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> classLoader the ClassLoader to use for loading resources; can be</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> null&#125; to use the default</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> IllegalArgumentException if an error occurs while loading factory names</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #loadFactories</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title">loadFactoryNames</span><span class="params">(Class&lt;?&gt; factoryType, @Nullable ClassLoader classLoader)</span> </span>&#123;</span><br><span class="line">    String factoryTypeName = factoryType.getName();</span><br><span class="line">    <span class="keyword">return</span> loadSpringFactories(classLoader).getOrDefault(factoryTypeName, Collections.emptyList());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String, List&lt;String&gt;&gt; loadSpringFactories(<span class="meta">@Nullable</span> ClassLoader classLoader) &#123;</span><br><span class="line">    <span class="comment">// 从缓存中取值</span></span><br><span class="line">    MultiValueMap&lt;String, String&gt; result = cache.get(classLoader);</span><br><span class="line">    <span class="keyword">if</span> (result != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Enumeration&lt;URL&gt; urls = (classLoader != <span class="keyword">null</span> ?</span><br><span class="line">                classLoader.getResources(FACTORIES_RESOURCE_LOCATION) :</span><br><span class="line">                ClassLoader.getSystemResources(FACTORIES_RESOURCE_LOCATION));</span><br><span class="line">        result = <span class="keyword">new</span> LinkedMultiValueMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (urls.hasMoreElements()) &#123;</span><br><span class="line">            URL url = urls.nextElement();</span><br><span class="line">            UrlResource resource = <span class="keyword">new</span> UrlResource(url);</span><br><span class="line">            Properties properties = PropertiesLoaderUtils.loadProperties(resource);</span><br><span class="line">            <span class="keyword">for</span> (Map.Entry&lt;?, ?&gt; entry : properties.entrySet()) &#123;</span><br><span class="line">                String factoryTypeName = ((String) entry.getKey()).trim();</span><br><span class="line">                <span class="keyword">for</span> (String factoryImplementationName : StringUtils.commaDelimitedListToStringArray((String) entry.getValue())) &#123;</span><br><span class="line">                    result.add(factoryTypeName, factoryImplementationName.trim());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cache.put(classLoader, result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Unable to load factories from location ["</span> +</span><br><span class="line">                FACTORIES_RESOURCE_LOCATION + <span class="string">"]"</span>, ex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>SpringApplication 类 createSpringFactoriesInstances 方法，通过反射创建实例<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line"><span class="keyword">private</span> &lt;T&gt; <span class="function">List&lt;T&gt; <span class="title">createSpringFactoriesInstances</span><span class="params">(Class&lt;T&gt; type, Class&lt;?&gt;[] parameterTypes,</span></span></span><br><span class="line"><span class="function"><span class="params">        ClassLoader classLoader, Object[] args, Set&lt;String&gt; names)</span> </span>&#123;</span><br><span class="line">    List&lt;T&gt; instances = <span class="keyword">new</span> ArrayList&lt;&gt;(names.size());</span><br><span class="line">    <span class="keyword">for</span> (String name : names) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class&lt;?&gt; instanceClass = ClassUtils.forName(name, classLoader);</span><br><span class="line">            Assert.isAssignable(type, instanceClass);</span><br><span class="line">            Constructor&lt;?&gt; constructor = instanceClass.getDeclaredConstructor(parameterTypes);</span><br><span class="line">            T instance = (T) BeanUtils.instantiateClass(constructor, args);</span><br><span class="line">            instances.add(instance);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Cannot instantiate "</span> + type + <span class="string">" : "</span> + name, ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> instances;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/18/blog-list/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/06/18/blog-list/" itemprop="url">blog-list</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-18T14:01:33+08:00">
+                2021-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="优秀博客收集"><a href="#优秀博客收集" class="headerlink" title="优秀博客收集"></a>优秀博客收集</h4><p><a href="https://www.cnblogs.com/teach/p/14854733.html" target="_blank" rel="noopener">北漂程序员</a>，大量关于Java技术和面试题<br><a href="https://www.cnblogs.com/java-chen-hao/category/1587029.html" target="_blank" rel="noopener">chen_hao</a> 源码分析系列</p>
+<p><a href="https://man.linuxde.net/" target="_blank" rel="noopener">Linux命令大全</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/18/eureka/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/06/18/eureka/" itemprop="url">eureka</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-18T09:36:42+08:00">
+                2021-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>享学Eureka源码<br><a href="https://fangshixiang.blog.csdn.net/article/details/105043241" target="_blank" rel="noopener">https://fangshixiang.blog.csdn.net/article/details/105043241</a></p>
+<p>芋道源码<br><a href="https://github.com/YunaiV/eureka" target="_blank" rel="noopener">https://github.com/YunaiV/eureka</a></p>
+<p>eureka-client 最底层、最核心的一个包，微服务通过eureka-client与Eureka进行通信，屏蔽了底层通信细节。<br>eureka-core 依赖eureka-client。<br>eureka-server 依赖jersey 来搭建Servlet应用。</p>
+<p>eureka-core 它不是所有模块的基础，而是仅仅用于Server端，并且还不是必须的。</p>
+<h5 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h5><p>Eureka Client 是Java客户端，用于简化与Eureka Server通信细节，Eureka Client会拉取、更新和缓存Eureka Server中服务的信息。即使所有的Eureka Server 节点都宕机，短时间内服务消费者依然可以使用缓存中的信息找到服务提供者。</p>
+<p>Eureka Client 在微服务启动后，会周期性的向Eureka Server发送心跳（默认周期为30秒），用来续约自己的信息。</p>
+<p>如果Eureka Server在一定时间内（默认是90秒）没有收到某个微服务节点的心跳，Eureka Server将会注销该微服务节点。</p>
+<blockquote>
+<p>Client端每30秒发送一次心跳，Server端90秒内没有收到该Client心跳就认为Client端挂掉了。</p>
+</blockquote>
+<p>Eureka Client 完成以下几件动作：</p>
+<ul>
+<li>服务注册Register：Client端主动向Server端注册自身的元数据，比如IP地址、端口等；</li>
+<li>服务续约Renew：Client默认会每30秒发送一次心跳来续约，告诉Server自己还活着；</li>
+<li>获取注册列表信息Fetch Registries：Client端从Server端获取注册表信息，并将其缓存到本地。缓存信息每30秒更新一次；</li>
+<li>服务下线Cancel：Client端在停机时（正常停止）会主动向Server端发送取消请求，告诉Server端把自己这个实例剔除。</li>
+</ul>
+<h5 id="Eureka-Server"><a href="#Eureka-Server" class="headerlink" title="Eureka Server"></a>Eureka Server</h5><p>Eureka Server 提供给各个微服务注册的服务端，Eureka Server 会在内存中存储该服务的信息。</p>
+<p>Server端并不会主动触发动作，主要用于提供服务：</p>
+<ul>
+<li>提供服务注册</li>
+<li>提供服务信息拉取</li>
+<li>提供服务管理：接收客户端的cancel、心跳、续租renew等请求；</li>
+<li>服务剔除</li>
+<li>信息同步：在集群中，每个Eureka Server同时也是Eureka Client，多个Server之间通过P2P复制的方式完成服务注册表的同步。</li>
+</ul>
+<p>注册中心作为微服务架构的核心中间件，对可用性是强要求，反而对一致性是可以容忍的，基于AP模式的只有Eureka 和 Nacos。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/15/binary-search/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/06/15/binary-search/" itemprop="url">binary-search</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-15T16:18:01+08:00">
+                2021-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>二分查找是一种非常简单易懂的查找算法。举个例子，比如猜数字游戏，我随机写一个0-99之间的数字，你来猜我写的是什么。猜的过程中，你每猜一次，我会告诉你猜大了还是猜小了，直到猜中为止。</p>
+<p>有序数组，折半查找，缩小查找区间的范围</p>
+<p>下面以升序排序的int数组为例，介绍二分查找过程，待查找的int数组如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">18</span>, <span class="number">22</span>&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySearch</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] data, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> high = data.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line"><span class="comment">//            int mid = (low + high) / 2;</span></span><br><span class="line">            <span class="keyword">int</span> mid = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">int</span> midVal = data[mid];</span><br><span class="line">            <span class="keyword">if</span>(midVal == value) &#123;</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value &gt; midVal) &#123;</span><br><span class="line">                low = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>  &#123;</span><br><span class="line">                high = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 没有找到，返回索引-1</span></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先定义两个变量low 和 high 分别指向有序数组arr[]的第一个元素和最后一个元素的下标；</p>
+<p>1、获取low和high中间元素的下标mid = (low + high) / 2；</p>
+<p>2、判断要查找的元素值value和arr[mid] 是否相等，如果相等返回下标mid，查找结束；</p>
+<p>3、如果不相等，则比较arr[mid]和value的大小；</p>
+<p>4、如果value大于arr[mid]，说明要查找的元素值在[mid+1, high]之间，则将low指向mid+1，继续步骤1、2；<br>5、同样的，如果value小于arr[mid]，说明要查找的元素值在[low, mid-1]之间，则将high指向mid-1，继续步骤1、2；</p>
+<p>6、当low &gt; high 的时候，结束查找。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/22/hashmap-interview/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/22/hashmap-interview/" itemprop="url">hashmap-interview</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-22T15:49:11+08:00">
+                2021-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>说说HashMap的实现原理</p>
+<ul>
+<li><p>HashMap底层数据结构</p>
+<ul>
+<li>什么是Hash表？</li>
+<li>什么是哈希冲突？如何解决</li>
+</ul>
+</li>
+<li><p>HashMap源码读过吗？</p>
+<ul>
+<li>核心成员变量有哪些知道吗？</li>
+<li>为什么到8转为红黑树，到6转为链表？</li>
+<li>插入和获取数据的过程清楚吗</li>
+<li>JDK7 和 JDK8 中hash函数的区别？</li>
+</ul>
+</li>
+<li><p>JDK7 与 JDK8 中HashMap的区别？</p>
+</li>
+</ul>
+<h4 id="HashMap的实现原理"><a href="#HashMap的实现原理" class="headerlink" title="HashMap的实现原理"></a>HashMap的实现原理</h4><p>本文关于HashMap的底层实现若无特殊说明都是基于JDK1.8的。</p>
+<p>1、HashMap的底层数据结构是数组+链表（红黑树），它是基于hash算法实现的，通过put(key, value) 和 get(key) 方法存储和获取对象。<br>我们一般是这么使用HashMap的<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">map.put(<span class="string">"a"</span>, <span class="string">"first"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>当调用HashMap的无参构造方法时，HashMap的底层的数组是没有初始化的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Constructs an empty &lt;tt&gt;HashMap&lt;/tt&gt; with the default initial capacity</span></span><br><span class="line"><span class="comment"> * (16) and the default load factor (0.75).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.loadFactor = DEFAULT_LOAD_FACTOR; <span class="comment">// all other fields defaulted</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>无参构造方法中只是对加载因子loadFactor初始化为默认值0.75，并没有对Node&lt;K,V&gt;[] table数组初始化。<br>（可以思考下HashMap中的加载因子为什么是0.75？）</p>
+<p>当我们第一次调用put(key, value) 方法时，key-value在HashMap内部的数组和链表中是如何存储的呢<br>put方法内部首先根据key计算hash值，hash函数是如何计算的呢？是直接返回key的hashCode吗，当然不是啦！<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Computes key.hashCode() and spreads (XORs) higher bits of hash</span></span><br><span class="line"><span class="comment"> * to lower.  Because the table uses power-of-two masking, sets of</span></span><br><span class="line"><span class="comment"> * hashes that vary only in bits above the current mask will</span></span><br><span class="line"><span class="comment"> * always collide. (Among known examples are sets of Float keys</span></span><br><span class="line"><span class="comment"> * holding consecutive whole numbers in small tables.)  So we</span></span><br><span class="line"><span class="comment"> * apply a transform that spreads the impact of higher bits</span></span><br><span class="line"><span class="comment"> * downward. There is a tradeoff between speed, utility, and</span></span><br><span class="line"><span class="comment"> * quality of bit-spreading. Because many common sets of hashes</span></span><br><span class="line"><span class="comment"> * are already reasonably distributed (so don't benefit from</span></span><br><span class="line"><span class="comment"> * spreading), and because we use trees to handle large sets of</span></span><br><span class="line"><span class="comment"> * collisions in bins, we just XOR some shifted bits in the</span></span><br><span class="line"><span class="comment"> * cheapest possible way to reduce systematic lossage, as well as</span></span><br><span class="line"><span class="comment"> * to incorporate impact of the highest bits that would otherwise</span></span><br><span class="line"><span class="comment"> * never be used in index calculations because of table bounds.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>key的hash值已经知道了，那么计算 hash &amp; (table.length - 1) 结果就是key的hash值在数组中的位置bucket。<br>等等，数组table还没有初始化呢，那么在计算bucket之前应该先将table[]数组进行初始化，那么数组的长度应该是多少呢？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The default initial capacity - MUST be a power of two.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br></pre></td></tr></table></figure></p>
+<p>默认的初始容量16。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])<span class="keyword">new</span> Node[newCap];</span><br><span class="line">table = newTab;</span><br></pre></td></tr></table></figure>
+<p>Node[] 数组就这么被创建好了，是不是很简单（具体看源码中的resize()方法）。</p>
+<p>数组创建好了，key在数组中对应的位置bucket也找到了，那么现在就该将key-value放入数组中了，该如何放入呢？<br>当然是将key-value封装成数组的元素类型Node了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Basic hash bin node, used for most entries.  (See below for</span></span><br><span class="line"><span class="comment"> * TreeNode subclass, and in LinkedHashMap for its Entry subclass.)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">    <span class="keyword">final</span> K key;</span><br><span class="line">    V value;</span><br><span class="line">    Node&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line">    Node(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="keyword">this</span>.hash = hash;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 省略其他部分代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Node类中包含4个属性，K key、V value、int hash、Node&lt;K,V&gt; next。<br>key、value就是我们要放入HashMap中的数据，hash就是我们上面计算出来的key的hash值，这个Node类型的next是干嘛的呢？<br>还记得HashMap底层的数据结构吗？数组 + 链表，next这个地方就是链表的实现。next指向与key的hash值相同的新Node。</p>
+<p>根据key在数组中对应的位置bucket，获取bucket位置上的元素，如果该位置上没有元素，则直接将key-value封装成的Node放入数组中<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tab = table</span><br><span class="line">tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure></p>
+<p>如果该位置上有元素，则比较key的值是否相等<br>如果key的值相等，则要更新key对应的vaule，将新的value覆盖旧的value；<br>如果key的值不相等，则说明发生了hash冲突。也就是说不同的key计算出的hash值相等。这个时候链表就开始起作用了。</p>
+<p>JDK1.8中put方法源码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Associates the specified value with the specified key in this map.</span></span><br><span class="line"><span class="comment"> * If the map previously contained a mapping for the key, the old</span></span><br><span class="line"><span class="comment"> * value is replaced.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> key key with which the specified value is to be associated</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> value value to be associated with the specified key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or</span></span><br><span class="line"><span class="comment"> *         &lt;tt&gt;null&lt;/tt&gt; if there was no mapping for &lt;tt&gt;key&lt;/tt&gt;.</span></span><br><span class="line"><span class="comment"> *         (A &lt;tt&gt;null&lt;/tt&gt; return can also indicate that the map</span></span><br><span class="line"><span class="comment"> *         previously associated &lt;tt&gt;null&lt;/tt&gt; with &lt;tt&gt;key&lt;/tt&gt;.)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Implements Map.put and related methods.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> hash hash for key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> key the key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> value the value to put</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> onlyIfAbsent if true, don't change existing value</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> evict if false, the table is in creation mode.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> previous value, or null if none</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">boolean</span> onlyIfAbsent,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">boolean</span> evict)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="keyword">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="keyword">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        <span class="comment">// 初始化table</span></span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="keyword">null</span>)</span><br><span class="line">        <span class="comment">// 目标位置上没有元素，直接将key-value封装成的Node放入数组</span></span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        <span class="comment">// 目标位置上有元素，则比较key值是否相等</span></span><br><span class="line">        <span class="keyword">if</span> (p.hash == hash &amp;&amp;</span><br><span class="line">            ((k = p.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            <span class="comment">// key值相等</span></span><br><span class="line">            e = p;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(<span class="keyword">this</span>, tab, hash, key, value);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// key值不相等</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> binCount = <span class="number">0</span>; ; ++binCount) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((e = p.next) == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// 遍历链表，找到链表的最后一个节点，将新的元素插入到链表的尾部（尾插法）</span></span><br><span class="line">                    p.next = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">                    <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>) <span class="comment">// -1 for 1st</span></span><br><span class="line">                        <span class="comment">// 判断是否需要将链表转成红黑树</span></span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="comment">// 链表继续遍历</span></span><br><span class="line">                p = e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123; <span class="comment">// existing mapping for key</span></span><br><span class="line">            <span class="comment">// 目标位置上有元素，将新的value覆盖旧的value</span></span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="keyword">null</span>)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        <span class="comment">// 数组扩容</span></span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、当存储对象时，将key-value传递给put(key, value) 方法时，内部调用hash函数根据key的hashCode来计算hash值，<br>然后将key的hash值与数组长度执行按位与运算，找到数组中对应的位置来存储value。<br>如果该位置上没有元素，则直接将key、value以及hash值封装成Node对象放入数组中。<br>如果该位置上有元素，则调用equals方法比较key值是否相等，如果相等则覆盖value值，如果key值不相等，则发生了hash 碰撞。<br>HashMap 使用链表来解决碰撞问题，当key发生碰撞了，对象将会存储在链表的下一个节点中。每个链表节点中存储key-value对象。<br>也就是当两个不同的key的hash值相同时，它们会存储在同一个bucket位置的链表（JDK8链表长度大于8会将链表转成红黑树），取数据可通过key的equals方法来<br>找到正确的key-value。</p>
+<p>3、当获取对象时，也是先计算key的hash值，找到数组中对应的位置，然后通过key的equals方法找到正确的key-value，然后返回对象的value。</p>
+<h4 id="JDK8之前的HashMap底层数据结构"><a href="#JDK8之前的HashMap底层数据结构" class="headerlink" title="JDK8之前的HashMap底层数据结构"></a>JDK8之前的HashMap底层数据结构</h4><p>JDK8以前HashMap的实现是数组 + 链表，它之所以有相当快的查询速度主要是因为它是通过计算key的hashCode来决定数组中存储的位置，而增删速度靠的是链表保证。<br>JDK1.8中用数组 + 链表 + 红黑树的结构来优化，链表长度大于8同时满足HashMap中数组长度大于64则变红黑树，长度小于6变回链表。</p>
+<h4 id="什么是Hash表"><a href="#什么是Hash表" class="headerlink" title="什么是Hash表"></a>什么是Hash表</h4><p>散列表（Hash Table，也叫哈希表），是根据key值而直接进行访问的数据结构。也就是说，它通过把key值映射到表中一个位置来访问记录，以加快查找速度。<br>这个映射函数叫做散列函数，存放记录的数组叫散列表。<br>hash表里可以存储元素的位置称为桶（bucket）。</p>
+<h4 id="什么是哈希冲突"><a href="#什么是哈希冲突" class="headerlink" title="什么是哈希冲突"></a>什么是哈希冲突</h4><p>即不同key值产生相同的hash地址，hash(key1) = hash(key2)</p>
+<h4 id="哈希冲突解决方案"><a href="#哈希冲突解决方案" class="headerlink" title="哈希冲突解决方案"></a>哈希冲突解决方案</h4><p>1、开放地址法<br>2、链地址法<br>3、公共溢出区法<br>4、再散列法</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/20/mysql-optimize/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/20/mysql-optimize/" itemprop="url">mysql-optimize</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-20T11:15:34+08:00">
+                2021-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MySQL 5.6.35 索引优化导致的死锁案例解析<br><a href="https://mp.weixin.qq.com/s/T5e-gb0MXxjBwbjGg6jIMg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/T5e-gb0MXxjBwbjGg6jIMg</a></p>
+<p>MySQL 加锁实际上是给索引加锁，而不是给数据加锁。</p>
+<p>查看死锁日志<br>show engine innodb status\G;<br>找到 LATEST DETECTED DEADLOCK</p>
+<p>MySQL 优化之 index merge(索引合并)<br><a href="https://www.cnblogs.com/digdeep/p/4975977.html" target="_blank" rel="noopener">https://www.cnblogs.com/digdeep/p/4975977.html</a></p>
+<p>MySQL使用存储过程批量插入百(千)万测试数据<br><a href="https://blog.csdn.net/qq_36663951/article/details/78790919" target="_blank" rel="noopener">https://blog.csdn.net/qq_36663951/article/details/78790919</a></p>
+<p>index merge<br><a href="https://dev.mysql.com/doc/refman/5.7/en/index-merge-optimization.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/index-merge-optimization.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/18/jvm-classloader/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -331,7 +1304,7 @@
         
           
             <h4 id="混合模式"><a href="#混合模式" class="headerlink" title="混合模式"></a>混合模式</h4><p>（086 详解Class加载过程 02:06:00）<br>Java 解释执行，编译执行。</p>
-<p>解释器<br> bytecode intepreter</p>
+<p>解释器<br> bytecode interpreter</p>
 <p>JIT<br> Just In Time compiler</p>
 <p>混合模式<br>混合使用解释器 + 热点代码编译<br>起始阶段采用解释执行</p>
 <p>热点代码检测：<br> 多次被调用的方法<br> 多次被调用的循环<br> 进行编译</p>
@@ -341,6 +1314,171 @@
         
       
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/14/hashmap/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/14/hashmap/" itemprop="url">hashmap</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-14T13:53:29+08:00">
+                2021-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://tech.meituan.com/2016/06/24/java-hashmap.html" target="_blank" rel="noopener">https://tech.meituan.com/2016/06/24/java-hashmap.html</a></p>
+<table>
+<thead>
+<tr>
+<th>比较</th>
+<th>HashMap</th>
+<th>HashTable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key/value 是否为null</td>
+<td>key 和 value 都可以为null</td>
+<td>key 和 value 都不可以为null</td>
+</tr>
+<tr>
+<td>是否同步</td>
+<td>不同步</td>
+<td>同步</td>
+</tr>
+</tbody>
+</table>
+<h5 id="说一下HashMap的实现原理"><a href="#说一下HashMap的实现原理" class="headerlink" title="说一下HashMap的实现原理"></a>说一下HashMap的实现原理</h5><p>HashMap的数据结构：数组 + 链表（红黑树），HashMap基于hash算法实现的，当我们往HashMap中put元素时，利用key的hashCode重新hash计算出当前对象的元素在数组中的下标。<br>存储时，如果出现hash值相同的key，此时有两种情况：<br>1.如果key相同，则覆盖原来的值；<br>2.如果key不同，也就是出现了冲突，则将当前的key-value放入链表中。</p>
+<p>根据key获取时，同样是利用key的hashCode计算hash值对应的下标，再进一步判断key是否相同，从而找到对应值。</p>
+<p>HashMap解决hash冲突的方式就是使用数组的存储方式，将冲突的key的对象放入链表中，一旦发现冲突就在链表中做进一步的对比。</p>
+<p>在JDK1.8中对HashMap的实现做了优化，当链表中的节点数超过8个之后，该链表会转换为红黑树来提高查询效率，从原来的O(N)到O(logN)。</p>
+<p>影响HashMap性能的两个参数</p>
+<ul>
+<li>initial capacity 初始容量，默认值 16</li>
+<li>load factor 负载因子，默认值 0.75</li>
+</ul>
+<h5 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认的初始容量16</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 最大容量</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认加载因子0.75</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Entry数组</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> Entry&lt;?,?&gt;[] EMPTY_TABLE = &#123;&#125;;</span><br><span class="line"><span class="keyword">transient</span> Entry&lt;K,V&gt;[] table = (Entry&lt;K,V&gt;[]) EMPTY_TABLE;</span><br><span class="line"></span><br><span class="line"><span class="comment">// map 中键值对数量</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 阈值，Entry数组超过 threshold 时进行扩容</span></span><br><span class="line"><span class="keyword">int</span> threshold;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加载因子</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">float</span> loadFactor;</span><br></pre></td></tr></table></figure>
+<h5 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Constructs an empty &lt;tt&gt;HashMap&lt;/tt&gt; with the default initial capacity</span></span><br><span class="line"><span class="comment"> * (16) and the default load factor (0.75).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 使用默认的初始容量16 和 默认的加载因子0.75 构造HashMap</span></span><br><span class="line">    <span class="keyword">this</span>(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Constructs an empty &lt;tt&gt;HashMap&lt;/tt&gt; with the specified initial</span></span><br><span class="line"><span class="comment"> * capacity and load factor.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  initialCapacity the initial capacity</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  loadFactor      the load factor</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> IllegalArgumentException if the initial capacity is negative</span></span><br><span class="line"><span class="comment"> *         or the load factor is nonpositive</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal initial capacity: "</span> +</span><br><span class="line">                                           initialCapacity);</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal load factor: "</span> +</span><br><span class="line">                                           loadFactor);</span><br><span class="line">    <span class="comment">// 加载因子</span></span><br><span class="line">    <span class="keyword">this</span>.loadFactor = loadFactor;</span><br><span class="line">    <span class="comment">// 将阈值设置为初始容量</span></span><br><span class="line">    threshold = initialCapacity;</span><br><span class="line">    <span class="comment">// init 方法由子类实现</span></span><br><span class="line">    init();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Associates the specified value with the specified key in this map.</span></span><br><span class="line"><span class="comment"> * If the map previously contained a mapping for the key, the old</span></span><br><span class="line"><span class="comment"> * value is replaced.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> key key with which the specified value is to be associated</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> value value to be associated with the specified key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or</span></span><br><span class="line"><span class="comment"> *         &lt;tt&gt;null&lt;/tt&gt; if there was no mapping for &lt;tt&gt;key&lt;/tt&gt;.</span></span><br><span class="line"><span class="comment"> *         (A &lt;tt&gt;null&lt;/tt&gt; return can also indicate that the map</span></span><br><span class="line"><span class="comment"> *         previously associated &lt;tt&gt;null&lt;/tt&gt; with &lt;tt&gt;key&lt;/tt&gt;.)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (table == EMPTY_TABLE) &#123;</span><br><span class="line">        <span class="comment">// 初始化Entry数组</span></span><br><span class="line">        inflateTable(threshold);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 处理key值为null的情况</span></span><br><span class="line">    <span class="keyword">if</span> (key == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> putForNullKey(value);</span><br><span class="line">    <span class="comment">// 计算hash值</span></span><br><span class="line">    <span class="keyword">int</span> hash = hash(key);</span><br><span class="line">    <span class="comment">// 计算hash值在Entry数组中对应的索引</span></span><br><span class="line">    <span class="keyword">int</span> i = indexFor(hash, table.length);</span><br><span class="line">    <span class="comment">// 取出索引i对应的Entry值，判断Entry是否为null，如果Entry有值，遍历Entry链表</span></span><br><span class="line">    <span class="keyword">for</span> (Entry&lt;K,V&gt; e = table[i]; e != <span class="keyword">null</span>; e = e.next) &#123;</span><br><span class="line">        Object k;</span><br><span class="line">        <span class="comment">// hash值相等 并且 key值相等</span></span><br><span class="line">        <span class="keyword">if</span> (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) &#123;</span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            e.value = value;</span><br><span class="line">            e.recordAccess(<span class="keyword">this</span>);</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="comment">// 添加新的元素</span></span><br><span class="line">    addEntry(hash, key, value, i);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Inflates the table.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">inflateTable</span><span class="params">(<span class="keyword">int</span> toSize)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Find a power of 2 &gt;= toSize 找到一个大于等于toSize的2的N次幂</span></span><br><span class="line">    <span class="keyword">int</span> capacity = roundUpToPowerOf2(toSize);</span><br><span class="line">    <span class="comment">// 计算阈值 threshold = capacity * loadFactor 容量乘以加载因子</span></span><br><span class="line">    threshold = (<span class="keyword">int</span>) Math.min(capacity * loadFactor, MAXIMUM_CAPACITY + <span class="number">1</span>);</span><br><span class="line">    <span class="comment">// 初始化Entry数组</span></span><br><span class="line">    table = <span class="keyword">new</span> Entry[capacity];</span><br><span class="line">    initHashSeedAsNeeded(capacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Adds a new entry with the specified key, value and hash code to</span></span><br><span class="line"><span class="comment"> * the specified bucket.  It is the responsibility of this</span></span><br><span class="line"><span class="comment"> * method to resize the table if appropriate.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Subclass overrides this to alter the behavior of put method.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addEntry</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">int</span> bucketIndex)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 判断是否需要扩容</span></span><br><span class="line">    <span class="keyword">if</span> ((size &gt;= threshold) &amp;&amp; (<span class="keyword">null</span> != table[bucketIndex])) &#123;</span><br><span class="line">        <span class="comment">// Entry数组扩容为原来的2倍</span></span><br><span class="line">        resize(<span class="number">2</span> * table.length);</span><br><span class="line">        <span class="comment">// 计算hash值，如果key为null 则hash值为0</span></span><br><span class="line">        hash = (<span class="keyword">null</span> != key) ? hash(key) : <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 计算hash值的索引</span></span><br><span class="line">        bucketIndex = indexFor(hash, table.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    createEntry(hash, key, value, bucketIndex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Like addEntry except that this version is used when creating entries</span></span><br><span class="line"><span class="comment"> * as part of Map construction or "pseudo-construction" (cloning,</span></span><br><span class="line"><span class="comment"> * deserialization).  This version needn't worry about resizing the table.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Subclass overrides this to alter the behavior of HashMap(Map),</span></span><br><span class="line"><span class="comment"> * clone, and readObject.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createEntry</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">int</span> bucketIndex)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 先取出目标索引位置的值</span></span><br><span class="line">    Entry&lt;K,V&gt; e = table[bucketIndex];</span><br><span class="line">    <span class="comment">// 头插法，将新的Entry键值对插入链表头部，并将索引位置的值添加到新值后面（next属性）</span></span><br><span class="line">    table[bucketIndex] = <span class="keyword">new</span> Entry&lt;&gt;(hash, key, value, e);</span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HashMap 是数组+链表数据结构组成的，那么数组的类型是什么</p>
+<p>计算hash值<br>计算元素在数组中的位置<br>数组的长度<br>数组的类型Entry</p>
+<p>Entry 类型的数组 和 Entry类型的链表<br>hash<br>key<br>value<br>next</p>
+<p>如果key 值相同，hash值肯定相同，则直接替换值。<br>如果hash 值相同，key 不同，则放在链表中。</p>
+<p>发生hash冲突时，jdk1.7头插法，jdk1.8尾插法。</p>
+<p>阈值<br>threshold = capacity * load factor<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/14/hashmap/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
     
     
     
@@ -496,1175 +1634,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/30/mysql-innodb/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/04/30/mysql-innodb/" itemprop="url">mysql-innodb</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-30T14:11:44+08:00">
-                2021-04-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="MySQL-体系结构和存储引擎"><a href="#MySQL-体系结构和存储引擎" class="headerlink" title="MySQL 体系结构和存储引擎"></a>MySQL 体系结构和存储引擎</h4><p>MySQL独有的插件式存储引擎。</p>
-<p>存储引擎是基于表的，而不是数据库。<br>数据库与传统文件系统的最大差别是数据库是支持事务的。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">engines</span></span><br></pre></td></tr></table></figure>
-<p>查看当前MySQL数据库支持的存储引擎。</p>
-<p>MySQL 示例数据库<br><a href="https://dev.mysql.com/doc/index-other.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/index-other.html</a><br>Example Databases</p>
-<p>进程间通信方式：<br>TCP/IP<br>命名管道和共享内存<br>Unix域套接字</p>
-<h4 id="InnoDB-存储引擎"><a href="#InnoDB-存储引擎" class="headerlink" title="InnoDB 存储引擎"></a>InnoDB 存储引擎</h4><p>MySQL5.5版本开始是默认的表存储引擎。<br>完整支持ACID事务；<br>行锁设计、支持MVCC、外键<br>提供一致性非锁定读</p>
-<p>插入/更新操作高达800次/秒</p>
-<p>高性能、高可用、高可扩展</p>
-<p>Master线程<br>负责将缓冲池中的数据异步刷新到磁盘，保证数据的一致性，包括脏页的刷新、合并插入缓冲(insert buffer)、undo页的回收等。</p>
-<p>IO线程</p>
-<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><p>1、缓冲池<br>InnoDB 存储引擎是基于磁盘存储的，并将其中的记录按照页的方式进行管理。<br>由于CPU速度与磁盘速度之间的鸿沟，基于磁盘的数据库系统通常使用缓冲池技术来提高数据库的整体性能。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'innodb_buffer_pool_size'</span>;</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'innodb_buffer_pool_instances'</span>;</span><br></pre></td></tr></table></figure></p>
-<p>在InnoDB 存储引擎中，缓冲池中页的大小默认为16KB，使用LRU算法对缓冲池进行管理。</p>
-<p>LRU列表中的页被修改之后，称该页为脏页(dirty page)。即缓冲池中的页和磁盘上的页的数据产生了不一致。<br>数据库会通过checkpoint机制将脏页刷新回磁盘。</p>
-<p>redo log buffer</p>
-<p>Write Ahead Log</p>
-<p>checkpoint 将缓冲池中的脏页刷回磁盘。<br>当缓冲池中脏页的数量占据75%时，强制进行checkpoint。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/21/interview/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/04/21/interview/" itemprop="url">Java面试题汇总</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-21T14:09:21+08:00">
-                2021-04-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Java并发篇"><a href="#Java并发篇" class="headerlink" title="Java并发篇"></a>Java并发篇</h4><p>一、Java如何开启线程？怎么保证线程安全？<br>线程和进程的区别：进程是操作系统进行<code>资源分配</code>的最小单元，线程是操作系统进行<code>任务调度</code>的最小单元。线程属于进程。<br>如何开启线程？<br>1、继承Thread类，重写run方法；<br>2、实现Runnable接口，实现run方法；<br>3、实现Callable接口，实现call方法，通过FutureTask创建一个线程，获取到线程执行的返回值；<br>4、通过线程池来开启线程；<br>怎么保证线程安全？<br>加锁<br>1、JVM提供的锁，也就是synchronized 关键字；<br>2、JDK提供的各种锁；</p>
-<p>二、volatile 和 synchronized 有什么区别？volatile 能不能保证线程安全？DCL(Double Check Lock)单例为什么要加volatile？<br>1、synchronized 关键字，用来加锁。volatile 只是保证变量的线程可见性，通常适用于一个线程写，多个线程读的场景。<br>2、volatile 不能保证线程安全，volatile 关键字只能保证线程可见性，不能保证原子性。<br>3、volatile 防止指令重排，在DCL中，防止高并发下，指令重排造成的线程安全问题。</p>
-<p>三、Java线程锁机制是怎样的？偏向锁、轻量级锁、重量级锁有什么区别？锁机制是如何升级的？<br>1、Java的锁就是在对象的MarkWord中记录一个锁状态。无锁、偏向锁、轻量级锁、重量级锁对应不同的锁状态。<br>2、Java的锁机制就是根据资源竞争的激烈程度不断进行锁升级的过程。<br>3、无锁、偏向锁、轻量级锁、重量级锁。</p>
-<p>四、谈谈你对AQS的理解。AQS如何实现可重入锁ReentrantLock？<br>1、AQS是一个Java线程同步的框架，是JDK中很多锁工具的核心实现框架。<br>2、在AQS中，维护一个整型变量state 和 一个线程组成的双向链表队列。其中，这个线程队列用来给线程排队的，而state用来控制线程排队或放行的。在不同场景下，有不同的意义。<br>3、在可重入锁这个场景下，state就用来表示加锁的次数，0表示无锁，每加一次锁，state就加1，释放锁state就减1。</p>
-<p>五、有A、B、C 三个线程，如何保证三个线程同时执行？如何在高并发情况下保证三个线程顺序执行？如何保证三个线程有序交错执行？<br>CountDownLatch、CyclicBarrier、Semaphore<br>1、CountDownLatch、CyclicBarrier<br>2、join<br>3、wait、notify</p>
-<p>六、如何对一个字符串快速排序？<br>Fork/Join框架<br>归并排序</p>
-<h4 id="Java网络通信篇"><a href="#Java网络通信篇" class="headerlink" title="Java网络通信篇"></a>Java网络通信篇</h4><p>一、TCP和UDP有什么区别？TCP为什么是三次握手，而不是两次？<br>TCP Transfer Control Protocol 是一种面向连接的、可靠的、传输层通信协议。<br>特点：面向连接的，点对点的通信，高可靠的，效率比较低，占用系统资源比较多。</p>
-<p>UDP User Datagram Protocol 是一种无连接的，不可靠的传输层通信协议。<br>特点：不需要连接，发送方不管接收方有没有准备好，直接发消息，可以进行广播发送，传输不可靠，有可能丢失消息；效率比较高；协议比较简单，占用系统资源比较少。</p>
-<p>TCP建立连接三次握手，断开连接四次挥手。<br>如果是两次握手，可能造成连接资源浪费的情况。</p>
-<p>二、Java有哪几种IO模型？有什么区别？<br>BIO 同步阻塞IO<br>可靠性差，吞吐量低，适用于连接比较少且比较固定的场景，JDK1.4之前唯一的选择。编程模型最简单。</p>
-<p>NIO 同步非阻塞IO<br>可靠性比较好，吞吐量比较高，适用于连接数比较多，并且连接比较短（轻操作）的场景，例如聊天室。JDK1.4开始支持。<br>编程模型复杂。</p>
-<p>AIO 异步非阻塞IO<br>可靠性是最好的，吞吐量非常高。适用于连接比较多，并且连接比较长（重操作）的场景。例如相册服务器。<br>编程模型比较简单，需要操作系统支持。</p>
-<p>三、Java NIO 的几个核心组件是什么？分别有什么作用？<br>Channel、Buffer、Selector<br>Channel 类似于流，每个Channel对应一个Buffer缓冲区，Channel会注册到Selector 上。<br>Selector 会根据Channel上发生的读写事件，将请求交给某个空闲的线程处理。Selector 对应一个或多个线程。<br>Buffer 和 Channel 都是可读可写的。</p>
-<p>四、Select Poll和EPoll 有什么区别？<br>它们是NIO中多路复用的三种实现机制，是由操作系统提供的。</p>
-<p>Java 的NIO当中使用哪种机制？可以查看JDK中 DefaultSelectorProvider 源码，在Windows和Linux 实现方式是不同的。<br>在Windows下是 WindowsSelectorProvider，而Linux下，根据Linux内核版本，2.6版本以上就是EPollSelectorProvider，否则就是默认的 PollSelectorProvider。</p>
-<p>五、描述Http 和 Https的区别<br>HTTP: 是互联网上应用最为广泛的一种网络通信协议，基于TCP，可以使浏览器工作更为高效，减少网络传输。<br>HTTPS: 是HTTP的加强版，可以认为是HTTP+SSL（Secure Socket Layer）。在HTTP的基础上增加了一系列的安全机制。一方面保证<br>数据传输安全，另一方面对访问者增加了验证机制。是目前现行架构下，最为安全的解决方案。</p>
-<p>主要区别：<br>1、HTTP的连接是简单无状态的，HTTPS的数据传输是经过证书加密的，安全性更高。<br>2、HTTP是免费的，而HTTPS需要申请证书，而证书通常是需要收费的，并且费用一般不低。<br>3、它们的传输协议不同，所以它们使用的端口也不一样，HTTP默认是80端口，而HTTPS默认是443端口。</p>
-<p>HTTPS的缺点：<br>1、HTTPS的握手协议比较耗时，所以会影响服务的响应速度和吞吐量；<br>2、HTTPS也并不是完全安全的，它的证书体系并不是完全安全的，HTTPS在面对DDOS这样的攻击时，几乎起不到任何作用。</p>
-<h4 id="消息队列篇"><a href="#消息队列篇" class="headerlink" title="消息队列篇"></a>消息队列篇</h4><p>一、MQ有什么用？有哪些具体的使用场景？</p>
-<p>MQ：Message Queue ，消息队列。队列是一种FIFO先进先出的数据结构。消息由生产者发送到MQ进行排队，然后由消费者对消息进行处理。</p>
-<p>MQ的作用主要有三个方面：</p>
-<p>1、异步</p>
-<p>作用：异步将提高系统的响应速度和吞吐量。</p>
-<p>2、解耦</p>
-<p>作用：服务之间进行解耦，可以减少服务之间的影响，提高系统的稳定性和可扩展性。</p>
-<p>另外，解耦之后可以实现数据分发，生产者发送一个消息后，可以由多个消费者来处理。</p>
-<p>3、削峰</p>
-<p>作用：以稳定的系统资源应对突发的流量冲击。</p>
-<p>MQ的缺点：</p>
-<p>1、系统可用性降低，一旦MQ宕机，整个业务系统就会产生影响。高可用</p>
-<p>2、系统的复杂度提高：引入MQ之后，数据链路就会变得很复杂。如何保证消息不丢失？消息不会重复调用？怎么保证消息的顺序性？</p>
-<p>3、数据一致性：A系统发消息，需要由B、C两个系统一同处理。如果B系统处理成功、C系统处理失败，这就会造成数据一致性的问题。</p>
-<p>二、如何进行产品选型？</p>
-<p>Kafka</p>
-<p>优点：吞吐量非常大，性能非常好，集群高可用。</p>
-<p>缺点：会丢数据，功能比较单一。</p>
-<p>使用场景：日志分析，大数据采集。</p>
-<p>RabbitMQ</p>
-<p>优点：消息可靠性，功能全面。</p>
-<p>缺点：吞吐量比较低，消息积累会严重影响。erlang语言不好定制。</p>
-<p>使用场景：小规模场景。</p>
-<p>RocketMQ</p>
-<p>优点：高吞吐、高性能、高可用，功能非常全面。</p>
-<p>缺点：开源版功能不如商业版。官方文档和周边生态还不够成熟，客户端只支持java。</p>
-<p>使用场景：几乎是所有场景。</p>
-<p>三、如何保证消息不丢失？</p>
-<p>1、生产者发送消息不丢失</p>
-<p>Kafka：消息发送 + 回调。</p>
-<p>RocketMQ：1)、消息发送 + 回调；2)、事务消息。</p>
-<p>RabbitMQ：</p>
-<p>1)、消息发送 + 回调；</p>
-<p>2)、手动事务，</p>
-<p>channel.txSelect() 开启事务，channel.txCommit()提交事务，channel.txRollback()回滚事务。这种方式对channel是会产生阻塞的，造成吞吐量下降。</p>
-<p>3)、Publish Confirm，整个处理流程跟RocketMQ的事务消息基本是一致的。</p>
-<p>2、MQ主从消息同步不丢失</p>
-<p>RocketMQ：1)、普通集群中，同步同步消息、异步同步消息。异步同步消息效率更高，但是由丢失消息的风险。同步同步消息不会丢消息。2)、Dledger集群-两阶段提交。</p>
-<p>RabbitMQ：普通集群，消息是分散存储的，节点之间不会主动进行消息的同步，是有可能丢失消息的。镜像集群，会在节点之间主动进行数据同步，这样数据安全性得到提高。</p>
-<p>Kafka：通常都是在允许消息少量丢失的场景。acks 0 1 all 参数配置。</p>
-<p>3、MQ消息存盘不丢失</p>
-<p>RocketMQ：同步刷盘、异步刷盘，异步刷盘效率更高，但是有可能丢消息。同步刷盘消息安全性更高，但是效率会降低。</p>
-<p>RabbitMQ：将队列配置成持久化队列。新增的Quorum类型的队列，会采用Raft协议来进行消息同步。</p>
-<p>4、MQ消费者消费消息不丢失</p>
-<p>RocketMQ：使用默认的方式消费就行，不要采用异步方式。</p>
-<p>RabbitMQ：autoCommit -&gt; 手动提交offset。</p>
-<p>Kafka：手动提交offset。</p>
-<p>四、如何保证消息消费的幂等性？</p>
-<p>其实就是解决消费者重复消费消息的问题。</p>
-<p>所有MQ产品都没有提供主动解决幂等性的机制，需要由消费者自行控制。</p>
-<p>RocketMQ：给每个消息分配MessageID，这个MessageID就可以作为消费者判断幂等的依据，这种方式不太建议。</p>
-<p>最好的方式就是自己带一个有业务标识的ID来进行幂等判断，比如订单ID。</p>
-<p>五、如何保证消息的顺序消费？</p>
-<p>全局有序和局部有序：MQ只需要保证局部有序，不需要保证全局有序。</p>
-<p>生产者把一组有序的消息放到同一个队列当中，而消费者一次消费整个队列当中的消息。</p>
-<p>RocketMQ中有完整的设计，但是在RabbitMQ和Kafka当中并没有完整的设计，需要自己进行配置。</p>
-<p>RabbitMQ：要保证目标exchange只对应一个队列，并且一个队列只对应一个消费者。</p>
-<p>Kafka: 生产者通过定制partition分配规则，将消息分配到同一个partition。topic下只对应一个消费者。</p>
-<p>消息顺序消费会影响性能。</p>
-<p>六、如何保证消息的高效读写？</p>
-<p>零拷贝、顺序写。</p>
-<p>七、使用MQ如何保证分布式事务的最终一致性？</p>
-<p>分布式事务：业务相关的多个操作，保证它们同时成功或同时失败。</p>
-<p>最终一致性：与之对应的就是强一致性。</p>
-<p>MQ中要保证事务的最终一致性，就需要做到两点</p>
-<p>1、生产者要保证100%的消息投递。事务消息机制。</p>
-<p>2、消费者需要保证幂等消费，唯一ID + 业务自己实现幂等。</p>
-<p>分布式MQ的三种语义：</p>
-<p>at least once</p>
-<p>at most once</p>
-<p>exactly once</p>
-<p>八、让你设计一个MQ，你会如何设计？</p>
-<h4 id="数据库篇"><a href="#数据库篇" class="headerlink" title="数据库篇"></a>数据库篇</h4><p>一、索引的基本原理</p>
-<h4 id="缓存篇"><a href="#缓存篇" class="headerlink" title="缓存篇"></a>缓存篇</h4><p>一、如何避免缓存穿透、缓存击穿、缓存雪崩？</p>
-<p>缓存雪崩是指缓存同一时间大面积失效，导致后面的请求都会落到数据库上，造成数据库短时间内承受大量请求而崩掉。</p>
-<p>解决方案：</p>
-<ul>
-<li>缓存数据的过期时间设置随机，防止同一时间大量数据过期现象发生。</li>
-<li>缓存预热</li>
-<li>互斥锁</li>
-</ul>
-<p>缓存穿透是指缓存和数据库中都没有的数据，导致所有请求都落到数据库上，造成数据库短时间内承受大量请求而崩掉。</p>
-<p>解决方案：</p>
-<ul>
-<li>接口增加校验，如用户授权校验，id&lt;=0的直接拦截；</li>
-<li>从缓存和数据库都取不到的数据，这时也可以将key-value对写成key-null 写入缓存，缓存有效时间可以设置的短点，如30秒（设置太长会导致后面这个ID对应的数据存在了也没法使用）。这样可以防止攻击用户反复用同一个ID暴力攻击。</li>
-<li>采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmp中，一个一定不存在的数据会被这个bitmap拦截，从而避免了对底层存储系统的查询压力。（由于存在哈希冲突，一个bitmap中存在的数据不一定真的存在，而一个bitmap中不存在的数据肯定不存在）。</li>
-</ul>
-<p>缓存击穿是指缓存中没有但数据库中有的数据（一般是缓存时间到期），这时如果并发访问特别多，同时读取缓存没有读到数据，又同时去数据库去读取，引起数据库压力瞬间增大，造成过大压力。和缓存雪崩不同的是，缓存击穿指并发查询同一条数据，缓存雪崩是不同数据大面积过期，很多数据都查不到从而查数据库。</p>
-<p>解决方案：</p>
-<ul>
-<li>设置热点数据永不过期；</li>
-<li>加互斥锁，只允许一个请求查询数据库，其他排队等待，做double check。</li>
-</ul>
-<p>二、分布式系统中常用的缓存方案有哪些</p>
-<p>客户端缓存：页面和浏览器缓存，APP缓存，H5缓存，localStorage 和 sessionStorage；<br>CDN缓存：内容存储：数据的缓存，内容分发：负载均衡；<br>nginx缓存：静态资源；<br>服务端缓存：本地缓存、外部缓存；<br>数据库缓存：持久层缓存（mybatis, hibernate 多级缓存），mysql查询缓存。<br>操作系统缓存：Page Cache、Buffer Cache。</p>
-<p>三、缓存过期都有哪些策略</p>
-<p>定时过期：每个设置过期时间的key都需要创建一个定时器，到过期时间就会立即清除，该策略可以立即清除过期的数据，对内存很友好；但是会占用大量的CPU资源去处理过期的数据，从而影响缓存的响应时间和吞吐量。<br>惰性过期：只有访问一个key时，才会判断该key是否已经过期，过期则删除。该策略可以最大化地节省CPU资源，但是很消耗内存、许多的过期数据都还存在内存中，极端情况可能出现大量的过期key没有再次被访问，从而不回被清除，占用大量内存。<br>定期过期：每隔一定的时间，会扫描一定数量的数据库的expires字典中一定数量的key（随机的），并清除其中已过期的key。该策略是定时过期和惰性过期的这种方案。通过调整定时扫描的时间间隔和每次扫码的限定耗时，可以在不同情况下使得CPU和内存资源达到最优的平衡效果。</p>
-<p>四、常见的缓存淘汰算法</p>
-<p>FIFO（Fitst In First Out，先入先出），根据缓存被存储的时间，离当前时间最远的数据优先被淘汰；<br>LRU（Least Recently Used，最近最少使用），根据最近被使用的时间，离当前时间最远的数据优先被淘汰；<br>LFU（Least Frequently Used，最不经常使用），在一段时间内，缓存数据被使用次数最少的会被淘汰。</p>
-<p>五、如何保证数据库和缓存的一致性</p>
-<p>由于缓存和数据库是分开的，无法做到原子性的同时进行数据修改，可能出现缓存更新失败，或者数据库更新失败的情况，这时候会出现数据不一致，影响业务。</p>
-<ul>
-<li>先更新数据库，再更新缓存。缓存可能更新失败，读到老数据；</li>
-<li>先删缓存，再更新数据库。并发时，读操作可能还会将旧数据读回缓存；</li>
-<li>先更新数据库，再删除缓存。也存在缓存删除失败的可能。</li>
-</ul>
-<p>最经典的缓存+数据库读写的模式：Cache Aside Pattern。<br>读的时候先读缓存，缓存没有的话就读数据库，然后取出数据放入缓存，同时返回响应。<br>更新的时候，先更新数据库，然后再删除缓存。</p>
-<p>为什么是删除而不是更新？<br>删除更加轻量，延迟加载的一种表现，更新可能涉及多个表，比较耗时。</p>
-<p>延时双删：先删除缓存，再更新数据库，休眠1s、再次删除缓存。<br>写数据的休眠时间则在读数据业务逻辑的耗时基础上加几百毫秒即可。这么做的目的就是确保读请求结束，写请求可以删除读请求造成的缓存脏数据，并发还是可能读到旧值覆盖缓存。</p>
-<p>终极方案：<br>将访问操作串行化<br>1、先删缓存，将更新数据库的操作放进有序队列中<br>2、从缓存查询不到的查询操作，都进入有序队列<br>面临的问题:<br>1、读请求积压，大量超时，导致数据量的压力：限流、熔断<br>2、如何避免大量请求积压：将队列水平拆分，提高并行度<br>3、确保相同的请求路由正确</p>
-<p>六、布隆过滤器原理，优缺点<br>bitmap<br>int[10] 每个int类型的整数是4*8=32个bit，则int[10]一共有320 bit，每个bit非0即1，初始化时都是0<br>添加数据时。</p>
-<p>在开发中遇到过什么问题，怎么解决的？</p>
-<p>1、Redis 设置最大内存和淘汰策略；</p>
-<p>2、Quartz定时任务，使用Redis的zset替代订单超时未支付检查。</p>
-<p><a href="https://www.cnkirito.moe/about/" target="_blank" rel="noopener">https://www.cnkirito.moe/about/</a></p>
-<h5 id="zoom-一面"><a href="#zoom-一面" class="headerlink" title="zoom 一面"></a>zoom 一面</h5><p>dubbo 服务拆分<br>dubbo 线程池、通信协议<br>http接口安全</p>
-<p>线程池<br>线程池生命周期<br>线程生命周期<br>线程池大小设置<br>阻塞队列<br>线程池退出钩子方法<br>synchronized 修饰静态方法和非静态方法<br>synchronized 锁升级<br>ReentrantLock 公平锁与非公平锁</p>
-<p>redis<br>缓存一致性<br>淘汰策略<br>分布式锁<br>缓存穿透、击穿、雪崩</p>
-<p>MySQL<br>隔离级别<br>死锁<br>锁类型<br>日期类型 timestamp datetime </p>
-<p>Spring<br>设计模式<br>Spring事务失效<br>Spring事务注解</p>
-<p>Springboot<br>配置文件优先级<br>自定义 starter </p>
-<p>SpringCloud </p>
-<p>JVM内存模型<br>垃圾收集器</p>
-<p>CPU100%问题排查</p>
-<p>Netty<br>核心组件<br>心跳机制</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/06/aqs/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/04/06/aqs/" itemprop="url">ReentrantLock 源码分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-06T13:43:39+08:00">
-                2021-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>AQS 是 AbstractQueuedSynchronizer 类的简称，AbstractQueuedSynchronizer 继承 AbstractOwnableSynchronizer。<br>通过Volatile + CAS 实现，AQS 内部维护着 <code>volatile int state</code> 变量 和 FIFO 的双向的链表。</p>
-<p>AbstractOwnableSynchronizer 内部维护 exclusiveOwnerThread 变量，表示独占模式同步的持有者。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The current owner of exclusive mode synchronization.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> Thread exclusiveOwnerThread;</span><br></pre></td></tr></table></figure></p>
-<p>ReentrantLock 就是使用AQS实现。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建锁</span></span><br><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取锁</span></span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 业务代码</span></span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment">// 释放锁</span></span><br><span class="line">    lock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/04/06/aqs/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/19/monitor/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/19/monitor/" itemprop="url">管程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-19T13:46:25+08:00">
-                2021-03-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h4><p>Monitor 可以翻译为监视器或管程。<br>每个Java对象都可以关联一个Monitor对象，如果使用 synchronized 给对象上锁（重量级）之后，<br>该对象头的 Mark Word 中就被设置指向 Monitor 对象的指针。</p>
-<h2 id="Monitor-1"><a href="#Monitor-1" class="headerlink" title="Monitor"></a>Monitor</h2><p>WaitSet<br>EntryList<br>Owner</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">    <span class="comment">// 临界区代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>obj 是一个Java对象，当第一个线程t1执行 synchronized 代码块时，obj的对象头(Object Header) 中的 MarkWord 与 操作系统底层的 Monitor 对象关联。<br>刚开始 Monitor 对象中的 Owner 属性为null，这个时候 Owner属性指向了线程t1，线程t1执行临界区代码。</p>
-<p>接下来，线程t2 过来执行 synchronized 代码块时发现 obj对象已经关联了一个Monitor对象了，<br>并且 Owner 不等于空，也不是自己，那么线程t2 进入 Monitor 对象中的 EntryList 中排队BLOCKED。<br>同样的后面过来的线程t3也是进入EntryList 中排队。</p>
-<p>当线程t1执行完了临界区代码，则释放锁，Owner 属性值为空，同时通知 EntryList 中等待的线程。<br>比如线程t2被唤醒了，争夺CPU时间片。</p>
-<p>synchronized 必须是进入同一个对象的Monitor 才有上述效果。<br>不加 synchronized 的对象不会关联监视器，不遵循以上规则。</p>
-<p>若线程调用 wait()方法，将释放当前持有的 monitor， Owner 属性恢复为null，该线程进入 WaitSet 集合中等待被唤醒，处于 WAITTING 状态。<br>WaitSet 中存放的是之前获得过锁，但条件不满足进入 WAITING 状态的线程。</p>
-<p>EntryList 可能是公平的，也可能是非公平的。</p>
-<h4 id="synchronized-底层原理"><a href="#synchronized-底层原理" class="headerlink" title="synchronized 底层原理"></a>synchronized 底层原理</h4><p>synchronized 代码块<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * javap -v target/classes/com/geekymv/concurrent/lock/MonitorDemo.class</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MonitorDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Object lock = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">            counter++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(counter);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[])</span></span>;</span><br><span class="line">    descriptor: ([Ljava/lang/String;)V</span><br><span class="line">    flags: ACC_PUBLIC, ACC_STATIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">2</span>, locals=<span class="number">3</span>, args_size=<span class="number">1</span></span><br><span class="line">         0: getstatic     #2                  // Field lock:Ljava/lang/Object;</span><br><span class="line">         <span class="number">3</span>: dup</span><br><span class="line">         <span class="number">4</span>: astore_1</span><br><span class="line">         <span class="number">5</span>: monitorenter</span><br><span class="line">         6: getstatic     #3                  // Field counter:I</span><br><span class="line">         <span class="number">9</span>: iconst_1</span><br><span class="line">        <span class="number">10</span>: iadd</span><br><span class="line">        11: putstatic     #3                  // Field counter:I</span><br><span class="line">        <span class="number">14</span>: aload_1</span><br><span class="line">        <span class="number">15</span>: monitorexit</span><br><span class="line">        <span class="number">16</span>: goto          <span class="number">24</span></span><br><span class="line">        <span class="number">19</span>: astore_2</span><br><span class="line">        <span class="number">20</span>: aload_1</span><br><span class="line">        <span class="number">21</span>: monitorexit</span><br><span class="line">        <span class="number">22</span>: aload_2</span><br><span class="line">        <span class="number">23</span>: athrow</span><br><span class="line">        <span class="number">24</span>: <span class="keyword">return</span></span><br><span class="line">      Exception table:</span><br><span class="line">         from    to  target type</span><br><span class="line">             <span class="number">6</span>    <span class="number">16</span>    <span class="number">19</span>   any</span><br><span class="line">            <span class="number">19</span>    <span class="number">22</span>    <span class="number">19</span>   any</span><br></pre></td></tr></table></figure>
-<p>monitorenter、monitirexit 指令实现</p>
-<p>monitorenter 将lock 对象的 MarkWord 置为 Monitor 指针<br>monitirexit 将lock 对象的 MarkWord 重置，唤醒 EntryList</p>
-<p>最后一个 monitorexit 异常退出时释放锁。</p>
-<p>synchronized 修饰方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MonitorSyncDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        MonitorSyncDemo demo = <span class="keyword">new</span> MonitorSyncDemo();</span><br><span class="line"></span><br><span class="line">        demo.test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        counter++;</span><br><span class="line">        System.out.println(<span class="string">"counter = "</span> + counter);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>;</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: ACC_PUBLIC, ACC_SYNCHRONIZED</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">3</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         0: getstatic     #5                  // Field counter:I</span><br><span class="line">         <span class="number">3</span>: iconst_1</span><br><span class="line">         <span class="number">4</span>: iadd</span><br><span class="line">         5: putstatic     #5                  // Field counter:I</span><br><span class="line">         8: getstatic     #6                  // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">        11: new           #7                  // class java/lang/StringBuilder</span><br><span class="line">        <span class="number">14</span>: dup</span><br><span class="line">        15: invokespecial #8                  // Method java/lang/StringBuilder."&lt;init&gt;":()V</span><br><span class="line">        18: ldc           #9                  // String counter =</span><br><span class="line">        20: invokevirtual #10                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;</span><br><span class="line">        23: getstatic     #5                  // Field counter:I</span><br><span class="line">        26: invokevirtual #11                 // Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;</span><br><span class="line">        29: invokevirtual #12                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;</span><br><span class="line">        32: invokevirtual #13                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">        <span class="number">35</span>: <span class="keyword">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">15</span>: <span class="number">0</span></span><br><span class="line">        line <span class="number">16</span>: <span class="number">8</span></span><br><span class="line">        line <span class="number">17</span>: <span class="number">35</span></span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>      <span class="number">36</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lcom/geekymv/concurrent/lock/MonitorSyncDemo;</span><br></pre></td></tr></table></figure>
-<p>synchronized 修饰的方法并没有使用 monitorenter、monitirexit 指令， 而是通过 ACC_SYNCHRONIZED 标志判断是否为同步方法。</p>
-<p>在 Java6 之前，Monitor 的实现完全依赖操作系统内部的互斥锁，需要进行用户态到内核态的切换，同步操作时一个重量级的操作。<br>现在的 Oracle JDK 中，JVM 提供了三种不同的Monitor 实现，也就是常说的三种不同的锁：偏向锁、轻量级锁和重量级锁，</p>
-<p>锁升级过程<br>无锁、偏向锁、轻量级锁、重量级锁</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>一个对象被new 出来的时候是正常(normal)状态，或者无锁状态。</p>
-<p>偏向锁 threadId</p>
-<p>轻量级锁<br>轻量级锁的使用场景，如果一个多线有多线程访问，但多线程访问的时间是错开的（也就是没有竞争），那么可以使用轻量级锁来优化。<br>轻量级锁对使用者是通明的，仍然使用 synchronized。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/thread-and-process/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/18/thread-and-process/" itemprop="url">线程和进程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T16:02:25+08:00">
-                2021-03-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><p>程序由指令和数据组成，但这些指令要运行，数据要读写，就必须将指令加载至CPU，数据加载至内存。<br>在指令运行过程中还需要用到磁盘、网络等设备。进程就是用来加载指令、管理内存和IO的。</p>
-<p>当一个程序被运行，从磁盘加载这个程序的代码到内存，这时就开启了一个进程。</p>
-<p>进程可以视为程序的一个实例，大部分程序可以同时运行多个实例进程（例如记事本、画图、浏览器等），<br>也有的程序只能启动一个实例进程（例如微信、360安全卫士等）。</p>
-<h4 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h4><p>一个进程内可以分为一到多个线程。<br>一个线程就是一个指令流，将指令流中的一条条指令以一定的顺序交给CPU执行。<br>Java中，线程作为最小调度单位，进程作为资源分配的最小单位。</p>
-<h4 id="进程和线程对比"><a href="#进程和线程对比" class="headerlink" title="进程和线程对比"></a>进程和线程对比</h4><p>进程基本上相互独立，而线程存在于进程内，是进程的一个子集。<br>进程拥有共享的资源，如内存空间等，供其内部的线程共享。<br>进程间通信较为复杂，同一台计算机的进程通信称为IPC（Inter-process communication），<br>不同计算机之间的进程通信，需要通过网络，并遵守共同的协议，例如HTTP。<br>线程通信相对简单，因为它们共享进程内的内存，一个例子是多个线程可以访问同一个共享变量。<br>线程更轻量，线程上下文切换成本一般要比进程上下文切换要低。</p>
-<h4 id="并行与并发"><a href="#并行与并发" class="headerlink" title="并行与并发"></a>并行与并发</h4><p>单核CPU下，线程实际还是串行执行的，操作系统中有一个组件叫作任务调度器，将CPU的时间片分给不同的线程使用。</p>
-<h4 id="查看进程线程的方法"><a href="#查看进程线程的方法" class="headerlink" title="查看进程线程的方法"></a>查看进程线程的方法</h4><p>Linux<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ps -fe 查看所有进程</span><br><span class="line"></span><br><span class="line">ps -fT -p pid 查看某个进程(pid)的所有线程</span><br><span class="line"></span><br><span class="line">kill 杀死进程</span><br><span class="line"></span><br><span class="line">top 按大写 H 切换是否显示线程</span><br><span class="line"></span><br><span class="line">top -H -p pid 查看某个进程(pid)的所有线程</span><br></pre></td></tr></table></figure></p>
-<p>Java<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jps 查看所有Java进程</span><br><span class="line">jps -l 显示完整的包名</span><br><span class="line"></span><br><span class="line">jstack pid 查看某个Java进程(pid)的所有线程状态</span><br></pre></td></tr></table></figure></p>
-<p>jconsole 远程连接配置<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar \</span><br><span class="line">-Djava.rmi.server.hostname=10.0.231.7 -Dcom.sun.management.jmxremote \</span><br><span class="line">-Dcom.sun.management.jmxremote.port=8999 \</span><br><span class="line">-Dcom.sun.management.jmxremote.ssl=false \</span><br><span class="line">-Dcom.sun.management.jmxremote.authenticate=false \</span><br><span class="line">geek-1.0-SNAPSHOT.jar &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/12/sharding-jdbc/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/12/sharding-jdbc/" itemprop="url">sharding-jdbc</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-12T15:43:39+08:00">
-                2021-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>垂直分表：将一个表按照字段分成多个表，每个表存储其中一部分字段。<br>它带来的提升：<br>1、为了避免IO争抢并减少锁表的几率，查看详情的用户与商品信息浏览互不影响。<br>2、充分发挥热门数据的操作效率，商品信息的操作的高效不会被商品描述的低效率所拖累。</p>
-<p>为什么大字段的IO效率低？<br>由于数据量本身大，需要更长的读取时间；<br>跨页，页是数据库存储单位，很多查找及定位操作都是以页为单位的，单页内的数据行越多数据库整体性能越好，而大字段占用空间大，单页内存储行少，因此IO效率较低。<br>数据库以行为单位将数据加载到内存中，这样表中字段长度较短且访问频率较高，内存能加载更多的数据，命中率更高，减少了磁盘IO，从而提升了数据库性能。</p>
-<p>一般来说，某业务实体中的各个数据项的访问频次是不一样的，部分字段可能是占用存储空间比较大的BLOB或TEXT。例如商品描述。所以，当表数据量很大时，可以将表按<br>字段切开，将热门字段、冷门字段分来放置在不同表中，这些表可以放在不同的存储设备上，避免IO争抢。垂直切分带来的性能提升主要集中在热门数据的操作效率上，而且<br>磁盘争用情况减少。</p>
-<p>通常我们按以下原则进行垂直拆分：<br>1、把不常用的字段单独放在一张表；<br>2、把text、blob 等大字段拆分出来放置在附表中；<br>3、经常组合查询的列放在一张表中。</p>
-<p>垂直分库<br>通过垂直分表性能得到了一定程度的提升，但是还没有达到要求，并且磁盘空间也快不够了，因为数据始终在一台服务器，垂直分表只解决了单一表数据量过大问题，但没有将表<br>分布到不同的服务器上，因此每个表还是竞争同一个物理机的CPU、内存、网络IO、磁盘。<br>根据业务可以拆分为用户库、商品库、订单库。并把这些库分散到不同服务器上。</p>
-<p>垂直分库是指按照业务将表进行分类，分布到不同的数据库上，每个库可以放在不同的服务器上，它的核心理念是专库占用。<br>它带来的提升是：<br>1、解决业务层面的耦合，业务清晰；<br>2、</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/11/arraylist-concurrent-modification-exception/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/11/arraylist-concurrent-modification-exception/" itemprop="url">ArrayList类执行remove操作竟然抛出了ConcurrentModificationException 异常</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-11T17:23:57+08:00">
-                2021-03-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>我们一般会有这么一个场景，比如从数据库中查询出一些数据，放入了ArrayList中。现在要对这些数据进行过滤，删除那些不满足条件的元素。<br>为了简化，我这里就不从数据库中查询了，而是模拟一些数据，ArrayList中存放了5个用户信息，现在要求将年龄小于18的用户从ArrayList中移除。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// id</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">// 年龄</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(<span class="keyword">int</span> id, String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略 getter setter 方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟数据</span></span><br><span class="line">list.add(<span class="keyword">new</span> User(<span class="number">1000</span>, <span class="string">"张三"</span>, <span class="number">22</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> User(<span class="number">1001</span>, <span class="string">"李四"</span>, <span class="number">27</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> User(<span class="number">1002</span>, <span class="string">"王五"</span>, <span class="number">16</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> User(<span class="number">1003</span>, <span class="string">"赵六"</span>, <span class="number">18</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> User(<span class="number">1004</span>, <span class="string">"孙七"</span>, <span class="number">22</span>));</span><br><span class="line"></span><br><span class="line">Iterator&lt;User&gt; iterator = list.iterator();</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    User user = iterator.next();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除不满足条件的用户</span></span><br><span class="line">    <span class="keyword">if</span>(user.getAge() &lt; <span class="number">18</span>) &#123;</span><br><span class="line">        list.remove(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行会抛出如下异常信息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.util.ConcurrentModificationException</span><br><span class="line">	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:<span class="number">909</span>)</span><br><span class="line">	at java.util.ArrayList$Itr.next(ArrayList.java:<span class="number">859</span>)</span><br></pre></td></tr></table></figure></p>
-<p>从异常信息可以看出是ArrayList内部类Itr的checkForComodification方法内部抛出了异常。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/11/java-collection/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/11/java-collection/" itemprop="url">对比Vector、ArrayList、LinkedList 的区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-11T15:16:59+08:00">
-                2021-03-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>三者都实现了List接口。</p>
-<p>Vector 是线程安全的动态数组，内部使用 Object[] 数组存放元素，可以根据需要自动扩容到原来的2倍。<br>线程安全的集合类，通过在方法上使用 synchronized 实现同步，通常性能上要比ArrayList 差。</p>
-<p>ArrayList 不是线程安全的，也可以根据需要调整容量，增加到原来的1.5倍。</p>
-<p>LinkedList Java提供的双向链表，不是线程安全的，链表不需要调整容量。</p>
-<p>Vector 和 ArrayList 内部元素以数组形式顺序存储的，适合随机访问的的场合，除了尾部插入和删除外，往往性能比较差，需要移动元素。<br>LinkedList 进行节点插入、删除高效得多，但是随机访问性能要比动态数组慢，需要从头开始遍历。</p>
-<p>如果遇到多线程操作同一容器的场景，可以使用 Collections 类 提供的 synchronizedList() 方法 将 ArrayList 和 LinkedList 转换成线程安全的容器来使用。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1715,7 +1684,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1726,7 +1695,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1737,7 +1706,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

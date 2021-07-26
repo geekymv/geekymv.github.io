@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Linux,">
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 centos7 防火墙https://www.4spaces.org/centos-open-porter/ 禁止开机启动systemctl disable fi">
+<meta name="description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 关闭selinuxhttps://blog.csdn.net/fake_hydra/article/details/83061765修改/etc/selinux/">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos7">
 <meta property="og:url" content="http://yoursite.com/2019/07/23/centos7/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 centos7 防火墙https://www.4spaces.org/centos-open-porter/ 禁止开机启动systemctl disable fi">
+<meta property="og:description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 关闭selinuxhttps://blog.csdn.net/fake_hydra/article/details/83061765修改/etc/selinux/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-25T03:31:34.682Z">
+<meta property="og:updated_time" content="2021-07-02T06:34:21.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7">
-<meta name="twitter:description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 centos7 防火墙https://www.4spaces.org/centos-open-porter/ 禁止开机启动systemctl disable fi">
+<meta name="twitter:description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 关闭selinuxhttps://blog.csdn.net/fake_hydra/article/details/83061765修改/etc/selinux/">
 
 
 
@@ -331,6 +332,7 @@
       
         <p>配置网络<br><a href="https://blog.csdn.net/akipa11/article/details/81414875" target="_blank" rel="noopener">https://blog.csdn.net/akipa11/article/details/81414875</a></p>
 <p>设置时区<br><a href="https://blog.csdn.net/jkjkjkll/article/details/80015635" target="_blank" rel="noopener">https://blog.csdn.net/jkjkjkll/article/details/80015635</a></p>
+<p>关闭selinux<br><a href="https://blog.csdn.net/fake_hydra/article/details/83061765" target="_blank" rel="noopener">https://blog.csdn.net/fake_hydra/article/details/83061765</a><br>修改/etc/selinux/config文件中的SELINUX=”” 为 disabled ，然后重启。<br>如果不想重启系统，使用命令setenforce 0</p>
 <h5 id="centos7-防火墙"><a href="#centos7-防火墙" class="headerlink" title="centos7 防火墙"></a>centos7 防火墙</h5><p><a href="https://www.4spaces.org/centos-open-porter/" target="_blank" rel="noopener">https://www.4spaces.org/centos-open-porter/</a></p>
 <p>禁止开机启动<br>systemctl disable firewalld</p>
 <p>启动防火墙<br>systemctl start firewalld</p>
@@ -379,6 +381,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
       
 
       
@@ -481,7 +489,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -492,7 +500,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -503,7 +511,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

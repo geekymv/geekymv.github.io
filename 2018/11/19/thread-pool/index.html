@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1 系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路 查看cpu消耗过高的进程top 查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。top -Hp pid 输入线程的十六进制值printf “%x\n” tid jstack pid | grep tid对应的十六">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-21T02:19:49.676Z">
+<meta property="og:updated_time" content="2021-05-19T03:18:29.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程">
 <meta name="twitter:description" content="查看进程下的线程数：ps -Lf pid | wc -l查看cpu核数：执行top命令后 按数字1 系统运行缓慢，CPU 100%，以及Full GC次数过多问题的排查思路 查看cpu消耗过高的进程top 查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。top -Hp pid 输入线程的十六进制值printf “%x\n” tid jstack pid | grep tid对应的十六">
@@ -335,6 +335,10 @@
 <p>查看该进程中有哪些线程cpu过高，一般超过80%就是比较高的。<br>top -Hp pid</p>
 <p>输入线程的十六进制值<br>printf “%x\n” tid</p>
 <p>jstack pid | grep tid对应的十六进制</p>
+<p>线程池大小设置多大合适<br><a href="https://mp.weixin.qq.com/s/G0toGUjKQRcCpskheR32vA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/G0toGUjKQRcCpskheR32vA</a><br><a href="https://mp.weixin.qq.com/s/YbyC3qQfUm4B_QQ03GFiNw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/YbyC3qQfUm4B_QQ03GFiNw</a><br><a href="https://segmentfault.com/a/1190000022296465" target="_blank" rel="noopener">https://segmentfault.com/a/1190000022296465</a></p>
+<p>CPU密集型<br>IO密集型</p>
+<p>程序在进行IO操作时，CPU是处于空闲状态的。</p>
+<p>线程等待时间所占比例越高，需要越多线程；<br>线程CPU时间所在比例越高，需要越少线程。</p>
 
       
     </div>
@@ -466,7 +470,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -477,7 +481,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -488,7 +492,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

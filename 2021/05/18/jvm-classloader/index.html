@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="混合模式（086 详解Class加载过程 02:06:00）Java 解释执行，编译执行。 解释器 bytecode intepreter JIT Just In Time compiler 混合模式混合使用解释器 + 热点代码编译起始阶段采用解释执行 热点代码检测： 多次被调用的方法 多次被调用的循环 进行编译 检查热点代码，通过JIT编译器将方法编译成机器码的触发阈值-XX:CompileTh">
+<meta name="description" content="混合模式（086 详解Class加载过程 02:06:00）Java 解释执行，编译执行。 解释器 bytecode interpreter JIT Just In Time compiler 混合模式混合使用解释器 + 热点代码编译起始阶段采用解释执行 热点代码检测： 多次被调用的方法 多次被调用的循环 进行编译 检查热点代码，通过JIT编译器将方法编译成机器码的触发阈值-XX:CompileT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jvm-classloader">
 <meta property="og:url" content="http://yoursite.com/2021/05/18/jvm-classloader/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="混合模式（086 详解Class加载过程 02:06:00）Java 解释执行，编译执行。 解释器 bytecode intepreter JIT Just In Time compiler 混合模式混合使用解释器 + 热点代码编译起始阶段采用解释执行 热点代码检测： 多次被调用的方法 多次被调用的循环 进行编译 检查热点代码，通过JIT编译器将方法编译成机器码的触发阈值-XX:CompileTh">
+<meta property="og:description" content="混合模式（086 详解Class加载过程 02:06:00）Java 解释执行，编译执行。 解释器 bytecode interpreter JIT Just In Time compiler 混合模式混合使用解释器 + 热点代码编译起始阶段采用解释执行 热点代码检测： 多次被调用的方法 多次被调用的循环 进行编译 检查热点代码，通过JIT编译器将方法编译成机器码的触发阈值-XX:CompileT">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-05-18T10:16:26.529Z">
+<meta property="og:updated_time" content="2021-05-18T10:21:04.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm-classloader">
-<meta name="twitter:description" content="混合模式（086 详解Class加载过程 02:06:00）Java 解释执行，编译执行。 解释器 bytecode intepreter JIT Just In Time compiler 混合模式混合使用解释器 + 热点代码编译起始阶段采用解释执行 热点代码检测： 多次被调用的方法 多次被调用的循环 进行编译 检查热点代码，通过JIT编译器将方法编译成机器码的触发阈值-XX:CompileTh">
+<meta name="twitter:description" content="混合模式（086 详解Class加载过程 02:06:00）Java 解释执行，编译执行。 解释器 bytecode interpreter JIT Just In Time compiler 混合模式混合使用解释器 + 热点代码编译起始阶段采用解释执行 热点代码检测： 多次被调用的方法 多次被调用的循环 进行编译 检查热点代码，通过JIT编译器将方法编译成机器码的触发阈值-XX:CompileT">
 
 
 
@@ -330,7 +330,7 @@
 
       
         <h4 id="混合模式"><a href="#混合模式" class="headerlink" title="混合模式"></a>混合模式</h4><p>（086 详解Class加载过程 02:06:00）<br>Java 解释执行，编译执行。</p>
-<p>解释器<br> bytecode intepreter</p>
+<p>解释器<br> bytecode interpreter</p>
 <p>JIT<br> Just In Time compiler</p>
 <p>混合模式<br>混合使用解释器 + 热点代码编译<br>起始阶段采用解释执行</p>
 <p>热点代码检测：<br> 多次被调用的方法<br> 多次被调用的循环<br> 进行编译</p>
@@ -383,8 +383,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/05/14/thread-local/" rel="next" title="ThreadLocal">
-                <i class="fa fa-chevron-left"></i> ThreadLocal
+              <a href="/2021/05/14/hashmap/" rel="next" title="hashmap">
+                <i class="fa fa-chevron-left"></i> hashmap
               </a>
             
           </div>
@@ -392,6 +392,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/20/mysql-optimize/" rel="prev" title="mysql-optimize">
+                mysql-optimize <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -471,7 +475,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">100</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -482,7 +486,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -493,7 +497,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
