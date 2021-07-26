@@ -259,6 +259,128 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/26/thread-num/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/07/26/thread-num/" itemprop="url">程序开多少线程合适</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-26T14:37:32+08:00">
+                2021-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="CPU密集型应用"><a href="#CPU密集型应用" class="headerlink" title="CPU密集型应用"></a>CPU密集型应用</h4><p>CPU密集型程序，一个完整请求I/O操作可以在很短的时间内完成，CPU还有很多运算要处理，也就是说CPU运算的比例占很大一部分，线程等待时间接近0。<br>对于单核CPU处理CPU密集型程序，这种情况不太适合使用多线程，对于多核CPU处理CPU密集型程序，我们完全可以最大化的利用CPU核心数，应用并发编程提高效率。<br>CPU密集型程序的最佳线程数就是：理论上线程数量 = CPU核数（逻辑），但是实际上数量一般会设置为CPU核数（逻辑）+ 1（经验值），CPU密集型的线程恰好在某时<br>因为发生一个页错误或者因其他原因而暂停，刚好有一个“额外”的线程，可以确保在这种情况下CPU周期不会中断工作。</p>
+<h4 id="IO密集型应用"><a href="#IO密集型应用" class="headerlink" title="IO密集型应用"></a>IO密集型应用</h4><p>与CPU密集型程序相对，一个完整请求CPU运算操作完成之后还有很多I/O操作要做，也就是说I/O操作占比很大部分，等待时间较长，线程等待时间所在比例越高，需要越多线程；<br>线程CPU时间所占比例越高，需要越少线程。<br>1、I/O密集型程序的最佳线程数就是：最佳线程数 = CPU核心数(1 / CPU 利用率) = CPU核心数(1 + (I/O耗时 / CPU耗时))；<br>2、如果几乎全是I/O耗时， 那么CPU耗时就无限趋近于0，所以纯理论就可以说是2N（N=CPU核数），当然也有说2N+1的，1应该是backup。<br>3、一般我们说2N+1即可。</p>
+<p>参考资料 <a href="https://www.bilibili.com/video/BV1aB4y1N7NR?p=139" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1aB4y1N7NR?p=139</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/14/spring-annotation/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1509,136 +1631,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/14/thread-local/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/14/thread-local/" itemprop="url">ThreadLocal</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-14T08:41:11+08:00">
-                2021-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>ThreadLocal</p>
-<p>ThreadLocalMap 是 ThreadLocal 的静态内部类。</p>
-<p>Thread 类的成员变量 ThreadLocal.ThreadLocalMap threadLocals。</p>
-<p>ThreadLocalMap 成员变量Entry[] ，Entry 继承 WeakReference&lt;ThreadLocal&lt;?&gt;&gt;。</p>
-<p>Entry 的key 是 ThreadLocal，value 是 Object。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocal&lt;List&lt;Integer&gt;&gt; tl = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line">List&lt;Integer&gt; cacheInstance = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">10000</span>);</span><br><span class="line">tl.set(cacheInstance);</span><br><span class="line">tl = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1684,7 +1681,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
