@@ -330,7 +330,8 @@
       
         
           
-            <p>是的，线上环境出问题了，调用第三方的接口出现服务端响应状态码401，于是赶紧查询HTTP Code 401代表啥意思，于是找到了这篇文章</p>
+            <img src="/2021/08/13/tcpdump-http/log.png" title="错误日志">
+<p>是的，线上环境出问题了，调用第三方的接口出现服务端响应状态码401，于是赶紧查询HTTP Code 401代表啥意思，于是找到了这篇文章</p>
 <p><a href="https://blog.csdn.net/liouswll/article/details/80698619" target="_blank" rel="noopener">http常见的状态码，400,401,403状态码分别代表什么？</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">401 unauthorized，表示发送的请求需要有通过 HTTP 认证的认证信息</span><br></pre></td></tr></table></figure>
 <p>401是服务端响应的状态码，根据接口文档在请求header中添加 X_API_KEY用于接口验证，代码中也确实这么实现的。</p>
