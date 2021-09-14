@@ -346,7 +346,22 @@
 <p>1.The normal client communication port (usually 6379) used to communicate with clients to be open to all the clients that need to reach the cluster,<br>plus all the other cluster nodes (that use the client port for keys migrations).</p>
 <p>2.The cluster bus port (the client port + 10000) must be reachable from all the other cluster nodes.<br>If you don’t open both TCP ports, your cluster will not work as expected.</p>
 <p>The cluster bus uses a different, binary protocol, for node to node data exchange,<br>which is more suited to exchange information between nodes using little bandwidth and processing time.</p>
-<p>每一个Redis Cluster节点有2个端口，命令端口(command port)用于服务客户端比如6379，集群总线端口(cluster bus port) 等于命令端口加上10000，即16379，用于节点之间数据交换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">每一个Redis Cluster节点有2个端口，命令端口(command port)比如6379，用于服务客户端，集群总线端口(cluster bus port) 等于命令端口加上10000，即16379，用于节点之间数据交换。</span><br></pre></td></tr></table></figure>
+<h4 id="Redis-Cluster-and-Docker"><a href="#Redis-Cluster-and-Docker" class="headerlink" title="Redis Cluster and Docker"></a>Redis Cluster and Docker</h4><p>Currently Redis Cluster does not support NATted environments and in general environments where IP addresses or TCP ports are remapped.</p>
+<p>Docker uses a technique called port mapping: programs running inside Docker containers may be exposed with a different port compared to the one the program believes to be using.<br>This is useful in order to run multiple containers using the same ports, at the same time, in the same server.</p>
+<p>In order to make Docker compatible with Redis Cluster you need to use the host networking mode of Docker.<br>Please check the –net=host option in the Docker documentation for more information.</p>
+<h4 id="Redis-Cluster-data-sharding"><a href="#Redis-Cluster-data-sharding" class="headerlink" title="Redis Cluster data sharding"></a>Redis Cluster data sharding</h4><p>Redis Cluster does not use consistent hashing, but a different form of sharding where every key is conceptually part of what we call a hash slot.</p>
+<p>There are 16384 hash slots in Redis Cluster, and to compute what is the hash slot of a given key, we simply take the CRC16 of the key modulo 16384.</p>
+<p>Every node in a Redis Cluster is responsible for a subset of the hash slots, so for example you may have a cluster with 3 nodes, where:</p>
+<ul>
+<li>Node A contains hash slots from 0 to 5500.</li>
+<li>Node B contains hash slots from 5501 to 11000.</li>
+<li>Node C contains hash slots from 11001 to 16383.<br>This allows to add and remove nodes in the cluster easily. For example if I want to add a new node D,<br>I need to move some hash slot from nodes A, B, C to D.<br>Similarly if I want to remove node A from the cluster I can just move the hash slots served by A to B and C.<br>When the node A will be empty I can remove it from the cluster completely.</li>
+</ul>
+<p>Because moving hash slots from a node to another does not require to stop operations, adding and removing nodes,<br>or changing the percentage of hash slots hold by nodes, does not require any downtime.</p>
+<p>Redis Cluster supports multiple key operations as long as all the keys involved into a single command execution (or whole transaction, or Lua script execution)<br>all belong to the same hash slot. The user can force multiple keys to be part of the same hash slot by using a concept called hash tags.</p>
+<p>Hash tags are documented in the Redis Cluster specification, but the gist is that if there is a substring between {} brackets in a key,<br>only what is inside the string is hashed, so for example this{foo}key and another{foo}key are guaranteed to be in the same hash slot,<br>and can be used together in a command with multiple keys as arguments.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Redis Cluster 没有使用一致性Hash算法，而是使用Hash slot 实现数据分片，集群共有16384个hash slots。</span><br><span class="line"></span><br><span class="line">对于给定key的hash slot = CRC16(key) % 16384。</span><br><span class="line"></span><br><span class="line">Hash tags 可以将多个不同的key存储到同一个hash slot上。</span><br></pre></td></tr></table></figure>
 
           
         
