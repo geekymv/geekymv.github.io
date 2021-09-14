@@ -259,6 +259,261 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/13/redis-cluster-tutorial/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/09/13/redis-cluster-tutorial/" itemprop="url">redis-cluster-tutorial</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-13T14:53:06+08:00">
+                2021-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>This document is a gentle introduction to Redis Cluster, that does not use difficult to understand concepts of distributed systems.<br>It provides instructions about how to setup a cluster, test, and operate it,<br>without going into the details that are covered in the Redis Cluster specification<br>but just describing how the system behaves from the point of view of the user.</p>
+<p>However this tutorial tries to provide information about the availability and consistency characteristics of Redis Cluster<br>from the point of view of the final user, stated in a simple to understand way.</p>
+<p>Note this tutorial requires Redis version 3.0 or higher.</p>
+<p>If you plan to run a serious Redis Cluster deployment, the more formal specification is a suggested reading,<br>even if not strictly required. However it is a good idea to start from this document,<br>play with Redis Cluster some time, and only later read the specification.</p>
+<h4 id="Redis-Cluster-101"><a href="#Redis-Cluster-101" class="headerlink" title="Redis Cluster 101"></a>Redis Cluster 101</h4><p>Redis Cluster provides a way to run a Redis installation where data is automatically sharded across multiple Redis nodes.</p>
+<p>Redis Cluster also provides some degree of availability during partitions, that is in practical terms the ability to continue the operations<br>when some nodes fail or are not able to communicate.<br>However the cluster stops to operate in the event of larger failures (for example when the majority of masters are unavailable).</p>
+<p>So in practical terms, what do you get with Redis Cluster?</p>
+<p>The ability to automatically split your dataset among multiple nodes.<br>The ability to continue operations when a subset of the nodes are experiencing failures or are unable to communicate with the rest of the cluster.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">数据自动分片到多个节点</span><br><span class="line">提供一定程度的可用性，部分节点不可用时，客户端可以继续操作</span><br></pre></td></tr></table></figure>
+<h4 id="Redis-Cluster-TCP-ports"><a href="#Redis-Cluster-TCP-ports" class="headerlink" title="Redis Cluster TCP ports"></a>Redis Cluster TCP ports</h4><p>Every Redis Cluster node requires two TCP connections open. The normal Redis TCP port used to serve clients,<br>for example 6379, plus the port obtained by adding 10000 to the data port, so 16379 in the example.</p>
+<p>This second high port is used for the Cluster bus, that is a node-to-node communication channel using a binary protocol.<br>The Cluster bus is used by nodes for failure detection, configuration update, failover authorization and so forth.<br>Clients should never try to communicate with the cluster bus port, but always with the normal Redis command port,<br>however make sure you open both ports in your firewall, otherwise Redis cluster nodes will be not able to communicate.</p>
+<p>The command port and cluster bus port offset is fixed and is always 10000.</p>
+<p>Note that for a Redis Cluster to work properly you need, for each node:</p>
+<p>1.The normal client communication port (usually 6379) used to communicate with clients to be open to all the clients that need to reach the cluster,<br>plus all the other cluster nodes (that use the client port for keys migrations).</p>
+<p>2.The cluster bus port (the client port + 10000) must be reachable from all the other cluster nodes.<br>If you don’t open both TCP ports, your cluster will not work as expected.</p>
+<p>The cluster bus uses a different, binary protocol, for node to node data exchange,<br>which is more suited to exchange information between nodes using little bandwidth and processing time.</p>
+<p>每一个Redis Cluster节点有2个端口，命令端口(command port)用于服务客户端比如6379，集群总线端口(cluster bus port) 等于命令端口加上10000，即16379，用于节点之间数据交换。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/17/kafka-config-parse/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/08/17/kafka-config-parse/" itemprop="url">kafka-config-parse</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-17T18:02:25+08:00">
+                2021-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/13/tcpdump-http/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -879,8 +1134,9 @@
       
         
           
-            <h4 id="优秀博客收集"><a href="#优秀博客收集" class="headerlink" title="优秀博客收集"></a>优秀博客收集</h4><p><a href="https://www.cnblogs.com/teach/p/14854733.html" target="_blank" rel="noopener">北漂程序员</a>，大量关于Java技术和面试题<br><a href="https://www.cnblogs.com/java-chen-hao/category/1587029.html" target="_blank" rel="noopener">chen_hao</a> 源码分析系列</p>
-<p><a href="https://man.linuxde.net/" target="_blank" rel="noopener">Linux命令大全</a></p>
+            <h4 id="优秀博客收集"><a href="#优秀博客收集" class="headerlink" title="优秀博客收集"></a>优秀博客收集</h4><p><a href="https://www.cnblogs.com/teach/p/14854733.html" target="_blank" rel="noopener">北漂程序员</a>，大量关于Java技术和面试题<br><a href="https://www.cnblogs.com/java-chen-hao/category/1587029.html" target="_blank" rel="noopener">chen_hao</a> 源码分析系列<br><a href="https://cloud.tencent.com/developer/user/1344757" target="_blank" rel="noopener">Java技术栈</a><br><a href="https://javakk.com/188.html" target="_blank" rel="noopener">老K的Java博客</a><br><a href="https://man.linuxde.net/" target="_blank" rel="noopener">Linux命令大全</a></p>
+<p><a href="http://matt33.com/" target="_blank" rel="noopener">柳年思水</a></p>
+<p><a href="https://github.com/gg-daddy/ebooks" target="_blank" rel="noopener">技术电子书</a></p>
 
           
         
@@ -1350,278 +1606,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/20/mysql-optimize/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/20/mysql-optimize/" itemprop="url">mysql-optimize</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-20T11:15:34+08:00">
-                2021-05-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>MySQL 5.6.35 索引优化导致的死锁案例解析<br><a href="https://mp.weixin.qq.com/s/T5e-gb0MXxjBwbjGg6jIMg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/T5e-gb0MXxjBwbjGg6jIMg</a></p>
-<p>MySQL 加锁实际上是给索引加锁，而不是给数据加锁。</p>
-<p>查看死锁日志<br>show engine innodb status\G;<br>找到 LATEST DETECTED DEADLOCK</p>
-<p>MySQL 优化之 index merge(索引合并)<br><a href="https://www.cnblogs.com/digdeep/p/4975977.html" target="_blank" rel="noopener">https://www.cnblogs.com/digdeep/p/4975977.html</a></p>
-<p>MySQL使用存储过程批量插入百(千)万测试数据<br><a href="https://blog.csdn.net/qq_36663951/article/details/78790919" target="_blank" rel="noopener">https://blog.csdn.net/qq_36663951/article/details/78790919</a></p>
-<p>index merge<br><a href="https://dev.mysql.com/doc/refman/5.7/en/index-merge-optimization.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/index-merge-optimization.html</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/18/jvm-classloader/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/18/jvm-classloader/" itemprop="url">jvm-classloader</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-18T17:32:31+08:00">
-                2021-05-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="混合模式"><a href="#混合模式" class="headerlink" title="混合模式"></a>混合模式</h4><p>（086 详解Class加载过程 02:06:00）<br>Java 解释执行，编译执行。</p>
-<p>解释器<br> bytecode interpreter</p>
-<p>JIT<br> Just In Time compiler</p>
-<p>混合模式<br>混合使用解释器 + 热点代码编译<br>起始阶段采用解释执行</p>
-<p>热点代码检测：<br> 多次被调用的方法<br> 多次被调用的循环<br> 进行编译</p>
-<p>检查热点代码，通过JIT编译器将方法编译成机器码的触发阈值<br>-XX:CompileThreshold=10000</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1672,7 +1656,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">104</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
