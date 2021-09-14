@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="This document is a gentle introduction to Redis Cluster, that does not use difficult to understand concepts of distributed systems.It provides instructions about how to setup a cluster, test, and oper">
+<meta name="description" content="This document is a gentle introduction to Redis Cluster, that does not use difficult to understand concepts of distributed systems. It provides instructions about how to setup a cluster, test, and ope">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis-cluster-tutorial">
 <meta property="og:url" content="http://yoursite.com/2021/09/13/redis-cluster-tutorial/index.html">
 <meta property="og:site_name" content="geekymv">
-<meta property="og:description" content="This document is a gentle introduction to Redis Cluster, that does not use difficult to understand concepts of distributed systems.It provides instructions about how to setup a cluster, test, and oper">
+<meta property="og:description" content="This document is a gentle introduction to Redis Cluster, that does not use difficult to understand concepts of distributed systems. It provides instructions about how to setup a cluster, test, and ope">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-09-14T02:58:26.179Z">
+<meta property="og:updated_time" content="2021-09-14T07:45:04.819Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis-cluster-tutorial">
-<meta name="twitter:description" content="This document is a gentle introduction to Redis Cluster, that does not use difficult to understand concepts of distributed systems.It provides instructions about how to setup a cluster, test, and oper">
+<meta name="twitter:description" content="This document is a gentle introduction to Redis Cluster, that does not use difficult to understand concepts of distributed systems. It provides instructions about how to setup a cluster, test, and ope">
 
 
 
@@ -329,38 +329,45 @@
       
 
       
-        <p>This document is a gentle introduction to Redis Cluster, that does not use difficult to understand concepts of distributed systems.<br>It provides instructions about how to setup a cluster, test, and operate it,<br>without going into the details that are covered in the Redis Cluster specification<br>but just describing how the system behaves from the point of view of the user.</p>
-<p>However this tutorial tries to provide information about the availability and consistency characteristics of Redis Cluster<br>from the point of view of the final user, stated in a simple to understand way.</p>
+        <p>This document is a gentle introduction to Redis Cluster, that does not use difficult to understand concepts of distributed systems. It provides instructions about how to setup a cluster, test, and operate it, without going into the details that are covered in the <a href="https://redis.io/topics/cluster-spec" target="_blank" rel="noopener">Redis Cluster specification</a> but just describing how the system behaves from the point of view of the user.</p>
+<p>However this tutorial tries to provide information about the availability and consistency characteristics of Redis Cluster from the point of view of the final user, stated in a simple to understand way.</p>
 <p>Note this tutorial requires Redis version 3.0 or higher.</p>
-<p>If you plan to run a serious Redis Cluster deployment, the more formal specification is a suggested reading,<br>even if not strictly required. However it is a good idea to start from this document,<br>play with Redis Cluster some time, and only later read the specification.</p>
-<h4 id="Redis-Cluster-101"><a href="#Redis-Cluster-101" class="headerlink" title="Redis Cluster 101"></a>Redis Cluster 101</h4><p>Redis Cluster provides a way to run a Redis installation where data is automatically sharded across multiple Redis nodes.</p>
-<p>Redis Cluster also provides some degree of availability during partitions, that is in practical terms the ability to continue the operations<br>when some nodes fail or are not able to communicate.<br>However the cluster stops to operate in the event of larger failures (for example when the majority of masters are unavailable).</p>
+<p>If you plan to run a serious Redis Cluster deployment, the more formal specification is a suggested reading, even if not strictly required. However it is a good idea to start from this document, play with Redis Cluster some time, and only later read the specification.</p>
+<h4 id="Redis-Cluster-101"><a href="#Redis-Cluster-101" class="headerlink" title="Redis Cluster 101"></a>Redis Cluster 101</h4><p>Redis Cluster provides a way to run a Redis installation where data is <strong>automatically sharded across multiple Redis nodes</strong>.</p>
+<p>Redis Cluster also provides <strong>some degree of availability during partitions</strong>, that is in practical terms the ability to continue the operations when some nodes fail or are not able to communicate. However the cluster stops to operate in the event of larger failures (for example when the majority of masters are unavailable).</p>
 <p>So in practical terms, what do you get with Redis Cluster?</p>
-<p>The ability to automatically split your dataset among multiple nodes.<br>The ability to continue operations when a subset of the nodes are experiencing failures or are unable to communicate with the rest of the cluster.</p>
+<ul>
+<li>The ability to <strong>automatically split your dataset among multiple nodes</strong>.</li>
+<li>The ability to <strong>continue operations when a subset of the nodes are experiencing failures</strong> or are unable to communicate with the rest of the cluster.</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">数据自动分片到多个节点</span><br><span class="line">提供一定程度的可用性，部分节点不可用时，客户端可以继续操作</span><br></pre></td></tr></table></figure>
-<h4 id="Redis-Cluster-TCP-ports"><a href="#Redis-Cluster-TCP-ports" class="headerlink" title="Redis Cluster TCP ports"></a>Redis Cluster TCP ports</h4><p>Every Redis Cluster node requires two TCP connections open. The normal Redis TCP port used to serve clients,<br>for example 6379, plus the port obtained by adding 10000 to the data port, so 16379 in the example.</p>
-<p>This second high port is used for the Cluster bus, that is a node-to-node communication channel using a binary protocol.<br>The Cluster bus is used by nodes for failure detection, configuration update, failover authorization and so forth.<br>Clients should never try to communicate with the cluster bus port, but always with the normal Redis command port,<br>however make sure you open both ports in your firewall, otherwise Redis cluster nodes will be not able to communicate.</p>
+<h4 id="Redis-Cluster-TCP-ports"><a href="#Redis-Cluster-TCP-ports" class="headerlink" title="Redis Cluster TCP ports"></a>Redis Cluster TCP ports</h4><p>Every Redis Cluster node requires two TCP connections open. The normal Redis TCP port used to serve clients, for example 6379, plus the port obtained by adding 10000 to the data port, so 16379 in the example.</p>
+<p>This second <em>high</em> port is used for the Cluster bus, that is a node-to-node communication channel using a binary protocol. The Cluster bus is used by nodes for failure detection, configuration update, failover authorization and so forth. Clients should never try to communicate with the cluster bus port, but always with the normal Redis command port, however make sure you open both ports in your firewall, otherwise Redis cluster nodes will be not able to communicate.</p>
 <p>The command port and cluster bus port offset is fixed and is always 10000.</p>
 <p>Note that for a Redis Cluster to work properly you need, for each node:</p>
-<p>1.The normal client communication port (usually 6379) used to communicate with clients to be open to all the clients that need to reach the cluster,<br>plus all the other cluster nodes (that use the client port for keys migrations).</p>
-<p>2.The cluster bus port (the client port + 10000) must be reachable from all the other cluster nodes.<br>If you don’t open both TCP ports, your cluster will not work as expected.</p>
-<p>The cluster bus uses a different, binary protocol, for node to node data exchange,<br>which is more suited to exchange information between nodes using little bandwidth and processing time.</p>
+<ol>
+<li>The normal client communication port (usually 6379) used to communicate with clients to be open to all the clients that need to reach the cluster, plus all the other cluster nodes (that use the client port for keys migrations).</li>
+<li>The cluster bus port (the client port + 10000) must be reachable from all the other cluster nodes.</li>
+</ol>
+<p>If you don’t open both TCP ports, your cluster will not work as expected.</p>
+<p>The cluster bus uses a different, binary protocol, for node to node data exchange, which is more suited to exchange information between nodes using little bandwidth and processing time.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">每一个Redis Cluster节点有2个端口，命令端口(command port)比如6379，用于服务客户端，集群总线端口(cluster bus port) 等于命令端口加上10000，即16379，用于节点之间数据交换。</span><br></pre></td></tr></table></figure>
 <h4 id="Redis-Cluster-and-Docker"><a href="#Redis-Cluster-and-Docker" class="headerlink" title="Redis Cluster and Docker"></a>Redis Cluster and Docker</h4><p>Currently Redis Cluster does not support NATted environments and in general environments where IP addresses or TCP ports are remapped.</p>
-<p>Docker uses a technique called port mapping: programs running inside Docker containers may be exposed with a different port compared to the one the program believes to be using.<br>This is useful in order to run multiple containers using the same ports, at the same time, in the same server.</p>
-<p>In order to make Docker compatible with Redis Cluster you need to use the host networking mode of Docker.<br>Please check the –net=host option in the Docker documentation for more information.</p>
-<h4 id="Redis-Cluster-data-sharding"><a href="#Redis-Cluster-data-sharding" class="headerlink" title="Redis Cluster data sharding"></a>Redis Cluster data sharding</h4><p>Redis Cluster does not use consistent hashing, but a different form of sharding where every key is conceptually part of what we call a hash slot.</p>
+<p>Docker uses a technique called <em>port mapping</em>: programs running inside Docker containers may be exposed with a different port compared to the one the program believes to be using. This is useful in order to run multiple containers using the same ports, at the same time, in the same server.</p>
+<p>In order to make Docker compatible with Redis Cluster you need to use the <strong>host networking mode</strong> of Docker. Please check the <code>--net=host</code> option in the <a href="https://docs.docker.com/engine/userguide/networking/dockernetworks/" target="_blank" rel="noopener">Docker documentation</a> for more information.</p>
+<h4 id="Redis-Cluster-data-sharding"><a href="#Redis-Cluster-data-sharding" class="headerlink" title="Redis Cluster data sharding"></a>Redis Cluster data sharding</h4><p>Redis Cluster does not use consistent hashing, but a different form of sharding where every key is conceptually part of what we call a <strong>hash slot</strong>.</p>
 <p>There are 16384 hash slots in Redis Cluster, and to compute what is the hash slot of a given key, we simply take the CRC16 of the key modulo 16384.</p>
 <p>Every node in a Redis Cluster is responsible for a subset of the hash slots, so for example you may have a cluster with 3 nodes, where:</p>
 <ul>
 <li>Node A contains hash slots from 0 to 5500.</li>
 <li>Node B contains hash slots from 5501 to 11000.</li>
-<li>Node C contains hash slots from 11001 to 16383.<br>This allows to add and remove nodes in the cluster easily. For example if I want to add a new node D,<br>I need to move some hash slot from nodes A, B, C to D.<br>Similarly if I want to remove node A from the cluster I can just move the hash slots served by A to B and C.<br>When the node A will be empty I can remove it from the cluster completely.</li>
+<li>Node C contains hash slots from 11001 to 16383.</li>
 </ul>
-<p>Because moving hash slots from a node to another does not require to stop operations, adding and removing nodes,<br>or changing the percentage of hash slots hold by nodes, does not require any downtime.</p>
-<p>Redis Cluster supports multiple key operations as long as all the keys involved into a single command execution (or whole transaction, or Lua script execution)<br>all belong to the same hash slot. The user can force multiple keys to be part of the same hash slot by using a concept called hash tags.</p>
-<p>Hash tags are documented in the Redis Cluster specification, but the gist is that if there is a substring between {} brackets in a key,<br>only what is inside the string is hashed, so for example this{foo}key and another{foo}key are guaranteed to be in the same hash slot,<br>and can be used together in a command with multiple keys as arguments.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Redis Cluster 没有使用一致性Hash算法，而是使用Hash slot 实现数据分片，集群共有16384个hash slots。</span><br><span class="line"></span><br><span class="line">对于给定key的hash slot = CRC16(key) % 16384。</span><br><span class="line"></span><br><span class="line">Hash tags 可以将多个不同的key存储到同一个hash slot上。</span><br></pre></td></tr></table></figure>
+<p>This allows to add and remove nodes in the cluster easily. For example if I want to add a new node D, I need to move some hash slot from nodes A, B, C to D. Similarly if I want to remove node A from the cluster I can just move the hash slots served by A to B and C. When the node A will be empty I can remove it from the cluster completely.</p>
+<p>Because moving hash slots from a node to another does not require to stop operations, adding and removing nodes, or changing the percentage of hash slots hold by nodes, does not require any downtime.</p>
+<p>Redis Cluster supports multiple key operations as long as all the keys involved into a single command execution (or whole transaction, or Lua script execution) all belong to the same hash slot. The user can force multiple keys to be part of the same hash slot by using a concept called <em>hash tags</em>.</p>
+<p>Hash tags are documented in the Redis Cluster specification, but the gist is that if there is a substring between {} brackets in a key, only what is inside the string is hashed, so for example <code>this{foo}key</code> and <code>another{foo}key</code> are guaranteed to be in the same hash slot, and can be used together in a command with multiple keys as arguments.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Redis Cluster 没有使用一致性Hash算法，而是使用Hash slot 实现数据分片，一个集群共有16384个hash slots。</span><br><span class="line">对于给定key的hash slot = CRC16(key) % 16384。</span><br><span class="line"></span><br><span class="line">每个节点包含部分hash slots，可以添加和删除节点，比如集群有3个节点，其中</span><br><span class="line">节点A包含的hash slots 从 0 到 5500</span><br><span class="line">节点B包含的hash slots 从 5501 到 11000</span><br><span class="line">节点C包含的hash slots 从 11001 到 16383</span><br><span class="line"></span><br><span class="line">如果想要添加一个新的节点D，那么可以从A，B，C 节点移动一些hash slots到节点D。删除节点需要先将节点中的hash slots 移到其他的节点中。</span><br><span class="line">从一个节点到另一个节点移动hash slots 无需停机。 </span><br><span class="line"></span><br><span class="line">Hash tags 可以将多个不同的key存储到同一个hash slot上。</span><br></pre></td></tr></table></figure>
 
       
     </div>
