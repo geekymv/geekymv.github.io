@@ -259,6 +259,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/15/threadpoolexecutor-javadoc/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/09/15/threadpoolexecutor-javadoc/" itemprop="url">threadpoolexecutor-javadoc</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-15T10:02:03+08:00">
+                2021-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>ThreadPoolExecutor Javadoc解读</p>
+<p>An ExecutorService that executes each submitted task using<br>one of possibly several pooled threads, normally configured using Executors factory methods.<br>ExecutorService 使用池线程执行提交的任务</p>
+<p>Thread pools address two different problems:<br>they usually provide improved performance when executing large numbers of asynchronous tasks, due to reduced per-task invocation overhead,<br>and they provide a means of bounding and managing the resources, including threads, consumed when executing a collection of tasks.<br>Each ThreadPoolExecutor also maintains some basic statistics, such as the number of completed tasks.<br>线程池解决了两个问题：<br>在执行大量异步任务时提供更好的性能，因为每个任务调用开销减少了；<br>提供了限制和管理资源的方法，包括执行任务消耗的线程。</p>
+<p>To be useful across a wide range of contexts, this class provides many adjustable parameters and extensibility hooks.<br>However, programmers are urged to use the more convenient Executors factory methods<br>Executors.newCachedThreadPool (unbounded thread pool, with automatic thread reclamation),<br>Executors.newFixedThreadPool (fixed size thread pool) and Executors.newSingleThreadExecutor (single background thread),<br>that preconfigure settings for the most common usage scenarios.<br>Otherwise, use the following guide when manually configuring and tuning this class:</p>
+<p>ThreadPoolExecutor 提供了许多可调整的参数和扩展的钩子方法。<br>Executors 提供了一些创建线程池的工厂方法：<br>Executors.newCachedThreadPool() 无界线程池，自动回收线程<br>Executors.newFixedThreadPool() 固定大小的线程池<br>Executors.newSingleThreadExecutor() 单线程池</p>
+<p>Core and maximum pool sizes<br>A ThreadPoolExecutor will automatically adjust the pool size (see getPoolSize) according to<br>the bounds set by corePoolSize (see getCorePoolSize) and maximumPoolSize (see getMaximumPoolSize).<br>When a new task is submitted in method execute(Runnable), and fewer than corePoolSize threads are running,<br>a new thread is created to handle the request, even if other worker threads are idle. </p>
+<p>ThreadPoolExecutor 根据 corePoolSize和 maximumPoolSize参数自动调整线程池大小。<br>当通过execute(Runnable) 方法提交一个新的任务，并且少于corePoolSize数量的线程在运行，会创建一个新的线程处理请求任务，即使其他工作线程空闲。<br>（也就是说当线程池中的线程数小于核心线程数，当有新的任务要处理时都会创建新的线程）。</p>
+<p>If there are more than corePoolSize but less than maximumPoolSize threads running, a new thread will be created only if the queue is full.<br>By setting corePoolSize and maximumPoolSize the same, you create a fixed-size thread pool.<br>By setting maximumPoolSize to an essentially unbounded value such as Integer.MAX_VALUE, you allow the pool to accommodate an arbitrary number of concurrent tasks.<br>Most typically,core and maximum pool sizes are set only upon construction, but they may also be changed dynamically using setCorePoolSize and setMaximumPoolSize.</p>
+<p>如果线程池中有超过核心线程数但是小于最大线程数的线程在运行，只有当队列满了才会创建新的线程。<br>（也就是说当线程池中的线程数等于核心线程数，对于新提交的任务会进入队列排队，直到队列满了，才会创建新的线程处理新来的任务）<br>通过 setCorePoolSize 和 setMaximumPoolSize 方法可以动态调整核心线程和最大线程的数量。</p>
+<p>On-demand construction<br>By default, even core threads are initially created and started only when new tasks arrive,<br>but this can be overridden dynamically using method prestartCoreThread or prestartAllCoreThreads.<br>You probably want to prestart threads if you construct the pool with a non-empty<br>默认情况下，当新的任务到达时创建并启动核心线程，也可以使用 prestartCoreThread 或 prestartAllCoreThreads 方法提前创建线程。</p>
+<p>Creating new threads<br>New threads are created using a ThreadFactory. If not otherwise specified, a Executors.defaultThreadFactory is used,<br>that creates threads to all be in the same ThreadGroup and with the same NORM_PRIORITY priority and non-daemon status.<br>By supplying a different ThreadFactory, you can alter the thread’s name, thread group, priority, daemon status, etc.<br>If a ThreadFactory fails to create a thread when asked by returning null from newThread, the executor will continue,<br>but might not be able to execute any tasks. Threads should possess the “modifyThread” RuntimePermission.<br>If worker threads or other threads using the pool do not possess this permission, service may be degraded:<br>configuration changes may not take effect in a timely manner, and a shutdown pool may remain in a state in which termination is possible but not completed.</p>
+<p>使用ThreadFactory创建线程，默认使用 Executors的 defaultThreadFactory方法创建 DefaultThreadFactory 对象。<br>通过自定义 ThreadFactory 可以指定 线程名称，线程组，优先级，是否守护线程 等等。</p>
+<p>Keep-alive times<br>If the pool currently has more than corePoolSize threads, excess threads will be terminated<br>if they have been idle for more than the keepAliveTime (see getKeepAliveTime(TimeUnit)).<br>This provides a means of reducing resource consumption when the pool is not being actively used.<br>If the pool becomes more active later, new threads will be constructed. This parameter can also be changed dynamically using method setKeepAliveTime(long, TimeUnit).<br>Using a value of Long.MAX_VALUE TimeUnit.NANOSECONDS effectively disables idle threads from ever terminating prior to shut down.<br>By default, the keep-alive policy applies only when there are more than corePoolSize threads.<br>But method allowCoreThreadTimeOut(boolean) can be used to apply this time-out policy to core threads as well, so long as the keepAliveTime value is non-zero</p>
+<p>如果线程池中的线程数超过核心线程大小，空闲时间超过 keepAliveTime 的多余线程会被终止，<br>keepAliveTime的值可以通过 setKeepAliveTime(long, TimeUnit) 方法动态调整。<br>默认情况下，keep-alive 策略只会作用于超过核心线程数的线程， allowCoreThreadTimeOut(boolean) 方法会改变time-out策略将空闲的核心线程也回收。</p>
+<p>Queuing</p>
+<p>Any BlockingQueue may be used to transfer and hold submitted tasks. The use of this queue interacts with pool sizing:</p>
+<ul>
+<li>If fewer than corePoolSize threads are running, the Executor always prefers adding a new thread rather than queuing.</li>
+<li>If corePoolSize or more threads are running, the Executor always prefers queuing a request rather than adding a new thread.</li>
+<li>If a request cannot be queued, a new thread is created unless this would exceed maximumPoolSize, in which case, the task will be rejected.</li>
+</ul>
+<p>BlockingQueue 用于转换和存储提交的任务<br>如果正在运行的线程数小于核心线程数，Executor 会创建一个线程执行新的请求任务；<br>如果正在运行的线程数大于等于核心线程数，Executor 会将请求任务放入队列；<br>如果队列满了请求无法入队，会创建新的线程执行任务，当线程数超过maximumPoolSize，将执行任务拒绝策略 RejectedExecutionHandler。</p>
+<p>There are three general strategies for queuing:</p>
+<ul>
+<li><p>Direct handoffs.<br>A good default choice for a work queue is a SynchronousQueue that hands off tasks to threads without otherwise holding them.<br>Here, an attempt to queue a task will fail if no threads are immediately available to run it, so a new thread will be constructed.<br>This policy avoids lockups when handling sets of requests that might have internal dependencies.<br>Direct handoffs generally require unbounded maximumPoolSizes to avoid rejection of new submitted tasks.<br>This in turn admits the possibility of unbounded thread growth when commands continue to arrive on average faster than they can be processed.</p>
+</li>
+<li><p>Unbounded queues.<br>Using an unbounded queue (for example a LinkedBlockingQueue without a predefined capacity) will cause new tasks<br>to wait in the queue when all corePoolSize threads are busy. Thus, no more than corePoolSize threads will ever be created.<br>(And the value of the maximumPoolSize therefore doesn’t have any effect.) This may be appropriate when each task is completely independent of others,<br>so tasks cannot affect each others execution; for example, in a web page server.<br>While this style of queuing can be useful in smoothing out transient bursts of requests,<br>it admits the possibility of unbounded work queue growth when commands continue to arrive on average faster than they can be processed.</p>
+</li>
+<li><p>Bounded queues.<br>A bounded queue (for example, an ArrayBlockingQueue) helps prevent resource exhaustion when used with finite maximumPoolSizes,<br>but can be more difficult to tune and control.<br>Queue sizes and maximum pool sizes may be traded off for each other:<br>Using large queues and small pools minimizes CPU usage, OS resources, and context-switching overhead, but can lead to artificially low throughput.<br>If tasks frequently block (for example if they are I/O bound), a system may be able to schedule time for more threads than you otherwise allow.<br>Use of small queues generally requires larger pool sizes, which keeps CPUs busier but may encounter unacceptable scheduling overhead, which also decreases throughput.</p>
+</li>
+</ul>
+<p>常用的3种队列</p>
+<ul>
+<li>SynchronousQueue：不存任务，直接将任务传递给线程，如果没有线程能够处理任务，任务入队将失败。</li>
+<li>LinkedBlockingQueue：无界队列，如果没有指定容量（默认容量是Integer.MAX_VALUE，也可以指定容量），当核心线程繁忙的时候，任务入队等待，只有核心线程被创建，最大线程数不起作用。</li>
+<li>ArrayBlockingQueue：有界队列，可以防止资源耗尽。</li>
+</ul>
+<p>Rejected tasks<br>New tasks submitted in method execute(Runnable) will be rejected when the Executor has been shut down,<br>and also when the Executor uses finite bounds for both maximum threads and work queue capacity, and is saturated.<br>In either case, the execute method invokes the RejectedExecutionHandler.rejectedExecution(Runnable, ThreadPoolExecutor) method of its RejectedExecutionHandler.<br>Four predefined handler policies are provided:</p>
+<ul>
+<li>In the default ThreadPoolExecutor.AbortPolicy, the handler throws a runtime RejectedExecutionException upon rejection.</li>
+<li>In ThreadPoolExecutor.CallerRunsPolicy, the thread that invokes execute itself runs the task.<br>This provides a simple feedback control mechanism that will slow down the rate that new tasks are submitted.</li>
+<li>In ThreadPoolExecutor.DiscardPolicy, a task that cannot be executed is simply dropped.</li>
+<li>In ThreadPoolExecutor.DiscardOldestPolicy, if the executor is not shut down, the task at the head of the work queue is dropped,<br>and then execution is retried (which can fail again, causing this to be repeated.)<br>It is possible to define and use other kinds of RejectedExecutionHandler classes.<br>Doing so requires some care especially when policies are designed to work only under particular capacity or queuing policies.</li>
+</ul>
+<p>新的任务提交，当Executor已经关闭的时候 或 有界队列满了并且线程达到最大线程数，会执行拒绝策略 RejectedExecutionHandler.rejectedExecution(Runnable r, ThreadPoolExecutor executor)。</p>
+<p>JDK提供了4个拒绝策略<br>ThreadPoolExecutor.AbortPolicy：默认拒绝策略，抛出RejectedExecutionException异常。<br>ThreadPoolExecutor.CallerRunsPolicy：调用者执行，调用execute方法的线程自己执行任务，会降低任务提交的速度。<br>ThreadPoolExecutor.DiscardPolicy：丢弃当前任务。<br>ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列头的任务，再次执行当前任务。</p>
+<p>可以自定义实现其他种类的 RejectedExecutionHandler的实现，其他实现参考 <a href="https://cloud.tencent.com/developer/article/1520860" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1520860</a></p>
+<p>Hook methods<br>This class provides protected overridable beforeExecute(Thread, Runnable) and afterExecute(Runnable, Throwable) methods that are called before and after execution of each task.<br>These can be used to manipulate the execution environment; for example, reinitializing ThreadLocals, gathering statistics, or adding log entries.<br>Additionally, method terminated can be overridden to perform any special processing that needs to be done once the Executor has fully terminated.<br>If hook or callback methods throw exceptions, internal worker threads may in turn fail and abruptly terminate.<br>ThreadPoolExecutor 类提供了 beforeExecute 和 afterExecute 方法在任务执行前后会执行，子类可以重写这两个方法做一些统计、日志等。</p>
+<p>Queue maintenance<br>Method getQueue() allows access to the work queue for purposes of monitoring and debugging.<br>Use of this method for any other purpose is strongly discouraged.<br>Two supplied methods, remove(Runnable) and purge are available to assist in storage reclamation when large numbers of queued tasks become cancelled.<br>getQueue() 方法允许访问工作队列，可以用于监控和调试。</p>
+<p>Finalization<br>A pool that is no longer referenced in a program AND has no remaining threads will be shutdown automatically.<br>If you would like to ensure that unreferenced pools are reclaimed even if users forget to call shutdown,<br>then you must arrange that unused threads eventually die, by setting appropriate keep-alive times,<br>using a lower bound of zero core threads and/or setting allowCoreThreadTimeOut(boolean).</p>
+<p>workerCount and runState</p>
+<p>ThreadPoolExecutor 中的成员变量ctl 包含两部分<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger ctl = <span class="keyword">new</span> AtomicInteger(ctlOf(RUNNING, <span class="number">0</span>));</span><br></pre></td></tr></table></figure></p>
+<p>workerCount： 工作线程数量<br>runState：线程池运行状态</p>
+<p>RUNNING：接收新任务并处理队列里的任务<br>SHUTDOWN：不接受新任务，处理队列任务<br>STOP：不接受新任务，不处理队列任务，中断正在执行的任务<br>TIDYING：所有任务已经终止，workerCount是0，线程状态转换为TIDYING，将运行terminated()钩子方法<br>TIDYING：terminated()钩子方法已经完成</p>
+<p>RUNNING -&gt; SHUTDOWN 调用shutdown()方法<br>RUNNING / SHUTDOWN -&gt; STOP 调用shutdownNow()方法</p>
+<p>SHUTDOWN -&gt; TIDYING 队列和线程池为空<br>STOP -&gt; TIDYING 线程池为空</p>
+<p>TIDYING -&gt; TIDYING terminated()钩子方法已经完成</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/13/redis-cluster-tutorial/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1477,164 +1653,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/22/hashmap-interview/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/22/hashmap-interview/" itemprop="url">hashmap-interview</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-22T15:49:11+08:00">
-                2021-05-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>说说HashMap的实现原理</p>
-<ul>
-<li><p>HashMap底层数据结构</p>
-<ul>
-<li>什么是Hash表？</li>
-<li>什么是哈希冲突？如何解决</li>
-</ul>
-</li>
-<li><p>HashMap源码读过吗？</p>
-<ul>
-<li>核心成员变量有哪些知道吗？</li>
-<li>为什么到8转为红黑树，到6转为链表？</li>
-<li>插入和获取数据的过程清楚吗</li>
-<li>JDK7 和 JDK8 中hash函数的区别？</li>
-</ul>
-</li>
-<li><p>JDK7 与 JDK8 中HashMap的区别？</p>
-</li>
-</ul>
-<h4 id="HashMap的实现原理"><a href="#HashMap的实现原理" class="headerlink" title="HashMap的实现原理"></a>HashMap的实现原理</h4><p>本文关于HashMap的底层实现若无特殊说明都是基于JDK1.8的。</p>
-<p>1、HashMap的底层数据结构是数组+链表（红黑树），它是基于hash算法实现的，通过put(key, value) 和 get(key) 方法存储和获取对象。<br>我们一般是这么使用HashMap的<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">map.put(<span class="string">"a"</span>, <span class="string">"first"</span>);</span><br></pre></td></tr></table></figure></p>
-<p>当调用HashMap的无参构造方法时，HashMap的底层的数组是没有初始化的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Constructs an empty &lt;tt&gt;HashMap&lt;/tt&gt; with the default initial capacity</span></span><br><span class="line"><span class="comment"> * (16) and the default load factor (0.75).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.loadFactor = DEFAULT_LOAD_FACTOR; <span class="comment">// all other fields defaulted</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>无参构造方法中只是对加载因子loadFactor初始化为默认值0.75，并没有对Node&lt;K,V&gt;[] table数组初始化。<br>（可以思考下HashMap中的加载因子为什么是0.75？）</p>
-<p>当我们第一次调用put(key, value) 方法时，key-value在HashMap内部的数组和链表中是如何存储的呢<br>put方法内部首先根据key计算hash值，hash函数是如何计算的呢？是直接返回key的hashCode吗，当然不是啦！<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Computes key.hashCode() and spreads (XORs) higher bits of hash</span></span><br><span class="line"><span class="comment"> * to lower.  Because the table uses power-of-two masking, sets of</span></span><br><span class="line"><span class="comment"> * hashes that vary only in bits above the current mask will</span></span><br><span class="line"><span class="comment"> * always collide. (Among known examples are sets of Float keys</span></span><br><span class="line"><span class="comment"> * holding consecutive whole numbers in small tables.)  So we</span></span><br><span class="line"><span class="comment"> * apply a transform that spreads the impact of higher bits</span></span><br><span class="line"><span class="comment"> * downward. There is a tradeoff between speed, utility, and</span></span><br><span class="line"><span class="comment"> * quality of bit-spreading. Because many common sets of hashes</span></span><br><span class="line"><span class="comment"> * are already reasonably distributed (so don't benefit from</span></span><br><span class="line"><span class="comment"> * spreading), and because we use trees to handle large sets of</span></span><br><span class="line"><span class="comment"> * collisions in bins, we just XOR some shifted bits in the</span></span><br><span class="line"><span class="comment"> * cheapest possible way to reduce systematic lossage, as well as</span></span><br><span class="line"><span class="comment"> * to incorporate impact of the highest bits that would otherwise</span></span><br><span class="line"><span class="comment"> * never be used in index calculations because of table bounds.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>key的hash值已经知道了，那么计算 hash &amp; (table.length - 1) 结果就是key的hash值在数组中的位置bucket。<br>等等，数组table还没有初始化呢，那么在计算bucket之前应该先将table[]数组进行初始化，那么数组的长度应该是多少呢？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The default initial capacity - MUST be a power of two.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// aka 16</span></span><br></pre></td></tr></table></figure></p>
-<p>默认的初始容量16。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])<span class="keyword">new</span> Node[newCap];</span><br><span class="line">table = newTab;</span><br></pre></td></tr></table></figure>
-<p>Node[] 数组就这么被创建好了，是不是很简单（具体看源码中的resize()方法）。</p>
-<p>数组创建好了，key在数组中对应的位置bucket也找到了，那么现在就该将key-value放入数组中了，该如何放入呢？<br>当然是将key-value封装成数组的元素类型Node了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Basic hash bin node, used for most entries.  (See below for</span></span><br><span class="line"><span class="comment"> * TreeNode subclass, and in LinkedHashMap for its Entry subclass.)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">    <span class="keyword">final</span> K key;</span><br><span class="line">    V value;</span><br><span class="line">    Node&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line">    Node(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="keyword">this</span>.hash = hash;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 省略其他部分代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Node类中包含4个属性，K key、V value、int hash、Node&lt;K,V&gt; next。<br>key、value就是我们要放入HashMap中的数据，hash就是我们上面计算出来的key的hash值，这个Node类型的next是干嘛的呢？<br>还记得HashMap底层的数据结构吗？数组 + 链表，next这个地方就是链表的实现。next指向与key的hash值相同的新Node。</p>
-<p>根据key在数组中对应的位置bucket，获取bucket位置上的元素，如果该位置上没有元素，则直接将key-value封装成的Node放入数组中<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tab = table</span><br><span class="line">tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure></p>
-<p>如果该位置上有元素，则比较key的值是否相等<br>如果key的值相等，则要更新key对应的vaule，将新的value覆盖旧的value；<br>如果key的值不相等，则说明发生了hash冲突。也就是说不同的key计算出的hash值相等。这个时候链表就开始起作用了。</p>
-<p>JDK1.8中put方法源码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Associates the specified value with the specified key in this map.</span></span><br><span class="line"><span class="comment"> * If the map previously contained a mapping for the key, the old</span></span><br><span class="line"><span class="comment"> * value is replaced.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> key key with which the specified value is to be associated</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> value value to be associated with the specified key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or</span></span><br><span class="line"><span class="comment"> *         &lt;tt&gt;null&lt;/tt&gt; if there was no mapping for &lt;tt&gt;key&lt;/tt&gt;.</span></span><br><span class="line"><span class="comment"> *         (A &lt;tt&gt;null&lt;/tt&gt; return can also indicate that the map</span></span><br><span class="line"><span class="comment"> *         previously associated &lt;tt&gt;null&lt;/tt&gt; with &lt;tt&gt;key&lt;/tt&gt;.)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Implements Map.put and related methods.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> hash hash for key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> key the key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> value the value to put</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> onlyIfAbsent if true, don't change existing value</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> evict if false, the table is in creation mode.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> previous value, or null if none</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">boolean</span> onlyIfAbsent,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">boolean</span> evict)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="keyword">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="keyword">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        <span class="comment">// 初始化table</span></span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="keyword">null</span>)</span><br><span class="line">        <span class="comment">// 目标位置上没有元素，直接将key-value封装成的Node放入数组</span></span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        <span class="comment">// 目标位置上有元素，则比较key值是否相等</span></span><br><span class="line">        <span class="keyword">if</span> (p.hash == hash &amp;&amp;</span><br><span class="line">            ((k = p.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            <span class="comment">// key值相等</span></span><br><span class="line">            e = p;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(<span class="keyword">this</span>, tab, hash, key, value);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// key值不相等</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> binCount = <span class="number">0</span>; ; ++binCount) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((e = p.next) == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// 遍历链表，找到链表的最后一个节点，将新的元素插入到链表的尾部（尾插法）</span></span><br><span class="line">                    p.next = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">                    <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>) <span class="comment">// -1 for 1st</span></span><br><span class="line">                        <span class="comment">// 判断是否需要将链表转成红黑树</span></span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="comment">// 链表继续遍历</span></span><br><span class="line">                p = e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123; <span class="comment">// existing mapping for key</span></span><br><span class="line">            <span class="comment">// 目标位置上有元素，将新的value覆盖旧的value</span></span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="keyword">null</span>)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        <span class="comment">// 数组扩容</span></span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、当存储对象时，将key-value传递给put(key, value) 方法时，内部调用hash函数根据key的hashCode来计算hash值，<br>然后将key的hash值与数组长度执行按位与运算，找到数组中对应的位置来存储value。<br>如果该位置上没有元素，则直接将key、value以及hash值封装成Node对象放入数组中。<br>如果该位置上有元素，则调用equals方法比较key值是否相等，如果相等则覆盖value值，如果key值不相等，则发生了hash 碰撞。<br>HashMap 使用链表来解决碰撞问题，当key发生碰撞了，对象将会存储在链表的下一个节点中。每个链表节点中存储key-value对象。<br>也就是当两个不同的key的hash值相同时，它们会存储在同一个bucket位置的链表（JDK8链表长度大于8会将链表转成红黑树），取数据可通过key的equals方法来<br>找到正确的key-value。</p>
-<p>3、当获取对象时，也是先计算key的hash值，找到数组中对应的位置，然后通过key的equals方法找到正确的key-value，然后返回对象的value。</p>
-<h4 id="JDK8之前的HashMap底层数据结构"><a href="#JDK8之前的HashMap底层数据结构" class="headerlink" title="JDK8之前的HashMap底层数据结构"></a>JDK8之前的HashMap底层数据结构</h4><p>JDK8以前HashMap的实现是数组 + 链表，它之所以有相当快的查询速度主要是因为它是通过计算key的hashCode来决定数组中存储的位置，而增删速度靠的是链表保证。<br>JDK1.8中用数组 + 链表 + 红黑树的结构来优化，链表长度大于8同时满足HashMap中数组长度大于64则变红黑树，长度小于6变回链表。</p>
-<h4 id="什么是Hash表"><a href="#什么是Hash表" class="headerlink" title="什么是Hash表"></a>什么是Hash表</h4><p>散列表（Hash Table，也叫哈希表），是根据key值而直接进行访问的数据结构。也就是说，它通过把key值映射到表中一个位置来访问记录，以加快查找速度。<br>这个映射函数叫做散列函数，存放记录的数组叫散列表。<br>hash表里可以存储元素的位置称为桶（bucket）。</p>
-<h4 id="什么是哈希冲突"><a href="#什么是哈希冲突" class="headerlink" title="什么是哈希冲突"></a>什么是哈希冲突</h4><p>即不同key值产生相同的hash地址，hash(key1) = hash(key2)</p>
-<h4 id="哈希冲突解决方案"><a href="#哈希冲突解决方案" class="headerlink" title="哈希冲突解决方案"></a>哈希冲突解决方案</h4><p>1、开放地址法<br>2、链地址法<br>3、公共溢出区法<br>4、再散列法</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1685,7 +1703,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

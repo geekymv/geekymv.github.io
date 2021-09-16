@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ThreadPoolExecutor Javadoc解读 An ExecutorService that executes each submitted task usingone of possibly several pooled threads, normally configured using Executors factory methods.ExecutorService 使用池线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="threadpoolexecutor-javadoc">
+<meta property="og:url" content="http://yoursite.com/2021/09/15/threadpoolexecutor-javadoc/index.html">
+<meta property="og:site_name" content="geekymv">
+<meta property="og:description" content="ThreadPoolExecutor Javadoc解读 An ExecutorService that executes each submitted task usingone of possibly several pooled threads, normally configured using Executors factory methods.ExecutorService 使用池线程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-09-16T09:11:30.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="threadpoolexecutor-javadoc">
+<meta name="twitter:description" content="ThreadPoolExecutor Javadoc解读 An ExecutorService that executes each submitted task usingone of possibly several pooled threads, normally configured using Executors factory methods.ExecutorService 使用池线程">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/09/15/threadpoolexecutor-javadoc/">
+
+
+
+
+
+  <title>threadpoolexecutor-javadoc | geekymv</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">geekymv</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Do one thing, do it well.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/15/threadpoolexecutor-javadoc/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">threadpoolexecutor-javadoc</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-15T10:02:03+08:00">
+                2021-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ThreadPoolExecutor Javadoc解读</p>
+<p>An ExecutorService that executes each submitted task using<br>one of possibly several pooled threads, normally configured using Executors factory methods.<br>ExecutorService 使用池线程执行提交的任务</p>
+<p>Thread pools address two different problems:<br>they usually provide improved performance when executing large numbers of asynchronous tasks, due to reduced per-task invocation overhead,<br>and they provide a means of bounding and managing the resources, including threads, consumed when executing a collection of tasks.<br>Each ThreadPoolExecutor also maintains some basic statistics, such as the number of completed tasks.<br>线程池解决了两个问题：<br>在执行大量异步任务时提供更好的性能，因为每个任务调用开销减少了；<br>提供了限制和管理资源的方法，包括执行任务消耗的线程。</p>
+<p>To be useful across a wide range of contexts, this class provides many adjustable parameters and extensibility hooks.<br>However, programmers are urged to use the more convenient Executors factory methods<br>Executors.newCachedThreadPool (unbounded thread pool, with automatic thread reclamation),<br>Executors.newFixedThreadPool (fixed size thread pool) and Executors.newSingleThreadExecutor (single background thread),<br>that preconfigure settings for the most common usage scenarios.<br>Otherwise, use the following guide when manually configuring and tuning this class:</p>
+<p>ThreadPoolExecutor 提供了许多可调整的参数和扩展的钩子方法。<br>Executors 提供了一些创建线程池的工厂方法：<br>Executors.newCachedThreadPool() 无界线程池，自动回收线程<br>Executors.newFixedThreadPool() 固定大小的线程池<br>Executors.newSingleThreadExecutor() 单线程池</p>
+<p>Core and maximum pool sizes<br>A ThreadPoolExecutor will automatically adjust the pool size (see getPoolSize) according to<br>the bounds set by corePoolSize (see getCorePoolSize) and maximumPoolSize (see getMaximumPoolSize).<br>When a new task is submitted in method execute(Runnable), and fewer than corePoolSize threads are running,<br>a new thread is created to handle the request, even if other worker threads are idle. </p>
+<p>ThreadPoolExecutor 根据 corePoolSize和 maximumPoolSize参数自动调整线程池大小。<br>当通过execute(Runnable) 方法提交一个新的任务，并且少于corePoolSize数量的线程在运行，会创建一个新的线程处理请求任务，即使其他工作线程空闲。<br>（也就是说当线程池中的线程数小于核心线程数，当有新的任务要处理时都会创建新的线程）。</p>
+<p>If there are more than corePoolSize but less than maximumPoolSize threads running, a new thread will be created only if the queue is full.<br>By setting corePoolSize and maximumPoolSize the same, you create a fixed-size thread pool.<br>By setting maximumPoolSize to an essentially unbounded value such as Integer.MAX_VALUE, you allow the pool to accommodate an arbitrary number of concurrent tasks.<br>Most typically,core and maximum pool sizes are set only upon construction, but they may also be changed dynamically using setCorePoolSize and setMaximumPoolSize.</p>
+<p>如果线程池中有超过核心线程数但是小于最大线程数的线程在运行，只有当队列满了才会创建新的线程。<br>（也就是说当线程池中的线程数等于核心线程数，对于新提交的任务会进入队列排队，直到队列满了，才会创建新的线程处理新来的任务）<br>通过 setCorePoolSize 和 setMaximumPoolSize 方法可以动态调整核心线程和最大线程的数量。</p>
+<p>On-demand construction<br>By default, even core threads are initially created and started only when new tasks arrive,<br>but this can be overridden dynamically using method prestartCoreThread or prestartAllCoreThreads.<br>You probably want to prestart threads if you construct the pool with a non-empty<br>默认情况下，当新的任务到达时创建并启动核心线程，也可以使用 prestartCoreThread 或 prestartAllCoreThreads 方法提前创建线程。</p>
+<p>Creating new threads<br>New threads are created using a ThreadFactory. If not otherwise specified, a Executors.defaultThreadFactory is used,<br>that creates threads to all be in the same ThreadGroup and with the same NORM_PRIORITY priority and non-daemon status.<br>By supplying a different ThreadFactory, you can alter the thread’s name, thread group, priority, daemon status, etc.<br>If a ThreadFactory fails to create a thread when asked by returning null from newThread, the executor will continue,<br>but might not be able to execute any tasks. Threads should possess the “modifyThread” RuntimePermission.<br>If worker threads or other threads using the pool do not possess this permission, service may be degraded:<br>configuration changes may not take effect in a timely manner, and a shutdown pool may remain in a state in which termination is possible but not completed.</p>
+<p>使用ThreadFactory创建线程，默认使用 Executors的 defaultThreadFactory方法创建 DefaultThreadFactory 对象。<br>通过自定义 ThreadFactory 可以指定 线程名称，线程组，优先级，是否守护线程 等等。</p>
+<p>Keep-alive times<br>If the pool currently has more than corePoolSize threads, excess threads will be terminated<br>if they have been idle for more than the keepAliveTime (see getKeepAliveTime(TimeUnit)).<br>This provides a means of reducing resource consumption when the pool is not being actively used.<br>If the pool becomes more active later, new threads will be constructed. This parameter can also be changed dynamically using method setKeepAliveTime(long, TimeUnit).<br>Using a value of Long.MAX_VALUE TimeUnit.NANOSECONDS effectively disables idle threads from ever terminating prior to shut down.<br>By default, the keep-alive policy applies only when there are more than corePoolSize threads.<br>But method allowCoreThreadTimeOut(boolean) can be used to apply this time-out policy to core threads as well, so long as the keepAliveTime value is non-zero</p>
+<p>如果线程池中的线程数超过核心线程大小，空闲时间超过 keepAliveTime 的多余线程会被终止，<br>keepAliveTime的值可以通过 setKeepAliveTime(long, TimeUnit) 方法动态调整。<br>默认情况下，keep-alive 策略只会作用于超过核心线程数的线程， allowCoreThreadTimeOut(boolean) 方法会改变time-out策略将空闲的核心线程也回收。</p>
+<p>Queuing</p>
+<p>Any BlockingQueue may be used to transfer and hold submitted tasks. The use of this queue interacts with pool sizing:</p>
+<ul>
+<li>If fewer than corePoolSize threads are running, the Executor always prefers adding a new thread rather than queuing.</li>
+<li>If corePoolSize or more threads are running, the Executor always prefers queuing a request rather than adding a new thread.</li>
+<li>If a request cannot be queued, a new thread is created unless this would exceed maximumPoolSize, in which case, the task will be rejected.</li>
+</ul>
+<p>BlockingQueue 用于转换和存储提交的任务<br>如果正在运行的线程数小于核心线程数，Executor 会创建一个线程执行新的请求任务；<br>如果正在运行的线程数大于等于核心线程数，Executor 会将请求任务放入队列；<br>如果队列满了请求无法入队，会创建新的线程执行任务，当线程数超过maximumPoolSize，将执行任务拒绝策略 RejectedExecutionHandler。</p>
+<p>There are three general strategies for queuing:</p>
+<ul>
+<li><p>Direct handoffs.<br>A good default choice for a work queue is a SynchronousQueue that hands off tasks to threads without otherwise holding them.<br>Here, an attempt to queue a task will fail if no threads are immediately available to run it, so a new thread will be constructed.<br>This policy avoids lockups when handling sets of requests that might have internal dependencies.<br>Direct handoffs generally require unbounded maximumPoolSizes to avoid rejection of new submitted tasks.<br>This in turn admits the possibility of unbounded thread growth when commands continue to arrive on average faster than they can be processed.</p>
+</li>
+<li><p>Unbounded queues.<br>Using an unbounded queue (for example a LinkedBlockingQueue without a predefined capacity) will cause new tasks<br>to wait in the queue when all corePoolSize threads are busy. Thus, no more than corePoolSize threads will ever be created.<br>(And the value of the maximumPoolSize therefore doesn’t have any effect.) This may be appropriate when each task is completely independent of others,<br>so tasks cannot affect each others execution; for example, in a web page server.<br>While this style of queuing can be useful in smoothing out transient bursts of requests,<br>it admits the possibility of unbounded work queue growth when commands continue to arrive on average faster than they can be processed.</p>
+</li>
+<li><p>Bounded queues.<br>A bounded queue (for example, an ArrayBlockingQueue) helps prevent resource exhaustion when used with finite maximumPoolSizes,<br>but can be more difficult to tune and control.<br>Queue sizes and maximum pool sizes may be traded off for each other:<br>Using large queues and small pools minimizes CPU usage, OS resources, and context-switching overhead, but can lead to artificially low throughput.<br>If tasks frequently block (for example if they are I/O bound), a system may be able to schedule time for more threads than you otherwise allow.<br>Use of small queues generally requires larger pool sizes, which keeps CPUs busier but may encounter unacceptable scheduling overhead, which also decreases throughput.</p>
+</li>
+</ul>
+<p>常用的3种队列</p>
+<ul>
+<li>SynchronousQueue：不存任务，直接将任务传递给线程，如果没有线程能够处理任务，任务入队将失败。</li>
+<li>LinkedBlockingQueue：无界队列，如果没有指定容量（默认容量是Integer.MAX_VALUE，也可以指定容量），当核心线程繁忙的时候，任务入队等待，只有核心线程被创建，最大线程数不起作用。</li>
+<li>ArrayBlockingQueue：有界队列，可以防止资源耗尽。</li>
+</ul>
+<p>Rejected tasks<br>New tasks submitted in method execute(Runnable) will be rejected when the Executor has been shut down,<br>and also when the Executor uses finite bounds for both maximum threads and work queue capacity, and is saturated.<br>In either case, the execute method invokes the RejectedExecutionHandler.rejectedExecution(Runnable, ThreadPoolExecutor) method of its RejectedExecutionHandler.<br>Four predefined handler policies are provided:</p>
+<ul>
+<li>In the default ThreadPoolExecutor.AbortPolicy, the handler throws a runtime RejectedExecutionException upon rejection.</li>
+<li>In ThreadPoolExecutor.CallerRunsPolicy, the thread that invokes execute itself runs the task.<br>This provides a simple feedback control mechanism that will slow down the rate that new tasks are submitted.</li>
+<li>In ThreadPoolExecutor.DiscardPolicy, a task that cannot be executed is simply dropped.</li>
+<li>In ThreadPoolExecutor.DiscardOldestPolicy, if the executor is not shut down, the task at the head of the work queue is dropped,<br>and then execution is retried (which can fail again, causing this to be repeated.)<br>It is possible to define and use other kinds of RejectedExecutionHandler classes.<br>Doing so requires some care especially when policies are designed to work only under particular capacity or queuing policies.</li>
+</ul>
+<p>新的任务提交，当Executor已经关闭的时候 或 有界队列满了并且线程达到最大线程数，会执行拒绝策略 RejectedExecutionHandler.rejectedExecution(Runnable r, ThreadPoolExecutor executor)。</p>
+<p>JDK提供了4个拒绝策略<br>ThreadPoolExecutor.AbortPolicy：默认拒绝策略，抛出RejectedExecutionException异常。<br>ThreadPoolExecutor.CallerRunsPolicy：调用者执行，调用execute方法的线程自己执行任务，会降低任务提交的速度。<br>ThreadPoolExecutor.DiscardPolicy：丢弃当前任务。<br>ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列头的任务，再次执行当前任务。</p>
+<p>可以自定义实现其他种类的 RejectedExecutionHandler的实现，其他实现参考 <a href="https://cloud.tencent.com/developer/article/1520860" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1520860</a></p>
+<p>Hook methods<br>This class provides protected overridable beforeExecute(Thread, Runnable) and afterExecute(Runnable, Throwable) methods that are called before and after execution of each task.<br>These can be used to manipulate the execution environment; for example, reinitializing ThreadLocals, gathering statistics, or adding log entries.<br>Additionally, method terminated can be overridden to perform any special processing that needs to be done once the Executor has fully terminated.<br>If hook or callback methods throw exceptions, internal worker threads may in turn fail and abruptly terminate.<br>ThreadPoolExecutor 类提供了 beforeExecute 和 afterExecute 方法在任务执行前后会执行，子类可以重写这两个方法做一些统计、日志等。</p>
+<p>Queue maintenance<br>Method getQueue() allows access to the work queue for purposes of monitoring and debugging.<br>Use of this method for any other purpose is strongly discouraged.<br>Two supplied methods, remove(Runnable) and purge are available to assist in storage reclamation when large numbers of queued tasks become cancelled.<br>getQueue() 方法允许访问工作队列，可以用于监控和调试。</p>
+<p>Finalization<br>A pool that is no longer referenced in a program AND has no remaining threads will be shutdown automatically.<br>If you would like to ensure that unreferenced pools are reclaimed even if users forget to call shutdown,<br>then you must arrange that unused threads eventually die, by setting appropriate keep-alive times,<br>using a lower bound of zero core threads and/or setting allowCoreThreadTimeOut(boolean).</p>
+<p>workerCount and runState</p>
+<p>ThreadPoolExecutor 中的成员变量ctl 包含两部分<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger ctl = <span class="keyword">new</span> AtomicInteger(ctlOf(RUNNING, <span class="number">0</span>));</span><br></pre></td></tr></table></figure></p>
+<p>workerCount： 工作线程数量<br>runState：线程池运行状态</p>
+<p>RUNNING：接收新任务并处理队列里的任务<br>SHUTDOWN：不接受新任务，处理队列任务<br>STOP：不接受新任务，不处理队列任务，中断正在执行的任务<br>TIDYING：所有任务已经终止，workerCount是0，线程状态转换为TIDYING，将运行terminated()钩子方法<br>TIDYING：terminated()钩子方法已经完成</p>
+<p>RUNNING -&gt; SHUTDOWN 调用shutdown()方法<br>RUNNING / SHUTDOWN -&gt; STOP 调用shutdownNow()方法</p>
+<p>SHUTDOWN -&gt; TIDYING 队列和线程池为空<br>STOP -&gt; TIDYING 线程池为空</p>
+<p>TIDYING -&gt; TIDYING terminated()钩子方法已经完成</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="geekymv 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/09/13/redis-cluster-tutorial/" rel="next" title="redis-cluster-tutorial">
+                <i class="fa fa-chevron-left"></i> redis-cluster-tutorial
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">geekymv</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">geekymv</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '7ba92bf62d54c647c905',
+        clientSecret: '7ae2dbfd950a779266974e470d2d69d1f37155a2',
+        repo: 'blog',
+        owner: 'geekymv',
+        admin: ['geekymv'],
+        id: location.pathname,
+        labels: ['Gitalk'],
+        perPage: 15,
+        pagerDirection: 'last',
+        createIssueManually: true,
+        distractionFreeMode: false
+      })
+      gitalk.render('gitalk-container')
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
