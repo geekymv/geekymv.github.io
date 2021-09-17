@@ -405,9 +405,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger ctl = <span class="keyword">new</span> AtomicInteger(ctlOf(RUNNING, <span class="number">0</span>));</span><br></pre></td></tr></table></figure>
 <p>workerCount： 工作线程数量<br>runState：线程池运行状态</p>
 <p>RUNNING：接收新任务并处理队列里的任务<br>SHUTDOWN：不接受新任务，处理队列任务<br>STOP：不接受新任务，不处理队列任务，中断正在执行的任务<br>TIDYING：所有任务已经终止，workerCount是0，线程状态转换为TIDYING，将运行terminated()钩子方法<br>TIDYING：terminated()钩子方法已经完成</p>
-<p>RUNNING -&gt; SHUTDOWN 调用shutdown()方法<br>RUNNING / SHUTDOWN -&gt; STOP 调用shutdownNow()方法</p>
-<p>SHUTDOWN -&gt; TIDYING 队列和线程池为空<br>STOP -&gt; TIDYING 线程池为空</p>
-<p>TIDYING -&gt; TIDYING terminated()钩子方法已经完成</p>
+<p>RUNNING -&gt; SHUTDOWN 调用shutdown()方法<br>RUNNING / SHUTDOWN -&gt; STOP 调用shutdownNow()方法<br>SHUTDOWN -&gt; TIDYING 队列和线程池为空<br>STOP -&gt; TIDYING 线程池为空<br>TIDYING -&gt; TIDYING terminated()钩子方法已经完成</p>
 
           
         
