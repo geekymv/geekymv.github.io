@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="ThreadPoolExecutor Javadoc解读 An ExecutorService that executes each submitted task using one of possibly several pooled threads, normally configured using Executors factory methods. ExecutorService 使用池">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-09-17T02:13:06.264Z">
+<meta property="og:updated_time" content="2021-09-17T02:23:52.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="threadpoolexecutor-javadoc">
 <meta name="twitter:description" content="ThreadPoolExecutor Javadoc解读 An ExecutorService that executes each submitted task using one of possibly several pooled threads, normally configured using Executors factory methods. ExecutorService 使用池">
@@ -340,7 +340,7 @@
 <p>If there are more than corePoolSize but less than maximumPoolSize threads running, a new thread will be created only if the queue is full. By setting corePoolSize and maximumPoolSize the same, you create a fixed-size thread pool. By setting maximumPoolSize to an essentially unbounded value such as Integer.MAX_VALUE, you allow the pool to accommodate an arbitrary number of concurrent tasks.<br>Most typically,core and maximum pool sizes are set only upon construction, but they may also be changed dynamically using setCorePoolSize and setMaximumPoolSize.</p>
 <p>如果线程池中有超过核心线程数但是小于最大线程数的线程在运行，只有当队列满了才会创建新的线程。<br>（也就是说当线程池中的线程数等于核心线程数，对于新提交的任务会进入队列排队，直到队列满了，才会创建新的线程处理新来的任务）<br>通过 setCorePoolSize 和 setMaximumPoolSize 方法可以动态调整核心线程和最大线程的数量。</p>
 <h4 id="On-demand-construction"><a href="#On-demand-construction" class="headerlink" title="On-demand construction"></a>On-demand construction</h4><p>By default, even core threads are initially created and started only when new tasks arrive,<br>but this can be overridden dynamically using method prestartCoreThread or prestartAllCoreThreads.<br>You probably want to prestart threads if you construct the pool with a non-empty<br>默认情况下，当新的任务到达时创建并启动核心线程，也可以使用 prestartCoreThread 或 prestartAllCoreThreads 方法提前创建线程。</p>
-<p>Creating new threads<br>New threads are created using a ThreadFactory. If not otherwise specified, a Executors.defaultThreadFactory is used,<br>that creates threads to all be in the same ThreadGroup and with the same NORM_PRIORITY priority and non-daemon status. By supplying a different ThreadFactory, you can alter the thread’s name, thread group, priority, daemon status, etc. If a ThreadFactory fails to create a thread when asked by returning null from newThread, the executor will continue, but might not be able to execute any tasks. Threads should possess the “modifyThread” RuntimePermission.<br>If worker threads or other threads using the pool do not possess this permission, service may be degraded:<br>configuration changes may not take effect in a timely manner, and a shutdown pool may remain in a state in which termination is possible but not completed.</p>
+<h4 id="Creating-new-threads"><a href="#Creating-new-threads" class="headerlink" title="Creating new threads"></a>Creating new threads</h4><p>New threads are created using a ThreadFactory. If not otherwise specified, a Executors.defaultThreadFactory is used, that creates threads to all be in the same ThreadGroup and with the same NORM_PRIORITY priority and non-daemon status. By supplying a different ThreadFactory, you can alter the thread’s name, thread group, priority, daemon status, etc. If a ThreadFactory fails to create a thread when asked by returning null from newThread, the executor will continue, but might not be able to execute any tasks. Threads should possess the “modifyThread” RuntimePermission.<br>If worker threads or other threads using the pool do not possess this permission, service may be degraded:<br>configuration changes may not take effect in a timely manner, and a shutdown pool may remain in a state in which termination is possible but not completed.</p>
 <p>使用ThreadFactory创建线程，默认使用 Executors的 defaultThreadFactory方法创建 DefaultThreadFactory 对象。<br>通过自定义 ThreadFactory 可以指定 线程名称，线程组，优先级，是否守护线程 等等。</p>
 <h4 id="Keep-alive-times"><a href="#Keep-alive-times" class="headerlink" title="Keep-alive times"></a>Keep-alive times</h4><p>If the pool currently has more than corePoolSize threads, excess threads will be terminated<br>if they have been idle for more than the keepAliveTime (see getKeepAliveTime(TimeUnit)).<br>This provides a means of reducing resource consumption when the pool is not being actively used.<br>If the pool becomes more active later, new threads will be constructed. This parameter can also be changed dynamically using method setKeepAliveTime(long, TimeUnit).<br>Using a value of Long.MAX_VALUE TimeUnit.NANOSECONDS effectively disables idle threads from ever terminating prior to shut down. By default, the keep-alive policy applies only when there are more than corePoolSize threads. But method allowCoreThreadTimeOut(boolean) can be used to apply this time-out policy to core threads as well, so long as the keepAliveTime value is non-zero</p>
 <p>如果线程池中的线程数超过核心线程大小，空闲时间超过 keepAliveTime 的多余线程会被终止，<br>keepAliveTime的值可以通过 setKeepAliveTime(long, TimeUnit) 方法动态调整。<br>默认情况下，keep-alive 策略只会作用于超过核心线程数的线程， allowCoreThreadTimeOut(boolean) 方法会改变time-out策略将空闲的核心线程也回收。</p>
@@ -379,7 +379,11 @@
 <h4 id="Hook-methods"><a href="#Hook-methods" class="headerlink" title="Hook methods"></a>Hook methods</h4><p>This class provides protected overridable beforeExecute(Thread, Runnable) and afterExecute(Runnable, Throwable) methods that are called before and after execution of each task.<br>These can be used to manipulate the execution environment; for example, reinitializing ThreadLocals, gathering statistics, or adding log entries. Additionally, method terminated can be overridden to perform any special processing that needs to be done once the Executor has fully terminated.<br>If hook or callback methods throw exceptions, internal worker threads may in turn fail and abruptly terminate.<br>ThreadPoolExecutor 类提供了 beforeExecute 和 afterExecute 方法在任务执行前后会执行，子类可以重写这两个方法做一些统计、日志等。</p>
 <h4 id="Queue-maintenance"><a href="#Queue-maintenance" class="headerlink" title="Queue maintenance"></a>Queue maintenance</h4><p>Method getQueue() allows access to the work queue for purposes of monitoring and debugging.<br>Use of this method for any other purpose is strongly discouraged. Two supplied methods, remove(Runnable) and purge are available to assist in storage reclamation when large numbers of queued tasks become cancelled.<br>getQueue() 方法允许访问工作队列，可以用于监控和调试。</p>
 <h4 id="Finalization"><a href="#Finalization" class="headerlink" title="Finalization"></a>Finalization</h4><p>A pool that is no longer referenced in a program AND has no remaining threads will be shutdown automatically. If you would like to ensure that unreferenced pools are reclaimed even if users forget to call shutdown, then you must arrange that unused threads eventually die, by setting appropriate keep-alive times, using a lower bound of zero core threads and/or setting allowCoreThreadTimeOut(boolean).</p>
-<h4 id="workerCount-and-runState"><a href="#workerCount-and-runState" class="headerlink" title="workerCount and runState"></a>workerCount and runState</h4><p>The main pool control state, ctl, is an atomic integer packing two conceptual fields<br>workerCount, indicating the effective number of threads<br>runState, indicating whether running, shutting down etc </p>
+<h4 id="workerCount-and-runState"><a href="#workerCount-and-runState" class="headerlink" title="workerCount and runState"></a>workerCount and runState</h4><p>The main pool control state, ctl, is an atomic integer packing two conceptual fields </p>
+<ul>
+<li>workerCount, indicating the effective number of threads </li>
+<li>runState, indicating whether running, shutting down etc </li>
+</ul>
 <p>In order to pack them into one int, we limit workerCount to (2^29)-1 (about 500 million) threads rather than (2^31)-1 (2 billion) otherwise representable. If this is ever an issue in the future, the variable can be changed to be an AtomicLong, and the shift/mask constants below adjusted. But until the need arises, this code is a bit faster and simpler using an int. </p>
 <p>The workerCount is the number of workers that have been permitted to start and not permitted to stop. The value may be transiently different from the actual number of live threads, for example when a ThreadFactory fails to create a thread when asked, and when exiting threads are still performing bookkeeping before terminating. The user-visible pool size is reported as the current size of the workers set. </p>
 <p>The runState provides the main lifecycle control, taking on values: </p>
@@ -403,8 +407,9 @@
 <p>ThreadPoolExecutor 中的成员变量ctl 包含两部分</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger ctl = <span class="keyword">new</span> AtomicInteger(ctlOf(RUNNING, <span class="number">0</span>));</span><br></pre></td></tr></table></figure>
 <p>workerCount： 工作线程数量<br>runState：线程池运行状态</p>
-<p>RUNNING：接收新任务并处理队列里的任务<br>SHUTDOWN：不接受新任务，处理队列任务<br>STOP：不接受新任务，不处理队列任务，中断正在执行的任务<br>TIDYING：所有任务已经终止，workerCount是0，线程状态转换为TIDYING，将运行terminated()钩子方法<br>TIDYING：terminated()钩子方法已经完成</p>
-<p>RUNNING -&gt; SHUTDOWN 调用shutdown()方法<br>RUNNING / SHUTDOWN -&gt; STOP 调用shutdownNow()方法<br>SHUTDOWN -&gt; TIDYING 队列和线程池为空<br>STOP -&gt; TIDYING 线程池为空<br>TIDYING -&gt; TIDYING terminated()钩子方法已经完成</p>
+<p>RUNNING：接收新任务并处理队列里的任务<br>SHUTDOWN：不接受新任务，处理队列任务<br>STOP：不接受新任务，不处理队列任务，中断正在执行的任务<br>TIDYING：所有任务已经终止，workerCount是0，线程状态转换为TIDYING，将运行terminated()钩子方法<br>TERMINATED：terminated() 钩子方法已经完成</p>
+<p>RUNNING -&gt; SHUTDOWN 调用shutdown()方法<br>RUNNING / SHUTDOWN -&gt; STOP 调用shutdownNow()方法<br>SHUTDOWN -&gt; TIDYING 队列和线程池为空<br>STOP -&gt; TIDYING 线程池为空<br>TIDYING -&gt; TERMINATED terminated()钩子方法已经完成。</p>
+<p>更多详细信息参见 java.util.concurrent.ThreadPoolExecutor 的Javadoc。</p>
 
       
     </div>
@@ -462,6 +467,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/12/perfect-code/" rel="prev" title="perfect-code">
+                perfect-code <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -541,7 +550,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -596,7 +605,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Core-and-maximum-pool-sizes"><span class="nav-number">1.</span> <span class="nav-text">Core and maximum pool sizes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#On-demand-construction"><span class="nav-number">2.</span> <span class="nav-text">On-demand construction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Keep-alive-times"><span class="nav-number">3.</span> <span class="nav-text">Keep-alive times</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Queuing"><span class="nav-number">4.</span> <span class="nav-text">Queuing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rejected-tasks"><span class="nav-number">5.</span> <span class="nav-text">Rejected tasks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hook-methods"><span class="nav-number">6.</span> <span class="nav-text">Hook methods</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Queue-maintenance"><span class="nav-number">7.</span> <span class="nav-text">Queue maintenance</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Finalization"><span class="nav-number">8.</span> <span class="nav-text">Finalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#workerCount-and-runState"><span class="nav-number">9.</span> <span class="nav-text">workerCount and runState</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Core-and-maximum-pool-sizes"><span class="nav-number">1.</span> <span class="nav-text">Core and maximum pool sizes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#On-demand-construction"><span class="nav-number">2.</span> <span class="nav-text">On-demand construction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Creating-new-threads"><span class="nav-number">3.</span> <span class="nav-text">Creating new threads</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Keep-alive-times"><span class="nav-number">4.</span> <span class="nav-text">Keep-alive times</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Queuing"><span class="nav-number">5.</span> <span class="nav-text">Queuing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rejected-tasks"><span class="nav-number">6.</span> <span class="nav-text">Rejected tasks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hook-methods"><span class="nav-number">7.</span> <span class="nav-text">Hook methods</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Queue-maintenance"><span class="nav-number">8.</span> <span class="nav-text">Queue maintenance</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Finalization"><span class="nav-number">9.</span> <span class="nav-text">Finalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#workerCount-and-runState"><span class="nav-number">10.</span> <span class="nav-text">workerCount and runState</span></a></li></ol></div>
             
 
           </div>

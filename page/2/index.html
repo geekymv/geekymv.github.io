@@ -259,6 +259,282 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/18/eureka/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/06/18/eureka/" itemprop="url">eureka</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-18T09:36:42+08:00">
+                2021-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>享学Eureka源码<br><a href="https://fangshixiang.blog.csdn.net/article/details/105043241" target="_blank" rel="noopener">https://fangshixiang.blog.csdn.net/article/details/105043241</a></p>
+<p>芋道源码<br><a href="https://github.com/YunaiV/eureka" target="_blank" rel="noopener">https://github.com/YunaiV/eureka</a></p>
+<p>eureka-client 最底层、最核心的一个包，微服务通过eureka-client与Eureka进行通信，屏蔽了底层通信细节。<br>eureka-core 依赖eureka-client。<br>eureka-server 依赖jersey 来搭建Servlet应用。</p>
+<p>eureka-core 它不是所有模块的基础，而是仅仅用于Server端，并且还不是必须的。</p>
+<h5 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h5><p>Eureka Client 是Java客户端，用于简化与Eureka Server通信细节，Eureka Client会拉取、更新和缓存Eureka Server中服务的信息。即使所有的Eureka Server 节点都宕机，短时间内服务消费者依然可以使用缓存中的信息找到服务提供者。</p>
+<p>Eureka Client 在微服务启动后，会周期性的向Eureka Server发送心跳（默认周期为30秒），用来续约自己的信息。</p>
+<p>如果Eureka Server在一定时间内（默认是90秒）没有收到某个微服务节点的心跳，Eureka Server将会注销该微服务节点。</p>
+<blockquote>
+<p>Client端每30秒发送一次心跳，Server端90秒内没有收到该Client心跳就认为Client端挂掉了。</p>
+</blockquote>
+<p>Eureka Client 完成以下几件动作：</p>
+<ul>
+<li>服务注册Register：Client端主动向Server端注册自身的元数据，比如IP地址、端口等；</li>
+<li>服务续约Renew：Client默认会每30秒发送一次心跳来续约，告诉Server自己还活着；</li>
+<li>获取注册列表信息Fetch Registries：Client端从Server端获取注册表信息，并将其缓存到本地。缓存信息每30秒更新一次；</li>
+<li>服务下线Cancel：Client端在停机时（正常停止）会主动向Server端发送取消请求，告诉Server端把自己这个实例剔除。</li>
+</ul>
+<h5 id="Eureka-Server"><a href="#Eureka-Server" class="headerlink" title="Eureka Server"></a>Eureka Server</h5><p>Eureka Server 提供给各个微服务注册的服务端，Eureka Server 会在内存中存储该服务的信息。</p>
+<p>Server端并不会主动触发动作，主要用于提供服务：</p>
+<ul>
+<li>提供服务注册</li>
+<li>提供服务信息拉取</li>
+<li>提供服务管理：接收客户端的cancel、心跳、续租renew等请求；</li>
+<li>服务剔除</li>
+<li>信息同步：在集群中，每个Eureka Server同时也是Eureka Client，多个Server之间通过P2P复制的方式完成服务注册表的同步。</li>
+</ul>
+<p>注册中心作为微服务架构的核心中间件，对可用性是强要求，反而对一致性是可以容忍的，基于AP模式的只有Eureka 和 Nacos。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/15/binary-search/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/06/15/binary-search/" itemprop="url">binary-search</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-15T16:18:01+08:00">
+                2021-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>二分查找是一种非常简单易懂的查找算法。举个例子，比如猜数字游戏，我随机写一个0-99之间的数字，你来猜我写的是什么。猜的过程中，你每猜一次，我会告诉你猜大了还是猜小了，直到猜中为止。</p>
+<p>有序数组，折半查找，缩小查找区间的范围</p>
+<p>下面以升序排序的int数组为例，介绍二分查找过程，待查找的int数组如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">18</span>, <span class="number">22</span>&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySearch</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] data, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> high = data.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line"><span class="comment">//            int mid = (low + high) / 2;</span></span><br><span class="line">            <span class="keyword">int</span> mid = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">int</span> midVal = data[mid];</span><br><span class="line">            <span class="keyword">if</span>(midVal == value) &#123;</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value &gt; midVal) &#123;</span><br><span class="line">                low = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>  &#123;</span><br><span class="line">                high = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 没有找到，返回索引-1</span></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先定义两个变量low 和 high 分别指向有序数组arr[]的第一个元素和最后一个元素的下标；</p>
+<p>1、获取low和high中间元素的下标mid = (low + high) / 2；</p>
+<p>2、判断要查找的元素值value和arr[mid] 是否相等，如果相等返回下标mid，查找结束；</p>
+<p>3、如果不相等，则比较arr[mid]和value的大小；</p>
+<p>4、如果value大于arr[mid]，说明要查找的元素值在[mid+1, high]之间，则将low指向mid+1，继续步骤1、2；<br>5、同样的，如果value小于arr[mid]，说明要查找的元素值在[low, mid-1]之间，则将high指向mid-1，继续步骤1、2；</p>
+<p>6、当low &gt; high 的时候，结束查找。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/22/hashmap-interview/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1491,276 +1767,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/19/monitor/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/19/monitor/" itemprop="url">管程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-19T13:46:25+08:00">
-                2021-03-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h4><p>Monitor 可以翻译为监视器或管程。<br>每个Java对象都可以关联一个Monitor对象，如果使用 synchronized 给对象上锁（重量级）之后，<br>该对象头的 Mark Word 中就被设置指向 Monitor 对象的指针。</p>
-<h2 id="Monitor-1"><a href="#Monitor-1" class="headerlink" title="Monitor"></a>Monitor</h2><p>WaitSet<br>EntryList<br>Owner</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(obj) &#123;</span><br><span class="line">    <span class="comment">// 临界区代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>obj 是一个Java对象，当第一个线程t1执行 synchronized 代码块时，obj的对象头(Object Header) 中的 MarkWord 与 操作系统底层的 Monitor 对象关联。<br>刚开始 Monitor 对象中的 Owner 属性为null，这个时候 Owner属性指向了线程t1，线程t1执行临界区代码。</p>
-<p>接下来，线程t2 过来执行 synchronized 代码块时发现 obj对象已经关联了一个Monitor对象了，<br>并且 Owner 不等于空，也不是自己，那么线程t2 进入 Monitor 对象中的 EntryList 中排队BLOCKED。<br>同样的后面过来的线程t3也是进入EntryList 中排队。</p>
-<p>当线程t1执行完了临界区代码，则释放锁，Owner 属性值为空，同时通知 EntryList 中等待的线程。<br>比如线程t2被唤醒了，争夺CPU时间片。</p>
-<p>synchronized 必须是进入同一个对象的Monitor 才有上述效果。<br>不加 synchronized 的对象不会关联监视器，不遵循以上规则。</p>
-<p>若线程调用 wait()方法，将释放当前持有的 monitor， Owner 属性恢复为null，该线程进入 WaitSet 集合中等待被唤醒，处于 WAITTING 状态。<br>WaitSet 中存放的是之前获得过锁，但条件不满足进入 WAITING 状态的线程。</p>
-<p>EntryList 可能是公平的，也可能是非公平的。</p>
-<h4 id="synchronized-底层原理"><a href="#synchronized-底层原理" class="headerlink" title="synchronized 底层原理"></a>synchronized 底层原理</h4><p>synchronized 代码块<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * javap -v target/classes/com/geekymv/concurrent/lock/MonitorDemo.class</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MonitorDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Object lock = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">            counter++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(counter);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[])</span></span>;</span><br><span class="line">    descriptor: ([Ljava/lang/String;)V</span><br><span class="line">    flags: ACC_PUBLIC, ACC_STATIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">2</span>, locals=<span class="number">3</span>, args_size=<span class="number">1</span></span><br><span class="line">         0: getstatic     #2                  // Field lock:Ljava/lang/Object;</span><br><span class="line">         <span class="number">3</span>: dup</span><br><span class="line">         <span class="number">4</span>: astore_1</span><br><span class="line">         <span class="number">5</span>: monitorenter</span><br><span class="line">         6: getstatic     #3                  // Field counter:I</span><br><span class="line">         <span class="number">9</span>: iconst_1</span><br><span class="line">        <span class="number">10</span>: iadd</span><br><span class="line">        11: putstatic     #3                  // Field counter:I</span><br><span class="line">        <span class="number">14</span>: aload_1</span><br><span class="line">        <span class="number">15</span>: monitorexit</span><br><span class="line">        <span class="number">16</span>: goto          <span class="number">24</span></span><br><span class="line">        <span class="number">19</span>: astore_2</span><br><span class="line">        <span class="number">20</span>: aload_1</span><br><span class="line">        <span class="number">21</span>: monitorexit</span><br><span class="line">        <span class="number">22</span>: aload_2</span><br><span class="line">        <span class="number">23</span>: athrow</span><br><span class="line">        <span class="number">24</span>: <span class="keyword">return</span></span><br><span class="line">      Exception table:</span><br><span class="line">         from    to  target type</span><br><span class="line">             <span class="number">6</span>    <span class="number">16</span>    <span class="number">19</span>   any</span><br><span class="line">            <span class="number">19</span>    <span class="number">22</span>    <span class="number">19</span>   any</span><br></pre></td></tr></table></figure>
-<p>monitorenter、monitirexit 指令实现</p>
-<p>monitorenter 将lock 对象的 MarkWord 置为 Monitor 指针<br>monitirexit 将lock 对象的 MarkWord 重置，唤醒 EntryList</p>
-<p>最后一个 monitorexit 异常退出时释放锁。</p>
-<p>synchronized 修饰方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MonitorSyncDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        MonitorSyncDemo demo = <span class="keyword">new</span> MonitorSyncDemo();</span><br><span class="line"></span><br><span class="line">        demo.test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        counter++;</span><br><span class="line">        System.out.println(<span class="string">"counter = "</span> + counter);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>;</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: ACC_PUBLIC, ACC_SYNCHRONIZED</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">3</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         0: getstatic     #5                  // Field counter:I</span><br><span class="line">         <span class="number">3</span>: iconst_1</span><br><span class="line">         <span class="number">4</span>: iadd</span><br><span class="line">         5: putstatic     #5                  // Field counter:I</span><br><span class="line">         8: getstatic     #6                  // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">        11: new           #7                  // class java/lang/StringBuilder</span><br><span class="line">        <span class="number">14</span>: dup</span><br><span class="line">        15: invokespecial #8                  // Method java/lang/StringBuilder."&lt;init&gt;":()V</span><br><span class="line">        18: ldc           #9                  // String counter =</span><br><span class="line">        20: invokevirtual #10                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;</span><br><span class="line">        23: getstatic     #5                  // Field counter:I</span><br><span class="line">        26: invokevirtual #11                 // Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;</span><br><span class="line">        29: invokevirtual #12                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;</span><br><span class="line">        32: invokevirtual #13                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">        <span class="number">35</span>: <span class="keyword">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">15</span>: <span class="number">0</span></span><br><span class="line">        line <span class="number">16</span>: <span class="number">8</span></span><br><span class="line">        line <span class="number">17</span>: <span class="number">35</span></span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>      <span class="number">36</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lcom/geekymv/concurrent/lock/MonitorSyncDemo;</span><br></pre></td></tr></table></figure>
-<p>synchronized 修饰的方法并没有使用 monitorenter、monitirexit 指令， 而是通过 ACC_SYNCHRONIZED 标志判断是否为同步方法。</p>
-<p>在 Java6 之前，Monitor 的实现完全依赖操作系统内部的互斥锁，需要进行用户态到内核态的切换，同步操作时一个重量级的操作。<br>现在的 Oracle JDK 中，JVM 提供了三种不同的Monitor 实现，也就是常说的三种不同的锁：偏向锁、轻量级锁和重量级锁，</p>
-<p>锁升级过程<br>无锁、偏向锁、轻量级锁、重量级锁</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>一个对象被new 出来的时候是正常(normal)状态，或者无锁状态。</p>
-<p>偏向锁 threadId</p>
-<p>轻量级锁<br>轻量级锁的使用场景，如果一个多线有多线程访问，但多线程访问的时间是错开的（也就是没有竞争），那么可以使用轻量级锁来优化。<br>轻量级锁对使用者是通明的，仍然使用 synchronized。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/18/thread-and-process/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/18/thread-and-process/" itemprop="url">线程和进程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T16:02:25+08:00">
-                2021-03-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><p>程序由指令和数据组成，但这些指令要运行，数据要读写，就必须将指令加载至CPU，数据加载至内存。<br>在指令运行过程中还需要用到磁盘、网络等设备。进程就是用来加载指令、管理内存和IO的。</p>
-<p>当一个程序被运行，从磁盘加载这个程序的代码到内存，这时就开启了一个进程。</p>
-<p>进程可以视为程序的一个实例，大部分程序可以同时运行多个实例进程（例如记事本、画图、浏览器等），<br>也有的程序只能启动一个实例进程（例如微信、360安全卫士等）。</p>
-<h4 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h4><p>一个进程内可以分为一到多个线程。<br>一个线程就是一个指令流，将指令流中的一条条指令以一定的顺序交给CPU执行。<br>Java中，线程作为最小调度单位，进程作为资源分配的最小单位。</p>
-<h4 id="进程和线程对比"><a href="#进程和线程对比" class="headerlink" title="进程和线程对比"></a>进程和线程对比</h4><p>进程基本上相互独立，而线程存在于进程内，是进程的一个子集。<br>进程拥有共享的资源，如内存空间等，供其内部的线程共享。<br>进程间通信较为复杂，同一台计算机的进程通信称为IPC（Inter-process communication），<br>不同计算机之间的进程通信，需要通过网络，并遵守共同的协议，例如HTTP。<br>线程通信相对简单，因为它们共享进程内的内存，一个例子是多个线程可以访问同一个共享变量。<br>线程更轻量，线程上下文切换成本一般要比进程上下文切换要低。</p>
-<h4 id="并行与并发"><a href="#并行与并发" class="headerlink" title="并行与并发"></a>并行与并发</h4><p>单核CPU下，线程实际还是串行执行的，操作系统中有一个组件叫作任务调度器，将CPU的时间片分给不同的线程使用。</p>
-<h4 id="查看进程线程的方法"><a href="#查看进程线程的方法" class="headerlink" title="查看进程线程的方法"></a>查看进程线程的方法</h4><p>Linux<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ps -fe 查看所有进程</span><br><span class="line"></span><br><span class="line">ps -fT -p pid 查看某个进程(pid)的所有线程</span><br><span class="line"></span><br><span class="line">kill 杀死进程</span><br><span class="line"></span><br><span class="line">top 按大写 H 切换是否显示线程</span><br><span class="line"></span><br><span class="line">top -H -p pid 查看某个进程(pid)的所有线程</span><br></pre></td></tr></table></figure></p>
-<p>Java<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jps 查看所有Java进程</span><br><span class="line">jps -l 显示完整的包名</span><br><span class="line"></span><br><span class="line">jstack pid 查看某个Java进程(pid)的所有线程状态</span><br></pre></td></tr></table></figure></p>
-<p>jconsole 远程连接配置<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar \</span><br><span class="line">-Djava.rmi.server.hostname=10.0.231.7 -Dcom.sun.management.jmxremote \</span><br><span class="line">-Dcom.sun.management.jmxremote.port=8999 \</span><br><span class="line">-Dcom.sun.management.jmxremote.ssl=false \</span><br><span class="line">-Dcom.sun.management.jmxremote.authenticate=false \</span><br><span class="line">geek-1.0-SNAPSHOT.jar &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1811,7 +1817,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

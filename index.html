@@ -259,6 +259,284 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/26/jvm-gc/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/11/26/jvm-gc/" itemprop="url">jvm-gc</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-26T14:21:24+08:00">
+                2021-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>垃圾收集器</p>
+<p>Java堆内存分为新生代和老年代，新生代主要存储短生命周期的对象，适合使用复制算法进行垃圾回收；老年代主要存储长生命周期的对象，适合使用标记整理算法进行垃圾回收。</p>
+<p>JVM针对新生代和老年代分别提供了不同的垃圾收集器。新生代垃圾收集器有Serial、ParNew 和 Parallel Scavenge，老年代垃圾收集器有 Serial Old、Parallel Old、CMS，还有针对不同区域的G1分区收集算法。</p>
+<img src="/2021/11/26/jvm-gc/gc.png" title="垃圾收集器">
+<p>新生代垃圾收集器</p>
+<ul>
+<li><p>Serial<br>单线程，复制算法，简单高效，没有线程交互开销。<br>垃圾收集时，必须暂停其他所有工作线程（Stop The World），直到它收集结束。<br>Java 虚拟机在 Client 模式下新生代的默认垃圾收集器。</p>
+</li>
+<li><p>ParNew<br>多线程，复制算法。ParNew 垃圾收集器是 Serial 垃圾收集器的多线程实现，它采用多线程模式工作，其他和 Serial 几乎一样。</p>
+<p>除了 Serial 收集器外，目前只有它能与 CMS 收集器配合工作。</p>
+</li>
+<li><p>Parallel Scavenge<br>多线程，复制算法，Java8 默认的垃圾收集器。</p>
+<p>吞吐量优先的垃圾收集器，主要适合在后台运算而不需要太多交互的分析任务。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stop The World （STW）由虚拟机在后台自动发起自动完成的，在用户不可知、不可控的情况下把用户的正常工作线程全部停掉，这对很多应用来说是不可接受的。</span><br></pre></td></tr></table></figure>
+<p>老年代垃圾收集器</p>
+<ul>
+<li>Serial Old<br>单线程，标记整理算法<br>Java 虚拟机在 Client 模式下老年代的默认垃圾收集器。</li>
+<li>Parallel Old<br>多线程，标记整理算法；<br>Parallel Old 垃圾收集器优先考虑系统吞吐量，其次考虑停顿时间等因素；<br>新生代 Parallel Scavenge + 老年代 Parallel Old 配合使用。</li>
+</ul>
+<ul>
+<li><p>CMS（Concurrent Mark Sweep）</p>
+<p>第一款实际意义上支持并发的垃圾收集器，它首次实现了让垃圾收集线程和用户线程（基本上）同时工作。</p>
+<p>标记清除算法，关注点是尽可能缩短用户线程的停顿时间，停顿时间越短越适合需要与用户交互或需要保证服务响应质量的程序。</p>
+<p>①初始标记：只标记和 GC Roots 直接关联的的对象，速度快，需要暂停所有工作线程；<br>②并发标记：和用户线程一起工作，执行，不需要暂停工作线程；<br>③重新标记：在并发标记过程中用户线程继续运行，导致垃圾收集过程中部分对象的状态发生了变化，为了确保这部分对象的状态的正确性，需要重新标记并暂停工作线程。<br>③并发清除：和用户线程一起工作，执行清除 GC Roots 不可达对象的任务，不需要暂停工作线程。</p>
+<p>初始标记和重新标记阶段会暂停工作线程，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">老年代使用CMS，新生代使用ParNew（-XX:+/-UseParNewGC来强制指定或者禁用它），新生代也可以使用 Serial 收集器。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>G1（G First）</p>
+<p>多线程标记整理算法<br>G1 是一个面向全堆的收集器，不需要其他新生代收集器的配合工作，自JDK9开始，ParNew + CMS 收集器的组合不再是官方推荐的服务端模式下的收集器解决方案了，官方希望它能完全被 G1 所取代，甚至取消了 ParNew + Serial Old 以及 Serial + CMS 组合了的支持（很少有人这么用）。只剩下 ParNew + CMS 互相搭配使用。</p>
+<p>垃圾收集器中的并行与并发</p>
+<p>并行（Parallel）：并行描述的是多条垃圾收集器线程之间的关系，说明同一时间有多条这样的线程在协同工作，通常默认此时用户线程是处理等待状态，程序无法响应服务请求。</p>
+<p>并发（Concurrent）：并发描述的是垃圾收集器线程与用户线程之间的关系，说明同一时间垃圾收集器线程与用户线程都在运行。用户线程仍在运行，所以程序仍然能响应服务请求，由于垃圾收集器线程占用了一部分系统资源，此时应用程序的处理的吞吐量将受到一定的影响。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/12/perfect-code/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/10/12/perfect-code/" itemprop="url">perfect-code</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-12T10:27:18+08:00">
+                2021-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>com.netflix.discovery.shared.resolver.ResolverUtils 类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Randomize server list.</span></span><br><span class="line"><span class="comment"> * 随机化list</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> a copy of the original list with elements in the random order</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T extends EurekaEndpoint&gt; <span class="function">List&lt;T&gt; <span class="title">randomize</span><span class="params">(List&lt;T&gt; list)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 新创建一个List是为了不改变原有的list</span></span><br><span class="line">    List&lt;T&gt; randomList = <span class="keyword">new</span> ArrayList&lt;&gt;(list);</span><br><span class="line">    <span class="keyword">if</span> (randomList.size() &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> randomList;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 洗牌操作</span></span><br><span class="line">    Collections.shuffle(randomList,ThreadLocalRandom.current());</span><br><span class="line">    <span class="keyword">return</span> randomList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>com.netflix.discovery.DiscoveryClient 类<br>创建线程池<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// default size of 2 - 1 each for heartbeat and cacheRefresh</span><br><span class="line">scheduler = Executors.newScheduledThreadPool(2,</span><br><span class="line">        new ThreadFactoryBuilder()</span><br><span class="line">                .setNameFormat(&quot;DiscoveryClient-%d&quot;)</span><br><span class="line">                .setDaemon(true)</span><br><span class="line">                .build());</span><br><span class="line"></span><br><span class="line">heartbeatExecutor = new ThreadPoolExecutor(</span><br><span class="line">        1, clientConfig.getHeartbeatExecutorThreadPoolSize(), 0, TimeUnit.SECONDS,</span><br><span class="line">        new SynchronousQueue&lt;Runnable&gt;(),</span><br><span class="line">        new ThreadFactoryBuilder()</span><br><span class="line">                .setNameFormat(&quot;DiscoveryClient-HeartbeatExecutor-%d&quot;)</span><br><span class="line">                .setDaemon(true)</span><br><span class="line">                .build()</span><br><span class="line">);  // use direct handoff</span><br><span class="line"></span><br><span class="line">cacheRefreshExecutor = new ThreadPoolExecutor(</span><br><span class="line">        1, clientConfig.getCacheRefreshExecutorThreadPoolSize(), 0, TimeUnit.SECONDS,</span><br><span class="line">        new SynchronousQueue&lt;Runnable&gt;(),</span><br><span class="line">        new ThreadFactoryBuilder()</span><br><span class="line">                .setNameFormat(&quot;DiscoveryClient-CacheRefreshExecutor-%d&quot;)</span><br><span class="line">                .setDaemon(true)</span><br><span class="line">                .build()</span><br><span class="line">);  // use direct handoff</span><br></pre></td></tr></table></figure></p>
+<p>Eureka 每30s 执行一次renew操作</p>
+<p>EurekaHttpClient 接口</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/15/threadpoolexecutor-javadoc/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -341,7 +619,7 @@
 <p>If there are more than corePoolSize but less than maximumPoolSize threads running, a new thread will be created only if the queue is full. By setting corePoolSize and maximumPoolSize the same, you create a fixed-size thread pool. By setting maximumPoolSize to an essentially unbounded value such as Integer.MAX_VALUE, you allow the pool to accommodate an arbitrary number of concurrent tasks.<br>Most typically,core and maximum pool sizes are set only upon construction, but they may also be changed dynamically using setCorePoolSize and setMaximumPoolSize.</p>
 <p>如果线程池中有超过核心线程数但是小于最大线程数的线程在运行，只有当队列满了才会创建新的线程。<br>（也就是说当线程池中的线程数等于核心线程数，对于新提交的任务会进入队列排队，直到队列满了，才会创建新的线程处理新来的任务）<br>通过 setCorePoolSize 和 setMaximumPoolSize 方法可以动态调整核心线程和最大线程的数量。</p>
 <h4 id="On-demand-construction"><a href="#On-demand-construction" class="headerlink" title="On-demand construction"></a>On-demand construction</h4><p>By default, even core threads are initially created and started only when new tasks arrive,<br>but this can be overridden dynamically using method prestartCoreThread or prestartAllCoreThreads.<br>You probably want to prestart threads if you construct the pool with a non-empty<br>默认情况下，当新的任务到达时创建并启动核心线程，也可以使用 prestartCoreThread 或 prestartAllCoreThreads 方法提前创建线程。</p>
-<p>Creating new threads<br>New threads are created using a ThreadFactory. If not otherwise specified, a Executors.defaultThreadFactory is used,<br>that creates threads to all be in the same ThreadGroup and with the same NORM_PRIORITY priority and non-daemon status. By supplying a different ThreadFactory, you can alter the thread’s name, thread group, priority, daemon status, etc. If a ThreadFactory fails to create a thread when asked by returning null from newThread, the executor will continue, but might not be able to execute any tasks. Threads should possess the “modifyThread” RuntimePermission.<br>If worker threads or other threads using the pool do not possess this permission, service may be degraded:<br>configuration changes may not take effect in a timely manner, and a shutdown pool may remain in a state in which termination is possible but not completed.</p>
+<h4 id="Creating-new-threads"><a href="#Creating-new-threads" class="headerlink" title="Creating new threads"></a>Creating new threads</h4><p>New threads are created using a ThreadFactory. If not otherwise specified, a Executors.defaultThreadFactory is used, that creates threads to all be in the same ThreadGroup and with the same NORM_PRIORITY priority and non-daemon status. By supplying a different ThreadFactory, you can alter the thread’s name, thread group, priority, daemon status, etc. If a ThreadFactory fails to create a thread when asked by returning null from newThread, the executor will continue, but might not be able to execute any tasks. Threads should possess the “modifyThread” RuntimePermission.<br>If worker threads or other threads using the pool do not possess this permission, service may be degraded:<br>configuration changes may not take effect in a timely manner, and a shutdown pool may remain in a state in which termination is possible but not completed.</p>
 <p>使用ThreadFactory创建线程，默认使用 Executors的 defaultThreadFactory方法创建 DefaultThreadFactory 对象。<br>通过自定义 ThreadFactory 可以指定 线程名称，线程组，优先级，是否守护线程 等等。</p>
 <h4 id="Keep-alive-times"><a href="#Keep-alive-times" class="headerlink" title="Keep-alive times"></a>Keep-alive times</h4><p>If the pool currently has more than corePoolSize threads, excess threads will be terminated<br>if they have been idle for more than the keepAliveTime (see getKeepAliveTime(TimeUnit)).<br>This provides a means of reducing resource consumption when the pool is not being actively used.<br>If the pool becomes more active later, new threads will be constructed. This parameter can also be changed dynamically using method setKeepAliveTime(long, TimeUnit).<br>Using a value of Long.MAX_VALUE TimeUnit.NANOSECONDS effectively disables idle threads from ever terminating prior to shut down. By default, the keep-alive policy applies only when there are more than corePoolSize threads. But method allowCoreThreadTimeOut(boolean) can be used to apply this time-out policy to core threads as well, so long as the keepAliveTime value is non-zero</p>
 <p>如果线程池中的线程数超过核心线程大小，空闲时间超过 keepAliveTime 的多余线程会被终止，<br>keepAliveTime的值可以通过 setKeepAliveTime(long, TimeUnit) 方法动态调整。<br>默认情况下，keep-alive 策略只会作用于超过核心线程数的线程， allowCoreThreadTimeOut(boolean) 方法会改变time-out策略将空闲的核心线程也回收。</p>
@@ -380,7 +658,11 @@
 <h4 id="Hook-methods"><a href="#Hook-methods" class="headerlink" title="Hook methods"></a>Hook methods</h4><p>This class provides protected overridable beforeExecute(Thread, Runnable) and afterExecute(Runnable, Throwable) methods that are called before and after execution of each task.<br>These can be used to manipulate the execution environment; for example, reinitializing ThreadLocals, gathering statistics, or adding log entries. Additionally, method terminated can be overridden to perform any special processing that needs to be done once the Executor has fully terminated.<br>If hook or callback methods throw exceptions, internal worker threads may in turn fail and abruptly terminate.<br>ThreadPoolExecutor 类提供了 beforeExecute 和 afterExecute 方法在任务执行前后会执行，子类可以重写这两个方法做一些统计、日志等。</p>
 <h4 id="Queue-maintenance"><a href="#Queue-maintenance" class="headerlink" title="Queue maintenance"></a>Queue maintenance</h4><p>Method getQueue() allows access to the work queue for purposes of monitoring and debugging.<br>Use of this method for any other purpose is strongly discouraged. Two supplied methods, remove(Runnable) and purge are available to assist in storage reclamation when large numbers of queued tasks become cancelled.<br>getQueue() 方法允许访问工作队列，可以用于监控和调试。</p>
 <h4 id="Finalization"><a href="#Finalization" class="headerlink" title="Finalization"></a>Finalization</h4><p>A pool that is no longer referenced in a program AND has no remaining threads will be shutdown automatically. If you would like to ensure that unreferenced pools are reclaimed even if users forget to call shutdown, then you must arrange that unused threads eventually die, by setting appropriate keep-alive times, using a lower bound of zero core threads and/or setting allowCoreThreadTimeOut(boolean).</p>
-<h4 id="workerCount-and-runState"><a href="#workerCount-and-runState" class="headerlink" title="workerCount and runState"></a>workerCount and runState</h4><p>The main pool control state, ctl, is an atomic integer packing two conceptual fields<br>workerCount, indicating the effective number of threads<br>runState, indicating whether running, shutting down etc </p>
+<h4 id="workerCount-and-runState"><a href="#workerCount-and-runState" class="headerlink" title="workerCount and runState"></a>workerCount and runState</h4><p>The main pool control state, ctl, is an atomic integer packing two conceptual fields </p>
+<ul>
+<li>workerCount, indicating the effective number of threads </li>
+<li>runState, indicating whether running, shutting down etc </li>
+</ul>
 <p>In order to pack them into one int, we limit workerCount to (2^29)-1 (about 500 million) threads rather than (2^31)-1 (2 billion) otherwise representable. If this is ever an issue in the future, the variable can be changed to be an AtomicLong, and the shift/mask constants below adjusted. But until the need arises, this code is a bit faster and simpler using an int. </p>
 <p>The workerCount is the number of workers that have been permitted to start and not permitted to stop. The value may be transiently different from the actual number of live threads, for example when a ThreadFactory fails to create a thread when asked, and when exiting threads are still performing bookkeeping before terminating. The user-visible pool size is reported as the current size of the workers set. </p>
 <p>The runState provides the main lifecycle control, taking on values: </p>
@@ -404,8 +686,9 @@
 <p>ThreadPoolExecutor 中的成员变量ctl 包含两部分</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger ctl = <span class="keyword">new</span> AtomicInteger(ctlOf(RUNNING, <span class="number">0</span>));</span><br></pre></td></tr></table></figure>
 <p>workerCount： 工作线程数量<br>runState：线程池运行状态</p>
-<p>RUNNING：接收新任务并处理队列里的任务<br>SHUTDOWN：不接受新任务，处理队列任务<br>STOP：不接受新任务，不处理队列任务，中断正在执行的任务<br>TIDYING：所有任务已经终止，workerCount是0，线程状态转换为TIDYING，将运行terminated()钩子方法<br>TIDYING：terminated()钩子方法已经完成</p>
-<p>RUNNING -&gt; SHUTDOWN 调用shutdown()方法<br>RUNNING / SHUTDOWN -&gt; STOP 调用shutdownNow()方法<br>SHUTDOWN -&gt; TIDYING 队列和线程池为空<br>STOP -&gt; TIDYING 线程池为空<br>TIDYING -&gt; TIDYING terminated()钩子方法已经完成</p>
+<p>RUNNING：接收新任务并处理队列里的任务<br>SHUTDOWN：不接受新任务，处理队列任务<br>STOP：不接受新任务，不处理队列任务，中断正在执行的任务<br>TIDYING：所有任务已经终止，workerCount是0，线程状态转换为TIDYING，将运行terminated()钩子方法<br>TERMINATED：terminated() 钩子方法已经完成</p>
+<p>RUNNING -&gt; SHUTDOWN 调用shutdown()方法<br>RUNNING / SHUTDOWN -&gt; STOP 调用shutdownNow()方法<br>SHUTDOWN -&gt; TIDYING 队列和线程池为空<br>STOP -&gt; TIDYING 线程池为空<br>TIDYING -&gt; TERMINATED terminated()钩子方法已经完成。</p>
+<p>更多详细信息参见 java.util.concurrent.ThreadPoolExecutor 的Javadoc。</p>
 
           
         
@@ -1396,282 +1679,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/18/eureka/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/06/18/eureka/" itemprop="url">eureka</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-18T09:36:42+08:00">
-                2021-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>享学Eureka源码<br><a href="https://fangshixiang.blog.csdn.net/article/details/105043241" target="_blank" rel="noopener">https://fangshixiang.blog.csdn.net/article/details/105043241</a></p>
-<p>芋道源码<br><a href="https://github.com/YunaiV/eureka" target="_blank" rel="noopener">https://github.com/YunaiV/eureka</a></p>
-<p>eureka-client 最底层、最核心的一个包，微服务通过eureka-client与Eureka进行通信，屏蔽了底层通信细节。<br>eureka-core 依赖eureka-client。<br>eureka-server 依赖jersey 来搭建Servlet应用。</p>
-<p>eureka-core 它不是所有模块的基础，而是仅仅用于Server端，并且还不是必须的。</p>
-<h5 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h5><p>Eureka Client 是Java客户端，用于简化与Eureka Server通信细节，Eureka Client会拉取、更新和缓存Eureka Server中服务的信息。即使所有的Eureka Server 节点都宕机，短时间内服务消费者依然可以使用缓存中的信息找到服务提供者。</p>
-<p>Eureka Client 在微服务启动后，会周期性的向Eureka Server发送心跳（默认周期为30秒），用来续约自己的信息。</p>
-<p>如果Eureka Server在一定时间内（默认是90秒）没有收到某个微服务节点的心跳，Eureka Server将会注销该微服务节点。</p>
-<blockquote>
-<p>Client端每30秒发送一次心跳，Server端90秒内没有收到该Client心跳就认为Client端挂掉了。</p>
-</blockquote>
-<p>Eureka Client 完成以下几件动作：</p>
-<ul>
-<li>服务注册Register：Client端主动向Server端注册自身的元数据，比如IP地址、端口等；</li>
-<li>服务续约Renew：Client默认会每30秒发送一次心跳来续约，告诉Server自己还活着；</li>
-<li>获取注册列表信息Fetch Registries：Client端从Server端获取注册表信息，并将其缓存到本地。缓存信息每30秒更新一次；</li>
-<li>服务下线Cancel：Client端在停机时（正常停止）会主动向Server端发送取消请求，告诉Server端把自己这个实例剔除。</li>
-</ul>
-<h5 id="Eureka-Server"><a href="#Eureka-Server" class="headerlink" title="Eureka Server"></a>Eureka Server</h5><p>Eureka Server 提供给各个微服务注册的服务端，Eureka Server 会在内存中存储该服务的信息。</p>
-<p>Server端并不会主动触发动作，主要用于提供服务：</p>
-<ul>
-<li>提供服务注册</li>
-<li>提供服务信息拉取</li>
-<li>提供服务管理：接收客户端的cancel、心跳、续租renew等请求；</li>
-<li>服务剔除</li>
-<li>信息同步：在集群中，每个Eureka Server同时也是Eureka Client，多个Server之间通过P2P复制的方式完成服务注册表的同步。</li>
-</ul>
-<p>注册中心作为微服务架构的核心中间件，对可用性是强要求，反而对一致性是可以容忍的，基于AP模式的只有Eureka 和 Nacos。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/15/binary-search/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/06/15/binary-search/" itemprop="url">binary-search</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-15T16:18:01+08:00">
-                2021-06-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>二分查找是一种非常简单易懂的查找算法。举个例子，比如猜数字游戏，我随机写一个0-99之间的数字，你来猜我写的是什么。猜的过程中，你每猜一次，我会告诉你猜大了还是猜小了，直到猜中为止。</p>
-<p>有序数组，折半查找，缩小查找区间的范围</p>
-<p>下面以升序排序的int数组为例，介绍二分查找过程，待查找的int数组如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">18</span>, <span class="number">22</span>&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySearch</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] data, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> high = data.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line"><span class="comment">//            int mid = (low + high) / 2;</span></span><br><span class="line">            <span class="keyword">int</span> mid = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">int</span> midVal = data[mid];</span><br><span class="line">            <span class="keyword">if</span>(midVal == value) &#123;</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value &gt; midVal) &#123;</span><br><span class="line">                low = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>  &#123;</span><br><span class="line">                high = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 没有找到，返回索引-1</span></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>首先定义两个变量low 和 high 分别指向有序数组arr[]的第一个元素和最后一个元素的下标；</p>
-<p>1、获取low和high中间元素的下标mid = (low + high) / 2；</p>
-<p>2、判断要查找的元素值value和arr[mid] 是否相等，如果相等返回下标mid，查找结束；</p>
-<p>3、如果不相等，则比较arr[mid]和value的大小；</p>
-<p>4、如果value大于arr[mid]，说明要查找的元素值在[mid+1, high]之间，则将low指向mid+1，继续步骤1、2；<br>5、同样的，如果value小于arr[mid]，说明要查找的元素值在[low, mid-1]之间，则将high指向mid-1，继续步骤1、2；</p>
-<p>6、当low &gt; high 的时候，结束查找。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1722,7 +1729,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

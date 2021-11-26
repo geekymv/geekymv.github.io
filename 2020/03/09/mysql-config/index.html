@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="查看最大连接数1show variables like &apos;max_connections&apos;; mysql 启动配置参数文件位置 1mysql --help | grep my.cnf mysql 日志错误日志 1show variables like &apos;%log_error%&apos;\G; 慢查询日志 12show variables like &apos;%slow_query%&apos;;show variables">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-05-10T01:12:43.033Z">
+<meta property="og:updated_time" content="2021-09-29T07:23:41.737Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql-config">
 <meta name="twitter:description" content="查看最大连接数1show variables like &apos;max_connections&apos;; mysql 启动配置参数文件位置 1mysql --help | grep my.cnf mysql 日志错误日志 1show variables like &apos;%log_error%&apos;\G; 慢查询日志 12show variables like &apos;%slow_query%&apos;;show variables">
@@ -336,7 +336,10 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'%log_error%'</span>\G;</span><br></pre></td></tr></table></figure>
 <p>慢查询日志</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'%slow_query%'</span>;</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'%long_query_time%'</span>;</span><br></pre></td></tr></table></figure>
-<p>二进制日志（bin log）</p>
+<p>修改 my.cnf，在 [mysqld] 添加下面配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">slow_query_log=ON</span><br><span class="line">slow_query_log_file=/var/log/mysql-slow-log.log</span><br><span class="line">long_query_time=3</span><br></pre></td></tr></table></figure></p>
+<p>有可能没有创建/var/log/mysql-slow-log.log权限，手动创建并修改用户组</p>
+<p>二进制日志（bin log）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server-id=1</span><br><span class="line">log-bin=mysql-bin</span><br></pre></td></tr></table></figure></p>
+<p>show variables like ‘%log_bin%’;</p>
 
       
     </div>
@@ -477,7 +480,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

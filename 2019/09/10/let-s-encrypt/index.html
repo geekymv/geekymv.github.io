@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="https://certbot.eff.org/ 1234$ wget https://dl.eff.org/certbot-auto$ sudo mv certbot-auto /usr/local/bin/certbot-auto$ sudo chown root /usr/local/bin/certbot-auto$ sudo chmod 0755 /usr/local/bin/certb">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-10-17T03:36:29.813Z">
+<meta property="og:updated_time" content="2021-11-24T01:49:57.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="let&#39;s-encrypt">
 <meta name="twitter:description" content="https://certbot.eff.org/ 1234$ wget https://dl.eff.org/certbot-auto$ sudo mv certbot-auto /usr/local/bin/certbot-auto$ sudo chown root /usr/local/bin/certbot-auto$ sudo chmod 0755 /usr/local/bin/certb">
@@ -345,6 +345,13 @@
 <p>certbot –server <a href="https://acme-v02.api.letsencrypt.org/directory" target="_blank" rel="noopener">https://acme-v02.api.letsencrypt.org/directory</a> -d npe4j.com -d *.npe4j.com –manual –preferred-challenges dns-01 certonly</p>
 <p><a href="https://qizhanming.com/blog/2019/04/23/how-to-install-let-s-encrypt-wildcards-certificate-on-centos-7" target="_blank" rel="noopener">https://qizhanming.com/blog/2019/04/23/how-to-install-let-s-encrypt-wildcards-certificate-on-centos-7</a><br><a href="https://www.infoq.cn/article/2018/03/lets-encrypt-wildcard-https" target="_blank" rel="noopener">https://www.infoq.cn/article/2018/03/lets-encrypt-wildcard-https</a><br><a href="https://www.jianshu.com/p/c5c9d071e395" target="_blank" rel="noopener">https://www.jianshu.com/p/c5c9d071e395</a></p>
 <p>删除弃用的Let’s encrypt安全证书的域名<br><a href="https://www.vmvps.com/how-to-delete-unused-lets-encrypt-ssl-domain.html" target="_blank" rel="noopener">https://www.vmvps.com/how-to-delete-unused-lets-encrypt-ssl-domain.html</a></p>
+<h4 id="Let’s-Encrypt-续期"><a href="#Let’s-Encrypt-续期" class="headerlink" title="Let’s Encrypt 续期"></a>Let’s Encrypt 续期</h4><p>crontab -e</p>
+<p>0 1 <em> </em> <em> /usr/local/bin/certbot-auto renew –no-self-upgrade<br>5 1 </em> <em> </em> /usr/sbin/nginx -s reload</p>
+<p>强制更新<br>–force-renew</p>
+<p>查看日志<br>tail -F /var/log/letsencrypt/letsencrypt.log</p>
+<p>查看crontab 日志<br>tail -30f /var/log/cron</p>
+<p>报错<br>Could not find a usable ‘nginx’ binary. Ensure nginx exists, the binary is executable, and your PATH is set correctly</p>
+<p><a href="https://www.jianshu.com/p/1ce5f1bc8f0d" target="_blank" rel="noopener">https://www.jianshu.com/p/1ce5f1bc8f0d</a></p>
 
       
     </div>
@@ -485,7 +492,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -540,7 +547,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#CentOS-7-下-安装-Let’s-Encrypt-的通配符证书"><span class="nav-number">1.</span> <span class="nav-text">CentOS 7 下 安装 Let’s Encrypt 的通配符证书</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#CentOS-7-下-安装-Let’s-Encrypt-的通配符证书"><span class="nav-number">1.</span> <span class="nav-text">CentOS 7 下 安装 Let’s Encrypt 的通配符证书</span></a></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#Let’s-Encrypt-续期"><span class="nav-number"></span> <span class="nav-text">Let’s Encrypt 续期</span></a></li></div>
             
 
           </div>

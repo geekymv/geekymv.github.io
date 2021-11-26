@@ -259,6 +259,268 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/14/csrf/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/14/csrf/" itemprop="url">csrf</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-14T11:13:33+08:00">
+                2019-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://segmentfault.com/a/1190000006944760" target="_blank" rel="noopener">https://segmentfault.com/a/1190000006944760</a></p>
+<p>浏览器安全<br>同源策略（Same Origin Policy）<br>影响因素有：host（域名或IP地址，如果是IP地址则看做一个根域名）、子域名、端口、协议。<br>在浏览器中，<script>、<img>、<iframe>、<link> 等标签都可以跨域加载资源，而不受同源策略的限制。</p>
+<p>XMLHttpRequest 受到同源策略的约束，不能跨域访问资源，在AJAX应用的开发中需要注意这一点。</p>
+<p>跨站脚本攻击（Cross Site Script）XSS，通常指黑客通过“html注入”篡改了网页，插入了恶意脚本，<br>从而在用户浏览网页时，控制用户浏览器的一种攻击。</p>
+<p>跨站点请求伪造（Cross Site Request Forgery）CSRF，</p>
+</script></p>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/12/jvm-using-2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/12/jvm-using-2/" itemprop="url">Java中类的主动使用举例</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-12T20:20:22+08:00">
+                2019-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="从一道面试题来理解静态变量两次赋初始值过程"><a href="#从一道面试题来理解静态变量两次赋初始值过程" class="headerlink" title="从一道面试题来理解静态变量两次赋初始值过程"></a>从一道面试题来理解静态变量两次赋初始值过程</h4><p>根据前面文章，我们知道在类的加载过程有两次赋初始值的过程。<br>一次赋值在准备阶段，为类的静态变量（类变量）分配内存，并将其初始化为默认值，<br>另一次赋值是在初始化阶段，为类的静态变量赋予程序员定义的初始值。<br>即使在初始化阶段程序员没有为类的静态变量赋初始值也没关系，类变量仍然具有一个确定的初始值。<br>比如下面这个实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class TestStaticVariable &#123;</span><br><span class="line">    </span><br><span class="line">    public static int count1 = 1;</span><br><span class="line">    </span><br><span class="line">    public static int count2;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>静态变量 count1 和 count2，在准备阶段，count1和count2的值都为0，初始化阶段count1的值为1，count2的值还是0。</p>
+<p>下面我们再看一道面试题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class TestSingleton &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Singleton singleton = Singleton.getInstance();</span><br><span class="line"></span><br><span class="line">        System.out.println(Singleton.count1);</span><br><span class="line">        System.out.println(Singleton.count2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Singleton &#123;</span><br><span class="line"></span><br><span class="line">    public static int count1 = 1;</span><br><span class="line"></span><br><span class="line">    private static Singleton singleton = new Singleton();</span><br><span class="line"></span><br><span class="line">    private Singleton() &#123;</span><br><span class="line">        count1++;</span><br><span class="line">        count2++;</span><br><span class="line">    &#125;</span><br><span class="line">    public static int count2 = 0;</span><br><span class="line"></span><br><span class="line">    public static Singleton getInstance() &#123;</span><br><span class="line">        return singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>大家可以尝试自己分析下上述代码执行结果，或将代码在自己的开发工具中执行，看看实际结果和预期的结果是否一致。</p>
+<p>下面我们分析下上述代码执行过程：<br>在TestSingleton 类的main方法中<code>Singleton singleton = Singleton.getInstance();</code> Singleton 调用了它的静态方法，<br>根据前面文章我们知道类的主动使用的第3种情况是<code>调用类的静态方法</code>，此时会触发 Singleton 类的初始化。<br>我们还知道加载、验证、准备、初始化、卸载这5个阶段的顺序是确定的。也就是说进行类的初始化之前一定进行了准备过程。</p>
+<p>Singleton 类的准备阶段（为静态变量分配内存，并将其初始化为默认值），代码从上往下执行：</p>
+<ul>
+<li>静态变量 count1 = 0;</li>
+<li>静态变量 singleton = null;</li>
+<li>静态变量 count2 = 0;</li>
+</ul>
+<p>Singleton 类的初始化阶段（为类的静态变量赋予程序员定义的初始值）</p>
+<ul>
+<li>静态变量 count1 = 1;</li>
+<li>静态变量 singleton 指向 new Singleton() 实例，执行了构造方法<code>Singleton()</code>，此时count1 = 2; count2 = 1;</li>
+<li>静态变量 count2 = 0;</li>
+</ul>
+<p>所以，TestSingleton 类的输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
+<p>「更多精彩内容请关注公众号geekymv，喜欢请分享给更多的朋友哦」</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/jvm-using/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1051,6 +1313,7 @@
 <p>查看状态<br>systemctl status firewalld</p>
 <p>查看zone名称<br>firewall-cmd –get-active-zones</p>
 <p>开放443端口<br>firewall-cmd –zone=public –add-port=443/tcp –permanent</p>
+<p>开放多个端口<br>firewall-cmd –zone=public –add-port=8080-8090/tcp –permanent</p>
 <p>重启防火墙<br>firewall-cmd –reload</p>
 <p>查看指定区域所有打开的端口<br>firewall-cmd –zone=public –list-ports</p>
 <p>删除端口<br>firewall-cmd –zone=public –remove-port=3080/tcp –permanent</p>
@@ -1339,263 +1602,6 @@ private final Configuration configuration;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/arts-week-1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/17/arts-week-1/" itemprop="url">arts-week-1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T10:27:54+08:00">
-                2019-07-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>每周完成一个ARTS： </p>
-<ul>
-<li>每周至少做一个 leetcode 的算法题</li>
-<li>阅读并点评至少一篇英文技术文章</li>
-<li>学习至少一个技术技巧</li>
-<li>分享一篇有观点和思考的技术文章。</li>
-</ul>
-<p>（也就是 Algorithm、Review、Tip、Share 简称ARTS）</p>
-<h1 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h1><h2 id="LeetCode算法题"><a href="#LeetCode算法题" class="headerlink" title="LeetCode算法题"></a>LeetCode算法题</h2><p><a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">two-sum</a></p>
-<ol>
-<li>Two Sum</li>
-</ol>
-<p>Given an array of integers, return <code>indices</code> of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have <code>exactly</code> one solution, and you may not use the same element twice.<br>Example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Given nums = [2, 7, 11, 15], target = 9,</span><br><span class="line"></span><br><span class="line">Because nums[0] + nums[1] = 2 + 7 = 9,</span><br><span class="line">return [0, 1].</span><br></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/17/arts-week-1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/tcpdump/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/tcpdump/" itemprop="url">tcpdump</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T15:14:25+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>tcpdump port 80 and  host 60.173.247.22</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1646,7 +1652,7 @@ private final Configuration configuration;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">105</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
