@@ -259,6 +259,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/29/skywalking-java/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/11/29/skywalking-java/" itemprop="url">skywalking-java</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-29T10:41:08+08:00">
+                2021-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>基于 SkyWalking Java Agent 8.8.0 版本</strong></p>
+<p>SkyWalkingAgent 类是 SkyWalking Java Agent 的入口 premain 方法所在类，今天我们要分析的不是 premain 方法，而是任何一个应用程序都需要的日志框架，SkyWalking Java Agent 并没有依赖现有的日志框架如 log4j 之类的，而是自己实现了一套。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The main entrance of sky-walking agent, based on javaagent mechanism.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkyWalkingAgent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ILog LOGGER = LogManager.getLogger(SkyWalkingAgent.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Main entrance. Use byte-buddy transform to enhance all classes, which define in plugins.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">premain</span><span class="params">(String agentArgs, Instrumentation instrumentation)</span> <span class="keyword">throws</span> PluginException </span>&#123;</span><br><span class="line">        <span class="comment">// 省略部分代码....</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="skywalking-java.assets/01_premain.png" alt="01_premain"></p>
+<p>SkyWalkingAgent 类的第一行代码就是自己实现的日志组件，看起来和其他常用的日志组件的使用方式没什么区别。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> ILog LOGGER = LogManager.getLogger(SkyWalkingAgent.class);</span><br></pre></td></tr></table></figure></p>
+<p>首先通过日志管理器 LogManager 获取 ILog 接口的一个具体实现，这是典型的Java多态 - 父类（接口）的引用指向子类的实现。</p>
+<h4 id="ILog-接口"><a href="#ILog-接口" class="headerlink" title="ILog 接口"></a>ILog 接口</h4><p>ILog 接口提供了我们常用的打印日志的方法，定义了一套日志使用规范。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The Log interface. It's very easy to understand, like any other log-component. Do just like log4j or log4j2 does.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ILog</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">info</span><span class="params">(String format)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">info</span><span class="params">(String format, Object... arguments)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">info</span><span class="params">(Throwable t, String format, Object... arguments)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">debug</span><span class="params">(String format)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">debug</span><span class="params">(String format, Object... arguments)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略部分代码....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="skywalking-java.assets/02_ILog.png" alt="02_ILog"></p>
+<h4 id="LogManager"><a href="#LogManager" class="headerlink" title="LogManager"></a>LogManager</h4><p>我们看下 LogManager 类的具体实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * LogManager is the &#123;<span class="doctag">@link</span> LogResolver&#125; implementation manager. By using &#123;<span class="doctag">@link</span> LogResolver&#125;, &#123;<span class="doctag">@link</span></span></span><br><span class="line"><span class="comment"> * LogManager#getLogger(Class)&#125; returns a &#123;<span class="doctag">@link</span> ILog&#125; implementation. This module use this class as the main entrance,</span></span><br><span class="line"><span class="comment"> * and block the implementation detail about log-component. In different modules, like server or sniffer, it will use</span></span><br><span class="line"><span class="comment"> * different implementations.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt; If no &#123;<span class="doctag">@link</span> LogResolver&#125; is registered, return &#123;<span class="doctag">@link</span> NoopLogger#INSTANCE&#125; to avoid</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> NullPointerException&#125;. If &#123;<span class="doctag">@link</span> LogManager#setLogResolver(LogResolver)&#125; is called twice, the second will</span></span><br><span class="line"><span class="comment"> * override the first without any warning or exception.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt; Created by xin on 2016/11/10.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LogResolver RESOLVER = <span class="keyword">new</span> PatternLogResolver();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setLogResolver</span><span class="params">(LogResolver resolver)</span> </span>&#123;</span><br><span class="line">        LogManager.RESOLVER = resolver;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ILog <span class="title">getLogger</span><span class="params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (RESOLVER == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> NoopLogger.INSTANCE;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> LogManager.RESOLVER.getLogger(clazz);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ILog <span class="title">getLogger</span><span class="params">(String clazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (RESOLVER == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> NoopLogger.INSTANCE;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> LogManager.RESOLVER.getLogger(clazz);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="skywalking-java.assets/03_LogManager.png" alt="03_LogManager"></p>
+<p>LogManager 类是 LogResolver 实现类的管理器，通过使用 LogResolver，LogManager.getLogger(Class) 返回了 ILog 接口的一个实现，LogManager 类是日志组件的主要入口，内部封装了日志组件的实现细节。</p>
+<p>LogManager 内部提供了setLogResolver 方法用于注册指定的 LogResolver，如果设置 LogResolver 为 null，则返回 NoopLogger 实例。</p>
+<p>LogResolver 只是返回 ILog 接口的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> LogResolver&#125; just do only one thing: return the &#123;<span class="doctag">@link</span> ILog&#125; implementation.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">LogResolver</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> clazz the class is showed in log message.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> ILog&#125; implementation.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">ILog <span class="title">getLogger</span><span class="params">(Class&lt;?&gt; clazz)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> clazz the class is showed in log message.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> ILog&#125; implementation.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">ILog <span class="title">getLogger</span><span class="params">(String clazz)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="skywalking-java.assets/04_LogResolver.png" alt="04_LogResolver"></p>
+<p>LogResolver 接口目前提供了2个实现类：PatternLogResolver 、JsonLogResolver 分别返回 PatternLogger 和 JsonLogger。</p>
+<p><img src="skywalking-java.assets/image-20211229175825282.png" alt="image-20211229175825282"></p>
+<h4 id="ILog-接口的实现类"><a href="#ILog-接口的实现类" class="headerlink" title="ILog 接口的实现类"></a>ILog 接口的实现类</h4><p><img src="skywalking-java.assets/image-20211129180301956.png" alt="image-20211129180301956"></p>
+<ul>
+<li><p>NoopLogger 枚举<br>NoopLogger 直接继承了 ILog，NoopLogger 只是实现了 ILog 接口，所有方法都是空实现，NoopLogger 存在的意义是为了防止 NullPointerException，因为调用者可以通过 LogManager 的 setLogResolver 方法设置不同的日志解析器 LogResolver，如果为null，则返回 ILog 接口的默认实现 NoopLogger。</p>
+</li>
+<li><p>AbstractLogger 抽象类</p>
+<ul>
+<li>PatternLogger</li>
+<li>JsonLogger</li>
+</ul>
+</li>
+</ul>
+<h4 id="AbstractLogger"><a href="#AbstractLogger" class="headerlink" title="AbstractLogger"></a>AbstractLogger</h4><p>AbstractLogger 抽象类是为了简化 ILog 接口的具体实现，主要功能：</p>
+<ol>
+<li>它持有logger类名 targetClass；</li>
+<li>负责日志级别检查；</li>
+<li>解析用户输入的 message，将{}替换为对应的参数值；</li>
+<li>提供格式化日志内容的抽象方法，需要具体子类实现，目前支持 pattern 和 json 两种，默认为pattern。</li>
+</ol>
+<p>输出的日志格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%level %timestamp %thread %class : %msg %throwable</span><br></pre></td></tr></table></figure></p>
+<p>每一项代表的意义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">%level 日志级别.</span><br><span class="line">%timestamp 时间戳 yyyy-MM-dd HH:mm:ss:SSS 格式.</span><br><span class="line">%thread 线程名.</span><br><span class="line">%msg 用户指定的日志信息.</span><br><span class="line">%class 类名.</span><br><span class="line">%throwable 异常信息.</span><br><span class="line">%agent_name agent名称.</span><br></pre></td></tr></table></figure></p>
+<p>对于日志格式中的每一项， SkyWalking Java Agent 分别提供了对应的转换器解析，比如 ThreadConverter、LevelConverter 等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An abstract class to simplify the real implementation of the loggers.</span></span><br><span class="line"><span class="comment"> * It hold the class name of the logger, and is responsible for log level check,</span></span><br><span class="line"><span class="comment"> * message interpolation, etc.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractLogger</span> <span class="keyword">implements</span> <span class="title">ILog</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;String, Class&lt;? extends Converter&gt;&gt; DEFAULT_CONVERTER_MAP = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">protected</span> List&lt;Converter&gt; converters = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        DEFAULT_CONVERTER_MAP.put(<span class="string">"thread"</span>, ThreadConverter.class);</span><br><span class="line">        DEFAULT_CONVERTER_MAP.put(<span class="string">"level"</span>, LevelConverter.class);</span><br><span class="line">        DEFAULT_CONVERTER_MAP.put(<span class="string">"agent_name"</span>, AgentNameConverter.class);</span><br><span class="line">        DEFAULT_CONVERTER_MAP.put(<span class="string">"timestamp"</span>, DateConverter.class);</span><br><span class="line">        DEFAULT_CONVERTER_MAP.put(<span class="string">"msg"</span>, MessageConverter.class);</span><br><span class="line">        DEFAULT_CONVERTER_MAP.put(<span class="string">"throwable"</span>, ThrowableConverter.class);</span><br><span class="line">        DEFAULT_CONVERTER_MAP.put(<span class="string">"class"</span>, ClassConverter.class);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 省略部分代码....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="skywalking-java.assets/05_AbstractLogger.png" alt="05_AbstractLogger"></p>
+<p>比如 ThreadConverter 类用于解析 %thread 输出当前线程的 name。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Just return the Thread.currentThread().getName()</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadConverter</span> <span class="keyword">implements</span> <span class="title">Converter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">convert</span><span class="params">(LogEvent logEvent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Thread.currentThread().getName();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"thread"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="skywalking-java.assets/06_ThreadConverter.png" alt="06_ThreadConverter"></p>
+<h4 id="日志格式化-format"><a href="#日志格式化-format" class="headerlink" title="日志格式化 format"></a>日志格式化 format</h4><p>AbstractLogger 类实现了 ILog 接口，实现了打印日志方法，最终都调用了下面这个通用的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">logger</span><span class="params">(LogLevel level, String message, Throwable e)</span> </span>&#123;</span><br><span class="line">    WriterFactory.getLogWriter().write(<span class="keyword">this</span>.format(level, message, e));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 logger 方法内部调用了 format 方法，format  是一个抽象方法，留给子类去实现日志输出的格式，返回字符串的字符串将输出到文件或标准输出。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The abstract method left for real loggers.</span></span><br><span class="line"><span class="comment"> * Any implementation MUST return string, which will be directly transferred to log destination,</span></span><br><span class="line"><span class="comment"> * i.e. log files OR stdout</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> level log level</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> message log message, which has been interpolated with user-defined parameters.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> e throwable if exists</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> string representation of the log, for example, raw json string for &#123;<span class="doctag">@link</span> JsonLogger&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> String <span class="title">format</span><span class="params">(LogLevel level, String message, Throwable e)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><img src="skywalking-java.assets/07_format.png" alt="07_format"></p>
+<p>抽象类对接口中的方法做了实现，每个实现中都调用了一个抽象方法，这个抽象方法让子类来实现具体的业务逻辑。</p>
+<p>下面是 AbstractLogger  抽象类其中一个实现类 PatternLogger 类对 format 方法的实现，调用转换器相应的 Converter ，将日志拼接成字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> String <span class="title">format</span><span class="params">(LogLevel level, String message, Throwable t)</span> </span>&#123;</span><br><span class="line">    LogEvent logEvent = <span class="keyword">new</span> LogEvent(level, message, t, targetClass);</span><br><span class="line">    StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">for</span> (Converter converter : <span class="keyword">this</span>.converters) &#123;</span><br><span class="line">        stringBuilder.append(converter.convert(logEvent));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> stringBuilder.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPattern</span><span class="params">(String pattern)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (StringUtil.isEmpty(pattern)) &#123;</span><br><span class="line">        pattern = DEFAULT_PATTERN;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.pattern = pattern;</span><br><span class="line">    <span class="keyword">this</span>.converters = <span class="keyword">new</span> Parser(pattern, DEFAULT_CONVERTER_MAP).parse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="skywalking-java.assets/08_format_impl.png" alt="08_format_impl"></p>
+<p>PatternLogger 将日志格式 pattern 转换成对应的转换器 Converter 是在 PatternLogger.setPattern 方法实现的，内部调用了 Parser.parse 方法，具体实现参见 Parser 类源码。</p>
+<h4 id="WriterFactory"><a href="#WriterFactory" class="headerlink" title="WriterFactory"></a>WriterFactory</h4><p>日志已经拼装完毕，接下来就该将日志内容输出到指定的位置，WriterFactory 工厂类就是负责创建 IWriter 接口的实现类，用于将日志信息写入到目的地。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IWriter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="skywalking-java.assets/09_IWriter.png" alt="09_IWriter"></p>
+<p>IWriter 接口有2种实现 FileWriter 和 SystemOutWriter</p>
+<ul>
+<li><p>FileWriter：使用一个阻塞队列 ArrayBlockingQueue 作为缓冲，线程池 ScheduledExecutorService 异步从队列中取出日志信息，使用 FileOutputStream 将日志信息写入日志文件中，典型的生产者-消费者模式；</p>
+</li>
+<li><p>SystemOutWriter：将日志信息输出到控制台；</p>
+<p><img src="skywalking-java.assets/image-20211229175937939.png" alt="image-20211229175937939"></p>
+</li>
+</ul>
+<h4 id="FileWriter-工作原理"><a href="#FileWriter-工作原理" class="headerlink" title="FileWriter 工作原理"></a>FileWriter 工作原理</h4><p>下面我们看下 FileWriter 是如何将日志写入日志文件的</p>
+<p><img src="skywalking-java.assets/image-20211229180148963.png" alt="image-20211229180148963"></p>
+<ul>
+<li><p>FileWriter 负责将日志信息写入 ArrayBlockingQueue 队列中</p>
+</li>
+<li><p>ScheduledExecutorService 定时任务<br>a）每秒从 ArrayBlockingQueue 取出所有日志信息，写入到文件中；<br>b）判断文件大小是否超过最大值Config.Logging.MAX_FILE_SIZE；<br>c）如果超过最大值将当前文件重命名。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Write log to the queue. W/ performance trade off.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> message to log</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">    logBuffer.offer(message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="skywalking-java.assets/10_write.png" alt="10_write"></p>
+<h4 id="日志组件涉及到的设计模式："><a href="#日志组件涉及到的设计模式：" class="headerlink" title="日志组件涉及到的设计模式："></a>日志组件涉及到的设计模式：</h4><ul>
+<li>工厂模式</li>
+<li>单例模式（懒汉模式、枚举类）</li>
+<li>生产者-消费者模式</li>
+</ul>
+<p>好了，今天的内容就到这里了，看完之后自己是否也能模仿写一个日志组件呢</p>
+<p><a href="https://github.com/apache/skywalking-java" target="_blank" rel="noopener">SkyWalking Java Agent 源码</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/26/jvm-gc/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -336,32 +536,38 @@
 <img src="/2021/11/26/jvm-gc/gc.png" title="垃圾收集器">
 <p>新生代垃圾收集器</p>
 <ul>
-<li><p>Serial<br>单线程，复制算法，简单高效，没有线程交互开销。<br>垃圾收集时，必须暂停其他所有工作线程（Stop The World），直到它收集结束。<br>Java 虚拟机在 Client 模式下新生代的默认垃圾收集器。</p>
+<li><p>Serial<br>单线程，复制算法，简单高效，没有线程交互开销。<br>垃圾收集时，必须暂停其他所有用户线程（Stop The World），直到它收集结束。<br>Java 虚拟机在 Client 模式下新生代的默认垃圾收集器。</p>
 </li>
-<li><p>ParNew<br>多线程，复制算法。ParNew 垃圾收集器是 Serial 垃圾收集器的多线程实现，它采用多线程模式工作，其他和 Serial 几乎一样。</p>
-<p>除了 Serial 收集器外，目前只有它能与 CMS 收集器配合工作。</p>
+<li><p>ParNew<br>多线程，复制算法。ParNew 垃圾收集器是 Serial 垃圾收集器的多线程实现，它采用多线程模式工作，其他和 Serial 几乎一样。<br>除了 Serial 收集器外，目前只有它能与 CMS 收集器配合工作。</p>
 </li>
-<li><p>Parallel Scavenge<br>多线程，复制算法，Java8 默认的垃圾收集器。</p>
-<p>吞吐量优先的垃圾收集器，主要适合在后台运算而不需要太多交互的分析任务。</p>
+<li><p>Parallel Scavenge<br>多线程，复制算法，Java8 默认的垃圾收集器。<br>吞吐量优先的垃圾收集器，主要适合在后台运算而不需要太多交互的分析任务。</p>
+<p>自适应调节策略（GC Ergonomics），不需要指定新生代大小（-Xmn）、Eden 与 Survivor 的比例（-XX:SurvivorRatio）、晋升老年代对象大小（-XX:PretenureSizeThreshold）等细节参数，虚拟机会动态调整这些参数以提供最合适的停顿时间或者最大吞吐量。</p>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stop The World （STW）由虚拟机在后台自动发起自动完成的，在用户不可知、不可控的情况下把用户的正常工作线程全部停掉，这对很多应用来说是不可接受的。</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stop The World （STW）由虚拟机在后台自动发起自动完成的，在用户不可知、不可控的情况下把用户的正常用户线程全部停掉，这对很多应用来说是不可接受的。</span><br></pre></td></tr></table></figure>
 <p>老年代垃圾收集器</p>
 <ul>
 <li>Serial Old<br>单线程，标记整理算法<br>Java 虚拟机在 Client 模式下老年代的默认垃圾收集器。</li>
-<li>Parallel Old<br>多线程，标记整理算法；<br>Parallel Old 垃圾收集器优先考虑系统吞吐量，其次考虑停顿时间等因素；<br>新生代 Parallel Scavenge + 老年代 Parallel Old 配合使用。</li>
+<li>Parallel Old<br>多线程，标记整理算法，Parallel Scavenge 的老年代版本。<br>Parallel Old 垃圾收集器优先考虑系统吞吐量，其次考虑停顿时间等因素；<br>Parallel Old 在JDK6开始提供，<br>新生代 Parallel Scavenge + 老年代 Parallel Old 配合使用。</li>
 </ul>
 <ul>
-<li><p>CMS（Concurrent Mark Sweep）</p>
-<p>第一款实际意义上支持并发的垃圾收集器，它首次实现了让垃圾收集线程和用户线程（基本上）同时工作。</p>
-<p>标记清除算法，关注点是尽可能缩短用户线程的停顿时间，停顿时间越短越适合需要与用户交互或需要保证服务响应质量的程序。</p>
-<p>①初始标记：只标记和 GC Roots 直接关联的的对象，速度快，需要暂停所有工作线程；<br>②并发标记：和用户线程一起工作，执行，不需要暂停工作线程；<br>③重新标记：在并发标记过程中用户线程继续运行，导致垃圾收集过程中部分对象的状态发生了变化，为了确保这部分对象的状态的正确性，需要重新标记并暂停工作线程。<br>③并发清除：和用户线程一起工作，执行清除 GC Roots 不可达对象的任务，不需要暂停工作线程。</p>
-<p>初始标记和重新标记阶段会暂停工作线程，</p>
+<li><p>CMS（Concurrent Mark Sweep）<br>第一款实际意义上支持并发的垃圾收集器，它首次实现了让垃圾收集线程和用户线程（基本上）同时工作。</p>
+<p>标记清除算法，关注点是尽可能缩短用户线程的停顿时间，停顿时间越短越适合需要与用户交互或需要保证服务响应质量的程序，适合互联网应用的服务端。</p>
+<p>①初始标记（CMS initial mark）：只标记和 GC Roots 能直接关联到的对象，速度很快，需要暂停所有用户线程；</p>
+<p>②并发标记（CMS concurrent mark）：从 GC Roots 的直接关联对象开始遍历整个对象图的过程，耗时较长单不需要暂停用户线程；<br>③重新标记（CMS remark）：在并发标记过程中用户线程继续运行，导致垃圾收集过程中部分对象的状态发生了变化，为了确保这部分对象的状态的正确性，需要重新标记并暂停用户线程。</p>
+<p>④并发清除（CMS concurrent sweep）：和用户线程一起工作，清理删除掉标记阶段判断的可以回收的对象，不需要暂停用户线程。</p>
+<p>初始标记和重新标记阶段会暂停用户线程，但速度很快；<br>并发标记和并发清除不需要暂停用户线程，有效地缩短了垃圾回收时系统的停顿时间；<br>从总体上来说，CMS收集器回收过程是与用户线程一起并发执行的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">老年代使用CMS，新生代使用ParNew（-XX:+/-UseParNewGC来强制指定或者禁用它），新生代也可以使用 Serial 收集器。</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>G1（G First）</p>
-<p>多线程标记整理算法<br>G1 是一个面向全堆的收集器，不需要其他新生代收集器的配合工作，自JDK9开始，ParNew + CMS 收集器的组合不再是官方推荐的服务端模式下的收集器解决方案了，官方希望它能完全被 G1 所取代，甚至取消了 ParNew + Serial Old 以及 Serial + CMS 组合了的支持（很少有人这么用）。只剩下 ParNew + CMS 互相搭配使用。</p>
+<p>  要是CMS运行</p>
+<p>G1（Garbage First）<br>多线程标记整理算法。</p>
+<p>G1 是一个面向全堆的收集器，不需要其他新生代收集器的配合工作，自JDK9开始，ParNew + CMS 收集器的组合不再是官方推荐的服务端模式下的收集器解决方案了，官方希望它能完全被 G1 所取代，甚至取消了 ParNew + Serial Old 以及 Serial + CMS 组合了的支持（很少有人这么用）。只剩下 ParNew + CMS 互相搭配使用。</p>
+<p>相较于CMS垃圾收集器，G1收集器的两个突出的改进：</p>
+<ul>
+<li>基于标记整理算法，不产生内存碎片；</li>
+<li>可以精确地控制停顿时间，在不牺牲吐吞量的前提下，实现短停顿的垃圾回收。</li>
+</ul>
 <p>垃圾收集器中的并行与并发</p>
 <p>并行（Parallel）：并行描述的是多条垃圾收集器线程之间的关系，说明同一时间有多条这样的线程在协同工作，通常默认此时用户线程是处理等待状态，程序无法响应服务请求。</p>
 <p>并发（Concurrent）：并发描述的是垃圾收集器线程与用户线程之间的关系，说明同一时间垃圾收集器线程与用户线程都在运行。用户线程仍在运行，所以程序仍然能响应服务请求，由于垃圾收集器线程占用了一部分系统资源，此时应用程序的处理的吞吐量将受到一定的影响。</p>
@@ -1557,128 +1763,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/18/blog-list/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/06/18/blog-list/" itemprop="url">blog-list</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-18T14:01:33+08:00">
-                2021-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="优秀博客收集"><a href="#优秀博客收集" class="headerlink" title="优秀博客收集"></a>优秀博客收集</h4><p><a href="https://www.cnblogs.com/teach/p/14854733.html" target="_blank" rel="noopener">北漂程序员</a>，大量关于Java技术和面试题<br><a href="https://www.cnblogs.com/java-chen-hao/category/1587029.html" target="_blank" rel="noopener">chen_hao</a> 源码分析系列<br><a href="https://cloud.tencent.com/developer/user/1344757" target="_blank" rel="noopener">Java技术栈</a><br><a href="https://javakk.com/188.html" target="_blank" rel="noopener">老K的Java博客</a><br><a href="https://man.linuxde.net/" target="_blank" rel="noopener">Linux命令大全</a></p>
-<p><a href="http://matt33.com/" target="_blank" rel="noopener">柳年思水</a></p>
-<p><a href="https://github.com/gg-daddy/ebooks" target="_blank" rel="noopener">技术电子书</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1729,7 +1813,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">107</span>
+                  <span class="site-state-item-count">108</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

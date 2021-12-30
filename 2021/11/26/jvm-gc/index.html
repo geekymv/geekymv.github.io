@@ -87,7 +87,7 @@
 <meta property="og:description" content="垃圾收集器 Java堆内存分为新生代和老年代，新生代主要存储短生命周期的对象，适合使用复制算法进行垃圾回收；老年代主要存储长生命周期的对象，适合使用标记整理算法进行垃圾回收。 JVM针对新生代和老年代分别提供了不同的垃圾收集器。新生代垃圾收集器有Serial、ParNew 和 Parallel Scavenge，老年代垃圾收集器有 Serial Old、Parallel Old、CMS，还有针对不">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2021/11/26/jvm-gc/gc.png">
-<meta property="og:updated_time" content="2021-11-26T08:18:11.726Z">
+<meta property="og:updated_time" content="2021-11-26T09:17:18.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm-gc">
 <meta name="twitter:description" content="垃圾收集器 Java堆内存分为新生代和老年代，新生代主要存储短生命周期的对象，适合使用复制算法进行垃圾回收；老年代主要存储长生命周期的对象，适合使用标记整理算法进行垃圾回收。 JVM针对新生代和老年代分别提供了不同的垃圾收集器。新生代垃圾收集器有Serial、ParNew 和 Parallel Scavenge，老年代垃圾收集器有 Serial Old、Parallel Old、CMS，还有针对不">
@@ -337,32 +337,38 @@
 <img src="/2021/11/26/jvm-gc/gc.png" title="垃圾收集器">
 <p>新生代垃圾收集器</p>
 <ul>
-<li><p>Serial<br>单线程，复制算法，简单高效，没有线程交互开销。<br>垃圾收集时，必须暂停其他所有工作线程（Stop The World），直到它收集结束。<br>Java 虚拟机在 Client 模式下新生代的默认垃圾收集器。</p>
+<li><p>Serial<br>单线程，复制算法，简单高效，没有线程交互开销。<br>垃圾收集时，必须暂停其他所有用户线程（Stop The World），直到它收集结束。<br>Java 虚拟机在 Client 模式下新生代的默认垃圾收集器。</p>
 </li>
-<li><p>ParNew<br>多线程，复制算法。ParNew 垃圾收集器是 Serial 垃圾收集器的多线程实现，它采用多线程模式工作，其他和 Serial 几乎一样。</p>
-<p>除了 Serial 收集器外，目前只有它能与 CMS 收集器配合工作。</p>
+<li><p>ParNew<br>多线程，复制算法。ParNew 垃圾收集器是 Serial 垃圾收集器的多线程实现，它采用多线程模式工作，其他和 Serial 几乎一样。<br>除了 Serial 收集器外，目前只有它能与 CMS 收集器配合工作。</p>
 </li>
-<li><p>Parallel Scavenge<br>多线程，复制算法，Java8 默认的垃圾收集器。</p>
-<p>吞吐量优先的垃圾收集器，主要适合在后台运算而不需要太多交互的分析任务。</p>
+<li><p>Parallel Scavenge<br>多线程，复制算法，Java8 默认的垃圾收集器。<br>吞吐量优先的垃圾收集器，主要适合在后台运算而不需要太多交互的分析任务。</p>
+<p>自适应调节策略（GC Ergonomics），不需要指定新生代大小（-Xmn）、Eden 与 Survivor 的比例（-XX:SurvivorRatio）、晋升老年代对象大小（-XX:PretenureSizeThreshold）等细节参数，虚拟机会动态调整这些参数以提供最合适的停顿时间或者最大吞吐量。</p>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stop The World （STW）由虚拟机在后台自动发起自动完成的，在用户不可知、不可控的情况下把用户的正常工作线程全部停掉，这对很多应用来说是不可接受的。</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stop The World （STW）由虚拟机在后台自动发起自动完成的，在用户不可知、不可控的情况下把用户的正常用户线程全部停掉，这对很多应用来说是不可接受的。</span><br></pre></td></tr></table></figure>
 <p>老年代垃圾收集器</p>
 <ul>
 <li>Serial Old<br>单线程，标记整理算法<br>Java 虚拟机在 Client 模式下老年代的默认垃圾收集器。</li>
-<li>Parallel Old<br>多线程，标记整理算法；<br>Parallel Old 垃圾收集器优先考虑系统吞吐量，其次考虑停顿时间等因素；<br>新生代 Parallel Scavenge + 老年代 Parallel Old 配合使用。</li>
+<li>Parallel Old<br>多线程，标记整理算法，Parallel Scavenge 的老年代版本。<br>Parallel Old 垃圾收集器优先考虑系统吞吐量，其次考虑停顿时间等因素；<br>Parallel Old 在JDK6开始提供，<br>新生代 Parallel Scavenge + 老年代 Parallel Old 配合使用。</li>
 </ul>
 <ul>
-<li><p>CMS（Concurrent Mark Sweep）</p>
-<p>第一款实际意义上支持并发的垃圾收集器，它首次实现了让垃圾收集线程和用户线程（基本上）同时工作。</p>
-<p>标记清除算法，关注点是尽可能缩短用户线程的停顿时间，停顿时间越短越适合需要与用户交互或需要保证服务响应质量的程序。</p>
-<p>①初始标记：只标记和 GC Roots 直接关联的的对象，速度快，需要暂停所有工作线程；<br>②并发标记：和用户线程一起工作，执行，不需要暂停工作线程；<br>③重新标记：在并发标记过程中用户线程继续运行，导致垃圾收集过程中部分对象的状态发生了变化，为了确保这部分对象的状态的正确性，需要重新标记并暂停工作线程。<br>③并发清除：和用户线程一起工作，执行清除 GC Roots 不可达对象的任务，不需要暂停工作线程。</p>
-<p>初始标记和重新标记阶段会暂停工作线程，</p>
+<li><p>CMS（Concurrent Mark Sweep）<br>第一款实际意义上支持并发的垃圾收集器，它首次实现了让垃圾收集线程和用户线程（基本上）同时工作。</p>
+<p>标记清除算法，关注点是尽可能缩短用户线程的停顿时间，停顿时间越短越适合需要与用户交互或需要保证服务响应质量的程序，适合互联网应用的服务端。</p>
+<p>①初始标记（CMS initial mark）：只标记和 GC Roots 能直接关联到的对象，速度很快，需要暂停所有用户线程；</p>
+<p>②并发标记（CMS concurrent mark）：从 GC Roots 的直接关联对象开始遍历整个对象图的过程，耗时较长单不需要暂停用户线程；<br>③重新标记（CMS remark）：在并发标记过程中用户线程继续运行，导致垃圾收集过程中部分对象的状态发生了变化，为了确保这部分对象的状态的正确性，需要重新标记并暂停用户线程。</p>
+<p>④并发清除（CMS concurrent sweep）：和用户线程一起工作，清理删除掉标记阶段判断的可以回收的对象，不需要暂停用户线程。</p>
+<p>初始标记和重新标记阶段会暂停用户线程，但速度很快；<br>并发标记和并发清除不需要暂停用户线程，有效地缩短了垃圾回收时系统的停顿时间；<br>从总体上来说，CMS收集器回收过程是与用户线程一起并发执行的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">老年代使用CMS，新生代使用ParNew（-XX:+/-UseParNewGC来强制指定或者禁用它），新生代也可以使用 Serial 收集器。</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>G1（G First）</p>
-<p>多线程标记整理算法<br>G1 是一个面向全堆的收集器，不需要其他新生代收集器的配合工作，自JDK9开始，ParNew + CMS 收集器的组合不再是官方推荐的服务端模式下的收集器解决方案了，官方希望它能完全被 G1 所取代，甚至取消了 ParNew + Serial Old 以及 Serial + CMS 组合了的支持（很少有人这么用）。只剩下 ParNew + CMS 互相搭配使用。</p>
+<p>  要是CMS运行</p>
+<p>G1（Garbage First）<br>多线程标记整理算法。</p>
+<p>G1 是一个面向全堆的收集器，不需要其他新生代收集器的配合工作，自JDK9开始，ParNew + CMS 收集器的组合不再是官方推荐的服务端模式下的收集器解决方案了，官方希望它能完全被 G1 所取代，甚至取消了 ParNew + Serial Old 以及 Serial + CMS 组合了的支持（很少有人这么用）。只剩下 ParNew + CMS 互相搭配使用。</p>
+<p>相较于CMS垃圾收集器，G1收集器的两个突出的改进：</p>
+<ul>
+<li>基于标记整理算法，不产生内存碎片；</li>
+<li>可以精确地控制停顿时间，在不牺牲吐吞量的前提下，实现短停顿的垃圾回收。</li>
+</ul>
 <p>垃圾收集器中的并行与并发</p>
 <p>并行（Parallel）：并行描述的是多条垃圾收集器线程之间的关系，说明同一时间有多条这样的线程在协同工作，通常默认此时用户线程是处理等待状态，程序无法响应服务请求。</p>
 <p>并发（Concurrent）：并发描述的是垃圾收集器线程与用户线程之间的关系，说明同一时间垃圾收集器线程与用户线程都在运行。用户线程仍在运行，所以程序仍然能响应服务请求，由于垃圾收集器线程占用了一部分系统资源，此时应用程序的处理的吞吐量将受到一定的影响。</p>
@@ -423,6 +429,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/29/skywalking-java/" rel="prev" title="skywalking-java">
+                skywalking-java <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -493,7 +503,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">107</span>
+                  <span class="site-state-item-count">108</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
