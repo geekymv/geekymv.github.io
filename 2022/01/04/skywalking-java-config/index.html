@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SkyWalking Java Agent 配置初始化流程分析上一篇文章我们通过 SkyWalking Java Agent 日志组件分析一文详细介绍了日志相关的底层实现原理，今天我们要正式进入 premain 方法了，premain 方法见名知义就是在我们 Java 程序的 main 方法之前运行的方法，一般我们通过 JVM 参数 -javaagent:/path/to/skywalking-a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="skywalking-java-config">
+<meta property="og:url" content="http://yoursite.com/2022/01/04/skywalking-java-config/index.html">
+<meta property="og:site_name" content="geekymv">
+<meta property="og:description" content="SkyWalking Java Agent 配置初始化流程分析上一篇文章我们通过 SkyWalking Java Agent 日志组件分析一文详细介绍了日志相关的底层实现原理，今天我们要正式进入 premain 方法了，premain 方法见名知义就是在我们 Java 程序的 main 方法之前运行的方法，一般我们通过 JVM 参数 -javaagent:/path/to/skywalking-a">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2022/01/04/skywalking-java-config/skywalking-agent.png">
+<meta property="og:updated_time" content="2022-01-07T02:27:34.185Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="skywalking-java-config">
+<meta name="twitter:description" content="SkyWalking Java Agent 配置初始化流程分析上一篇文章我们通过 SkyWalking Java Agent 日志组件分析一文详细介绍了日志相关的底层实现原理，今天我们要正式进入 premain 方法了，premain 方法见名知义就是在我们 Java 程序的 main 方法之前运行的方法，一般我们通过 JVM 参数 -javaagent:/path/to/skywalking-a">
+<meta name="twitter:image" content="http://yoursite.com/2022/01/04/skywalking-java-config/skywalking-agent.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2022/01/04/skywalking-java-config/">
+
+
+
+
+
+  <title>skywalking-java-config | geekymv</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">geekymv</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Do one thing, do it well.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/01/04/skywalking-java-config/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">skywalking-java-config</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-04T08:47:28+08:00">
+                2022-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>SkyWalking Java Agent 配置初始化流程分析<br>上一篇文章我们通过 SkyWalking Java Agent 日志组件分析一文详细介绍了日志相关的底层实现原理，今天我们要正式进入 premain 方法了，<br>premain 方法见名知义就是在我们 Java 程序的 main 方法之前运行的方法，一般我们通过 JVM 参数 -javaagent:/path/to/skywalking-agent.jar 的方式指定代理程序。<br>java agent 相关内容不是本文重点，更多内容请参考文末相关阅读连接。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The main entrance of sky-walking agent, based on javaagent mechanism.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkyWalkingAgent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ILog LOGGER = LogManager.getLogger(SkyWalkingAgent.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Main entrance. Use byte-buddy transform to enhance all classes, which define in plugins.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">premain</span><span class="params">(String agentArgs, Instrumentation instrumentation)</span> <span class="keyword">throws</span> PluginException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> PluginFinder pluginFinder;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            SnifferConfigInitializer.initializeCoreConfig(agentArgs);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">// try to resolve a new logger, and use the new logger to write the error log here</span></span><br><span class="line">            LogManager.getLogger(SkyWalkingAgent.class)</span><br><span class="line">                    .error(e, <span class="string">"SkyWalking agent initialized failure. Shutting down."</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// refresh logger again after initialization finishes</span></span><br><span class="line">            LOGGER = LogManager.getLogger(SkyWalkingAgent.class);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 省略部分代码....</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 省略部分代码....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>今天我们要重点分析的就是这行代码的内部实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SnifferConfigInitializer.initializeCoreConfig(agentArgs);</span><br></pre></td></tr></table></figure></p>
+<p>SnifferConfigInitializer 类使用多种方式初始化配置，内部实现有以下几个重要步骤：</p>
+<p>loadConfig() 加载配置文件<br>replacePlaceholders() 解析 placeholder<br>overrideConfigBySystemProp() 读取 System.Properties 属性<br>overrideConfigByAgentOptions() 解析 agentArgs 参数配置<br>initializeConfig() 将以上读取到的配置信息映射到 Config 类的静态属性<br>configureLogger() 根据配置的 Config.Logging.RESOLVER 重配置 Log，更多关于日志参见文章<br>验证非空参数 agent.service_name 和 collector.servers。</p>
+<ol>
+<li>从指定的配置文件路径读取配置文件内容，通过 -Dskywalking_config=/xxx/yyy 指定配置文件位置；</li>
+<li>如果没有指定配置文件路径，则从默认配置文件 config/agent.config 读取；</li>
+<li><p>将配置文件内容加载到 Properties；</p>
+</li>
+<li><p>从系统属性读取配置覆盖配置；</p>
+</li>
+<li><p>解析 agentArgs 覆盖配置；</p>
+</li>
+<li><p>将配置信息映射到 Config 类的静态属性；</p>
+</li>
+<li><p>必填参数验证。</p>
+</li>
+</ol>
+<h4 id="定位-skywalking-agent-jar-所在目录"><a href="#定位-skywalking-agent-jar-所在目录" class="headerlink" title="定位 skywalking-agent.jar 所在目录"></a>定位 skywalking-agent.jar 所在目录</h4><p>读取默认配置文件，以及后面加载插件都需要用到 SkyWalking agent.jar 所在目录<br>skywalking-agent 目录结构如下：</p>
+<img src="/2022/01/04/skywalking-java-config/skywalking-agent.png" title="skywalking-agent">
+<p>config 目录存放的是 agent.config 配置文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Load the specified config file or default config file</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the config file &#123;<span class="doctag">@link</span> InputStream&#125;, or null if not needEnhance.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> InputStreamReader <span class="title">loadConfig</span><span class="params">()</span> <span class="keyword">throws</span> AgentPackageNotFoundException, ConfigNotFoundException </span>&#123;</span><br><span class="line">    <span class="comment">// System.getProperty() 读取 Java 虚拟机中的系统属性, Java 虚拟机中的系统属性在运行Java程序的时候通过 java -Dk1=v1 配置.</span></span><br><span class="line">    String specifiedConfigPath = System.getProperty(SPECIFIED_CONFIG_PATH);</span><br><span class="line">    <span class="comment">// 使用指定的配置文件或默认的配置文件, AgentPackagePath.getPath() 获取 skywalking-agent.jar 所在目录</span></span><br><span class="line">    File configFile = StringUtil.isEmpty(specifiedConfigPath) ? <span class="keyword">new</span> File(</span><br><span class="line">        AgentPackagePath.getPath(), DEFAULT_CONFIG_FILE_NAME) : <span class="keyword">new</span> File(specifiedConfigPath);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (configFile.exists() &amp;&amp; configFile.isFile()) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            LOGGER.info(<span class="string">"Config file found in &#123;&#125;."</span>, configFile);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> InputStreamReader(<span class="keyword">new</span> FileInputStream(configFile), StandardCharsets.UTF_8);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ConfigNotFoundException(<span class="string">"Failed to load agent.config"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> ConfigNotFoundException(<span class="string">"Failed to load agent.config."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>new File(AgentPackagePath.getPath(), DEFAULT_CONFIG_FILE_NAME) 定位默认配置文件的位置，<br>AgentPackagePath.getPath() 方法用来获取 skywalking-agent.jar 所在目录，其中涉及到一些的字符串操作，大家对这部分感兴趣的可以看源码研究。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * AgentPackagePath is a flag and finder to locate the SkyWalking agent.jar. It gets the absolute path of the agent jar.</span></span><br><span class="line"><span class="comment"> * The path is the required metadata for agent core looking up the plugins and toolkit activations. If the lookup</span></span><br><span class="line"><span class="comment"> * mechanism fails, the agent will exit directly.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AgentPackagePath</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ILog LOGGER = LogManager.getLogger(AgentPackagePath.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> File AGENT_PACKAGE_PATH;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> File <span class="title">getPath</span><span class="params">()</span> <span class="keyword">throws</span> AgentPackageNotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (AGENT_PACKAGE_PATH == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 返回 skywalking-agent.jar 文件所在的目录 E:\develop\source\sample\source\skywalking-java\skywalking-agent</span></span><br><span class="line">            AGENT_PACKAGE_PATH = findPath();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> AGENT_PACKAGE_PATH;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isPathFound</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> AGENT_PACKAGE_PATH != <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> File <span class="title">findPath</span><span class="params">()</span> <span class="keyword">throws</span> AgentPackageNotFoundException </span>&#123;</span><br><span class="line">        <span class="comment">// 将 AgentPackagePath 全类名中的.替换成 /</span></span><br><span class="line">        <span class="comment">// org/apache/skywalking/apm/agent/core/boot/AgentPackagePath.class</span></span><br><span class="line">        String classResourcePath = AgentPackagePath.class.getName().replaceAll(<span class="string">"\\."</span>, <span class="string">"/"</span>) + <span class="string">".class"</span>;</span><br><span class="line">        <span class="comment">// 使用 AppClassLoader 加载资源，通常情况下 AgentPackagePath 类是被 AppClassLoader 加载的。</span></span><br><span class="line">        URL resource = ClassLoader.getSystemClassLoader().getResource(classResourcePath);</span><br><span class="line">        <span class="keyword">if</span> (resource != <span class="keyword">null</span>) &#123;</span><br><span class="line">            String urlString = resource.toString();</span><br><span class="line">            <span class="comment">//jar:file:/E:/source/skywalking-java/skywalking-agent/skywalking-agent.jar!/org/apache/skywalking/apm/agent/core/boot/AgentPackagePath.class</span></span><br><span class="line">            LOGGER.debug(<span class="string">"The beacon class location is &#123;&#125;."</span>, urlString);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 判断 url 中是否包含!，如果包含则说明 AgentPackagePath.class 是包含在jar中。</span></span><br><span class="line">            <span class="keyword">int</span> insidePathIndex = urlString.indexOf(<span class="string">'!'</span>);</span><br><span class="line">            <span class="keyword">boolean</span> isInJar = insidePathIndex &gt; -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (isInJar) &#123;</span><br><span class="line">                <span class="comment">// file:/E:/source/skywalking-java/skywalking-agent/skywalking-agent.jar</span></span><br><span class="line">                urlString = urlString.substring(urlString.indexOf(<span class="string">"file:"</span>), insidePathIndex);</span><br><span class="line">                File agentJarFile = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// E:\source\skywalking-java\skywalking-agent\skywalking-agent.jar</span></span><br><span class="line">                    agentJarFile = <span class="keyword">new</span> File(<span class="keyword">new</span> URL(urlString).toURI());</span><br><span class="line">                &#125; <span class="keyword">catch</span> (MalformedURLException | URISyntaxException e) &#123;</span><br><span class="line">                    LOGGER.error(e, <span class="string">"Can not locate agent jar file by url:"</span> + urlString);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (agentJarFile.exists()) &#123;</span><br><span class="line">                    <span class="comment">// 返回 skywalking-agent.jar 文件所在的目录</span></span><br><span class="line">                    <span class="keyword">return</span> agentJarFile.getParentFile();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> prefixLength = <span class="string">"file:"</span>.length();</span><br><span class="line">                String classLocation = urlString.substring(</span><br><span class="line">                    prefixLength, urlString.length() - classResourcePath.length());</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> File(classLocation);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        LOGGER.error(<span class="string">"Can not locate agent jar file."</span>);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AgentPackageNotFoundException(<span class="string">"Can not locate agent jar file."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="配置优先级-Setting-override-md"><a href="#配置优先级-Setting-override-md" class="headerlink" title="配置优先级 Setting-override.md"></a>配置优先级 Setting-override.md</h4><p>Agent Options &gt; System.Properties(-D) &gt; System environment variables &gt; Config file</p>
+<p>System.getProperties() 和 System.getenv() 区别</p>
+<p>System.getProperties() 获取 Java 虚拟机相关的系统属性（比如 java.version、 java.io.tmpdir 等），通过 java -D配置；<br>System.getenv() 获取系统环境变量（比如 JAVA_HOME、Path 等），通过操作系统配置。</p>
+<p>请参考 <a href="https://www.cnblogs.com/clarke157/p/6609761.html" target="_blank" rel="noopener">https://www.cnblogs.com/clarke157/p/6609761.html</a></p>
+<h4 id="将配置信息映射到-Config-类"><a href="#将配置信息映射到-Config-类" class="headerlink" title="将配置信息映射到 Config 类"></a>将配置信息映射到 Config 类</h4><p>在我们的日常开发中一般是直接从 Properties 读取需要的配置项，SkyWalking Java Agent 并没有这么做，而是定义一个配置类 Config，将配置项映射到 Config 类的静态属性中，<br>其他地方需要配置项的时候，直接从类的静态属性获取就可以了，非常方便使用。<br>ConfigInitializer 就是负责将 Properties 中的 key/value 键值对映射到类（比如 Config 类）的静态属性，其中 key 对应类的静态属性，value 赋值给静态属性的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * This is the core config in sniffer agent.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Config</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Agent</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Namespace isolates headers in cross process propagation. The HEADER name will be `HeaderName:Namespace`.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> String NAMESPACE = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Service name is showed in skywalking-ui. Suggestion: set a unique name for each service, service instance</span></span><br><span class="line"><span class="comment">         * nodes share the same code</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Length</span>(<span class="number">50</span>)</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> String SERVICE_NAME = <span class="string">""</span>;</span><br><span class="line">     </span><br><span class="line">        <span class="comment">// 省略部分代码....</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Collector</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Collector skywalking trace receiver service addresses.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> String BACKEND_SERVICE = <span class="string">""</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 省略部分代码....</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 省略部分代码....</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Logging</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Log file name.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> String FILE_NAME = <span class="string">"skywalking-api.log"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Log files directory. Default is blank string, means, use "&#123;theSkywalkingAgentJarDir&#125;/logs  " to output logs.</span></span><br><span class="line"><span class="comment">         * &#123;theSkywalkingAgentJarDir&#125; is the directory where the skywalking agent jar file is located.</span></span><br><span class="line"><span class="comment">         * &lt;p&gt;</span></span><br><span class="line"><span class="comment">         * Ref to &#123;<span class="doctag">@link</span> WriterFactory#getLogWriter()&#125;</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> String DIR = <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略部分代码....</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如通过 agent.config 配置文件配置服务名称<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># The service name in UI</span><br><span class="line">agent.service_name=$&#123;SW_AGENT_NAME:Your_ApplicationName&#125;</span><br></pre></td></tr></table></figure></p>
+<p>agent 对应 Config 类的静态内部类 Agent<br>service_name 对应静态内部类 Agent 的静态属性 SERVICE_NAME<br>SkyWalking Java Agent 在这里面使用了下划线而不是驼峰来命名配置项，将类的静态属性名称转换成下划线配置名称非常方便，直接转成小写就可以通过 Properties 获取对应的值了。</p>
+<p>ConfigInitializer.initNextLevel 方法涉及到的技术点有反射、递归调用、栈等，更多实现细节参考 ConfigInitializer 类源码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Init a class's static fields by a &#123;<span class="doctag">@link</span> Properties&#125;, including static fields and static inner classes.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigInitializer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(Properties properties, Class&lt;?&gt; rootConfigType)</span> <span class="keyword">throws</span> IllegalAccessException </span>&#123;</span><br><span class="line">        initNextLevel(properties, rootConfigType, <span class="keyword">new</span> ConfigDesc());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initNextLevel</span><span class="params">(Properties properties, Class&lt;?&gt; recentConfigType,</span></span></span><br><span class="line"><span class="function"><span class="params">                                      ConfigDesc parentDesc)</span> <span class="keyword">throws</span> IllegalArgumentException, IllegalAccessException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Field field : recentConfigType.getFields()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Modifier.isPublic(field.getModifiers()) &amp;&amp; Modifier.isStatic(field.getModifiers())) &#123;</span><br><span class="line">                String configKey = (parentDesc + <span class="string">"."</span> + field.getName()).toLowerCase();</span><br><span class="line">                Class&lt;?&gt; type = field.getType();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (type.equals(Map.class)) &#123;</span><br><span class="line">                    <span class="comment">/*</span></span><br><span class="line"><span class="comment">                     * Map config format is, config_key[map_key]=map_value</span></span><br><span class="line"><span class="comment">                     * Such as plugin.opgroup.resttemplate.rule[abc]=/url/path</span></span><br><span class="line"><span class="comment">                     */</span></span><br><span class="line">                    <span class="comment">// Deduct two generic types of the map</span></span><br><span class="line">                    ParameterizedType genericType = (ParameterizedType) field.getGenericType();</span><br><span class="line">                    Type[] argumentTypes = genericType.getActualTypeArguments();</span><br><span class="line"></span><br><span class="line">                    Type keyType = <span class="keyword">null</span>;</span><br><span class="line">                    Type valueType = <span class="keyword">null</span>;</span><br><span class="line">                    <span class="keyword">if</span> (argumentTypes != <span class="keyword">null</span> &amp;&amp; argumentTypes.length == <span class="number">2</span>) &#123;</span><br><span class="line">                        <span class="comment">// Get key type and value type of the map</span></span><br><span class="line">                        keyType = argumentTypes[<span class="number">0</span>];</span><br><span class="line">                        valueType = argumentTypes[<span class="number">1</span>];</span><br><span class="line">                    &#125;</span><br><span class="line">                    Map map = (Map) field.get(<span class="keyword">null</span>);</span><br><span class="line">                    <span class="comment">// Set the map from config key and properties</span></span><br><span class="line">                    setForMapType(configKey, map, properties, keyType, valueType);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">/*</span></span><br><span class="line"><span class="comment">                     * Others typical field type</span></span><br><span class="line"><span class="comment">                     */</span></span><br><span class="line">                    String value = properties.getProperty(configKey);</span><br><span class="line">                    <span class="comment">// Convert the value into real type</span></span><br><span class="line">                    <span class="keyword">final</span> Length lengthDefine = field.getAnnotation(Length.class);</span><br><span class="line">                    <span class="keyword">if</span> (lengthDefine != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (value != <span class="keyword">null</span> &amp;&amp; value.length() &gt; lengthDefine.value()) &#123;</span><br><span class="line">                            value = value.substring(<span class="number">0</span>, lengthDefine.value());</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    Object convertedValue = convertToTypicalType(type, value);</span><br><span class="line">                    <span class="keyword">if</span> (convertedValue != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="comment">// 通过反射给静态属性设置值</span></span><br><span class="line">                        field.set(<span class="keyword">null</span>, convertedValue);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// recentConfigType.getClasses() 获取 public 的 classes 和 interfaces</span></span><br><span class="line">        <span class="keyword">for</span> (Class&lt;?&gt; innerConfiguration : recentConfigType.getClasses()) &#123;</span><br><span class="line">            <span class="comment">// parentDesc 将类（接口）名入栈</span></span><br><span class="line">            parentDesc.append(innerConfiguration.getSimpleName());</span><br><span class="line">            <span class="comment">// 递归调用</span></span><br><span class="line">            initNextLevel(properties, innerConfiguration, parentDesc);</span><br><span class="line">            <span class="comment">// parentDesc 将类（接口）名出栈</span></span><br><span class="line">            parentDesc.removeLastDesc();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略部分代码....</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConfigDesc</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;String&gt; descs = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">append</span><span class="params">(String currentDesc)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (StringUtil.isNotEmpty(currentDesc)) &#123;</span><br><span class="line">            descs.addLast(currentDesc);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">removeLastDesc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        descs.removeLast();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> String.join(<span class="string">"."</span>, descs);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>阅读源码过程对部分代码添加的注释已经提交到 GitHub 上了，我就不在此贴太多代码了，具体参见 <a href="https://github.com/geekymv/skywalking-java/tree/v8.8.0-annotated" target="_blank" rel="noopener">https://github.com/geekymv/skywalking-java/tree/v8.8.0-annotated</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="geekymv 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/29/skywalking-java/" rel="next" title="skywalking-java">
+                <i class="fa fa-chevron-left"></i> skywalking-java
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/06/skywalking-java-plugin/" rel="prev" title="skywalking-java-plugin">
+                skywalking-java-plugin <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">geekymv</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">110</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#定位-skywalking-agent-jar-所在目录"><span class="nav-number">1.</span> <span class="nav-text">定位 skywalking-agent.jar 所在目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置优先级-Setting-override-md"><span class="nav-number">2.</span> <span class="nav-text">配置优先级 Setting-override.md</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将配置信息映射到-Config-类"><span class="nav-number">3.</span> <span class="nav-text">将配置信息映射到 Config 类</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">geekymv</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '7ba92bf62d54c647c905',
+        clientSecret: '7ae2dbfd950a779266974e470d2d69d1f37155a2',
+        repo: 'blog',
+        owner: 'geekymv',
+        admin: ['geekymv'],
+        id: location.pathname,
+        labels: ['Gitalk'],
+        perPage: 15,
+        pagerDirection: 'last',
+        createIssueManually: true,
+        distractionFreeMode: false
+      })
+      gitalk.render('gitalk-container')
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

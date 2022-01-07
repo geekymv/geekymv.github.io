@@ -259,6 +259,405 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/30/mysql-innodb/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/30/mysql-innodb/" itemprop="url">mysql-innodb</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-30T14:11:44+08:00">
+                2021-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="MySQL-体系结构和存储引擎"><a href="#MySQL-体系结构和存储引擎" class="headerlink" title="MySQL 体系结构和存储引擎"></a>MySQL 体系结构和存储引擎</h4><p>MySQL独有的插件式存储引擎。</p>
+<p>存储引擎是基于表的，而不是数据库。<br>数据库与传统文件系统的最大差别是数据库是支持事务的。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">engines</span></span><br></pre></td></tr></table></figure>
+<p>查看当前MySQL数据库支持的存储引擎。</p>
+<p>MySQL 示例数据库<br><a href="https://dev.mysql.com/doc/index-other.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/index-other.html</a><br>Example Databases</p>
+<p>进程间通信方式：<br>TCP/IP<br>命名管道和共享内存<br>Unix域套接字</p>
+<h4 id="InnoDB-存储引擎"><a href="#InnoDB-存储引擎" class="headerlink" title="InnoDB 存储引擎"></a>InnoDB 存储引擎</h4><p>MySQL5.5版本开始是默认的表存储引擎。<br>完整支持ACID事务；<br>行锁设计、支持MVCC、外键<br>提供一致性非锁定读</p>
+<p>插入/更新操作高达800次/秒</p>
+<p>高性能、高可用、高可扩展</p>
+<p>Master线程<br>负责将缓冲池中的数据异步刷新到磁盘，保证数据的一致性，包括脏页的刷新、合并插入缓冲(insert buffer)、undo页的回收等。</p>
+<p>IO线程</p>
+<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><p>1、缓冲池<br>InnoDB 存储引擎是基于磁盘存储的，并将其中的记录按照页的方式进行管理。<br>由于CPU速度与磁盘速度之间的鸿沟，基于磁盘的数据库系统通常使用缓冲池技术来提高数据库的整体性能。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'innodb_buffer_pool_size'</span>;</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'innodb_buffer_pool_instances'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>在InnoDB 存储引擎中，缓冲池中页的大小默认为16KB，使用LRU算法对缓冲池进行管理。</p>
+<p>LRU列表中的页被修改之后，称该页为脏页(dirty page)。即缓冲池中的页和磁盘上的页的数据产生了不一致。<br>数据库会通过checkpoint机制将脏页刷新回磁盘。</p>
+<p>redo log buffer</p>
+<p>Write Ahead Log</p>
+<p>checkpoint 将缓冲池中的脏页刷回磁盘。<br>当缓冲池中脏页的数量占据75%时，强制进行checkpoint。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/21/interview/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="geekymv">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="geekymv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/21/interview/" itemprop="url">Java面试题汇总</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-21T14:09:21+08:00">
+                2021-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Java并发篇"><a href="#Java并发篇" class="headerlink" title="Java并发篇"></a>Java并发篇</h4><p>一、Java如何开启线程？怎么保证线程安全？<br>线程和进程的区别：进程是操作系统进行<code>资源分配</code>的最小单元，线程是操作系统进行<code>任务调度</code>的最小单元。线程属于进程。<br>如何开启线程？<br>1、继承Thread类，重写run方法；<br>2、实现Runnable接口，实现run方法；<br>3、实现Callable接口，实现call方法，通过FutureTask创建一个线程，获取到线程执行的返回值；<br>4、通过线程池来开启线程；<br>怎么保证线程安全？<br>加锁<br>1、JVM提供的锁，也就是synchronized 关键字；<br>2、JDK提供的各种锁；</p>
+<p>二、volatile 和 synchronized 有什么区别？volatile 能不能保证线程安全？DCL(Double Check Lock)单例为什么要加volatile？<br>1、synchronized 关键字，用来加锁。volatile 只是保证变量的线程可见性，通常适用于一个线程写，多个线程读的场景。<br>2、volatile 不能保证线程安全，volatile 关键字只能保证线程可见性，不能保证原子性。<br>3、volatile 防止指令重排，在DCL中，防止高并发下，指令重排造成的线程安全问题。</p>
+<p>三、Java线程锁机制是怎样的？偏向锁、轻量级锁、重量级锁有什么区别？锁机制是如何升级的？<br>1、Java的锁就是在对象的MarkWord中记录一个锁状态。无锁、偏向锁、轻量级锁、重量级锁对应不同的锁状态。<br>2、Java的锁机制就是根据资源竞争的激烈程度不断进行锁升级的过程。<br>3、无锁、偏向锁、轻量级锁、重量级锁。</p>
+<p>四、谈谈你对AQS的理解。AQS如何实现可重入锁ReentrantLock？<br>1、AQS是一个Java线程同步的框架，是JDK中很多锁工具的核心实现框架。<br>2、在AQS中，维护一个整型变量state 和 一个线程组成的双向链表队列。其中，这个线程队列用来给线程排队的，而state用来控制线程排队或放行的。在不同场景下，有不同的意义。<br>3、在可重入锁这个场景下，state就用来表示加锁的次数，0表示无锁，每加一次锁，state就加1，释放锁state就减1。</p>
+<p>五、有A、B、C 三个线程，如何保证三个线程同时执行？如何在高并发情况下保证三个线程顺序执行？如何保证三个线程有序交错执行？<br>CountDownLatch、CyclicBarrier、Semaphore<br>1、CountDownLatch、CyclicBarrier<br>2、join<br>3、wait、notify</p>
+<p>六、如何对一个字符串快速排序？<br>Fork/Join框架<br>归并排序</p>
+<h4 id="Java网络通信篇"><a href="#Java网络通信篇" class="headerlink" title="Java网络通信篇"></a>Java网络通信篇</h4><p>一、TCP和UDP有什么区别？TCP为什么是三次握手，而不是两次？<br>TCP Transfer Control Protocol 是一种面向连接的、可靠的、传输层通信协议。<br>特点：面向连接的，点对点的通信，高可靠的，效率比较低，占用系统资源比较多。</p>
+<p>UDP User Datagram Protocol 是一种无连接的，不可靠的传输层通信协议。<br>特点：不需要连接，发送方不管接收方有没有准备好，直接发消息，可以进行广播发送，传输不可靠，有可能丢失消息；效率比较高；协议比较简单，占用系统资源比较少。</p>
+<p>TCP建立连接三次握手，断开连接四次挥手。<br>如果是两次握手，可能造成连接资源浪费的情况。</p>
+<p>二、Java有哪几种IO模型？有什么区别？<br>BIO 同步阻塞IO<br>可靠性差，吞吐量低，适用于连接比较少且比较固定的场景，JDK1.4之前唯一的选择。编程模型最简单。</p>
+<p>NIO 同步非阻塞IO<br>可靠性比较好，吞吐量比较高，适用于连接数比较多，并且连接比较短（轻操作）的场景，例如聊天室。JDK1.4开始支持。<br>编程模型复杂。</p>
+<p>AIO 异步非阻塞IO<br>可靠性是最好的，吞吐量非常高。适用于连接比较多，并且连接比较长（重操作）的场景。例如相册服务器。<br>编程模型比较简单，需要操作系统支持。</p>
+<p>三、Java NIO 的几个核心组件是什么？分别有什么作用？<br>Channel、Buffer、Selector<br>Channel 类似于流，每个Channel对应一个Buffer缓冲区，Channel会注册到Selector 上。<br>Selector 会根据Channel上发生的读写事件，将请求交给某个空闲的线程处理。Selector 对应一个或多个线程。<br>Buffer 和 Channel 都是可读可写的。</p>
+<p>四、Select Poll和EPoll 有什么区别？<br>它们是NIO中多路复用的三种实现机制，是由操作系统提供的。</p>
+<p>Java 的NIO当中使用哪种机制？可以查看JDK中 DefaultSelectorProvider 源码，在Windows和Linux 实现方式是不同的。<br>在Windows下是 WindowsSelectorProvider，而Linux下，根据Linux内核版本，2.6版本以上就是EPollSelectorProvider，否则就是默认的 PollSelectorProvider。</p>
+<p>五、描述Http 和 Https的区别<br>HTTP: 是互联网上应用最为广泛的一种网络通信协议，基于TCP，可以使浏览器工作更为高效，减少网络传输。<br>HTTPS: 是HTTP的加强版，可以认为是HTTP+SSL（Secure Socket Layer）。在HTTP的基础上增加了一系列的安全机制。一方面保证<br>数据传输安全，另一方面对访问者增加了验证机制。是目前现行架构下，最为安全的解决方案。</p>
+<p>主要区别：<br>1、HTTP的连接是简单无状态的，HTTPS的数据传输是经过证书加密的，安全性更高。<br>2、HTTP是免费的，而HTTPS需要申请证书，而证书通常是需要收费的，并且费用一般不低。<br>3、它们的传输协议不同，所以它们使用的端口也不一样，HTTP默认是80端口，而HTTPS默认是443端口。</p>
+<p>HTTPS的缺点：<br>1、HTTPS的握手协议比较耗时，所以会影响服务的响应速度和吞吐量；<br>2、HTTPS也并不是完全安全的，它的证书体系并不是完全安全的，HTTPS在面对DDOS这样的攻击时，几乎起不到任何作用。</p>
+<h4 id="消息队列篇"><a href="#消息队列篇" class="headerlink" title="消息队列篇"></a>消息队列篇</h4><p>一、MQ有什么用？有哪些具体的使用场景？</p>
+<p>MQ：Message Queue ，消息队列。队列是一种FIFO先进先出的数据结构。消息由生产者发送到MQ进行排队，然后由消费者对消息进行处理。</p>
+<p>MQ的作用主要有三个方面：</p>
+<p>1、异步</p>
+<p>作用：异步将提高系统的响应速度和吞吐量。</p>
+<p>2、解耦</p>
+<p>作用：服务之间进行解耦，可以减少服务之间的影响，提高系统的稳定性和可扩展性。</p>
+<p>另外，解耦之后可以实现数据分发，生产者发送一个消息后，可以由多个消费者来处理。</p>
+<p>3、削峰</p>
+<p>作用：以稳定的系统资源应对突发的流量冲击。</p>
+<p>MQ的缺点：</p>
+<p>1、系统可用性降低，一旦MQ宕机，整个业务系统就会产生影响。高可用</p>
+<p>2、系统的复杂度提高：引入MQ之后，数据链路就会变得很复杂。如何保证消息不丢失？消息不会重复调用？怎么保证消息的顺序性？</p>
+<p>3、数据一致性：A系统发消息，需要由B、C两个系统一同处理。如果B系统处理成功、C系统处理失败，这就会造成数据一致性的问题。</p>
+<p>二、如何进行产品选型？</p>
+<p>Kafka</p>
+<p>优点：吞吐量非常大，性能非常好，集群高可用。</p>
+<p>缺点：会丢数据，功能比较单一。</p>
+<p>使用场景：日志分析，大数据采集。</p>
+<p>RabbitMQ</p>
+<p>优点：消息可靠性，功能全面。</p>
+<p>缺点：吞吐量比较低，消息积累会严重影响。erlang语言不好定制。</p>
+<p>使用场景：小规模场景。</p>
+<p>RocketMQ</p>
+<p>优点：高吞吐、高性能、高可用，功能非常全面。</p>
+<p>缺点：开源版功能不如商业版。官方文档和周边生态还不够成熟，客户端只支持java。</p>
+<p>使用场景：几乎是所有场景。</p>
+<p>三、如何保证消息不丢失？</p>
+<p>1、生产者发送消息不丢失</p>
+<p>Kafka：消息发送 + 回调。</p>
+<p>RocketMQ：1)、消息发送 + 回调；2)、事务消息。</p>
+<p>RabbitMQ：</p>
+<p>1)、消息发送 + 回调；</p>
+<p>2)、手动事务，</p>
+<p>channel.txSelect() 开启事务，channel.txCommit()提交事务，channel.txRollback()回滚事务。这种方式对channel是会产生阻塞的，造成吞吐量下降。</p>
+<p>3)、Publish Confirm，整个处理流程跟RocketMQ的事务消息基本是一致的。</p>
+<p>2、MQ主从消息同步不丢失</p>
+<p>RocketMQ：1)、普通集群中，同步同步消息、异步同步消息。异步同步消息效率更高，但是由丢失消息的风险。同步同步消息不会丢消息。2)、Dledger集群-两阶段提交。</p>
+<p>RabbitMQ：普通集群，消息是分散存储的，节点之间不会主动进行消息的同步，是有可能丢失消息的。镜像集群，会在节点之间主动进行数据同步，这样数据安全性得到提高。</p>
+<p>Kafka：通常都是在允许消息少量丢失的场景。acks 0 1 all 参数配置。</p>
+<p>3、MQ消息存盘不丢失</p>
+<p>RocketMQ：同步刷盘、异步刷盘，异步刷盘效率更高，但是有可能丢消息。同步刷盘消息安全性更高，但是效率会降低。</p>
+<p>RabbitMQ：将队列配置成持久化队列。新增的Quorum类型的队列，会采用Raft协议来进行消息同步。</p>
+<p>4、MQ消费者消费消息不丢失</p>
+<p>RocketMQ：使用默认的方式消费就行，不要采用异步方式。</p>
+<p>RabbitMQ：autoCommit -&gt; 手动提交offset。</p>
+<p>Kafka：手动提交offset。</p>
+<p>四、如何保证消息消费的幂等性？</p>
+<p>其实就是解决消费者重复消费消息的问题。</p>
+<p>所有MQ产品都没有提供主动解决幂等性的机制，需要由消费者自行控制。</p>
+<p>RocketMQ：给每个消息分配MessageID，这个MessageID就可以作为消费者判断幂等的依据，这种方式不太建议。</p>
+<p>最好的方式就是自己带一个有业务标识的ID来进行幂等判断，比如订单ID。</p>
+<p>五、如何保证消息的顺序消费？</p>
+<p>全局有序和局部有序：MQ只需要保证局部有序，不需要保证全局有序。</p>
+<p>生产者把一组有序的消息放到同一个队列当中，而消费者一次消费整个队列当中的消息。</p>
+<p>RocketMQ中有完整的设计，但是在RabbitMQ和Kafka当中并没有完整的设计，需要自己进行配置。</p>
+<p>RabbitMQ：要保证目标exchange只对应一个队列，并且一个队列只对应一个消费者。</p>
+<p>Kafka: 生产者通过定制partition分配规则，将消息分配到同一个partition。topic下只对应一个消费者。</p>
+<p>消息顺序消费会影响性能。</p>
+<p>六、如何保证消息的高效读写？</p>
+<p>零拷贝、顺序写。</p>
+<p>七、使用MQ如何保证分布式事务的最终一致性？</p>
+<p>分布式事务：业务相关的多个操作，保证它们同时成功或同时失败。</p>
+<p>最终一致性：与之对应的就是强一致性。</p>
+<p>MQ中要保证事务的最终一致性，就需要做到两点</p>
+<p>1、生产者要保证100%的消息投递。事务消息机制。</p>
+<p>2、消费者需要保证幂等消费，唯一ID + 业务自己实现幂等。</p>
+<p>分布式MQ的三种语义：</p>
+<p>at least once</p>
+<p>at most once</p>
+<p>exactly once</p>
+<p>八、让你设计一个MQ，你会如何设计？</p>
+<h4 id="数据库篇"><a href="#数据库篇" class="headerlink" title="数据库篇"></a>数据库篇</h4><p>一、索引的基本原理</p>
+<h4 id="缓存篇"><a href="#缓存篇" class="headerlink" title="缓存篇"></a>缓存篇</h4><p>一、如何避免缓存穿透、缓存击穿、缓存雪崩？</p>
+<p>缓存雪崩是指缓存同一时间大面积失效，导致后面的请求都会落到数据库上，造成数据库短时间内承受大量请求而崩掉。</p>
+<p>解决方案：</p>
+<ul>
+<li>缓存数据的过期时间设置随机，防止同一时间大量数据过期现象发生。</li>
+<li>缓存预热</li>
+<li>互斥锁</li>
+</ul>
+<p>缓存穿透是指缓存和数据库中都没有的数据，导致所有请求都落到数据库上，造成数据库短时间内承受大量请求而崩掉。</p>
+<p>解决方案：</p>
+<ul>
+<li>接口增加校验，如用户授权校验，id&lt;=0的直接拦截；</li>
+<li>从缓存和数据库都取不到的数据，这时也可以将key-value对写成key-null 写入缓存，缓存有效时间可以设置的短点，如30秒（设置太长会导致后面这个ID对应的数据存在了也没法使用）。这样可以防止攻击用户反复用同一个ID暴力攻击。</li>
+<li>采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmp中，一个一定不存在的数据会被这个bitmap拦截，从而避免了对底层存储系统的查询压力。（由于存在哈希冲突，一个bitmap中存在的数据不一定真的存在，而一个bitmap中不存在的数据肯定不存在）。</li>
+</ul>
+<p>缓存击穿是指缓存中没有但数据库中有的数据（一般是缓存时间到期），这时如果并发访问特别多，同时读取缓存没有读到数据，又同时去数据库去读取，引起数据库压力瞬间增大，造成过大压力。和缓存雪崩不同的是，缓存击穿指并发查询同一条数据，缓存雪崩是不同数据大面积过期，很多数据都查不到从而查数据库。</p>
+<p>解决方案：</p>
+<ul>
+<li>设置热点数据永不过期；</li>
+<li>加互斥锁，只允许一个请求查询数据库，其他排队等待，做double check。</li>
+</ul>
+<p>二、分布式系统中常用的缓存方案有哪些</p>
+<p>客户端缓存：页面和浏览器缓存，APP缓存，H5缓存，localStorage 和 sessionStorage；<br>CDN缓存：内容存储：数据的缓存，内容分发：负载均衡；<br>nginx缓存：静态资源；<br>服务端缓存：本地缓存、外部缓存；<br>数据库缓存：持久层缓存（mybatis, hibernate 多级缓存），mysql查询缓存。<br>操作系统缓存：Page Cache、Buffer Cache。</p>
+<p>三、缓存过期都有哪些策略</p>
+<p>定时过期：每个设置过期时间的key都需要创建一个定时器，到过期时间就会立即清除，该策略可以立即清除过期的数据，对内存很友好；但是会占用大量的CPU资源去处理过期的数据，从而影响缓存的响应时间和吞吐量。<br>惰性过期：只有访问一个key时，才会判断该key是否已经过期，过期则删除。该策略可以最大化地节省CPU资源，但是很消耗内存、许多的过期数据都还存在内存中，极端情况可能出现大量的过期key没有再次被访问，从而不回被清除，占用大量内存。<br>定期过期：每隔一定的时间，会扫描一定数量的数据库的expires字典中一定数量的key（随机的），并清除其中已过期的key。该策略是定时过期和惰性过期的这种方案。通过调整定时扫描的时间间隔和每次扫码的限定耗时，可以在不同情况下使得CPU和内存资源达到最优的平衡效果。</p>
+<p>四、常见的缓存淘汰算法</p>
+<p>FIFO（Fitst In First Out，先入先出），根据缓存被存储的时间，离当前时间最远的数据优先被淘汰；<br>LRU（Least Recently Used，最近最少使用），根据最近被使用的时间，离当前时间最远的数据优先被淘汰；<br>LFU（Least Frequently Used，最不经常使用），在一段时间内，缓存数据被使用次数最少的会被淘汰。</p>
+<p>五、如何保证数据库和缓存的一致性</p>
+<p>由于缓存和数据库是分开的，无法做到原子性的同时进行数据修改，可能出现缓存更新失败，或者数据库更新失败的情况，这时候会出现数据不一致，影响业务。</p>
+<ul>
+<li>先更新数据库，再更新缓存。缓存可能更新失败，读到老数据；</li>
+<li>先删缓存，再更新数据库。并发时，读操作可能还会将旧数据读回缓存；</li>
+<li>先更新数据库，再删除缓存。也存在缓存删除失败的可能。</li>
+</ul>
+<p>最经典的缓存+数据库读写的模式：Cache Aside Pattern。<br>读的时候先读缓存，缓存没有的话就读数据库，然后取出数据放入缓存，同时返回响应。<br>更新的时候，先更新数据库，然后再删除缓存。</p>
+<p>为什么是删除而不是更新？<br>删除更加轻量，延迟加载的一种表现，更新可能涉及多个表，比较耗时。</p>
+<p>延时双删：先删除缓存，再更新数据库，休眠1s、再次删除缓存。<br>写数据的休眠时间则在读数据业务逻辑的耗时基础上加几百毫秒即可。这么做的目的就是确保读请求结束，写请求可以删除读请求造成的缓存脏数据，并发还是可能读到旧值覆盖缓存。</p>
+<p>终极方案：<br>将访问操作串行化<br>1、先删缓存，将更新数据库的操作放进有序队列中<br>2、从缓存查询不到的查询操作，都进入有序队列<br>面临的问题:<br>1、读请求积压，大量超时，导致数据量的压力：限流、熔断<br>2、如何避免大量请求积压：将队列水平拆分，提高并行度<br>3、确保相同的请求路由正确</p>
+<p>六、布隆过滤器原理，优缺点<br>bitmap<br>int[10] 每个int类型的整数是4*8=32个bit，则int[10]一共有320 bit，每个bit非0即1，初始化时都是0<br>添加数据时。</p>
+<p>在开发中遇到过什么问题，怎么解决的？</p>
+<p>1、Redis 设置最大内存和淘汰策略；</p>
+<p>2、Quartz定时任务，使用Redis的zset替代订单超时未支付检查。</p>
+<p><a href="https://www.cnkirito.moe/about/" target="_blank" rel="noopener">https://www.cnkirito.moe/about/</a></p>
+<h5 id="zoom-一面"><a href="#zoom-一面" class="headerlink" title="zoom 一面"></a>zoom 一面</h5><p>dubbo 服务拆分<br>dubbo 线程池、通信协议<br>http接口安全</p>
+<p>线程池<br>线程池生命周期<br>线程生命周期<br>线程池大小设置<br>阻塞队列<br>线程池退出钩子方法<br>synchronized 修饰静态方法和非静态方法<br>synchronized 锁升级<br>ReentrantLock 公平锁与非公平锁</p>
+<p>redis<br>缓存一致性<br>淘汰策略<br>分布式锁<br>缓存穿透、击穿、雪崩</p>
+<p>MySQL<br>隔离级别<br>死锁<br>锁类型<br>日期类型 timestamp datetime </p>
+<p>Spring<br>设计模式<br>Spring事务失效<br>Spring事务注解</p>
+<p>Springboot<br>配置文件优先级<br>自定义 starter </p>
+<p>SpringCloud </p>
+<p>JVM内存模型<br>垃圾收集器</p>
+<p>CPU100%问题排查</p>
+<p>Netty<br>核心组件<br>心跳机制</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/06/aqs/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1304,282 +1703,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/03/jvm-runtime-dataarea/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/03/jvm-runtime-dataarea/" itemprop="url">谈谈JVM内存区域的划分</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-03T17:21:51+08:00">
-                2021-03-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>对 Java 程序员来说我们不用自己手动管理对象内存的申请与释放，全部交由 Java 虚拟机（JVM）来管理内存的分配与回收。<br>因此，日常开发中我们不用关心内存分配与回收，减少了很多繁琐的工作，大大提高了开发效率。<br>也正是因为如此，一旦出内存泄漏和溢出方面的问题，如果不了解 JVM 内部的内存结构、工作机制，那么排查问题将变得异常艰难。</p>
-<p>接下来，我们一起学习 JVM 内存区域的划分、作用以及可能产生的问题。</p>
-<p>根据 Java 虚拟机规范，Java 虚拟机在执行 Java 程序的过程中会把它所管理的内存划分为几个不同的数据区域，如下所示：<br><img src="/2021/03/03/jvm-runtime-dataarea/JVM内存区域.jpg" title="JVM内存区域划分"></p>
-<p>其中，有些区域会在虚拟机进程启动的时候创建，由所有线程共享。还有些区域则在用户线程的启动的时候创建，线程结束的时候销毁。<br>这部分区域则是线程私有的。JVM 内存区域主要分为线程共享区域（Java堆、方法区）、线程私有区域（程序计数器、虚拟机栈、本地方法栈）。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/03/03/jvm-runtime-dataarea/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/01/arraylist-resize/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="geekymv">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="geekymv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/03/01/arraylist-resize/" itemprop="url">ArrayList 扩容策略</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-01T17:00:00+08:00">
-                2021-03-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>ArrayList 在我们日常开发中用到的非常多，我们知道ArrayList 内部是通过数组实现的，而数组的长度一经定义，就无法更改了。</p>
-<p>那么问题就来了，ArrayList是如何实现扩容的呢？</p>
-<h4 id="ArrayList-的成员变量"><a href="#ArrayList-的成员变量" class="headerlink" title="ArrayList 的成员变量"></a>ArrayList 的成员变量</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Default initial capacity.</span></span><br><span class="line"><span class="comment"> * 默认的初始容量10。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Shared empty array instance used for empty instances.</span></span><br><span class="line"><span class="comment"> * 共享的空数组实例，用于空实例。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Shared empty array instance used for default sized empty instances. We</span></span><br><span class="line"><span class="comment"> * distinguish this from EMPTY_ELEMENTDATA to know how much to inflate when</span></span><br><span class="line"><span class="comment"> * first element is added.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 共享的空数组实例，用于默认大小的空实例。</span></span><br><span class="line"><span class="comment"> * 我们区分 DEFAULTCAPACITY_EMPTY_ELEMENTDATA 和 EMPTY_ELEMENTDATA </span></span><br><span class="line"><span class="comment"> * 为了知道添加第一个元素时要扩容多少。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The array buffer into which the elements of the ArrayList are stored.</span></span><br><span class="line"><span class="comment"> * The capacity of the ArrayList is the length of this array buffer. Any</span></span><br><span class="line"><span class="comment"> * empty ArrayList with elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA</span></span><br><span class="line"><span class="comment"> * will be expanded to DEFAULT_CAPACITY when the first element is added.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Object[] 用于实际存储 ArrayList 的元素。ArrayList 的容量是数组的长度。</span></span><br><span class="line"><span class="comment"> * 当添加第一个元素的时候，任何空的ArrayList（elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA）</span></span><br><span class="line"><span class="comment"> * 容量将被增加到DEFAULT_CAPACITY。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">transient</span> Object[] elementData; <span class="comment">// non-private to simplify nested class access</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The size of the ArrayList (the number of elements it contains).</span></span><br><span class="line"><span class="comment"> * ArrayList 的大小（ArrayList 中包含的元素个数）</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@serial</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> size;</span><br></pre></td></tr></table></figure>
-<p>问题二：ArrayList 源码中为何定义两个 Object[] 呢？它们各有什么用处？</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/03/01/arraylist-resize/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1630,7 +1753,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1689,7 +1812,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="geekymv">
 <meta property="og:description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 关闭selinuxhttps://blog.csdn.net/fake_hydra/article/details/83061765修改/etc/selinux/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-12-01T05:36:44.564Z">
+<meta property="og:updated_time" content="2021-12-30T07:39:04.931Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7">
 <meta name="twitter:description" content="配置网络https://blog.csdn.net/akipa11/article/details/81414875 设置时区https://blog.csdn.net/jkjkjkll/article/details/80015635 关闭selinuxhttps://blog.csdn.net/fake_hydra/article/details/83061765修改/etc/selinux/">
@@ -340,7 +340,7 @@
 <p>查看状态<br>systemctl status firewalld</p>
 <p>查看zone名称<br>firewall-cmd –get-active-zones</p>
 <p>开放443端口<br>firewall-cmd –zone=public –add-port=443/tcp –permanent</p>
-<p>开放多个端口<br>firewall-cmd –zone=public –add-port=22-60000/tcp –permanent</p>
+<p>开放多个端口<br>firewall-cmd –zone=public –add-port=8080-8090/tcp –permanent</p>
 <p>重启防火墙<br>firewall-cmd –reload</p>
 <p>查看指定区域所有打开的端口<br>firewall-cmd –zone=public –list-ports</p>
 <p>删除端口<br>firewall-cmd –zone=public –remove-port=3080/tcp –permanent</p>
@@ -490,7 +490,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -565,7 +565,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
